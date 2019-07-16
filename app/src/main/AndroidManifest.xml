@@ -26,7 +26,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.home_activity.activity.HomeActivity"></activity>
+
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -48,6 +48,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activities_fragments.home_activity.activity.HomeActivity"
+
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+
         </activity>
     </application>
 
