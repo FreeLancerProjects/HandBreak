@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Hand_Break</string>
+    <string name="map_api_key">AIzaSyCbc2Y5AIwZ8uUeHRUXiozGN3CnpjKT0oI</string>
+
 </resources>

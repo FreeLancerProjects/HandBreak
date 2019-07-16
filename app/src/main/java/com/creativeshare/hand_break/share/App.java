@@ -4,7 +4,7 @@ package com.creativeshare.hand_break.share;
 import android.app.Application;
 import android.content.Context;
 
-import com.creativeshare.hand_break.Language.Language;
+import com.creativeshare.hand_break.language.Language;
 
 
 public class App extends Application {

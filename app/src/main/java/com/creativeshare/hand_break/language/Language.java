@@ -1,4 +1,4 @@
-package com.creativeshare.hand_break.Language;
+package com.creativeshare.hand_break.language;
 
 import android.content.Context;
 import android.content.SharedPreferences;
