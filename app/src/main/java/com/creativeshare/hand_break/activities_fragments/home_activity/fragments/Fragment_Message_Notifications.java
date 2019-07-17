@@ -53,7 +53,7 @@ public class Fragment_Message_Notifications extends Fragment {
         pager.setOffscreenPageLimit(3);
         fragmentList = new ArrayList<>();
         titleList = new ArrayList<>();
-image=new int[]{R.drawable.notifications,R.drawable.notifications};
+image=new int[]{R.drawable.notifications,R.drawable.msg};
         fragmentList.add(Fragment_Notifications.newInstance());
         fragmentList.add(Fragment_Message.newInstance());
 
@@ -64,6 +64,34 @@ image=new int[]{R.drawable.notifications,R.drawable.notifications};
 
         pager.setAdapter(adapter);
         createTabIcons();
+
+        tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                View v=tab.getCustomView();
+                TextView tv_tab=v.findViewById(R.id.tv_tab);
+                ImageView im_tab=v.findViewById(R.id.im_tab);
+
+                tv_tab.setTextColor(getResources().getColor(R.color.delete));
+                im_tab.setColorFilter(getResources().getColor(R.color.delete));
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                View v=tab.getCustomView();
+                TextView tv_tab=v.findViewById(R.id.tv_tab);
+              ImageView im_tab=v.findViewById(R.id.im_tab);
+
+                tv_tab.setTextColor(getResources().getColor(R.color.colorPrimary));
+                im_tab.setColorFilter(getResources().getColor(R.color.colorPrimary));
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
@@ -76,6 +104,14 @@ for (int i=0;i<titleList.size();i++){
     tabs[i]= (LinearLayout) LayoutInflater.from(homeActivity).inflate(R.layout.tab_item, null);
     TextView tv_tab=tabs[i].findViewById(R.id.tv_tab);
     ImageView im_tab=tabs[i].findViewById(R.id.im_tab);
+    if(i==0){
+        tv_tab.setTextColor(getResources().getColor(R.color.delete));
+        im_tab.setColorFilter(getResources().getColor(R.color.delete));
+    }
+    else{
+        tv_tab.setTextColor(getResources().getColor(R.color.colorPrimary));
+        im_tab.setColorFilter(getResources().getColor(R.color.colorPrimary));
+    }
 tv_tab.setText(titleList.get(i));
 im_tab.setImageResource(image[i]);
     tab.getTabAt(i).setCustomView(tabs[i]);

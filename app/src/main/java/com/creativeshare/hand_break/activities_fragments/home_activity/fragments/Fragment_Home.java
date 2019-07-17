@@ -14,6 +14,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Locale;
 
@@ -23,6 +24,7 @@ public class Fragment_Home extends Fragment {
     private HomeActivity homeActivity;
     private AHBottomNavigation ah_bottom_nav;
     private String cuurent_language;
+    private FloatingActionButton fab_add_ads;
 
     @Nullable
     @Override
@@ -37,7 +39,13 @@ public class Fragment_Home extends Fragment {
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         ah_bottom_nav = view.findViewById(R.id.ah_bottom_nav);
-
+fab_add_ads=view.findViewById(R.id.fab_add_ads);
+fab_add_ads.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        homeActivity.getoAds();
+    }
+});
         setUpBottomNavigation();
         ah_bottom_nav.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override

@@ -3,14 +3,20 @@ package com.creativeshare.hand_break.activities_fragments.home_activity.activity
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.creativeshare.hand_break.R;
+import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Message_Notifications;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_More;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
+import com.creativeshare.hand_break.language.Language_Helper;
+import com.creativeshare.hand_break.models.UserModel;
+import com.creativeshare.hand_break.preferences.Preferences;
 
 import java.util.Locale;
 
@@ -25,7 +31,13 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_Search fragment_search;
     private Fragment_More fragment_more;
     private String cuurent_language;
+    private Preferences preferences;
+    private UserModel userModel;
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(Language_Helper.updateResources(newBase, Preferences.getInstance().getLanguage(newBase)));
 
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +52,8 @@ public class HomeActivity extends AppCompatActivity {
     }
     private void initView() {
         Paper.init(this);
+        preferences= Preferences.getInstance();
+        userModel=preferences.getUserData(this);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         fragmentManager = this.getSupportFragmentManager();
     }
@@ -161,4 +175,35 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    public void getoAds() {
+        Intent intent=new Intent(HomeActivity.this, AdsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+Back();    }
+
+    public void Back() {
+        if (fragment_count > 1) {
+            fragment_count -= 1;
+            super.onBackPressed();
+        } else {
+
+            if (fragment_home != null && fragment_home.isVisible()) {
+                if (fragment_main != null && fragment_main.isVisible()) {
+                    if (userModel == null) {
+                        //NavigateToSignInActivity();
+                    } else {
+                        finish();
+                    }
+                } else {
+                    DisplayFragmentMain();
+                }
+            } else {
+                DisplayFragmentHome();
+            }
+        }
+
+    }
 }
