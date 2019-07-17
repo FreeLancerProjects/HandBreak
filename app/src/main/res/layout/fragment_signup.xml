@@ -45,7 +45,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/logoa"
             android:layout_gravity="end"
             />
 
