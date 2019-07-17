@@ -13,7 +13,6 @@ import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.fragments.Fragment_Ads_Adder_Info;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.fragments.Fragment_Ads_Detials;
 import com.creativeshare.hand_break.adapters.ViewPagerAdapter;
-import com.creativeshare.hand_break.language.Language;
 import com.creativeshare.hand_break.language.Language_Helper;
 import com.creativeshare.hand_break.preferences.Preferences;
 
