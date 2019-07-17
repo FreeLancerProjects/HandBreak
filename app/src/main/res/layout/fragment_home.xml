@@ -92,12 +92,19 @@ android:background="@color/gray2"
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <ImageView
-        android:id="@+id/im_create_event"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:src="@drawable/plusicon"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_create_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        app:elevation="0dp"
+        app:fabCustomSize="50dp"
+        app:fabSize="normal"
         app:layout_anchor="@+id/ah_bottom_nav"
         app:layout_anchorGravity="center_horizontal"
-       />
+        android:src="@drawable/ic_plus"
+        android:tint="@color/white"
+        android:background="@color/colorPrimary"
+        />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

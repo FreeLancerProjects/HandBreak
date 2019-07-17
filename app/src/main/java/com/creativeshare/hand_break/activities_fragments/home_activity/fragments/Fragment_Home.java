@@ -47,10 +47,12 @@ public class Fragment_Home extends Fragment {
                         homeActivity.DisplayFragmentMain();
                         break;
                     case 1:
-                        homeActivity.DisplayFragmentSearch();
+                        homeActivity.DisplayFragmentnotifications();
+
                         break;
                     case 2:
-                        homeActivity.DisplayFragmentnotifications();
+                        homeActivity.DisplayFragmentSearch();
+
                         break;
                     case 3:
                         homeActivity.DisplayFragmentMore();

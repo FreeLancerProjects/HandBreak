@@ -7,6 +7,10 @@ import android.os.Bundle;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Message_Notifications;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_More;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
 
 import java.util.Locale;
 
@@ -16,6 +20,10 @@ public class HomeActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private int fragment_count=0;
     private Fragment_Home fragment_home;
+    private Fragment_Main fragment_main;
+    private Fragment_Message_Notifications fragment_message_notifications;
+    private Fragment_Search fragment_search;
+    private Fragment_More fragment_more;
     private String cuurent_language;
 
     @Override
@@ -52,15 +60,104 @@ public class HomeActivity extends AppCompatActivity {
 
     }
     public void DisplayFragmentMain() {
+        if(fragment_main==null){
+            fragment_main=Fragment_Main.newInstance();
+        }
+        if(fragment_message_notifications!=null&&fragment_message_notifications.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_message_notifications).commit();
+        }
+        if(fragment_search!=null&&fragment_search.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_search).commit();
+        }
+        if(fragment_more!=null&&fragment_more.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_more).commit();
+        }
+        if(fragment_main.isAdded()){
+            fragmentManager.beginTransaction().show(fragment_main).commit();
+        }
+        else {
+            fragmentManager.beginTransaction().add(R.id.fragment_home_container, fragment_main, "fragment_main").addToBackStack("fragment_main").commit();
+
+        }
+        if(fragment_home!=null&&fragment_home.isAdded()){
+            fragment_home.updateBottomNavigationPosition(0);
+        }
+
     }
     public void DisplayFragmentnotifications() {
+        if(fragment_message_notifications==null){
+            fragment_message_notifications=Fragment_Message_Notifications.newInstance();
+        }
+        if(fragment_main!=null&&fragment_main.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_main).commit();
+        }
+        if(fragment_search!=null&&fragment_search.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_search).commit();
+        }
+        if(fragment_more!=null&&fragment_more.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_more).commit();
+        }
+        if(fragment_message_notifications.isAdded()){
+            fragmentManager.beginTransaction().show(fragment_message_notifications).commit();
+        }
+        else {
+            fragmentManager.beginTransaction().add(R.id.fragment_home_container, fragment_message_notifications, "fragment_message_notifications").addToBackStack("fragment_message_notifications").commit();
+
+        }
+        if(fragment_home!=null&&fragment_home.isAdded()){
+            fragment_home.updateBottomNavigationPosition(1);
+        }
     }
     public void DisplayFragmentSearch() {
+        if(fragment_search==null){
+            fragment_search=Fragment_Search.newInstance();
+        }
+        if(fragment_main!=null&&fragment_main.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_main).commit();
+        }
+        if(fragment_message_notifications!=null&&fragment_message_notifications.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_message_notifications).commit();
+        }
+        if(fragment_more!=null&&fragment_more.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_more).commit();
+        }
+        if(fragment_search.isAdded()){
+            fragmentManager.beginTransaction().show(fragment_search).commit();
+        }
+        else {
+            fragmentManager.beginTransaction().add(R.id.fragment_home_container, fragment_search, "fragment_search").addToBackStack("fragment_search").commit();
+
+        }
+        if(fragment_home!=null&&fragment_home.isAdded()){
+            fragment_home.updateBottomNavigationPosition(2);
+        }
     }
 
 
 
     public void DisplayFragmentMore() {
+        if(fragment_more==null){
+            fragment_more=Fragment_More.newInstance();
+        }
+        if(fragment_main!=null&&fragment_main.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_main).commit();
+        }
+        if(fragment_search!=null&&fragment_search.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_search).commit();
+        }
+        if(fragment_message_notifications!=null&&fragment_message_notifications.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_message_notifications).commit();
+        }
+        if(fragment_more.isAdded()){
+            fragmentManager.beginTransaction().show(fragment_more).commit();
+        }
+        else {
+            fragmentManager.beginTransaction().add(R.id.fragment_home_container, fragment_more, "fragment_more").addToBackStack("fragment_more").commit();
+
+        }
+        if(fragment_home!=null&&fragment_home.isAdded()){
+            fragment_home.updateBottomNavigationPosition(3);
+        }
     }
 
 

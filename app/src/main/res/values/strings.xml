@@ -9,5 +9,18 @@
     <string name="notifications">notfications</string>
     <string name="search">Search</string>
     <string name="more">More</string>
+    <string name="message">Message</string>
+    <string name="add_search_for_missing_car">Add / search for missing car</string>
+    <string name="application_commission">Application commission</string>
+    <string name="about_hand_break">about Hand Break</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="terms_and_conditions">terms and conditions</string>
+    <string name="my_profile">My Profile</string>
+    <string name="advertisment">Advertisement</string>
+    <string name="my_market">My Market</string>
+    <string name="follower_list">Follower List</string>
+    <string name="favorite">Favorite</string>
+    <string name="log_out">Log Out</string>
+    <string name="language_setting">Language Setting</string>
 
 </resources>
