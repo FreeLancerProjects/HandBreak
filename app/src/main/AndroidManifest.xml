@@ -55,6 +55,12 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
 
         </activity>
+        <activity android:name=".activities_fragments.sign_in_sign_up_activity.activity.Login_Activity"
+
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+
+        </activity>
     </application>
 
 </manifest>

@@ -9,7 +9,7 @@ import android.preference.PreferenceManager;
 
 import java.util.Locale;
 
-public class Language {
+public class Language_Helper {
     public static void setNewLocale(Context c, String language) {
         persistLanguage(c, language);
         updateResources(c, language);

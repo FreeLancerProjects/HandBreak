@@ -1,4 +1,4 @@
-package com.creativeshare.sunfun.preferences;
+package com.creativeshare.hand_break.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;

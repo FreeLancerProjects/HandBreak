@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">هاند بريك</string>
+    <string name="map_api_key">AIzaSyCbc2Y5AIwZ8uUeHRUXiozGN3CnpjKT0oI</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hand_break">Hand Break</string>
+    <string name="home">الرئيسية</string>
+    <string name="notifications">الاشعارات</string>
+    <string name="search">بحث</string>
+    <string name="more">المزيد</string>
+    <string name="message">الرسائل</string>
+    <string name="add_search_for_missing_car">اضافة / البحث عن سيارة مفقودة</string>
+    <string name="application_commission">عمولة التطبيق </string>
+    <string name="about_hand_break">عن التطبيق</string>
+    <string name="contact_us">تواصل معنا</string>
+    <string name="terms_and_conditions">الشروط والاحكام</string>
+    <string name="my_profile">حسابي </string>
+    <string name="advertisment">الاعلانات</string>
+    <string name="my_market">متجري </string>
+    <string name="follower_list"> قائمة المتابعين</string>
+    <string name="favorite">المفضلة</string>
+    <string name="log_out">تسجيل الخروج </string>
+    <string name="language_setting">اعدادات اللغة </string>
+
+
+    <string name="code">الكود</string>
+    <string name="sign_up2">إنشاء حساب</string>
+
+    <string name="login" >دخول</string>
+    <string name="skip">تخطي</string>
+    <string name="user_name">إسم المستخدم</string>
+    <string name="user_password">كلمة المرور</string>
+    <string name="user_email">البريد الإلكترونى</string>
+    <string name="user_phone">رقم الجوال</string>
+    <string name="register">تسجيل</string>
+    <string name="si_su">قم بتسجيل الدخول أو إنشاء حساب جديد .</string>
+    <string name="new_user">إنشاء حساب جديد.</string>
+
+    <string name="cancel">إلغاء</string>
+    <string name="suc"> تم بنجاح !</string>
+    <string name="field_req">الحقل مطلوب</string>
+    <string name="inv_email">البريد الالكتروني غير صحيح</string>
+    <string name="inc_em_pas">البريد الالكتروني او كلمة المرور غير صحيحة</string>
+    <string name="wait">انتظر قليلا ...</string>
+    <string name="ok">حسنا !</string>
+    <string name="email_exists">البريد الالكتروني موجود مسبقا</string>
+    <string name="something">خطأ ! تحقق من الاتصال بالانترنت</string>
+</resources>
