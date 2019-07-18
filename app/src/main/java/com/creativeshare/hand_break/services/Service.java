@@ -3,7 +3,10 @@ package com.creativeshare.hand_break.services;
 
 
 import com.creativeshare.hand_break.models.AppDataModel;
+import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.UserModel;
+
+import java.lang.ref.Reference;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -52,4 +55,9 @@ public interface Service {
     @FormUrlEncoded
     @POST("Api/visit")
     Call<ResponseBody> updateVisit(@Field("type") String type, @Field("day_date") String day_date);
+
+    @GET("App/showCategories")
+    Call<Catogry_Model> getcateogries(
+            @Header("device-lang") String device_lang
+    );
 }
