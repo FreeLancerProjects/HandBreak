@@ -28,7 +28,7 @@ public class Fragment_Profile extends Fragment {
     private String cuurent_language;
     private CircleImageView imageprofile;
     private TextView tv_name,tv_loaction,tv_address,tv_commericial,tv_phone,tv_email;
-    private ImageView  arrow1, arrow2, arrow3, arrow4, arrow5;
+    private ImageView  arrow1, arrow2, arrow3, arrow4, arrow5,im_edit;
     private Preferences preferences;
     private UserModel userModel;
 
@@ -58,6 +58,7 @@ public class Fragment_Profile extends Fragment {
         arrow3 = view.findViewById(R.id.arrow3);
         arrow4 = view.findViewById(R.id.arrow4);
         arrow5 = view.findViewById(R.id.arrow5);
+        im_edit=view.findViewById(R.id.im_edit);
         if(cuurent_language.equals("en"))
         {
             arrow1.setRotation(180.0f);
@@ -67,12 +68,17 @@ public class Fragment_Profile extends Fragment {
             arrow5.setRotation(180.0f);
         }
         updateprofile();
-
+im_edit.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        homeActivity.DisplayFragmentEditProfile();
+    }
+});
     }
 
     private void updateprofile() {
         if(userModel!=null){
-            if(userModel.getUser_image()!=null){
+            if(userModel.getUser_image()!=null&&!userModel.getUser_image().equals("0")){
                 Picasso.with(homeActivity).load(Tags.IMAGE_URL+userModel.getUser_image()).fit().into(imageprofile);
             }
             if(userModel.getUser_name()!=null){

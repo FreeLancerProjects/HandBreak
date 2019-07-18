@@ -14,6 +14,7 @@ import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.A
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_About;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Edit_Profile;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Profile;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy.Fragment_Message_Notifications;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_More;
@@ -50,6 +51,7 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_Terms_Conditions fragmentTerms_conditions;
 private Fragment_About fragment_about;
 private Fragment_Profile fragment_profile;
+private Fragment_Edit_Profile fragment_edit_profile;
     private String cuurent_language;
     private Preferences preferences;
     private UserModel userModel;
@@ -169,6 +171,18 @@ private Fragment_Profile fragment_profile;
             fragmentManager.beginTransaction().show(fragment_profile).commit();
         } else {
             fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_profile, "fragment_profile").addToBackStack("fragment_profile").commit();
+
+        }
+    }
+    public void DisplayFragmentEditProfile() {
+        fragment_count += 1;
+        fragment_edit_profile = Fragment_Edit_Profile.newInstance();
+
+
+        if (fragment_edit_profile.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_edit_profile).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_edit_profile, "fragment_edit_profile").addToBackStack("fragment_edit_profile").commit();
 
         }
     }
