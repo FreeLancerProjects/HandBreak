@@ -1,4 +1,4 @@
-package com.creativeshare.hand_break.activities_fragments.home_activity.fragments;
+package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

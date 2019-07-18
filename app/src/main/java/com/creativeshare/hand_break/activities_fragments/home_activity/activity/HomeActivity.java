@@ -3,22 +3,21 @@ package com.creativeshare.hand_break.activities_fragments.home_activity.activity
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
-import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_About;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_About;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
-import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Message_Notifications;
-import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_More;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Profile;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy.Fragment_Message_Notifications;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_More;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
-import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Terms_Conditions;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Terms_Conditions;
 import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 import com.creativeshare.hand_break.language.Language_Helper;
 import com.creativeshare.hand_break.models.UserModel;
@@ -45,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_More fragment_more;
     private Fragment_Terms_Conditions fragmentTerms_conditions;
 private Fragment_About fragment_about;
+private Fragment_Profile fragment_profile;
     private String cuurent_language;
     private Preferences preferences;
     private UserModel userModel;
@@ -143,6 +143,18 @@ private Fragment_About fragment_about;
         }
 
 
+    }
+    public void DisplayFragmentProfile() {
+        fragment_count += 1;
+        fragment_profile = Fragment_Profile.newInstance();
+
+
+        if (fragment_profile.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_profile).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_profile, "fragment_profile").addToBackStack("fragment_profile").commit();
+
+        }
     }
     public void DisplayFragmentnotifications() {
         if(fragment_message_notifications==null){
@@ -299,4 +311,6 @@ preferences.create_update_session(HomeActivity.this, Tags.session_logout);
                     }
                 });
     }
+
+
 }

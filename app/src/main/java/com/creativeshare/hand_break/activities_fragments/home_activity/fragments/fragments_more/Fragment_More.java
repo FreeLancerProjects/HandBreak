@@ -1,4 +1,4 @@
-package com.creativeshare.hand_break.activities_fragments.home_activity.fragments;
+package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,7 +25,7 @@ public class Fragment_More extends Fragment {
     private HomeActivity homeActivity;
     private String cuurent_language;
     private ImageView im_log, arrow1, arrow2, arrow3, arrow4, arrow5, arrow6, arrow7, arrow8, arrow9, arrow10, arrow11;
-    private LinearLayout ll_logout, ll_terms,ll_about;
+    private LinearLayout ll_logout, ll_terms, ll_about, ll_profile;
     private Preferences preferences;
     private UserModel userModel;
 
@@ -46,7 +46,7 @@ public class Fragment_More extends Fragment {
         im_log = view.findViewById(R.id.im_log);
         ll_terms = view.findViewById(R.id.ll_terms);
         ll_about = view.findViewById(R.id.ll_about);
-
+        ll_profile = view.findViewById(R.id.ll_profile);
         ll_logout = view.findViewById(R.id.ll_logout);
         arrow1 = view.findViewById(R.id.arrow1);
         arrow2 = view.findViewById(R.id.arrow2);
@@ -86,6 +86,17 @@ public class Fragment_More extends Fragment {
             @Override
             public void onClick(View view) {
                 homeActivity.DisplayFragmentTerms_Condition();
+            }
+        });
+        ll_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(userModel==null){
+                    Common.CreateUserNotSignInAlertDialog(homeActivity);
+                }
+                else {
+homeActivity.DisplayFragmentProfile();
+                }
             }
         });
         ll_logout.setOnClickListener(new View.OnClickListener() {

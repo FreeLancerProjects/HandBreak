@@ -1,4 +1,4 @@
-package com.creativeshare.hand_break.activities_fragments.home_activity.fragments;
+package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -28,23 +28,23 @@ import retrofit2.Response;
 /**
  *
  */
-public class Fragment_About extends Fragment {
+public class Fragment_Terms_Conditions extends Fragment {
     private Preferences preferences;
     private ImageView back;
     private TextView tv_content;
     private HomeActivity activity;
     private String cuurent_language;
 
-    public static Fragment_About newInstance() {
+    public static Fragment_Terms_Conditions newInstance() {
 
-Fragment_About fragment_terms_conditions=new Fragment_About();
+Fragment_Terms_Conditions fragment_terms_conditions=new Fragment_Terms_Conditions();
     return fragment_terms_conditions;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        View view = inflater.inflate(R.layout.fragment_terms__conditions, container, false);
         intitview(view);
         // Inflate the layout for this fragment
         return view;
@@ -76,7 +76,7 @@ Fragment_About fragment_terms_conditions=new Fragment_About();
     private void getAppData(String cuurent_language) {
 
         Api.getService()
-                .getabout(cuurent_language)
+                .getterms(cuurent_language)
                 .enqueue(new Callback<AppDataModel>() {
                     @Override
                     public void onResponse(Call<AppDataModel> call, Response<AppDataModel> response) {

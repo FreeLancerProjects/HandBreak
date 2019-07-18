@@ -1,6 +1,5 @@
-package com.creativeshare.hand_break.activities_fragments.home_activity.fragments;
+package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
