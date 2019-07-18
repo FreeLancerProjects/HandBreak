@@ -49,4 +49,7 @@ public interface Service {
             @Header("device-lang") String device_lang
 
     );
+    @FormUrlEncoded
+    @POST("Api/visit")
+    Call<ResponseBody> updateVisit(@Field("type") String type, @Field("day_date") String day_date);
 }

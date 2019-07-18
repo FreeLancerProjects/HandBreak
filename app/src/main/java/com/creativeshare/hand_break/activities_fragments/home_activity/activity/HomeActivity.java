@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
@@ -26,6 +27,10 @@ import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.share.Common;
 import com.creativeshare.hand_break.tags.Tags;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import io.paperdb.Paper;
@@ -71,6 +76,17 @@ private Fragment_Profile fragment_profile;
         userModel=preferences.getUserData(this);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         fragmentManager = this.getSupportFragmentManager();
+        String visitTime = preferences.getVisitTime(this);
+        Calendar calendar = Calendar.getInstance();
+        long timeNow = calendar.getTimeInMillis();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy",Locale.ENGLISH);
+        String date = dateFormat.format(new Date(timeNow));
+
+        if (!date.equals(visitTime))
+        {
+            addVisit(date);
+        }
     }
     public void DisplayFragmentHome()
     {
@@ -312,5 +328,36 @@ preferences.create_update_session(HomeActivity.this, Tags.session_logout);
                 });
     }
 
+    private void addVisit(final String timeNow)
+    {
 
+        Api.getService()
+                .updateVisit("android",timeNow)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful())
+                        {
+                            preferences.saveVisitTime(HomeActivity.this,timeNow);
+                           // Log.e("msg",response.body().toString());
+
+                        }else
+                        {
+                            try {
+                                Log.e("error_code",response.code()+response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        try {
+                            Log.e("Error",t.getMessage());
+                        }catch (Exception e){}
+                    }
+                });
+
+    }
 }

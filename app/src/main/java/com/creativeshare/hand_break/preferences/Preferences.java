@@ -87,4 +87,19 @@ public class Preferences {
         String session = preferences.getString("state", Tags.session_logout);
         return session;
     }
+    public void saveVisitTime(Context context,String time)
+    {
+        SharedPreferences preferences = context.getSharedPreferences("visit",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("time",time);
+        editor.apply();
+    }
+
+
+
+    public String getVisitTime(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences("visit",Context.MODE_PRIVATE);
+        return preferences.getString("time","");
+    }
 }

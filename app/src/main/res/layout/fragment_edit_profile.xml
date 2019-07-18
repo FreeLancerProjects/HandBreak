@@ -66,8 +66,206 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="10dp"
     >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/user_name"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"
+        />
+    <EditText
+        android:id="@+id/edt_name"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:hint="@string/user_name"
+        android:textColorHint="@color/gray4"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:background="@color/white"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
 
+        android:layout_marginTop="5dp"
+        android:background="@color/gray4"
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/user_email"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="8dp"
+
+        />
+    <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:hint="@string/user_email"
+        android:textColorHint="@color/gray4"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:background="@color/white"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+
+        android:layout_marginTop="5dp"
+        android:background="@color/gray4"
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/user_phone"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="8dp"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:background="@color/white"
+        android:padding="4dp"
+        >
+        <com.hbb20.CountryCodePicker
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:ccpDialog_textColor="@color/black"
+            app:ccp_showFullName="false"
+            app:ccp_showNameCode="false"
+            app:ccp_showFlag="false"
+            android:layout_weight=".1"
+            app:ccpDialog_backgroundColor="@color/white"
+            android:background="@color/white"
+            ></com.hbb20.CountryCodePicker>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".9"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:inputType="phone"
+            android:hint="@string/user_phone"
+            />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+
+        android:layout_marginTop="5dp"
+        android:background="@color/gray4"
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="8dp"
+        />
+    <EditText
+        android:id="@+id/edt_loc"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:hint="@string/location"
+        android:textColorHint="@color/gray4"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:background="@color/white"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+
+        android:layout_marginTop="5dp"
+        android:background="@color/gray4"
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/address"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="8dp"
+
+        />
+    <EditText
+        android:id="@+id/edt_address"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:hint="@string/address"
+        android:textColorHint="@color/gray4"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:background="@color/white"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+
+        android:layout_marginTop="5dp"
+        android:background="@color/gray4"
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/commercial_register"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="8dp"
+
+        />
+    <EditText
+        android:id="@+id/edt_commercial"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:hint="@string/commercial_register"
+        android:textColorHint="@color/gray4"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:background="@color/white"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+
+        android:layout_marginTop="5dp"
+        android:background="@color/gray4"
+
+        />
 </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

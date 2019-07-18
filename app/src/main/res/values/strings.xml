@@ -53,7 +53,6 @@
     <string name="department">Department \ </string>
     <string name="user_exists">User Exists</string>
     <string name="location">Location \ </string>
-    <string name="district">District \ </string>
     <string name="commercial_register">Commercial Register \ </string>
     <string name="address">Address \ </string>
 </resources>
