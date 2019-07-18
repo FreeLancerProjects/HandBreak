@@ -61,6 +61,12 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
 
         </activity>
+        <activity android:name=".activities_fragments.ads_activity.activity.AdsActivity"
+
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+
+        </activity>
     </application>
 
 </manifest>

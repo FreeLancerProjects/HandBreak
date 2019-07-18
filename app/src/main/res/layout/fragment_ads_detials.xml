@@ -115,13 +115,14 @@ android:weightSum="2"    >
       android:padding="8dp"
       />
     <TextView
+        android:id="@+id/tv_terms"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:text="@string/terms_and_conditions1"
         android:gravity="center_vertical"
         android:textColor="@color/colorPrimary"
-        android:textSize="10sp"
+        android:textSize="13sp"
         />
 </LinearLayout>
 

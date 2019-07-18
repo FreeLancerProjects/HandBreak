@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +25,8 @@ public class Fragment_Ads_Detials extends Fragment {
     private AdsActivity adsActivity;
     private String cuurent_language;
 private LinearLayout ll_continue;
-ImageView bt_arrow;
+private  ImageView bt_arrow;
+private TextView tv_terms;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,9 +41,16 @@ ImageView bt_arrow;
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         ll_continue=view.findViewById(R.id.ll_continue);
         bt_arrow=view.findViewById(R.id.bt_arrow);
+        tv_terms=view.findViewById(R.id.tv_terms);
         if(cuurent_language.equals("en")){
             bt_arrow.setRotation(180.0f);
         }
+        tv_terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adsActivity.DisplayFragmentterms();
+            }
+        });
         ll_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

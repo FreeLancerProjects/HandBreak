@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ public class Fragment_Profile extends Fragment {
     private String cuurent_language;
     private CircleImageView imageprofile;
     private TextView tv_name,tv_loaction,tv_address,tv_commericial,tv_phone,tv_email;
+    private ImageView  arrow1, arrow2, arrow3, arrow4, arrow5;
     private Preferences preferences;
     private UserModel userModel;
 
@@ -51,6 +53,19 @@ public class Fragment_Profile extends Fragment {
         tv_commericial=view.findViewById(R.id.tv_commercial);
         tv_phone=view.findViewById(R.id.tv_phone);
         tv_email=view.findViewById(R.id.tv_email);
+        arrow1 = view.findViewById(R.id.arrow1);
+        arrow2 = view.findViewById(R.id.arrow2);
+        arrow3 = view.findViewById(R.id.arrow3);
+        arrow4 = view.findViewById(R.id.arrow4);
+        arrow5 = view.findViewById(R.id.arrow5);
+        if(cuurent_language.equals("en"))
+        {
+            arrow1.setRotation(180.0f);
+            arrow2.setRotation(180.0f);
+            arrow3.setRotation(180.0f);
+            arrow4.setRotation(180.0f);
+            arrow5.setRotation(180.0f);
+        }
         updateprofile();
 
     }

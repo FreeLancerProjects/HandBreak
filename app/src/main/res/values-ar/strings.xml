@@ -47,22 +47,20 @@
     <string name="ok">حسنا !</string>
     <string name="email_exists">البريد الالكتروني موجود مسبقا</string>
     <string name="something">خطأ ! تحقق من الاتصال بالانترنت</string>
-    <string name="add_adversiment">add adversiment</string>
-    <string name="the_manufacture_company">the manufacture company</string>
-    <string name="continuation">continuation</string>
-    <string name="i_promise_either_god_will_pay_the_commission_within_a_week">I promise either God will pay the commission within a week</string>
-    <string name="i_promise_that_the_information_mentioned_in_the_advertisement_is_correct">I promise that the information mentioned in the advertisement is correct</string>
-    <string name="apply_terms_and_conditions">Apply terms and Conditions</string>
-    <string name="terms_and_conditions1"><a  href="">Terms and conditions</a></string>
-    <string name="advertisment_address">advertisment address</string>
-    <string name="price">price</string>
-    <string name="detials">detials</string>
-    <string name="department">Department</string>
-    <string name="user_exists">User Exists</string>
-    <string name="location">Location</string>
-    <string name="district">District</string>
-    <string name="commercial_register">Commercial Register</string>
-    <string name="membership_no">Membership No</string>
-    <string name="address">Address</string>
+    <string name="add_adversiment">اضافة اعلان</string>
+    <string name="the_manufacture_company">شركة التصنيع</string>
+    <string name="continuation">استمرار</string>
+
+    <string name="apply_terms_and_conditions">اقبل الشروط والاحكام</string>
+    <string name="terms_and_conditions1"><a  href="">الشروط والاحكام</a></string>
+    <string name="advertisment_address"> عنوان الاعلان</string>
+    <string name="price">سعر</string>
+    <string name="detials">تفاصيل</string>
+    <string name="department">قسم </string>
+    <string name="user_exists">المستخدم موجود</string>
+    <string name="location">المنطقه / </string>
+    <string name="district">الحى /</string>
+    <string name="commercial_register">السجل التجارى /</string>
+    <string name="address">العنوان / </string>
 
 </resources>

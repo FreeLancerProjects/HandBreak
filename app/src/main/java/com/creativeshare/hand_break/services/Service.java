@@ -43,4 +43,8 @@ public interface Service {
             @Query("device-lang") String device_lang
 
     );
+    @GET("Api/advertisingTerms") Call<AppDataModel>getadsterms(
+            @Query("device-lang") String device_lang
+
+    );
 }
