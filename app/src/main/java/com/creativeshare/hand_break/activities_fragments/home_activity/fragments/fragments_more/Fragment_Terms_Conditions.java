@@ -37,8 +37,8 @@ public class Fragment_Terms_Conditions extends Fragment {
 
     public static Fragment_Terms_Conditions newInstance() {
 
-Fragment_Terms_Conditions fragment_terms_conditions=new Fragment_Terms_Conditions();
-    return fragment_terms_conditions;
+        Fragment_Terms_Conditions fragment_terms_conditions = new Fragment_Terms_Conditions();
+        return fragment_terms_conditions;
     }
 
     @Override
@@ -54,8 +54,8 @@ Fragment_Terms_Conditions fragment_terms_conditions=new Fragment_Terms_Condition
         activity = (HomeActivity) getActivity();
         Paper.init(activity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
-        preferences=Preferences.getInstance();
-        tv_content =view.findViewById(R.id.tv_content);
+        preferences = Preferences.getInstance();
+        tv_content = view.findViewById(R.id.tv_content);
         back = (ImageView) view.findViewById(R.id.arrow_back);
         preferences = Preferences.getInstance();
 
@@ -63,7 +63,7 @@ Fragment_Terms_Conditions fragment_terms_conditions=new Fragment_Terms_Condition
 
             back.setRotation(180);
         }
-        getAppData(cuurent_language);
+        getAppData();
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -73,28 +73,32 @@ Fragment_Terms_Conditions fragment_terms_conditions=new Fragment_Terms_Condition
             }
         });
     }
-    private void getAppData(String cuurent_language) {
+
+    private void getAppData() {
 
         Api.getService()
                 .getterms(cuurent_language)
                 .enqueue(new Callback<AppDataModel>() {
                     @Override
                     public void onResponse(Call<AppDataModel> call, Response<AppDataModel> response) {
-                      //  smoothprogressbar.setVisibility(View.GONE);
-
-                        if (response.isSuccessful()&&response.body()!=null)
-                        {
+                        //  smoothprogressbar.setVisibility(View.GONE);
+                        Log.e("lang", cuurent_language);
+                        if (response.isSuccessful() && response.body() != null) {
                             updateTermsContent(response.body());
+                        } else {
+                            Log.e("Error", response.code() + "" + response.raw());
+
                         }
                     }
 
                     @Override
                     public void onFailure(Call<AppDataModel> call, Throwable t) {
                         try {
-                           // smoothprogressbar.setVisibility(View.GONE);
+                            // smoothprogressbar.setVisibility(View.GONE);
                             Toast.makeText(activity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                            Log.e("Error",t.getMessage());
-                        }catch (Exception e){}
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+                        }
                     }
                 });
 
@@ -102,7 +106,7 @@ Fragment_Terms_Conditions fragment_terms_conditions=new Fragment_Terms_Condition
 
     private void updateTermsContent(AppDataModel appDataModel) {
 
-            tv_content.setText(appDataModel.getContent());
+        tv_content.setText(appDataModel.getContent());
 
 
     }

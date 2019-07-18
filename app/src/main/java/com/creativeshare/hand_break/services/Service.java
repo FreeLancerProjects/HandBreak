@@ -11,7 +11,9 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -36,15 +38,15 @@ public interface Service {
 
     );
     @GET("Api/termsConditions") Call<AppDataModel>getterms(
-            @Query("device-lang") String device_lang
+            @Header("device-lang") String device_lang
 
     );
     @GET("Api/aboutApp") Call<AppDataModel>getabout(
-            @Query("device-lang") String device_lang
+            @Header("device-lang") String device_lang
 
     );
     @GET("Api/advertisingTerms") Call<AppDataModel>getadsterms(
-            @Query("device-lang") String device_lang
+            @Header("device-lang") String device_lang
 
     );
 }

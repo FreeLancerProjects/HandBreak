@@ -46,7 +46,7 @@ Fragment_Adviersiment_Terms_Conditions fragment_terms_conditions=new Fragment_Ad
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_terms__conditions, container, false);
+        View view = inflater.inflate(R.layout.fragment_adviersment_terms__conditions, container, false);
         intitview(view);
         // Inflate the layout for this fragment
         return view;
