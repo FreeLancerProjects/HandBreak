@@ -109,7 +109,7 @@ public class Common {
         layout.addView(view);
         return snackbar;
 
-    }
+    }*/
     public static void CreateUserNotSignInAlertDialog(final Context context)
     {
 
@@ -148,12 +148,12 @@ public class Common {
             }
         });
 
-        dialog.getWindow().getAttributes().windowAnimations= R.style.custom_dialog_animation;
+       // dialog.getWindow().getAttributes().windowAnimations= R.style.custom_dialog_animation;
         dialog.setCanceledOnTouchOutside(false);
         dialog.setView(view);
         dialog.show();
     }
-
+/*
     public static void CreateSignAlertDialog(Context context, String msg)
     {
         final AlertDialog dialog = new AlertDialog.Builder(context)

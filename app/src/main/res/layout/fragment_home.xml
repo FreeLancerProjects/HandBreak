@@ -103,7 +103,7 @@ android:background="@color/gray2"
         app:fabSize="normal"
         app:layout_anchor="@+id/ah_bottom_nav"
         app:layout_anchorGravity="center_horizontal"
-        android:src="@drawable/ic_plus"
+        app:srcCompat="@drawable/ic_plus"
         android:tint="@color/white"
         android:background="@color/colorPrimary"
         />

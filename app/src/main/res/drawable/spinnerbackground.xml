@@ -7,7 +7,7 @@
             <item>
                 <bitmap android:gravity="end"
 
-                    android:src="@drawable/ic_downarrow"/>
+                    android:src="@drawable/downarrow"/>
             </item>
         </layer-list>
     </item>

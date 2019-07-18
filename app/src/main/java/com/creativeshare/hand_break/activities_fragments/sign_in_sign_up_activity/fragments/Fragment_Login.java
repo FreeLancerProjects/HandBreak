@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.share.Common;
-import com.creativeshare.hand_break.tags.Tags;
 
 import java.io.IOException;
 
@@ -34,7 +32,7 @@ import retrofit2.Response;
 public class Fragment_Login extends Fragment {
     private Button btn_login;
     private TextView tv_skip, tv_sign_up;
-    private EditText edt_email, edt_password;
+    private EditText edt_username, edt_password;
     private Login_Activity activity;
     private Preferences preferences;
 
@@ -57,7 +55,7 @@ public class Fragment_Login extends Fragment {
         btn_login = view.findViewById(R.id.btn_login);
         tv_skip = view.findViewById(R.id.tv_skip);
         tv_sign_up = view.findViewById(R.id.tv_sign_up);
-        edt_email = view.findViewById(R.id.edt_email);
+        edt_username = view.findViewById(R.id.edt_email);
         edt_password = view.findViewById(R.id.edt_password);
 
         tv_sign_up.setOnClickListener(new View.OnClickListener() {
@@ -83,28 +81,25 @@ public class Fragment_Login extends Fragment {
     }
 
     private void checkData() {
-        String m_email = edt_email.getText().toString().trim();
+        String m_username = edt_username.getText().toString().trim();
         String m_password = edt_password.getText().toString().trim();
 
-        if (!TextUtils.isEmpty(m_email) &&
-                Patterns.EMAIL_ADDRESS.matcher(m_email).matches() &&
+        if (!TextUtils.isEmpty(m_username) &&
                 !TextUtils.isEmpty(m_password)
         ) {
-            edt_email.setError(null);
+            edt_username.setError(null);
             edt_password.setError(null);
-            Common.CloseKeyBoard(activity, edt_email);
-/*
-            Login(m_email, m_password);
-*/
+            Common.CloseKeyBoard(activity, edt_username);
+
+            Login(m_username, m_password);
+
         } else {
 
 
-            if (TextUtils.isEmpty(m_email)) {
-                edt_email.setError(getString(R.string.field_req));
-            } else if (!Patterns.EMAIL_ADDRESS.matcher(m_email).matches()) {
-                edt_email.setError(getString(R.string.inv_email));
+            if (TextUtils.isEmpty(m_username)) {
+                edt_username.setError(getString(R.string.field_req));
             } else {
-                edt_email.setError(null);
+                edt_username.setError(null);
 
             }
 
@@ -118,13 +113,13 @@ public class Fragment_Login extends Fragment {
         }
     }
 
-/*
-    private void Login(String m_email, String m_password) {
+
+    private void Login(String m_username, String m_password) {
         final ProgressDialog dialog = Common.createProgressDialog(activity,getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService(Tags.base_url)
-                .sign_in( m_email, m_password)
+        Api.getService()
+                .SignIn( m_username, m_password)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -157,7 +152,7 @@ public class Fragment_Login extends Fragment {
                     }
                 });
     }
-*/
+
 
 
 }

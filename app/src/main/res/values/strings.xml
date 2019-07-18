@@ -52,4 +52,5 @@
     <string name="price">price</string>
     <string name="detials">detials</string>
     <string name="department">Department \ </string>
+    <string name="user_exists">User Exists</string>
 </resources>

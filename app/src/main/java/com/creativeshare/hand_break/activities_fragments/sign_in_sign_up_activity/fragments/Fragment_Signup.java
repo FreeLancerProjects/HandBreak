@@ -175,9 +175,9 @@ public class Fragment_Signup extends Fragment implements OnCountryPickerListener
             edt_email.setError(null);
             edt_password.setError(null);
 
-/*
+
             sign_up(m_name, code, m_phone, m_email, m_password);
-*/
+
         } else {
             if (TextUtils.isEmpty(m_name)) {
                 edt_name.setError(getString(R.string.field_req));
@@ -224,13 +224,13 @@ public class Fragment_Signup extends Fragment implements OnCountryPickerListener
 
     }
 
-/*
+
     private void sign_up(String m_name, String code, String m_phone, String m_email, String m_password) {
         final ProgressDialog dialog = Common.createProgressDialog(activity,getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService(Tags.base_url)
-                .sign_up(m_name, m_email, m_password, code.replace("+", "00"), m_phone, 1)
+        Api.getService()
+                .Signup(m_email, m_name, m_phone, code.replace("+", "00"), "1", m_password)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -241,7 +241,7 @@ public class Fragment_Signup extends Fragment implements OnCountryPickerListener
                             preferences.create_update_userdata(activity,response.body());
                             activity.NavigateToHomeActivity();
                         } else if (response.code() == 422) {
-                                Common.CreateSignAlertDialog(activity,getString(R.string.email_exists));
+                                Common.CreateSignAlertDialog(activity,getString(R.string.user_exists));
                         } else {
 
                             try {
@@ -263,7 +263,7 @@ public class Fragment_Signup extends Fragment implements OnCountryPickerListener
                     }
                 });
     }
-*/
+
 
 
 }

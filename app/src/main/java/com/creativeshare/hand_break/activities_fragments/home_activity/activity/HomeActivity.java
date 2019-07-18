@@ -3,24 +3,37 @@ package com.creativeshare.hand_break.activities_fragments.home_activity.activity
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_About;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Message_Notifications;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_More;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Terms_Conditions;
+import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 import com.creativeshare.hand_break.language.Language_Helper;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
+import com.creativeshare.hand_break.remote.Api;
+import com.creativeshare.hand_break.share.Common;
+import com.creativeshare.hand_break.tags.Tags;
 
 import java.util.Locale;
 
 import io.paperdb.Paper;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
@@ -30,6 +43,8 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_Message_Notifications fragment_message_notifications;
     private Fragment_Search fragment_search;
     private Fragment_More fragment_more;
+    private Fragment_Terms_Conditions fragmentTerms_conditions;
+private Fragment_About fragment_about;
     private String cuurent_language;
     private Preferences preferences;
     private UserModel userModel;
@@ -96,6 +111,37 @@ public class HomeActivity extends AppCompatActivity {
         if(fragment_home!=null&&fragment_home.isAdded()){
             fragment_home.updateBottomNavigationPosition(0);
         }
+
+    }
+
+    public void DisplayFragmentTerms_Condition() {
+
+        fragment_count += 1;
+        fragmentTerms_conditions = Fragment_Terms_Conditions.newInstance();
+
+
+        if (fragmentTerms_conditions.isAdded()) {
+            fragmentManager.beginTransaction().show(fragmentTerms_conditions).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragmentTerms_conditions, "fragmentTerms_conditions").addToBackStack("fragmentTerms_conditions").commit();
+
+        }
+
+
+    }
+    public void DisplayFragmentAbout() {
+
+        fragment_count += 1;
+        fragment_about = Fragment_About.newInstance();
+
+
+        if (fragment_about.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_about).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_about, "fragment_about").addToBackStack("fragment_about").commit();
+
+        }
+
 
     }
     public void DisplayFragmentnotifications() {
@@ -205,5 +251,52 @@ Back();    }
             }
         }
 
+    }
+    public void Logout()
+    {
+        final ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        dialog.show();
+        Api.getService()
+                .Logout(userModel.getUser_id())
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful())
+                        {
+                            /*new Handler()
+                                    .postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            manager.cancelAll();
+                                        }
+                                    },1);
+                            userSingleTone.clear(ClientHomeActivity.this);*/
+preferences.create_update_userdata(HomeActivity.this,null);
+preferences.create_update_session(HomeActivity.this, Tags.session_logout);
+                            Intent intent = new Intent(HomeActivity.this, Login_Activity.class);
+                            startActivity(intent);
+                            finish();
+                            if (cuurent_language.equals("ar"))
+                            {
+                              //  overridePendingTransition(R.anim.from_left,R.anim.to_right);
+
+
+
+                            }else
+                            {
+                              //  overridePendingTransition(R.anim.from_right,R.anim.to_left);
+
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
     }
 }

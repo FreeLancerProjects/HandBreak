@@ -55,7 +55,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:padding="8dp"
-                        android:src="@drawable/ic_mail"
+                        app:srcCompat="@drawable/ic_user"
                         android:layout_gravity="center_vertical"
 
                         />
@@ -67,8 +67,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@color/white"
-                        android:hint="@string/user_email"
-                        android:inputType="textEmailAddress"
+                        android:hint="@string/user_name"
                         android:singleLine="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray4"
@@ -94,7 +93,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:padding="8dp"
-                        android:src="@drawable/ic_lock"
+                        app:srcCompat="@drawable/ic_lock"
                         android:layout_gravity="center_vertical"
 
                         />

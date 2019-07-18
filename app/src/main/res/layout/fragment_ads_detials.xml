@@ -45,7 +45,7 @@
                 android:clickable="false"
                 android:longClickable="false"
                 android:padding="5dp"
-                android:src="@drawable/ic_upload" />
+                app:srcCompat="@drawable/ic_upload" />
         </FrameLayout>
 
         <TextView
@@ -61,7 +61,7 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@color/white"></Spinner>
+            android:background="@drawable/spinnerbackground"></Spinner>
 
         <View
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="15dp"
-            android:background="@color/white"></Spinner>
+            android:background="@drawable/spinnerbackground"></Spinner>
 
         <View
             android:layout_width="match_parent"
@@ -83,7 +83,18 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="15dp"
-            android:background="@color/white"></Spinner>
+            android:background="@drawable/spinnerbackground"></Spinner>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray7" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/spinnerbackground"></Spinner>
 
         <View
             android:layout_width="match_parent"

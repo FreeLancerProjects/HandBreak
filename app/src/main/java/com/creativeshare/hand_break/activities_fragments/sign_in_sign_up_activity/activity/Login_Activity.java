@@ -150,6 +150,7 @@ public class Login_Activity extends AppCompatActivity {
     public void RefreshActivity(String selected_language) {
         Log.e("lang",selected_language);
         Paper.book().write("lang",selected_language);
+        preferences.create_update_language(this,selected_language);
         preferences.setIsLanguageSelected(this);
         Language_Helper.setNewLocale(this,selected_language);
         Intent intent = getIntent();

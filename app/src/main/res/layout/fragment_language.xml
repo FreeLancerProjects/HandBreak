@@ -84,7 +84,7 @@
             app:borderWidth="1dp"
             app:elevation="0dp"
             app:fabCustomSize="50dp"
-            android:src="@drawable/ic_next_arrow"
+            app:srcCompat="@drawable/ic_next_arrow"
             android:tint="@color/white"
             app:pressedTranslationZ="5dp"
             app:backgroundTint="@color/colorPrimary"
