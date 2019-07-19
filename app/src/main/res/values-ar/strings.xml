@@ -62,5 +62,6 @@
     <string name="commercial_register">السجل التجارى /</string>
     <string name="address">العنوان / </string>
     <string name="failed">Failed</string>
+    <string name="my_advertisment">My advertisment</string>
 
 </resources>

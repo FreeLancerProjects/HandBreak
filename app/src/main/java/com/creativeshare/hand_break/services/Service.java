@@ -73,5 +73,11 @@ public interface Service {
             @Query("sub_category_fk") String sub_category_fk
 
             );
+    @GET("App/myAdvertsing") Call<Catogry_Model>
+    getmyadversment(
+            @Query("page") int page,
+            @Query("user_id") String user_id
 
+
+    );
 }

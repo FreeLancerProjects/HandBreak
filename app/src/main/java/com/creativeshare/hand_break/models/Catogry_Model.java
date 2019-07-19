@@ -24,6 +24,10 @@ private Meta meta;
         private String main_category_title;
         private List<sub> sub;
 
+        public Categories(String main_category_title) {
+            this.main_category_title=main_category_title;
+        }
+
         public String getMain_category_fk() {
             return main_category_fk;
         }
@@ -57,9 +61,13 @@ private Meta meta;
                 return subs;
             }
 
-            public class Sub implements Serializable{
+            public static class Sub implements Serializable{
                 private String model_id_fk;
                 private String model_title;
+
+                public Sub(String model_title) {
+                    this.model_title=model_title;
+                }
 
                 public String getModel_id_fk() {
                     return model_id_fk;

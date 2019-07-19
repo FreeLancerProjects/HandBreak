@@ -25,7 +25,7 @@ public class Fragment_More extends Fragment {
     private HomeActivity homeActivity;
     private String cuurent_language;
     private ImageView im_log, arrow1, arrow2, arrow3, arrow4, arrow5, arrow6, arrow7, arrow8, arrow9, arrow10, arrow11;
-    private LinearLayout ll_logout, ll_terms, ll_about, ll_profile;
+    private LinearLayout ll_logout, ll_terms, ll_about, ll_profile,ll_adversiment;
     private Preferences preferences;
     private UserModel userModel;
 
@@ -48,6 +48,7 @@ public class Fragment_More extends Fragment {
         ll_about = view.findViewById(R.id.ll_about);
         ll_profile = view.findViewById(R.id.ll_profile);
         ll_logout = view.findViewById(R.id.ll_logout);
+        ll_adversiment=view.findViewById(R.id.ll_advertisement);
         arrow1 = view.findViewById(R.id.arrow1);
         arrow2 = view.findViewById(R.id.arrow2);
         arrow3 = view.findViewById(R.id.arrow3);
@@ -76,6 +77,17 @@ public class Fragment_More extends Fragment {
 
 
         }
+        ll_adversiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(userModel==null){
+                    Common.CreateUserNotSignInAlertDialog(homeActivity);
+                }
+                else {
+                    homeActivity.DisplayFragmentMYAdversiment();
+                }
+            }
+        });
         ll_about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

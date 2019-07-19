@@ -1,16 +1,14 @@
-package com.creativeshare.hand_break.activities_fragments.home_activity.fragments;
+package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more;
 
-import android.app.ProgressDialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,16 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
-import com.creativeshare.hand_break.adapters.Adversiment_Adapter;
-import com.creativeshare.hand_break.adapters.CatogriesAdapter;
-import com.creativeshare.hand_break.models.CityModel;
-import com.creativeshare.hand_break.adapters.Spinner_Adapter;
-import com.creativeshare.hand_break.adapters.Spinner_Sub_catogry_Adapter;
+import com.creativeshare.hand_break.adapters.My_Adversiment_Adapter;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
-import com.creativeshare.hand_break.share.Common;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,89 +36,64 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Fragment_Main extends Fragment {
+public class Fragment_My_adversiment extends Fragment {
     private HomeActivity homeActivity;
     private String cuurent_language;
-    private List<Catogry_Model.Categories.sub> subs;
-    private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
-    private Spinner sub_cat, cities;
-    private Spinner_Adapter city_adapter;
-    private List<CityModel> cities_models;
-    private RecyclerView rec_search;
-    private Adversiment_Adapter adversiment_adapter;
-    private List<Catogry_Model.Categories> categories;
-    private List<Catogry_Model.Advertsing> advertsings;
+    private ImageView back;
     private Preferences preferences;
     private UserModel userModel;
-    private String maincatogryfk = "";
+    private RecyclerView recView;
+    private My_Adversiment_Adapter adversiment_adapter;
+    private List<Catogry_Model.Categories> categories;
+    private List<Catogry_Model.Advertsing> advertsings;
     private ProgressBar progBar;
     private LinearLayout ll_no_order;
     private boolean isLoading = false;
     private int current_page = 1;
     private GridLayoutManager manager;
-    private String user_id;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_adversiment, container, false);
         initView(view);
-        getCities();
-   //     getadversment();
+        categories();
         return view;
     }
 
     private void initView(View view) {
-
-        subs = new ArrayList<>();
+        homeActivity = (HomeActivity) getActivity();
+        Paper.init(homeActivity);
+        cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         categories = new ArrayList<>();
         advertsings = new ArrayList<>();
 
-        homeActivity = (HomeActivity) getActivity();
-        preferences = Preferences.getInstance();
-        userModel = preferences.getUserData(homeActivity);
-        if (userModel == null) {
-            user_id = "";
-        } else {
-            user_id = userModel.getUser_id();
-        }
+        back =  view.findViewById(R.id.arrow_back);
         progBar = view.findViewById(R.id.progBar);
+        recView = view.findViewById(R.id.recView);
+
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         ll_no_order = view.findViewById(R.id.ll_no_order);
-        Paper.init(homeActivity);
-        cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
-        cities_models = new ArrayList<>();
-        if (cuurent_language.equals("ar")) {
-            cities_models.add(new CityModel("إختر"));
-            subs.add(new Catogry_Model.Categories.sub("إختر"));
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(homeActivity);
+        if (cuurent_language.equals("en")) {
 
-        } else {
-            cities_models.add(new CityModel("Choose"));
-            subs.add(new Catogry_Model.Categories.sub("Choose"));
-
+            back.setRotation(180);
         }
-        sub_cat = view.findViewById(R.id.sub_cat);
-        cities = view.findViewById(R.id.sp_city);
-        rec_search = view.findViewById(R.id.rec_search);
-        spinner_sub_catogry_adapter = new Spinner_Sub_catogry_Adapter(homeActivity, subs);
-        sub_cat.setAdapter(spinner_sub_catogry_adapter);
-        city_adapter = new Spinner_Adapter(homeActivity, cities_models);
-        cities.setAdapter(city_adapter);
-        adversiment_adapter = new Adversiment_Adapter(advertsings, categories, homeActivity);
-        rec_search.setDrawingCacheEnabled(true);
-        rec_search.setItemViewCacheSize(25);
-        rec_search.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        adversiment_adapter = new My_Adversiment_Adapter(advertsings, categories, homeActivity);
+        recView.setDrawingCacheEnabled(true);
+        recView.setItemViewCacheSize(25);
+        recView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         manager = new GridLayoutManager(homeActivity, 1);
-        rec_search.setLayoutManager(manager);
-        rec_search.setAdapter(adversiment_adapter);
-        rec_search.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recView.setLayoutManager(manager);
+        recView.setAdapter(adversiment_adapter);
+        recView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {
                     int total_item = adversiment_adapter.getItemCount();
                     int last_item_pos = manager.findLastCompletelyVisibleItemPosition();
-Log.e("msg",total_item+"  "+last_item_pos);
+
                     if (total_item > 5 && last_item_pos == (total_item - 5) && !isLoading) {
                         isLoading = true;
                         advertsings.add(null);
@@ -136,94 +104,16 @@ Log.e("msg",total_item+"  "+last_item_pos);
                 }
             }
         });
-        sub_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                getadversment();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
     }
 
-    public static Fragment_Main newInstance() {
-        return new Fragment_Main();
+    public static Fragment_My_adversiment newInstance() {
+        return new Fragment_My_adversiment();
     }
-
-    public void addsubtosppinner(List<Catogry_Model.Categories.sub> subs, String main_category_fk) {
-
-        this.subs.clear();
-        if (cuurent_language.equals("ar")) {
-            this.subs.add(new Catogry_Model.Categories.sub("اختر"));
-
-        } else {
-            this.subs.add(new Catogry_Model.Categories.sub("choose"));
-
-        }
-        this.subs.addAll(subs);
-        spinner_sub_catogry_adapter.notifyDataSetChanged();
-        sub_cat.setSelection(0);
-        maincatogryfk = main_category_fk;
-        getadversment();
-    }
-
-    private void getCities() {
-
-        final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
-        dialog.setCancelable(false);
-        dialog.show();
-
-        Api.getService()
-                .getCities(cuurent_language)
-                .enqueue(new Callback<List<CityModel>>() {
-                    @Override
-                    public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
-                        dialog.dismiss();
-
-                        if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                cities_models.clear();
-                                if (cuurent_language.equals("ar")) {
-                                    cities_models.add(new CityModel("إختر"));
-                                } else {
-                                    cities_models.add(new CityModel("Choose"));
-
-                                }
-                                cities_models.addAll(response.body());
-                                city_adapter.notifyDataSetChanged();
-                            }
-                        } else {
-                            try {
-                                Toast.makeText(homeActivity, R.string.failed, Toast.LENGTH_SHORT).show();
-                                Log.e("Error_code", response.code() + "" + response.errorBody().string());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<CityModel>> call, Throwable t) {
-                        try {
-                            dialog.dismiss();
-                            Toast.makeText(homeActivity, R.string.something, Toast.LENGTH_SHORT).show();
-                            Log.e("Error", t.getMessage());
-                        } catch (Exception e) {
-
-                        }
-                    }
-                });
-
-    }
-
     public void getadversment() {
         progBar.setVisibility(View.VISIBLE);
         ll_no_order.setVisibility(View.GONE);
         Api.getService()
-                .getadversment(1, user_id + "", maincatogryfk + "", subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk() + "")
+                .getmyadversment(1, userModel.getUser_id())
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -269,7 +159,7 @@ Log.e("msg",total_item+"  "+last_item_pos);
 
 
         Api.getService()
-                .getadversment(1, user_id, maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk())
+                .getmyadversment(1, userModel.getUser_id())
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -303,5 +193,52 @@ Log.e("msg",total_item+"  "+last_item_pos);
                         }
                     }
                 });
+    }
+    public void categories() {
+
+        Api.getService().getcateogries(cuurent_language).enqueue(new Callback<Catogry_Model>() {
+            @Override
+            public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
+                //progBar.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+
+                    if (response.body().getCategories() != null && response.body().getCategories().size() > 0) {
+                        categories.addAll(response.body().getCategories());
+                        getadversment();
+                      //  catogriesAdapter.notifyDataSetChanged();
+                        //setsub();
+                    } else {
+                        // error.setText(activity.getString(R.string.no_data));
+                        //recc.setVisibility(View.GONE);
+                        //      mPager.setVisibility(View.GONE);
+                    }
+
+                    // Inflate the layout for this fragment
+                } else if (response.code() == 404) {
+                    //error.setText(activity.getString(R.string.no_data));
+                    //recc.setVisibility(View.GONE);
+                    //mPager.setVisibility(View.GONE);
+                } else {
+                    //recc.setVisibility(View.GONE);
+                    //mPager.setVisibility(View.GONE);
+                    try {
+                        Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //error.setText(activity.getString(R.string.faild));
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Catogry_Model> call, Throwable t) {
+
+                Log.e("Error", t.getMessage());
+                //progBar.setVisibility(View.GONE);
+                //error.setText(activity.getString(R.string.faild));
+                //mPager.setVisibility(View.GONE);
+            }
+        });
     }
 }

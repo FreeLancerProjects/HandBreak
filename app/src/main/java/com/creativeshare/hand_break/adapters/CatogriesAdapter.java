@@ -57,6 +57,7 @@ public class CatogriesAdapter extends RecyclerView.Adapter<CatogriesAdapter.Eyas
             public void onClick(View v) {
                 select = i;
                 notifyDataSetChanged();
+                homeActivity.DisplayFragmentMain();
                 fragment_home.setsub(list.get(i).getsub(),list.get(i).getMain_category_fk());
             }
 

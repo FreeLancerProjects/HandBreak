@@ -15,6 +15,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Edit_Profile;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_My_adversiment;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Profile;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy.Fragment_Message_Notifications;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_More;
@@ -54,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
 private Fragment_About fragment_about;
 private Fragment_Profile fragment_profile;
 private Fragment_Edit_Profile fragment_edit_profile;
+private Fragment_My_adversiment fragment_my_adversiment;
     private String cuurent_language;
     private Preferences preferences;
     private UserModel userModel;
@@ -163,6 +165,21 @@ private Fragment_Edit_Profile fragment_edit_profile;
 
         }
 
+
+    }
+
+    public void DisplayFragmentMYAdversiment() {
+
+        fragment_count += 1;
+        fragment_my_adversiment = Fragment_My_adversiment.newInstance();
+
+
+        if (fragment_my_adversiment.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_my_adversiment).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_my_adversiment, "fragment_my_adversiment").addToBackStack("fragment_my_adversiment").commit();
+
+        }
 
     }
     public void DisplayFragmentProfile() {
@@ -384,4 +401,5 @@ preferences.create_update_session(HomeActivity.this, Tags.session_logout);
             fragment_main.addsubtosppinner (subs,main_category_fk);
         }
     }
+
 }
