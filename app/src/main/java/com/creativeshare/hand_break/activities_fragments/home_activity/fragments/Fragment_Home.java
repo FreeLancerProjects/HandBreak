@@ -37,9 +37,10 @@ public class Fragment_Home extends Fragment {
     private AHBottomNavigation ah_bottom_nav;
     private String cuurent_language;
     private FloatingActionButton fab_add_ads;
-private RecyclerView rec_catogry;
-private CatogriesAdapter catogriesAdapter;
-private List<Catogry_Model.Categories> categories;
+    private RecyclerView rec_catogry;
+    private CatogriesAdapter catogriesAdapter;
+    private List<Catogry_Model.Categories> categories;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,25 +50,25 @@ private List<Catogry_Model.Categories> categories;
     }
 
     private void initView(View view) {
-        categories=new ArrayList<>();
+        categories = new ArrayList<>();
         homeActivity = (HomeActivity) getActivity();
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         ah_bottom_nav = view.findViewById(R.id.ah_bottom_nav);
-fab_add_ads=view.findViewById(R.id.fab_add_ads);
-rec_catogry=view.findViewById(R.id.rec_data);
-catogriesAdapter=new CatogriesAdapter(categories,homeActivity);
+        fab_add_ads = view.findViewById(R.id.fab_add_ads);
+        rec_catogry = view.findViewById(R.id.rec_data);
+        catogriesAdapter = new CatogriesAdapter(categories, homeActivity, this);
         rec_catogry.setDrawingCacheEnabled(true);
         rec_catogry.setItemViewCacheSize(25);
         rec_catogry.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-rec_catogry.setLayoutManager(new LinearLayoutManager(homeActivity,RecyclerView.HORIZONTAL,false));
-rec_catogry.setAdapter(catogriesAdapter);
-fab_add_ads.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        homeActivity.getoAds();
-    }
-});
+        rec_catogry.setLayoutManager(new LinearLayoutManager(homeActivity, RecyclerView.HORIZONTAL, false));
+        rec_catogry.setAdapter(catogriesAdapter);
+        fab_add_ads.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeActivity.getoAds();
+            }
+        });
         setUpBottomNavigation();
         ah_bottom_nav.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
@@ -92,7 +93,7 @@ fab_add_ads.setOnClickListener(new View.OnClickListener() {
                 return false;
             }
         });
-         }
+    }
 
     private void setUpBottomNavigation() {
 
@@ -112,7 +113,7 @@ fab_add_ads.setOnClickListener(new View.OnClickListener() {
         ah_bottom_nav.addItem(item2);
         ah_bottom_nav.addItem(item3);
         ah_bottom_nav.addItem(item4);
-categories();
+        categories();
 
     }
 
@@ -123,6 +124,7 @@ categories();
     public static Fragment_Home newInstance() {
         return new Fragment_Home();
     }
+
     public void categories() {
 
         Api.getService().getcateogries(cuurent_language).enqueue(new Callback<Catogry_Model>() {
@@ -134,7 +136,7 @@ categories();
                     if (response.body().getCategories() != null && response.body().getCategories().size() > 0) {
                         categories.addAll(response.body().getCategories());
                         catogriesAdapter.notifyDataSetChanged();
-
+                        setsub();
                     } else {
                         // error.setText(activity.getString(R.string.no_data));
                         //recc.setVisibility(View.GONE);
@@ -168,5 +170,14 @@ categories();
                 //mPager.setVisibility(View.GONE);
             }
         });
+    }
+
+    public void setsub(List<Catogry_Model.Categories.sub> subs, String main_category_fk) {
+        homeActivity.setsub(subs,main_category_fk);
+    }
+
+    public void setsub() {
+        if(categories.size()>0){
+        homeActivity.setsub(categories.get(0).getsub(), categories.get(0).getMain_category_fk());}
     }
 }

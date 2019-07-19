@@ -2,13 +2,13 @@ package com.creativeshare.hand_break.services;
 
 
 
+import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.AppDataModel;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.UserModel;
 
-import java.lang.ref.Reference;
+import java.util.List;
 
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -16,7 +16,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -60,4 +59,15 @@ public interface Service {
     Call<Catogry_Model> getcateogries(
             @Header("device-lang") String device_lang
     );
+    @GET("api/all-cities")
+    Call<List<CityModel>> getCities();
+    @GET("App/showAdvertsing") Call<Catogry_Model>
+    getadversment(
+            @Query("page") int page,
+            @Query("user_id") String user_id,
+            @Query("main_category_fk") String main_category_fk,
+            @Query("sub_category_fk") String sub_category_fk
+
+            );
+
 }

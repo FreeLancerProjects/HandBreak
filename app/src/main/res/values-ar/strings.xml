@@ -61,5 +61,6 @@
     <string name="location">المنطقه / </string>
     <string name="commercial_register">السجل التجارى /</string>
     <string name="address">العنوان / </string>
+    <string name="failed">Failed</string>
 
 </resources>

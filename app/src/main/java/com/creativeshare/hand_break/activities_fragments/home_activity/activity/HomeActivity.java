@@ -22,6 +22,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Terms_Conditions;
 import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 import com.creativeshare.hand_break.language.Language_Helper;
+import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import io.paperdb.Paper;
@@ -128,6 +130,7 @@ private Fragment_Edit_Profile fragment_edit_profile;
         }
         if(fragment_home!=null&&fragment_home.isAdded()){
             fragment_home.updateBottomNavigationPosition(0);
+            fragment_home.setsub();
         }
 
     }
@@ -373,5 +376,11 @@ preferences.create_update_session(HomeActivity.this, Tags.session_logout);
                     }
                 });
 
+    }
+
+    public void setsub(List<Catogry_Model.Categories.sub> subs, String main_category_fk) {
+        if(fragment_main!=null&&fragment_main.isAdded()){
+            fragment_main.addsubtosppinner (subs,main_category_fk);
+        }
     }
 }
