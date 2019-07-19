@@ -73,15 +73,16 @@ public class Fragment_Main extends Fragment {
     }
 
     private void initView(View view) {
-        progBar = view.findViewById(R.id.progBar);
-        progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        ll_no_order = view.findViewById(R.id.ll_no_order);
+
         subs = new ArrayList<>();
         categories = new ArrayList<>();
         advertsings = new ArrayList<>();
         homeActivity = (HomeActivity) getActivity();
         preferences=Preferences.getInstance();
         userModel=preferences.getUserData(homeActivity);
+        progBar = view.findViewById(R.id.progBar);
+        progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        ll_no_order = view.findViewById(R.id.ll_no_order);
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         cities_models = new ArrayList<>();
@@ -199,7 +200,7 @@ public class Fragment_Main extends Fragment {
     public void getadversment() {
 
         Api.getService()
-                .getadversment(1, userModel.getUser_id(), maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk())
+                .getadversment(1, userModel.getUser_id()+"", maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk())
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
