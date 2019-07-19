@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="35dp"
             android:background="@drawable/ll_shape"
             android:orientation="horizontal"
@@ -24,13 +24,21 @@
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
             android:layout_gravity="center_vertical"
+            android:weightSum="2"
+            android:layout_weight="1"
             >
 
 
+
+
+
             <Spinner
-                android:layout_width="90dp"
+                android:id="@+id/sp_city"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@color/gray2"></Spinner>
+                android:background="@color/gray2"
+                android:layout_weight="1"
+                ></Spinner>
 
             <View
                 android:layout_width="1px"
@@ -38,19 +46,13 @@
                 android:background="@color/gray7" />
 
             <Spinner
-                android:layout_width="90dp"
+                android:id="@+id/sub_cat"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@color/gray2"></Spinner>
+                android:background="@drawable/spinnerbackground"
+                android:layout_weight="1"
 
-            <View
-                android:layout_width="1px"
-                android:layout_height="match_parent"
-                android:background="@color/gray7" />
-
-            <Spinner
-                android:layout_width="90dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/spinnerbackground"></Spinner>
+                ></Spinner>
         </LinearLayout>
 
         <ImageView
