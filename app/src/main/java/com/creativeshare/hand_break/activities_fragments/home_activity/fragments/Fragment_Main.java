@@ -57,12 +57,14 @@ public class Fragment_Main extends Fragment {
     private List<Catogry_Model.Advertsing> advertsings;
     private Preferences preferences;
     private UserModel userModel;
-    private String maincatogryfk="";
+    private String maincatogryfk = "";
     private ProgressBar progBar;
     private LinearLayout ll_no_order;
     private boolean isLoading = false;
-    private int current_page=1;
+    private int current_page = 1;
     private GridLayoutManager manager;
+    private String user_id;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,11 +82,12 @@ public class Fragment_Main extends Fragment {
         advertsings = new ArrayList<>();
 
         homeActivity = (HomeActivity) getActivity();
-        preferences=Preferences.getInstance();
-        userModel=preferences.getUserData(homeActivity);
-        if(userModel==null){
-            userModel=new UserModel();
-
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(homeActivity);
+        if (userModel == null) {
+            user_id = "";
+        } else {
+            user_id = userModel.getUser_id();
         }
         progBar = view.findViewById(R.id.progBar);
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
@@ -94,11 +97,11 @@ public class Fragment_Main extends Fragment {
         cities_models = new ArrayList<>();
         if (cuurent_language.equals("ar")) {
             cities_models.add(new CityModel("إختر"));
-            subs.add(new Catogry_Model.Categories.sub("الكل"));
+            subs.add(new Catogry_Model.Categories.sub("إختر"));
 
         } else {
             cities_models.add(new CityModel("Choose"));
-            subs.add(new Catogry_Model.Categories.sub("all"));
+            subs.add(new Catogry_Model.Categories.sub("Choose"));
 
         }
         sub_cat = view.findViewById(R.id.sub_cat);
@@ -112,24 +115,22 @@ public class Fragment_Main extends Fragment {
         rec_search.setDrawingCacheEnabled(true);
         rec_search.setItemViewCacheSize(25);
         rec_search.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        manager=new GridLayoutManager(homeActivity,1);
+        manager = new GridLayoutManager(homeActivity, 1);
         rec_search.setLayoutManager(manager);
         rec_search.setAdapter(adversiment_adapter);
         rec_search.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy>0)
-                {
+                if (dy > 0) {
                     int total_item = adversiment_adapter.getItemCount();
                     int last_item_pos = manager.findLastCompletelyVisibleItemPosition();
 
-                    if (total_item>5&&last_item_pos==(total_item-5)&&!isLoading)
-                    {
+                    if (total_item > 5 && last_item_pos == (total_item - 5) && !isLoading) {
                         isLoading = true;
                         advertsings.add(null);
-                        adversiment_adapter.notifyItemInserted(advertsings.size()-1);
-                        int page = current_page+1;
+                        adversiment_adapter.notifyItemInserted(advertsings.size() - 1);
+                        int page = current_page + 1;
                         loadMore(page);
                     }
                 }
@@ -156,15 +157,16 @@ public class Fragment_Main extends Fragment {
 
         this.subs.clear();
         if (cuurent_language.equals("ar")) {
-            subs.add(new Catogry_Model.Categories.sub("الكل"));
+            this.subs.add(new Catogry_Model.Categories.sub("اختر"));
 
         } else {
-            subs.add(new Catogry_Model.Categories.sub("all"));
+            this.subs.add(new Catogry_Model.Categories.sub("choose"));
 
         }
         this.subs.addAll(subs);
         spinner_sub_catogry_adapter.notifyDataSetChanged();
-        maincatogryfk=main_category_fk;
+        sub_cat.setSelection(0);
+        maincatogryfk = main_category_fk;
         getadversment();
     }
 
@@ -175,7 +177,7 @@ public class Fragment_Main extends Fragment {
         dialog.show();
 
         Api.getService()
-                .getCities()
+                .getCities(cuurent_language)
                 .enqueue(new Callback<List<CityModel>>() {
                     @Override
                     public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
@@ -218,9 +220,10 @@ public class Fragment_Main extends Fragment {
     }
 
     public void getadversment() {
-Log.e("msg",userModel.getUser_id()+"");
+        progBar.setVisibility(View.VISIBLE);
+        ll_no_order.setVisibility(View.GONE);
         Api.getService()
-                .getadversment(1, userModel.getUser_id()+"", maincatogryfk+"", subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk()+"")
+                .getadversment(1, user_id + "", maincatogryfk + "", subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk() + "")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -261,27 +264,26 @@ Log.e("msg",userModel.getUser_id()+"");
                     }
                 });
     }
+
     private void loadMore(int page) {
 
 
         Api.getService()
-                .getadversment(1, userModel.getUser_id(), maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk())
+                .getadversment(1, user_id, maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk())
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
-                        advertsings.remove(advertsings.size()-1);
-                        adversiment_adapter.notifyItemRemoved(advertsings.size()-1);
+                        advertsings.remove(advertsings.size() - 1);
+                        adversiment_adapter.notifyItemRemoved(advertsings.size() - 1);
                         isLoading = false;
-                        if (response.isSuccessful()&&response.body()!=null&&response.body().getAdvertsing()!=null)
-                        {
+                        if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
 
                             advertsings.addAll(response.body().getAdvertsing());
                             categories.addAll(response.body().getCategories());
 
                             adversiment_adapter.notifyDataSetChanged();
 
-                        }else
-                        {
+                        } else {
                             Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             try {
                                 Log.e("Error_code", response.code() + "_" + response.errorBody().string());
@@ -296,8 +298,9 @@ Log.e("msg",userModel.getUser_id()+"");
                         try {
                             isLoading = false;
                             Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                            Log.e("error",t.getMessage());
-                        }catch (Exception e){}
+                            Log.e("error", t.getMessage());
+                        } catch (Exception e) {
+                        }
                     }
                 });
     }

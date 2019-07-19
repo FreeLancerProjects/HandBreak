@@ -59,8 +59,12 @@ public interface Service {
     Call<Catogry_Model> getcateogries(
             @Header("device-lang") String device_lang
     );
-    @GET("api/all-cities")
-    Call<List<CityModel>> getCities();
+    @GET("Api/cyties")
+    Call<List<CityModel>> getCities(
+            @Header("device-lang") String device_lang
+
+
+    );
     @GET("App/showAdvertsing") Call<Catogry_Model>
     getadversment(
             @Query("page") int page,

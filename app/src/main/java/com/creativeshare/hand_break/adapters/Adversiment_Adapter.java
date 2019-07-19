@@ -19,6 +19,7 @@ import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.tags.Tags;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -74,7 +75,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((MyHolder) holder).tv_user.setText(advertsing.getAdvertisement_user());
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa", Locale.ENGLISH);
             String date = dateFormat.format(new Date(Long.parseLong(advertsing.getAdvertisement_date()) * 1000));
-            ((MyHolder) holder).tv_time.setText(date);
+            ((MyHolder) holder).tv_time.setText(date.replace(" ",""));
             String name = getname(advertsing.getMain_category_fk());
             ((MyHolder) holder).tv_name.setText(name);
             Picasso.with(context).load(Tags.IMAGE_URL+advertsing.getMain_image()).fit().into(((MyHolder) holder).image);
@@ -99,7 +100,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        private CircleImageView image;
+        private RoundedImageView image;
         private TextView tv_title, tv_city, tv_user, tv_name, tv_time;
 
         public MyHolder(View itemView) {
