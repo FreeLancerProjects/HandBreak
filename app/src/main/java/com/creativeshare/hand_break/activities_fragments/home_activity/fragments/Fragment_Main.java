@@ -57,7 +57,7 @@ public class Fragment_Main extends Fragment {
     private List<Catogry_Model.Advertsing> advertsings;
     private Preferences preferences;
     private UserModel userModel;
-    private String maincatogryfk;
+    private String maincatogryfk="";
     private ProgressBar progBar;
     private LinearLayout ll_no_order;
     private boolean isLoading = false;
@@ -69,6 +69,7 @@ public class Fragment_Main extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         initView(view);
         getCities();
+        getadversment();
         return view;
     }
 
@@ -77,9 +78,14 @@ public class Fragment_Main extends Fragment {
         subs = new ArrayList<>();
         categories = new ArrayList<>();
         advertsings = new ArrayList<>();
+
         homeActivity = (HomeActivity) getActivity();
         preferences=Preferences.getInstance();
         userModel=preferences.getUserData(homeActivity);
+        if(userModel==null){
+            userModel=new UserModel();
+
+        }
         progBar = view.findViewById(R.id.progBar);
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         ll_no_order = view.findViewById(R.id.ll_no_order);
@@ -88,8 +94,11 @@ public class Fragment_Main extends Fragment {
         cities_models = new ArrayList<>();
         if (cuurent_language.equals("ar")) {
             cities_models.add(new CityModel("إختر"));
+            subs.add(new Catogry_Model.Categories.sub("الكل"));
+
         } else {
             cities_models.add(new CityModel("Choose"));
+            subs.add(new Catogry_Model.Categories.sub("all"));
 
         }
         sub_cat = view.findViewById(R.id.sub_cat);
@@ -126,10 +135,15 @@ public class Fragment_Main extends Fragment {
                 }
             }
         });
-        sub_cat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        sub_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 getadversment();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
@@ -141,7 +155,13 @@ public class Fragment_Main extends Fragment {
     public void addsubtosppinner(List<Catogry_Model.Categories.sub> subs, String main_category_fk) {
 
         this.subs.clear();
+        if (cuurent_language.equals("ar")) {
+            subs.add(new Catogry_Model.Categories.sub("الكل"));
 
+        } else {
+            subs.add(new Catogry_Model.Categories.sub("all"));
+
+        }
         this.subs.addAll(subs);
         spinner_sub_catogry_adapter.notifyDataSetChanged();
         maincatogryfk=main_category_fk;
@@ -198,9 +218,9 @@ public class Fragment_Main extends Fragment {
     }
 
     public void getadversment() {
-
+Log.e("msg",userModel.getUser_id()+"");
         Api.getService()
-                .getadversment(1, userModel.getUser_id()+"", maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk())
+                .getadversment(1, userModel.getUser_id()+"", maincatogryfk+"", subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk()+"")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {

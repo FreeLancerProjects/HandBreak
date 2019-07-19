@@ -5,7 +5,7 @@ import java.util.List;
 
 public class UserModel implements Serializable {
 
-    private String user_id;
+    private String user_id="";
     private String user_name;
     private String user_email;
     private String user_phone_code;

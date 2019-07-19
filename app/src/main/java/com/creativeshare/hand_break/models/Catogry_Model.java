@@ -19,7 +19,7 @@ private Meta meta;
         return meta;
     }
 
-    public class Categories {
+    public static class Categories {
         private String main_category_fk;
         private String main_category_title;
         private List<sub> sub;
@@ -36,11 +36,14 @@ private Meta meta;
             return sub;
         }
 
-        public class sub  implements Serializable{
-            private String sub_category_fk;
+        public static class sub  implements Serializable{
+            private String sub_category_fk="";
             private String sub_category_title;
             private List<Sub> subs;
 
+            public sub(String sub_category_title) {
+                this.sub_category_title = sub_category_title;
+            }
 
             public String getSub_category_fk() {
                 return sub_category_fk;

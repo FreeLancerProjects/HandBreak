@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
 import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.tags.Tags;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,7 +43,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         this.advertsings = advertsings;
         this.context = context;
-        this.fragment = fragment;
+       // this.fragment = fragment;
         this.user_type = user_type;
         this.categories = categories;
     }
@@ -75,6 +77,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((MyHolder) holder).tv_time.setText(date);
             String name = getname(advertsing.getMain_category_fk());
             ((MyHolder) holder).tv_name.setText(name);
+            Picasso.with(context).load(Tags.IMAGE_URL+advertsing.getMain_image()).fit().into(((MyHolder) holder).image);
         } else {
             LoadMoreHolder loadMoreHolder = (LoadMoreHolder) holder;
             loadMoreHolder.progBar.setIndeterminate(true);
