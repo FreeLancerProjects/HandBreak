@@ -2,12 +2,14 @@ package com.creativeshare.hand_break.activities_fragments.home_activity.fragment
 
 import android.app.ProgressDialog;
 import android.graphics.PorterDuff;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -52,6 +54,7 @@ public class Fragment_Main extends Fragment {
     private Spinner_Adapter city_adapter;
     private List<CityModel> cities_models;
     private RecyclerView rec_search;
+    private ImageView im_search;
     private Adversiment_Adapter adversiment_adapter;
     private List<Catogry_Model.Categories> categories;
     private List<Catogry_Model.Advertsing> advertsings;
@@ -71,12 +74,17 @@ public class Fragment_Main extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         initView(view);
         getCities();
-   //     getadversment();
+        //     getadversment();
         return view;
     }
 
     private void initView(View view) {
-
+        sub_cat = view.findViewById(R.id.sub_cat);
+        cities = view.findViewById(R.id.sp_city);
+        rec_search = view.findViewById(R.id.rec_search);
+        progBar = view.findViewById(R.id.progBar);
+        im_search = view.findViewById(R.id.im_search);
+        ll_no_order = view.findViewById(R.id.ll_no_order);
         subs = new ArrayList<>();
         categories = new ArrayList<>();
         advertsings = new ArrayList<>();
@@ -89,9 +97,9 @@ public class Fragment_Main extends Fragment {
         } else {
             user_id = userModel.getUser_id();
         }
-        progBar = view.findViewById(R.id.progBar);
+
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        ll_no_order = view.findViewById(R.id.ll_no_order);
+
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         cities_models = new ArrayList<>();
@@ -104,9 +112,7 @@ public class Fragment_Main extends Fragment {
             subs.add(new Catogry_Model.Categories.sub("Choose"));
 
         }
-        sub_cat = view.findViewById(R.id.sub_cat);
-        cities = view.findViewById(R.id.sp_city);
-        rec_search = view.findViewById(R.id.rec_search);
+
         spinner_sub_catogry_adapter = new Spinner_Sub_catogry_Adapter(homeActivity, subs);
         sub_cat.setAdapter(spinner_sub_catogry_adapter);
         city_adapter = new Spinner_Adapter(homeActivity, cities_models);
@@ -125,7 +131,7 @@ public class Fragment_Main extends Fragment {
                 if (dy > 0) {
                     int total_item = adversiment_adapter.getItemCount();
                     int last_item_pos = manager.findLastCompletelyVisibleItemPosition();
-Log.e("msg",total_item+"  "+last_item_pos);
+                    Log.e("msg", total_item + "  " + last_item_pos);
                     if (total_item > 5 && last_item_pos == (total_item - 5) && !isLoading) {
                         isLoading = true;
                         advertsings.add(null);
@@ -145,6 +151,12 @@ Log.e("msg",total_item+"  "+last_item_pos);
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+        im_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getadversment();
             }
         });
     }
@@ -223,7 +235,7 @@ Log.e("msg",total_item+"  "+last_item_pos);
         progBar.setVisibility(View.VISIBLE);
         ll_no_order.setVisibility(View.GONE);
         Api.getService()
-                .getadversment(1, user_id + "", maincatogryfk + "", subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk() + "")
+                .getadversment(1, user_id + "", maincatogryfk + "", subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk() + "", cities_models.get(cities.getSelectedItemPosition()).getId_city() + "")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -269,7 +281,7 @@ Log.e("msg",total_item+"  "+last_item_pos);
 
 
         Api.getService()
-                .getadversment(1, user_id, maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk())
+                .getadversment(1, user_id, maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk(), cities_models.get(cities.getSelectedItemPosition()).getId_city() + "")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {

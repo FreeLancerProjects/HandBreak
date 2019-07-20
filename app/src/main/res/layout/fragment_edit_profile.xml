@@ -312,7 +312,9 @@
                 android:padding="5dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray4"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:inputType="number"
+                />
 
             <View
                 android:layout_width="match_parent"

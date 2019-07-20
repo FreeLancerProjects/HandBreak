@@ -48,7 +48,7 @@ public interface Service {
             @Field("user_phone") String user_phone,
             @Field("user_phone_code") String user_phone_code,
             @Field("user_address") String user_address,
-            @Field("commercial_register") String commercial_register,
+            @Field("commercial_register") double commercial_register,
             @Field("user_pass") String user_pass
 
     );
@@ -99,8 +99,8 @@ public interface Service {
             @Query("page") int page,
             @Query("user_id") String user_id,
             @Query("main_category_fk") String main_category_fk,
-            @Query("sub_category_fk") String sub_category_fk
-
+            @Query("sub_category_fk") String sub_category_fk,
+            @Query("city_id") String city_id
     );
 
     @GET("App/myAdvertsing")

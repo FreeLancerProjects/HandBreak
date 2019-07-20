@@ -91,7 +91,7 @@ public class Fragment_Edit_Profile extends Fragment {
         String address = edt_address.getText().toString();
         String coomericial = edt_commercial.getText().toString();
         String pass = edt_pass.getText().toString();
-        if (name.isEmpty() || email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6) {
+        if (name.isEmpty() || email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6||address.isEmpty()||coomericial.isEmpty()) {
             if (name.isEmpty()) {
                 edt_name.setError("");
             }
@@ -104,6 +104,12 @@ public class Fragment_Edit_Profile extends Fragment {
             if (pass.isEmpty() || pass.length() < 6) {
                 edt_pass.setError("");
             }
+            if(address.isEmpty()){
+                edt_address.setError("");
+            }
+            if(coomericial.isEmpty()){
+                edt_commercial.setError("");
+            }
         } else {
             updateprofile(name, email, phone, phonecode, address, coomericial, pass);
         }
@@ -113,7 +119,7 @@ public class Fragment_Edit_Profile extends Fragment {
         final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService().updateprofile(userModel.getUser_id(), email, name, phone, phonecode.replace("+", "00"), address, coomericial, pass).enqueue(new Callback<UserModel>() {
+        Api.getService().updateprofile(userModel.getUser_id(), email, name, phone, phonecode.replace("+", "00"), address+"", Double.parseDouble(coomericial), pass).enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 dialog.dismiss();
@@ -122,6 +128,7 @@ public class Fragment_Edit_Profile extends Fragment {
                     preferences.create_update_userdata(homeActivity, response.body());
                     Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.suc));
                     edt_pass.setText("");
+                    updateprofile();
                 } else {
 
                     try {
@@ -142,6 +149,7 @@ public class Fragment_Edit_Profile extends Fragment {
     }
 
     private void updateprofile() {
+        userModel=preferences.getUserData(homeActivity);
         if (userModel != null) {
             if (userModel.getUser_image() != null && !userModel.getUser_image().equals("0")) {
                 Picasso.with(homeActivity).load(Tags.IMAGE_URL + userModel.getUser_image()).fit().into(imageprofile);
@@ -161,6 +169,15 @@ public class Fragment_Edit_Profile extends Fragment {
             if (userModel.getUser_phone() != null) {
                 edt_phone.setText(userModel.getUser_phone());
                 countryCodePicker.setCountryForPhoneCode(Integer.parseInt(userModel.getUser_phone_code()));
+            }
+            if(userModel.getUser_email()!=null){
+                edt_email.setText(userModel.getUser_email());
+            }
+            if(userModel.getUser_address()!=null){
+                edt_address.setText(userModel.getUser_address());
+            }
+            if(userModel.getCommercial_register()!=null){
+                userModel.getCommercial_register();
             }
             // edt_pass.setText(userModel.get);
 
