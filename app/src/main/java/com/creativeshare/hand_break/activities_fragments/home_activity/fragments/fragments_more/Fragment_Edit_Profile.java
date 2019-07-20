@@ -91,11 +91,11 @@ public class Fragment_Edit_Profile extends Fragment {
         String address = edt_address.getText().toString();
         String coomericial = edt_commercial.getText().toString();
         String pass = edt_pass.getText().toString();
-        if (name.isEmpty() || email.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6) {
+        if (name.isEmpty() || email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6) {
             if (name.isEmpty()) {
                 edt_name.setError("");
             }
-            if (email.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 edt_email.setError("");
             }
             if (phone.isEmpty() || !countryCodePicker.isValidFullNumber()) {
