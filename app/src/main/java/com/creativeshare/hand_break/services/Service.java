@@ -49,8 +49,7 @@ public interface Service {
             @Field("user_phone_code") String user_phone_code,
             @Field("user_address") String user_address,
             @Field("commercial_register") String commercial_register,
-            @Field("user_pass") String user_pass,
-            @Field("user_city") String user_city
+            @Field("user_pass") String user_pass
 
     );
 
