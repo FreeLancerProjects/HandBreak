@@ -1,0 +1,80 @@
+package com.creativeshare.hand_break.adapters;
+
+import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+
+import com.creativeshare.hand_break.R;
+import com.creativeshare.hand_break.activities_fragments.ads_activity.fragments.Fragment_Ads_Detials;
+import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.models.UserModel;
+import com.github.siyamed.shapeimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyHolder> {
+
+    private List<Uri> advertisement_images;
+    private Context context;
+    private Fragment_Ads_Detials fragment_ads_detials;
+
+    public GalleryAdapter(List<Uri> advertisement_images, Context context, Fragment_Ads_Detials fragment_ads_detials) {
+        this.advertisement_images = advertisement_images;
+        this.context = context;
+        this.fragment_ads_detials = fragment_ads_detials;
+    }
+
+    @NonNull
+    @Override
+    public GalleryAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_gv_item, parent, false);
+        return new GalleryAdapter.MyHolder(view);
+
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final GalleryAdapter.MyHolder holder, int position) {
+
+        Uri uri = advertisement_images.get(position);
+        Log.e("ssssss",uri.toString());
+        Picasso.with(context).load(uri).fit().into(holder.ivGallery);
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment_ads_detials.Delete(holder.getLayoutPosition());
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return advertisement_images.size();
+    }
+
+    public class MyHolder extends RecyclerView.ViewHolder {
+
+        private RoundedImageView ivGallery;
+        private ImageView delete;
+
+
+        public MyHolder(View itemView) {
+            super(itemView);
+            ivGallery = itemView.findViewById(R.id.ivGallery);
+            delete = itemView.findViewById(R.id.delete_img1);
+        }
+
+
+    }
+
+
+}

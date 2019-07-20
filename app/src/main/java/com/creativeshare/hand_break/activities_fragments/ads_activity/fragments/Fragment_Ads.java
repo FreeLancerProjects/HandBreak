@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
 import com.creativeshare.hand_break.adapters.ViewPagerAdapter;
+import com.creativeshare.hand_break.models.Adversiment_Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class Fragment_Ads extends Fragment {
     private ViewPager viewPager;
     private ViewPagerAdapter pageAdapter;
     private ImageView back_arrow;
+    private Adversiment_Model adversiment_model;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,9 +81,10 @@ public class Fragment_Ads extends Fragment {
         }
 
     }
-    public void gotonext() {
+    public void gotonext(Adversiment_Model adversiment_model) {
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-
+        this.adversiment_model=adversiment_model;
+fragment_ads_adder_info.setmodel(adversiment_model);
     }
     public static Fragment_Ads newInstance() {
         return new Fragment_Ads();

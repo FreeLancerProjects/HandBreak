@@ -20,7 +20,7 @@
         />
     <TextView
         android:id="@+id/tv_time"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_adversiment"
         android:textColor="@color/gray4"
@@ -30,6 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/r_im_search"
         android:gravity="center_vertical"
+        app:layout_constraintHorizontal_bias="0"
         />
     <LinearLayout
         android:layout_width="wrap_content"

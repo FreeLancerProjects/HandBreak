@@ -17,6 +17,7 @@
         >
 
         <EditText
+            android:id="@+id/edt_title"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
@@ -31,23 +32,48 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray4" />
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:weightSum="1"
             android:background="@color/white"
-            android:hint="@string/user_phone"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray4"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp"
-            android:inputType="phone"
-            />
+            android:padding="4dp"
+            >
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:ccpDialog_textColor="@color/black"
+                app:ccp_showFullName="false"
+                app:ccp_showNameCode="false"
+                app:ccp_showFlag="false"
+                android:layout_weight=".1"
+                app:ccpDialog_backgroundColor="@color/white"
+                android:background="@color/white"
+                ></com.hbb20.CountryCodePicker>
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".9"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:inputType="phone"
+                android:hint="@string/user_phone"
+                />
+
+        </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray4" />
         <EditText
+            android:id="@+id/edt_price"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
@@ -63,6 +89,7 @@
             android:layout_height="1px"
             android:background="@color/gray4" />
         <EditText
+            android:id="@+id/edt_desc"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:background="@color/white"

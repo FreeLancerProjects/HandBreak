@@ -19,6 +19,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
 import com.creativeshare.hand_break.adapters.ViewPagerAdapter;
 import com.creativeshare.hand_break.language.Language_Helper;
+import com.creativeshare.hand_break.models.Adversiment_Model;
 import com.creativeshare.hand_break.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -91,9 +92,9 @@ public class AdsActivity extends AppCompatActivity {
     }
 
 
-    public void gotonext() {
+    public void gotonext(Adversiment_Model adversiment_model) {
 if(fragment_ads!=null&&fragment_ads.isAdded()){
-    fragment_ads.gotonext();
+    fragment_ads.gotonext(adversiment_model);
 }
     }
     public void onBackPressed() {

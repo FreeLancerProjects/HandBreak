@@ -19,7 +19,10 @@ import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.adapters.CatogriesAdapter;
 import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.models.UserModel;
+import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
+import com.creativeshare.hand_break.share.Common;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
@@ -40,7 +43,8 @@ public class Fragment_Home extends Fragment {
     private RecyclerView rec_catogry;
     private CatogriesAdapter catogriesAdapter;
     private List<Catogry_Model.Categories> categories;
-
+private Preferences preferences;
+private UserModel userModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class Fragment_Home extends Fragment {
     private void initView(View view) {
         categories = new ArrayList<>();
         homeActivity = (HomeActivity) getActivity();
+        preferences=Preferences.getInstance();
+        userModel=preferences.getUserData(homeActivity);
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         ah_bottom_nav = view.findViewById(R.id.ah_bottom_nav);
@@ -66,7 +72,12 @@ public class Fragment_Home extends Fragment {
         fab_add_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeActivity.getoAds();
+                if(userModel!=null){
+                    homeActivity.getoAds();
+                }
+                else {
+                    Common.CreateUserNotSignInAlertDialog(homeActivity);
+                }
             }
         });
         setUpBottomNavigation();

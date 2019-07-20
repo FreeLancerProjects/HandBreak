@@ -4,8 +4,7 @@
     <string name="app_name">هاند بريك</string>
     <string name="map_api_key">AIzaSyCbc2Y5AIwZ8uUeHRUXiozGN3CnpjKT0oI</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hand_break">Hand Break</string>
+    <string name="hand_break">هاند بريك</string>
     <string name="home">الرئيسية</string>
     <string name="notifications">الاشعارات</string>
     <string name="search">بحث</string>
@@ -61,7 +60,10 @@
     <string name="location">المنطقه / </string>
     <string name="commercial_register">السجل التجارى /</string>
     <string name="address">العنوان / </string>
-    <string name="failed">Failed</string>
-    <string name="my_advertisment">My advertisment</string>
+    <string name="failed">فشل</string>
+    <string name="my_advertisment">اعلاناتى</string>
+    <string name="upload">رفع</string>
+    <string name="perm_image_denied">لم يتمكن التطبيق للوصل الى الصور</string>
+    <string name="complete_all">اكمل الكل</string>
 
 </resources>

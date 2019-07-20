@@ -121,8 +121,7 @@ public class Fragment_My_adversiment extends Fragment {
                         if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
                             advertsings.clear();
                             advertsings.addAll(response.body().getAdvertsing());
-                            categories.clear();
-                            categories.addAll(response.body().getCategories());
+                           adversiment_adapter.notifyDataSetChanged();
                             if (advertsings.size() > 0) {
                                 ll_no_order.setVisibility(View.GONE);
                                 adversiment_adapter.notifyDataSetChanged();

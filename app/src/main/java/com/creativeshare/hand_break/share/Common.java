@@ -79,7 +79,7 @@ public class Common {
         dialog.show();
     }
 
-    /*public static MultipartBody.Part getListMultiPartBody(Uri uri, Context context, String image_cv)
+    public static MultipartBody.Part getListMultiPartBody(Uri uri, Context context, String image_cv)
     {
         String path = getImagePath(context,uri);
         File file = getFileFromImagePath(path);
@@ -87,7 +87,7 @@ public class Common {
         MultipartBody.Part part = MultipartBody.Part.createFormData(image_cv,file.getName(),requestBody);
         return part;
     }
-    public static Snackbar CreateSnackBar(Context context, View view_id, String msg)
+  /*  public static Snackbar CreateSnackBar(Context context, View view_id, String msg)
     {
         final Snackbar snackbar = Snackbar.make(view_id,"",Snackbar.LENGTH_INDEFINITE);
 
