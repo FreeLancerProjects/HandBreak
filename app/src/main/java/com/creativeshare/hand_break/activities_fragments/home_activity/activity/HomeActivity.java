@@ -245,6 +245,7 @@ private Fragment_My_adversiment fragment_my_adversiment;
         }
         if(fragment_search.isAdded()){
             fragmentManager.beginTransaction().show(fragment_search).commit();
+            fragment_search.changevisible();
         }
         else {
             fragmentManager.beginTransaction().add(R.id.fragment_home_container, fragment_search, "fragment_search").addToBackStack("fragment_search").commit();

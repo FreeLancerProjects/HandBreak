@@ -153,6 +153,17 @@ public class Fragment_Main extends Fragment {
 
             }
         });
+        cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                getadversment();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         im_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -234,8 +245,15 @@ public class Fragment_Main extends Fragment {
     public void getadversment() {
         progBar.setVisibility(View.VISIBLE);
         ll_no_order.setVisibility(View.GONE);
+        String city_id;
+        if(cities.getSelectedItemPosition()==0){
+            city_id="";
+        }
+        else {
+            city_id=cities_models.get(cities.getSelectedItemPosition()).getId_city();
+        }
         Api.getService()
-                .getadversment(1, user_id + "", maincatogryfk + "", subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk() + "", cities_models.get(cities.getSelectedItemPosition()).getId_city() + "")
+                .getadversment(1, user_id + "", maincatogryfk + "", subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk() + "", city_id+ "")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -278,10 +296,16 @@ public class Fragment_Main extends Fragment {
     }
 
     private void loadMore(int page) {
-
+        String city_id;
+        if(cities.getSelectedItemPosition()==0){
+            city_id="";
+        }
+        else {
+            city_id=cities_models.get(cities.getSelectedItemPosition()).getId_city();
+        }
 
         Api.getService()
-                .getadversment(1, user_id, maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk(), cities_models.get(cities.getSelectedItemPosition()).getId_city() + "")
+                .getadversment(1, user_id, maincatogryfk, subs.get(sub_cat.getSelectedItemPosition()).getSub_category_fk(), city_id+ "")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {

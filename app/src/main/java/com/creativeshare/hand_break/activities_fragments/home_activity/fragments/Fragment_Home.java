@@ -145,6 +145,7 @@ private UserModel userModel;
                 if (response.isSuccessful()) {
 
                     if (response.body().getCategories() != null && response.body().getCategories().size() > 0) {
+                        categories.clear();
                         categories.addAll(response.body().getCategories());
                         catogriesAdapter.notifyDataSetChanged();
                         setsub();
