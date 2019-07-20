@@ -150,7 +150,7 @@ public class Fragment_Edit_Profile extends Fragment {
                 edt_name.setText(userModel.getUser_name());
             }
             if (userModel.getUser_city() != null) {
-                edt_location.setText(userModel.getUser_city());
+//                edt_location.setText(userModel.getUser_city());
             }
             if (userModel.getUser_address() != null) {
                 edt_address.setText(userModel.getUser_address());
