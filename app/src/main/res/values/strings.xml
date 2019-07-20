@@ -57,7 +57,7 @@
     <string name="address">Address \ </string>
     <string name="failed">Failed</string>
     <string name="my_advertisment">My advertisment</string>
-    <string name="upload">upload</string>
+    <string name="upload">upload Images</string>
     <string name="perm_image_denied">perm image deniad</string>
     <string name="complete_all">complete all</string>
 </resources>

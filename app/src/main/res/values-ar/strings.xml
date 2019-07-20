@@ -62,7 +62,7 @@
     <string name="address">العنوان / </string>
     <string name="failed">فشل</string>
     <string name="my_advertisment">اعلاناتى</string>
-    <string name="upload">رفع</string>
+    <string name="upload">رفع صور</string>
     <string name="perm_image_denied">لم يتمكن التطبيق للوصل الى الصور</string>
     <string name="complete_all">اكمل الكل</string>
 
