@@ -1,9 +1,11 @@
 package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more;
 
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,9 +32,10 @@ public class Fragment_Edit_Profile extends Fragment {
     private String cuurent_language;
     private CircleImageView imageprofile;
     private CountryCodePicker countryCodePicker;
-    private EditText edt_name, edt_email, edt_phone, edt_location, edt_address, edt_commercial;
+    private EditText edt_name, edt_email, edt_phone, edt_location, edt_address, edt_commercial,edt_pass;
     private Preferences preferences;
     private UserModel userModel;
+    private Button bt_save;
 
     @Nullable
     @Override
@@ -52,24 +55,67 @@ public class Fragment_Edit_Profile extends Fragment {
         edt_name = view.findViewById(R.id.edt_name);
         edt_email = view.findViewById(R.id.edt_email);
         edt_phone = view.findViewById(R.id.edt_phone);
-        edt_location = view.findViewById(R.id.edt_loc);
+       // edt_location = view.findViewById(R.id.edt_loc);
         edt_address = view.findViewById(R.id.edt_address);
         edt_commercial = view.findViewById(R.id.edt_commercial);
         countryCodePicker = view.findViewById(R.id.ccp);
+        countryCodePicker.registerCarrierNumberEditText(edt_phone);
+        edt_pass=view.findViewById(R.id.edt_password);
+        bt_save = view.findViewById(R.id.bt_save);
         updateprofile();
+        bt_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkdata();
+            }
+        });
+
+
+    }
+
+    private void checkdata() {
+        String name = edt_name.getText().toString();
+        String email=edt_email.getText().toString();
+        String phone=edt_phone.getText().toString();
+        String phonecode=countryCodePicker.getSelectedCountryCode();
+        //String city = edt_location.getText().toString();
+        String address = edt_address.getText().toString();
+        String coomericial = edt_commercial.getText().toString();
+        String pass=edt_pass.getText().toString();
+        if(name.isEmpty()||email.isEmpty()|| Patterns.EMAIL_ADDRESS.matcher(email).matches() ||phone.isEmpty()||!countryCodePicker.isValidFullNumber()||pass.isEmpty()||pass.length()<6){
+if(name.isEmpty()){
+    edt_name.setError("");
+}
+if(email.isEmpty()||Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
+    edt_email.setError("");
+}
+if(phone.isEmpty()||!countryCodePicker.isValidFullNumber()){
+    edt_phone.setError("");
+}
+if(pass.isEmpty()||pass.length()<6){
+    edt_pass.setError("");
+}
+        }
+        else {
+            updateprofile(name,email,phone,phonecode,address,coomericial,pass);
+        }
+    }
+
+    private void updateprofile(String name, String email, String phone, String phonecode, String address, String coomericial, String pass) {
+
 
     }
 
     private void updateprofile() {
         if (userModel != null) {
-            if (userModel.getUser_image() != null&&!userModel.getUser_image().equals("0")) {
+            if (userModel.getUser_image() != null && !userModel.getUser_image().equals("0")) {
                 Picasso.with(homeActivity).load(Tags.IMAGE_URL + userModel.getUser_image()).fit().into(imageprofile);
             }
             if (userModel.getUser_name() != null) {
-                 edt_name.setText(userModel.getUser_name());
+                edt_name.setText(userModel.getUser_name());
             }
             if (userModel.getUser_city() != null) {
-                  edt_location.setText(userModel.getUser_city());
+                edt_location.setText(userModel.getUser_city());
             }
             if (userModel.getUser_address() != null) {
                 edt_address.setText(userModel.getUser_address());
@@ -81,9 +127,7 @@ public class Fragment_Edit_Profile extends Fragment {
                 edt_phone.setText(userModel.getUser_phone());
                 countryCodePicker.setCountryForPhoneCode(Integer.parseInt(userModel.getUser_phone_code()));
             }
-            if (userModel.getUser_email() != null) {
-                edt_email.setText(userModel.getUser_email());
-            }
+           // edt_pass.setText(userModel.get);
 
         }
     }
