@@ -55,7 +55,7 @@
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow" />
             </LinearLayout>
 
             <View
@@ -96,7 +96,7 @@ android:id="@+id/arrow2"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow" />
             </LinearLayout>
 
             <View
@@ -139,7 +139,7 @@ android:id="@+id/arrow2"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow"                    />
             </LinearLayout>
 
             <View
@@ -176,12 +176,12 @@ android:id="@+id/arrow2"
                 <ImageView
                     android:id="@+id/arrow4"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_height="66dp"
                     android:layout_gravity="center_vertical"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow" />
             </LinearLayout>
 
             <View
@@ -223,7 +223,7 @@ android:id="@+id/arrow2"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow"                    />
             </LinearLayout>
 
             <View
@@ -267,7 +267,7 @@ android:id="@+id/arrow2"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow"                    />
             </LinearLayout>
 
             <View
@@ -311,7 +311,8 @@ android:id="@+id/arrow2"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow"
+                    />
             </LinearLayout>
 
             <View
@@ -353,7 +354,7 @@ android:id="@+id/arrow2"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow"                    />
             </LinearLayout>
 
             <View
@@ -395,7 +396,7 @@ android:id="@+id/arrow2"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow"                    />
             </LinearLayout>
 
             <View
@@ -437,7 +438,7 @@ android:id="@+id/arrow2"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow"                    />
             </LinearLayout>
 
             <View
@@ -478,7 +479,7 @@ android:id="@+id/arrow2"
                     android:clickable="false"
                     android:longClickable="false"
                     android:padding="15dp"
-                    app:srcCompat="@drawable/ic_right_arrow" />
+                    android:src="@drawable/ic_right_arrow"                    />
             </LinearLayout>
 
             <View

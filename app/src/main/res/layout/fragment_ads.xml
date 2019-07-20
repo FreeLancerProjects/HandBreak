@@ -34,7 +34,7 @@
                 android:clickable="false"
                 android:longClickable="false"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_right_arrow"
+                android:src="@drawable/ic_right_arrow"
                 android:tint="@color/white"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
