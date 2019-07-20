@@ -66,6 +66,6 @@
     <string name="perm_image_denied">لم يتمكن التطبيق للوصل الى الصور</string>
     <string name="complete_all">اكمل الكل</string>
     <string name="used">مستخدم</string>
-    <string name="new">جديد</string>
+    <string name="news">جديد</string>
 
 </resources>
