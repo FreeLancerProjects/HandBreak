@@ -14,6 +14,7 @@ import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.A
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_About;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Adversiment_Detials;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Edit_Profile;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_My_adversiment;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Profile;
@@ -56,6 +57,7 @@ private Fragment_About fragment_about;
 private Fragment_Profile fragment_profile;
 private Fragment_Edit_Profile fragment_edit_profile;
 private Fragment_My_adversiment fragment_my_adversiment;
+private Fragment_Adversiment_Detials fragment_adversiment_detials;
     private String cuurent_language;
     private Preferences preferences;
     private UserModel userModel;
@@ -132,7 +134,7 @@ private Fragment_My_adversiment fragment_my_adversiment;
         }
         if(fragment_home!=null&&fragment_home.isAdded()){
             fragment_home.updateBottomNavigationPosition(0);
-            fragment_home.setsub();
+          //fragment_home.setsub();
         }
 
     }
@@ -181,6 +183,18 @@ private Fragment_My_adversiment fragment_my_adversiment;
 
         }
 
+    }
+    public void DisplayFragmentAdversimentDetials(String main_category_fk) {
+        fragment_count += 1;
+        fragment_adversiment_detials = Fragment_Adversiment_Detials.newInstance(main_category_fk);
+
+
+        if (fragment_adversiment_detials.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_adversiment_detials).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_adversiment_detials, "fragment_adversiment_detials").addToBackStack("fragment_adversiment_detials").commit();
+
+        }
     }
     public void DisplayFragmentProfile() {
         fragment_count += 1;
@@ -402,5 +416,6 @@ preferences.create_update_session(HomeActivity.this, Tags.session_logout);
             fragment_main.addsubtosppinner (subs,main_category_fk);
         }
     }
+
 
 }

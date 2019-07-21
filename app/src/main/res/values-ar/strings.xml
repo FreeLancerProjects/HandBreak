@@ -67,6 +67,16 @@
     <string name="complete_all">اكمل الكل</string>
     <string name="used">مستخدم</string>
     <string name="news">جديد</string>
-    <string name="edit">Edit</string>
+    <string name="edit">تعديل</string>
+    <string name="city">المدينه</string>
+    <string name="add_comment">Add comment</string>
+    <string name="follow_comment">follow comment</string>
 
+    <string name="just_now">الان</string>
+    <string name="a_minute_ago">منذ دقيقة</string>
+    <string name="min">دقيقة</string>
+    <string name="an_hour_ago">منذ ساعة</string>
+    <string name="hs">ساعة</string>
+    <string name="yesterday">امس</string>
+    <string name="day">يوم</string>
 </resources>

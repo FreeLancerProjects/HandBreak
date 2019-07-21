@@ -43,7 +43,7 @@ private Meta meta;
         public static class sub  implements Serializable{
             private String sub_category_fk="";
             private String sub_category_title;
-            private List<Sub> subs;
+            private List<Sub> sub;
 
             public sub(String sub_category_title) {
                 this.sub_category_title = sub_category_title;
@@ -58,7 +58,7 @@ private Meta meta;
             }
 
             public List<Sub> getSubs() {
-                return subs;
+                return sub;
             }
 
             public static class Sub implements Serializable{

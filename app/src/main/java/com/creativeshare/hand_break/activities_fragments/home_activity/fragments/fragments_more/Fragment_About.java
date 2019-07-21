@@ -37,8 +37,8 @@ public class Fragment_About extends Fragment {
 
     public static Fragment_About newInstance() {
 
-Fragment_About fragment_terms_conditions=new Fragment_About();
-    return fragment_terms_conditions;
+Fragment_About about=new Fragment_About();
+    return about;
     }
 
     @Override

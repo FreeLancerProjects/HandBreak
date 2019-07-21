@@ -27,6 +27,8 @@
         android:layout_marginBottom="5dp"
         android:textColor="@color/black"
         android:textSize="14sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         />
     <ImageView
         android:id="@+id/im_search"
@@ -38,17 +40,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cons1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/ll"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="50dp"
+        android:paddingTop="20dp"
 
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             >
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -90,7 +93,7 @@
     app:layout_constraintTop_toBottomOf="@+id/ll"
     app:layout_constraintBottom_toBottomOf="parent"
     android:fillViewport="true"
-
+android:layout_marginTop="25dp"
 
     >
     <LinearLayout
@@ -105,99 +108,73 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="type"
-            android:textSize="13sp"
+            android:text="@string/city"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimary"
 
             />
         <Spinner
+            android:id="@+id/sp_city"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@color/white"
-            ></Spinner>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray7"
-            />
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:layout_marginTop="15dp"
-            ></Spinner>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray7"
-            />
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            android:layout_marginTop="15dp"
-            ></Spinner>
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="8dp"
+            >
+
+        </Spinner>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray7"
             />
 
-        <RadioGroup
+
+        <Spinner
+            android:id="@+id/sp_cat"
+
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal"
-            android:weightSum="2"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="8dp"
             >
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:text="@string/used"
-                android:padding="5dp"
-                android:layout_weight="1"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:text="@string/news"
-                android:padding="5dp"
-                android:layout_weight="1"
-                />
-        </RadioGroup>
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            ></Spinner>
+
+        </Spinner>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray7"
             />
         <Spinner
+            android:id="@+id/sp_sub_cat"
+
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@color/white"
-            android:layout_marginTop="15dp"
-            ></Spinner>
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="8dp"
+            >
+
+        </Spinner>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray7"
             />
         <Spinner
+            android:id="@+id/sp_model"
+
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@color/white"
-            android:layout_marginTop="15dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="8dp"
             ></Spinner>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray7"
+
             />
         <Button
+            android:id="@+id/bt_search"
             android:layout_width="180dp"
             android:layout_height="45dp"
             android:text="@string/search"

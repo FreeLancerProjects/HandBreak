@@ -52,19 +52,19 @@
         <activity android:name=".activities_fragments.home_activity.activity.HomeActivity"
 
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity android:name=".activities_fragments.sign_in_sign_up_activity.activity.Login_Activity"
 
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity android:name=".activities_fragments.ads_activity.activity.AdsActivity"
 
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
     </application>

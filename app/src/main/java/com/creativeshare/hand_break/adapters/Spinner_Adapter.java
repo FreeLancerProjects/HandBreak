@@ -51,7 +51,6 @@ public class Spinner_Adapter extends BaseAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.spinner_row, parent, false);
-
         }
         TextView tv_name = convertView.findViewById(R.id.tv_name);
 

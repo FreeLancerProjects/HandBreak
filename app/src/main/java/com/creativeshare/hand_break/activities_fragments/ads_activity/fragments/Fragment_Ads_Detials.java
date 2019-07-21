@@ -120,16 +120,16 @@ private Adversiment_Model adversiment_model;
         recyclerView_images.setAdapter(galleryAdapter);
 
         if (cuurent_language.equals("ar")) {
-            cities_models.add(new CityModel("إختر"));
-            subs.add(new Catogry_Model.Categories.sub("إختر"));
-            categories.add(new Catogry_Model.Categories("إختر"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("إختر"));
+            cities_models.add(new CityModel("اختر"));
+            subs.add(new Catogry_Model.Categories.sub("الكل"));
+            categories.add(new Catogry_Model.Categories("الكل"));
+            subs_sub.add(new Catogry_Model.Categories.sub.Sub("الكل"));
 
         } else {
-            cities_models.add(new CityModel("Choose"));
-            subs.add(new Catogry_Model.Categories.sub("Choose"));
-            categories.add(new Catogry_Model.Categories("Choose"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("Choose"));
+            cities_models.add(new CityModel("choose"));
+            subs.add(new Catogry_Model.Categories.sub("all"));
+            categories.add(new Catogry_Model.Categories("all"));
+            subs_sub.add(new Catogry_Model.Categories.sub.Sub("all"));
 
         }
 
@@ -176,10 +176,10 @@ private Adversiment_Model adversiment_model;
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 subs.clear();
                 if (cuurent_language.equals("ar")) {
-                    subs.add(new Catogry_Model.Categories.sub("إختر"));
+                    subs.add(new Catogry_Model.Categories.sub("الكل"));
 
                 } else {
-                    subs.add(new Catogry_Model.Categories.sub("Choose"));
+                    subs.add(new Catogry_Model.Categories.sub("all"));
 
                 }
                 if (i > 0 && categories.get(i).getsub() != null) {
@@ -199,10 +199,10 @@ private Adversiment_Model adversiment_model;
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 subs_sub.clear();
                 if (cuurent_language.equals("ar")) {
-                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("إختر"));
+                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("الكل"));
 
                 } else {
-                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("Choose"));
+                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("all"));
 
                 }
                 if (i > 0 && subs.get(i).getSubs() != null) {
@@ -263,7 +263,7 @@ private Adversiment_Model adversiment_model;
                     }
                     else {
                         Common.CreateSignAlertDialog(adsActivity, getString(R.string.complete_all));
-                        Log.e("ssss",subs_sub.size()+"'"+cat_id+" "+city_id+"  "+sub_id);
+                       // Log.e("ssss",subs_sub.size()+"'"+cat_id+" "+city_id+"  "+sub_id);
 
                     }
                 }
@@ -337,6 +337,14 @@ private Adversiment_Model adversiment_model;
                 if (response.isSuccessful()) {
 
                     if (response.body().getCategories() != null && response.body().getCategories().size() > 0) {
+                        categories.clear();
+                        if(cuurent_language.equals("ar")){
+                            categories.add(new Catogry_Model.Categories("الكل"));
+
+                        }
+                        else {
+                            categories.add(new Catogry_Model.Categories("all"));
+                        }
                         categories.addAll(response.body().getCategories());
                         spinner_catogry_adapter.notifyDataSetChanged();
                         //setsub();

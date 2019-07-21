@@ -2,6 +2,7 @@ package com.creativeshare.hand_break.adapters;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
+import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.tags.Tags;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -39,7 +41,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     private Fragment fragment;
     private String user_type;
-
+    private HomeActivity activity;
     public Adversiment_Adapter(List<Catogry_Model.Advertsing> advertsings, List<Catogry_Model.Categories> categories, Context context) {
 
         this.advertsings = advertsings;
@@ -47,6 +49,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
        // this.fragment = fragment;
         this.user_type = user_type;
         this.categories = categories;
+        activity=(HomeActivity)context;
     }
 
     @NonNull
@@ -69,7 +72,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof MyHolder) {
 
             final MyHolder myHolder = (MyHolder) holder;
-            Catogry_Model.Advertsing advertsing = advertsings.get(myHolder.getAdapterPosition());
+            final Catogry_Model.Advertsing advertsing = advertsings.get(myHolder.getAdapterPosition());
             ((MyHolder) holder).tv_city.setText(advertsing.getCity_title());
             ((MyHolder) holder).tv_title.setText(advertsing.getAdvertisement_title());
             ((MyHolder) holder).tv_user.setText(advertsing.getUser_name());
@@ -79,6 +82,12 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             String name = getname(advertsing.getMain_category_fk());
             ((MyHolder) holder).tv_name.setText(name);
             Picasso.with(context).load(Tags.IMAGE_URL+advertsing.getMain_image()).fit().into(((MyHolder) holder).image);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.DisplayFragmentAdversimentDetials(advertsings.get(holder.getLayoutPosition()).getId_advertisement());
+                }
+            });
         } else {
             LoadMoreHolder loadMoreHolder = (LoadMoreHolder) holder;
             loadMoreHolder.progBar.setIndeterminate(true);
@@ -87,6 +96,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private String getname(String main_category_fk) {
         for (int i = 0; i < categories.size(); i++) {
+            Log.e("cat",categories.size()+"");
             if (categories.get(i).getMain_category_fk().equals(main_category_fk)) {
                 return categories.get(i).getMain_category_title();
             }

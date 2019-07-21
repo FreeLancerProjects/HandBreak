@@ -62,4 +62,14 @@
     <string name="used">used</string>
     <string name="news">new</string>
     <string name="edit">Edit</string>
+    <string name="city">city</string>
+    <string name="add_comment">Add comment</string>
+    <string name="follow_comment">follow comment</string>
+    <string name="just_now">just now</string>
+    <string name="a_minute_ago">a minute ago</string>
+    <string name="min">MIN</string>
+    <string name="an_hour_ago">an hour ago</string>
+    <string name="hs">Hs</string>
+    <string name="yesterday">yesterday</string>
+    <string name="day">D</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.creativeshare.hand_break.services;
 
 
+import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.AppDataModel;
 import com.creativeshare.hand_break.models.Catogry_Model;
@@ -108,6 +109,17 @@ public interface Service {
             @Query("page") int page,
             @Query("user_id") String user_id,
             @Query("search_name") String search_name
+
+            );
+    @GET("App/searchAdvertsing")
+    Call<Catogry_Model>
+    searchadversment2(
+            @Query("page") int page,
+            @Query("user_id") String user_id,
+            @Query("main_category_fk") String main_category_fk,
+            @Query("sub_category_fk") String sub_category_fk,
+            @Query("model_id_fk") String model_id_fk
+
     );
     @GET("App/myAdvertsing")
     Call<Catogry_Model>
@@ -117,7 +129,14 @@ public interface Service {
 
 
     );
+    @GET("App/getOneAdvertsing")
+    Call<Adversiting_Model>
+    getadversmentdetials(
 
+            @Query("id_advertisement") String id_advertisement
+
+
+    );
     @Multipart
     @POST("App/addAdvertsing")
     Call<Catogry_Model.Advertsing> addads(@Part("advertisement_user") RequestBody advertisement_user,

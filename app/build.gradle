@@ -65,7 +65,7 @@ dependencies {
     implementation 'com.zcw:togglebutton-library:1.0.0'
     implementation 'com.google.android.libraries.places:places:1.1.0'
     implementation 'com.hbb20:ccp:2.2.9'
-
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
 
 
 }
