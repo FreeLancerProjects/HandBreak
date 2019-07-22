@@ -39,7 +39,7 @@
         </service>
         <activity android:name=".activities_fragments.chat_user_info_activity.ChatUserInfoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             >
 
         </activity>
@@ -52,7 +52,7 @@
         <activity
             android:name=".activities_fragments.search_activity.SearchUsersActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
 
 
         <meta-data
@@ -65,7 +65,7 @@
         <activity
             android:name=".activities_fragments.splash_activity.SplashActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -75,7 +75,7 @@
         <activity
             android:name=".activities_fragments.home_activity.activity.HomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities_fragments.sign_in_sign_up_activity.activity.Login_Activity"
             android:windowSoftInputMode="adjustPan">

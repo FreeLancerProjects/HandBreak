@@ -2,11 +2,12 @@ package com.creativeshare.hand_break.services;
 
 
 import com.creativeshare.hand_break.models.Adversiting_Model;
+import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.AppDataModel;
 import com.creativeshare.hand_break.models.Catogry_Model;
-import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.MessageDataModel;
 import com.creativeshare.hand_break.models.MessageModel;
+import com.creativeshare.hand_break.models.Notification_Model;
 import com.creativeshare.hand_break.models.RoomIdModel;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.models.UserRoomModelData;
@@ -45,7 +46,6 @@ public interface Service {
                            @Field("user_pass") String user_pass
     );
 
-
     @FormUrlEncoded
     @POST("Api/updateProfile")
     Call<UserModel> updateprofile(
@@ -61,7 +61,13 @@ public interface Service {
 
 
     );
+    @Multipart
+    @POST("Api/updateProfile")
+    Call<UserModel> udateimage(@Part("user_id") RequestBody user_id,
 
+                               @Part MultipartBody.Part advertisement_images
+
+    );
     @FormUrlEncoded
     @POST("Api/logout")
     Call<ResponseBody> Logout(@Field("user_id") String user_id
@@ -94,10 +100,6 @@ public interface Service {
     Call<Catogry_Model> getcateogries(
             @Header("device-lang") String device_lang
     );
-
-    @GET("api/all-cities")
-    Call<List<CityModel>> getCities();
-
 
     @GET("Api/cyties")
     Call<List<CityModel>> getCities(
@@ -194,7 +196,6 @@ public interface Service {
 
 
     );
-
     @GET("Chating/rooms")
     Call<UserRoomModelData> getRooms(@Query("user_id") String user_id,
                                      @Query("page") int page
@@ -249,5 +250,13 @@ public interface Service {
                                    @Field("phone_token") String user_token_id
 
     );
+    @GET("Note/me")
+    Call<Notification_Model>
+    getnotification(
 
+            @Query("user_id") String user_id,
+            @Query("page") int page
+
+
+    );
 }

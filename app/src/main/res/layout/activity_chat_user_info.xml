@@ -83,7 +83,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="5dp"
-        app:civ_fill_color="@color/white"
         android:src="@drawable/logoa"
         android:layout_marginTop="50dp"
         />

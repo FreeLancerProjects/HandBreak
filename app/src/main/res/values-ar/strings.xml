@@ -88,4 +88,5 @@
     <string name="hs">ساعة</string>
     <string name="yesterday">امس</string>
     <string name="day">يوم</string>
+    <string name="no_notification_found">لا توجد اشعارات </string>
 </resources>

@@ -39,7 +39,6 @@ import retrofit2.Response;
 public class Fragment_My_adversiment extends Fragment {
     private HomeActivity homeActivity;
     private String cuurent_language;
-    private ImageView back;
     private Preferences preferences;
     private UserModel userModel;
     private RecyclerView recView;
@@ -67,18 +66,15 @@ public class Fragment_My_adversiment extends Fragment {
         categories = new ArrayList<>();
         advertsings = new ArrayList<>();
 
-        back =  view.findViewById(R.id.arrow_back);
         progBar = view.findViewById(R.id.progBar);
         recView = view.findViewById(R.id.recView);
+
 
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         ll_no_order = view.findViewById(R.id.ll_no_order);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
-        if (cuurent_language.equals("en")) {
 
-            back.setRotation(180);
-        }
         adversiment_adapter = new My_Adversiment_Adapter(advertsings, categories, homeActivity);
         recView.setDrawingCacheEnabled(true);
         recView.setItemViewCacheSize(25);
@@ -104,6 +100,7 @@ public class Fragment_My_adversiment extends Fragment {
                 }
             }
         });
+
     }
 
     public static Fragment_My_adversiment newInstance() {
@@ -168,7 +165,7 @@ public class Fragment_My_adversiment extends Fragment {
                         if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
 
                             advertsings.addAll(response.body().getAdvertsing());
-                            categories.addAll(response.body().getCategories());
+                           // categories.addAll(response.body().getCategories());
 
                             adversiment_adapter.notifyDataSetChanged();
 

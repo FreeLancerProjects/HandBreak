@@ -18,4 +18,8 @@
     <color name="gray8">#ebeff7</color>
    <!-- <color name="green0">#vfbb42</color>-->
     <color name="green">#58b400</color>
+    <color name="gray">#6e6e6e</color>
+    <color name="black2">#222222</color>
+    <color name="blue">#2474bb</color>
+
 </resources>

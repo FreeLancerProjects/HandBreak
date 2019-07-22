@@ -13,7 +13,7 @@
         android:layout_height="45dp"
         android:gravity="center_vertical"
         android:text="@string/add_adversiment"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/black2"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/r_im_search"
@@ -44,9 +44,12 @@
 
                 <ImageView
                     android:id="@+id/im1"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="2dp"
                     android:src="@drawable/loction"
+                    android:tint="@color/blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,10 +57,9 @@
                     android:id="@+id/tv_city"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
                     android:text="@string/user_name"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
+                    android:textColor="@color/black2"
+                    android:textSize="13sp"
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/im1"
@@ -73,23 +75,28 @@
 
                 <ImageView
                     android:id="@+id/im2"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/profile"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:tint="@color/black2"
+                    android:layout_marginTop="2dp"
+                    />
 
                 <TextView
                     android:id="@+id/tv_user"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/user_name"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
+                    android:textColor="@color/black2"
+                    android:textSize="13sp"
                     app:layout_constraintStart_toEndOf="@+id/im2"
 
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="RtlCompat" />
+                    tools:ignore="RtlCompat"
+                    android:paddingEnd="8dp"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,11 +116,14 @@
 
                 <ImageView
                     android:id="@+id/im3"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/cars"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:tint="@color/black2"
+                    android:layout_marginTop="4dp"
+                    />
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -122,12 +132,11 @@
                     android:gravity="center_vertical"
                     android:paddingStart="5dp"
                     android:text="@string/user_name"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/black2"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@+id/im3"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="RtlCompat"
-                    android:layout_marginTop="4dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -139,11 +148,14 @@
 
                 <ImageView
                     android:id="@+id/im4"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/clock"
+                    android:tint="@color/black2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="2dp"
+                    />
 
                 <TextView
                     android:id="@+id/tv_time"
@@ -151,14 +163,13 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/user_name"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="10sp"
+                    android:textColor="@color/black2"
+                    android:textSize="13sp"
                     app:layout_constraintStart_toEndOf="@+id/im4"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     tools:ignore="RtlCompat"
-                    android:layout_marginTop="5dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

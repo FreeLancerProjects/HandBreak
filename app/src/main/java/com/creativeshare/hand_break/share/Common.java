@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -27,6 +28,8 @@ import androidx.core.content.ContextCompat;
 
 
 import com.creativeshare.hand_break.R;
+import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
+import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 
 import java.io.File;
 
@@ -129,7 +132,11 @@ public class Common {
             public void onClick(View v) {
 
                 dialog.dismiss();
-
+                if (context instanceof HomeActivity)
+                {
+                    HomeActivity activity = (HomeActivity) context;
+                    activity.NavigateToSignInActivity(true);
+                }
 
             }
         });
@@ -138,6 +145,12 @@ public class Common {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                if (context instanceof HomeActivity)
+                {
+                    HomeActivity activity = (HomeActivity) context;
+                    activity.NavigateToSignInActivity(false);
+
+                }
 
             }
         });

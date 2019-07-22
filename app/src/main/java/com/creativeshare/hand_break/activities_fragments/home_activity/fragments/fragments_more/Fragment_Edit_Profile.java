@@ -1,10 +1,17 @@
 package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -44,6 +51,8 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,7 +60,7 @@ import retrofit2.Response;
 public class Fragment_Edit_Profile extends Fragment {
     private HomeActivity homeActivity;
     private String cuurent_language;
-    private CircleImageView imageprofile;
+    // private CircleImageView imageprofile;
     private CountryCodePicker countryCodePicker;
     private EditText edt_name, edt_email, edt_phone, edt_location, edt_address, edt_commercial, edt_pass;
     private Spinner cities;
@@ -62,12 +71,17 @@ public class Fragment_Edit_Profile extends Fragment {
     private List<CityModel> cities_models;
     private Button bt_save;
     private CircleImageView image;
+    private final int IMG1 = 1, IMG2 = 2;
+    private Uri uri = null;
+    private ImageView back;
+    private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         initView(view);
+        getCities();
         return view;
     }
 
@@ -79,11 +93,13 @@ public class Fragment_Edit_Profile extends Fragment {
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         cities = view.findViewById(R.id.sp_city);
-        imageprofile = view.findViewById(R.id.image);
+        //   imageprofile = view.findViewById(R.id.image);
         edt_name = view.findViewById(R.id.edt_name);
         edt_email = view.findViewById(R.id.edt_email);
         edt_phone = view.findViewById(R.id.edt_phone);
         image = view.findViewById(R.id.image);
+        back = view.findViewById(R.id.arrow_back);
+
         // edt_location = view.findViewById(R.id.edt_loc);
         edt_address = view.findViewById(R.id.edt_address);
         edt_commercial = view.findViewById(R.id.edt_commercial);
@@ -91,6 +107,10 @@ public class Fragment_Edit_Profile extends Fragment {
         countryCodePicker.registerCarrierNumberEditText(edt_phone);
         edt_pass = view.findViewById(R.id.edt_password);
         bt_save = view.findViewById(R.id.bt_save);
+        if (cuurent_language.equals("ar")) {
+
+            back.setRotation(180);
+        }
         if (cuurent_language.equals("ar")) {
             cities_models.add(new CityModel("إختر"));
             //   subs.add(new Catogry_Model.Categories.sub("الكل"));
@@ -128,18 +148,25 @@ public class Fragment_Edit_Profile extends Fragment {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Check_ReadPermission(1);
+                Check_ReadPermission(IMG1);
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeActivity.Back();
             }
         });
 
     }
-   /* private void Check_ReadPermission(int img_req) {
+
+    private void Check_ReadPermission(int img_req) {
         if (ContextCompat.checkSelfPermission(homeActivity, read_permission) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{read_permission}, img_req);
+            ActivityCompat.requestPermissions(homeActivity, new String[]{read_permission}, img_req);
         } else {
             select_photo(img_req);
         }
-    }*/
+    }
 
     private void select_photo(int img1) {
         Intent intent;
@@ -161,6 +188,92 @@ public class Fragment_Edit_Profile extends Fragment {
         intent.setType("image/*");
         startActivityForResult(intent, img1);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMG1 && resultCode == Activity.RESULT_OK && data != null) {
+            uri = data.getData();
+
+            UpdateImage(uri);
+        }
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == IMG1) {
+            if (grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    select_photo(IMG1);
+                } else {
+                    Toast.makeText(homeActivity, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else if (requestCode == IMG2) {
+            if (grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    select_photo(IMG2);
+                } else {
+                    Toast.makeText(homeActivity, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+    private void UpdateImage(Uri uri) {
+
+        final Dialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
+        dialog.show();
+
+        RequestBody token_part = Common.getRequestBodyText(userModel.getUser_id());
+
+
+        try {
+            MultipartBody.Part avatar_part = Common.getMultiPart(homeActivity, uri, "user_image");
+            Api.getService()
+                    .udateimage(token_part, avatar_part)
+                    .enqueue(new Callback<UserModel>() {
+                        @Override
+                        public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+
+                            dialog.dismiss();
+
+                            if (response.isSuccessful()) {
+
+                                if (response.body() != null) {
+                                    Toast.makeText(homeActivity, getString(R.string.suc), Toast.LENGTH_SHORT).show();
+                                    userModel = response.body();
+                                    preferences.create_update_userdata(homeActivity,userModel);
+                                    updateprofile();
+
+                                }
+
+                            } else {
+                                Common.CreateSignAlertDialog(homeActivity, getString(R.string.something));
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure (Call < UserModel > call, Throwable t){
+                            try {
+                                dialog.dismiss();
+                                Log.e("Error", t.getMessage());
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+        } catch(
+                Exception e)
+
+        {
+            Toast.makeText(homeActivity, R.string.failed, Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
     private void checkdata() {
         String name = edt_name.getText().toString();
         String email = edt_email.getText().toString();
@@ -234,7 +347,7 @@ public class Fragment_Edit_Profile extends Fragment {
         userModel = preferences.getUserData(homeActivity);
         if (userModel != null) {
             if (userModel.getUser_image() != null && !userModel.getUser_image().equals("0")) {
-                Picasso.with(homeActivity).load(Tags.IMAGE_URL + userModel.getUser_image()).fit().into(imageprofile);
+                Picasso.with(homeActivity).load(Tags.IMAGE_URL + userModel.getUser_image()).fit().into(image);
             }
             if (userModel.getUser_name() != null) {
                 edt_name.setText(userModel.getUser_name());

@@ -232,9 +232,9 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    public void DisplayFragmentAdversimentDetials(String main_category_fk) {
+    public void DisplayFragmentAdversimentDetials(String id_adversiment) {
         fragment_count += 1;
-        fragment_adversiment_detials = Fragment_Adversiment_Detials.newInstance(main_category_fk);
+        fragment_adversiment_detials = Fragment_Adversiment_Detials.newInstance(id_adversiment);
 
 
         if (fragment_adversiment_detials.isAdded()) {
@@ -369,8 +369,7 @@ public class HomeActivity extends AppCompatActivity {
             if (fragment_home != null && fragment_home.isVisible()) {
                 if (fragment_main != null && fragment_main.isVisible()) {
                     if (userModel == null) {
-                        finish();
-                    } else {
+Common.CreateUserNotSignInAlertDialog(this);                    } else {
                         finish();
                     }
                 } else {
@@ -382,7 +381,14 @@ public class HomeActivity extends AppCompatActivity {
         }
 
     }
+    public void NavigateToSignInActivity(boolean isSignIn) {
 
+        Intent intent = new Intent(this, Login_Activity.class);
+        intent.putExtra("sign_up",isSignIn);
+        startActivity(intent);
+        finish();
+
+    }
     public void Logout() {
         final ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.show();

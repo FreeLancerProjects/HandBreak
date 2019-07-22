@@ -31,7 +31,7 @@ public class Fragment_Profile extends Fragment {
     private ImageView  arrow1, arrow2, arrow3, arrow4, arrow5,im_edit;
     private Preferences preferences;
     private UserModel userModel;
-
+private ImageView back;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,6 +59,11 @@ public class Fragment_Profile extends Fragment {
         arrow4 = view.findViewById(R.id.arrow4);
         arrow5 = view.findViewById(R.id.arrow5);
         im_edit=view.findViewById(R.id.im_edit);
+        back=view.findViewById(R.id.arrow_back);
+        if (cuurent_language.equals("ar")) {
+
+            back.setRotation(180);
+        }
         if(cuurent_language.equals("en"))
         {
             arrow1.setRotation(180.0f);
@@ -67,6 +72,12 @@ public class Fragment_Profile extends Fragment {
             arrow4.setRotation(180.0f);
             arrow5.setRotation(180.0f);
         }
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeActivity.Back();
+            }
+        });
         updateprofile();
 im_edit.setOnClickListener(new View.OnClickListener() {
     @Override

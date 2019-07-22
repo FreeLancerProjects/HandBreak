@@ -89,7 +89,11 @@ private UserModel userModel;
                         homeActivity.DisplayFragmentMain();
                         break;
                     case 1:
-                        homeActivity.DisplayFragmentnotifications();
+                        if(userModel!=null){
+                        homeActivity.DisplayFragmentnotifications();}
+                        else {
+                            Common.CreateUserNotSignInAlertDialog(homeActivity);
+                        }
 
                         break;
                     case 2:
