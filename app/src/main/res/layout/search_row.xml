@@ -48,7 +48,7 @@
                     android:layout_height="15dp"
                     android:layout_marginTop="2dp"
                     android:src="@drawable/loction"
-                    android:tint="@color/blue"
+                    android:tint="@color/black2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -122,7 +122,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:tint="@color/black2"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="1dp"
                     />
 
                 <TextView
@@ -154,7 +154,7 @@
                     android:tint="@color/black2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="3dp"
                     />
 
                 <TextView
@@ -164,7 +164,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/user_name"
                     android:textColor="@color/black2"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@+id/im4"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

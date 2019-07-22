@@ -89,4 +89,5 @@
     <string name="yesterday">امس</string>
     <string name="day">يوم</string>
     <string name="no_notification_found">لا توجد اشعارات </string>
+    <string name="select_language">اختر اللغه</string>
 </resources>

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -379,6 +380,24 @@ Common.CreateUserNotSignInAlertDialog(this);                    } else {
                 DisplayFragmentHome();
             }
         }
+
+    }
+    public void RefreshActivity(String lang)
+    {
+        Paper.book().write("lang",lang);
+        Language_Helper.setNewLocale(this,lang);
+        new Handler()
+                .postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Intent intent =  getIntent();
+                        finish();
+                        startActivity(intent);
+                    }
+                },1050);
+
+
 
     }
     public void NavigateToSignInActivity(boolean isSignIn) {

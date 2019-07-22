@@ -207,7 +207,7 @@ public class Fragment_Main extends Fragment {
 
         this.subs.clear();
         if (cuurent_language.equals("ar")) {
-            this.subs.add(new Catogry_Model.Categories.sub("لكل"));
+            this.subs.add(new Catogry_Model.Categories.sub("الكل"));
 
         } else {
             this.subs.add(new Catogry_Model.Categories.sub("all"));
