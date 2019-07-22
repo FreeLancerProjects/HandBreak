@@ -75,7 +75,7 @@
         <activity
             android:name=".activities_fragments.home_activity.activity.HomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities_fragments.sign_in_sign_up_activity.activity.Login_Activity"
             android:windowSoftInputMode="stateAlwaysHidden">
