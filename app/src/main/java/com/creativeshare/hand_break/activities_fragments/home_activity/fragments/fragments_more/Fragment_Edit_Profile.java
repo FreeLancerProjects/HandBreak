@@ -107,7 +107,7 @@ public class Fragment_Edit_Profile extends Fragment {
         countryCodePicker.registerCarrierNumberEditText(edt_phone);
         edt_pass = view.findViewById(R.id.edt_password);
         bt_save = view.findViewById(R.id.bt_save);
-        if (cuurent_language.equals("ar")) {
+        if (cuurent_language.equals("en")) {
 
             back.setRotation(180);
         }

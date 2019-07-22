@@ -60,10 +60,7 @@ private ImageView back;
         arrow5 = view.findViewById(R.id.arrow5);
         im_edit=view.findViewById(R.id.im_edit);
         back=view.findViewById(R.id.arrow_back);
-        if (cuurent_language.equals("ar")) {
 
-            back.setRotation(180);
-        }
         if(cuurent_language.equals("en"))
         {
             arrow1.setRotation(180.0f);
@@ -71,6 +68,8 @@ private ImageView back;
             arrow3.setRotation(180.0f);
             arrow4.setRotation(180.0f);
             arrow5.setRotation(180.0f);
+            back.setRotation(180);
+
         }
         back.setOnClickListener(new View.OnClickListener() {
             @Override

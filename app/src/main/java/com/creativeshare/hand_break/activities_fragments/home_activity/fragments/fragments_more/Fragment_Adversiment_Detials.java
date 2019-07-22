@@ -109,7 +109,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
         same_adversiment_galleryAdapter = new Same_Adversiment_GalleryAdapter(advertisementsList, activity);
         recyclerView_images.setLayoutManager(new GridLayoutManager(activity, 3));
         recyclerView_images.setAdapter(same_adversiment_galleryAdapter);
-        if (cuurent_language.equals("ar")) {
+        if (cuurent_language.equals("en")) {
 
             back.setRotation(180);
         }
