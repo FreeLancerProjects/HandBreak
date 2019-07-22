@@ -73,7 +73,7 @@ private UserModel userModel;
             @Override
             public void onClick(View view) {
                 if(userModel!=null){
-                    homeActivity.getoAds();
+                    homeActivity.getoAds("-1");
                 }
                 else {
                     Common.CreateUserNotSignInAlertDialog(homeActivity);

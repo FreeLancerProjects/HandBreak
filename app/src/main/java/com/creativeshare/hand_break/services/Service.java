@@ -50,7 +50,9 @@ public interface Service {
             @Field("user_phone_code") String user_phone_code,
             @Field("user_address") String user_address,
             @Field("commercial_register") int commercial_register,
-            @Field("user_pass") String user_pass
+            @Field("user_pass") String user_pass,
+            @Field("user_city") String user_city
+
 
     );
 
@@ -103,6 +105,7 @@ public interface Service {
             @Query("sub_category_fk") String sub_category_fk,
             @Query("city_id") String city_id
     );
+
     @GET("App/searchAdvertsing")
     Call<Catogry_Model>
     searchadversment(
@@ -110,7 +113,8 @@ public interface Service {
             @Query("user_id") String user_id,
             @Query("search_name") String search_name
 
-            );
+    );
+
     @GET("App/searchAdvertsing")
     Call<Catogry_Model>
     searchadversment2(
@@ -121,6 +125,7 @@ public interface Service {
             @Query("model_id_fk") String model_id_fk
 
     );
+
     @GET("App/myAdvertsing")
     Call<Catogry_Model>
     getmyadversment(
@@ -129,6 +134,7 @@ public interface Service {
 
 
     );
+
     @GET("App/getOneAdvertsing")
     Call<Adversiting_Model>
     getadversmentdetials(
@@ -137,6 +143,7 @@ public interface Service {
 
 
     );
+
     @Multipart
     @POST("App/addAdvertsing")
     Call<Catogry_Model.Advertsing> addads(@Part("advertisement_user") RequestBody advertisement_user,
@@ -151,4 +158,31 @@ public interface Service {
                                           @Part List<MultipartBody.Part> advertisement_images
 
     );
+
+    @Multipart
+    @POST("App/updateAdvertsing")
+    Call<Adversiting_Model> updateads
+            (@Part("advertisement_user") RequestBody advertisement_user,
+             @Part("main_category_fk") RequestBody main_category_fk,
+             @Part("sub_category_fk") RequestBody sub_category_fk,
+             @Part("model_id_fk") RequestBody model_id_fk,
+             @Part("advertisement_title") RequestBody advertisement_title,
+             @Part("advertisement_content") RequestBody advertisement_content,
+             @Part("advertisement_price") RequestBody advertisement_price,
+             @Part("city_id") RequestBody city_id,
+             @Part("phone") RequestBody phone,
+             @Part("id_advertisement") RequestBody id_advertisement,
+             @Part List<MultipartBody.Part> advertisement_images
+
+            );
+    @FormUrlEncoded
+    @POST("App/deleteImage")
+    Call<Adversiting_Model> deleteimageads(
+            @Field("id_advertisement") String id_advertisement,
+            @Field("image_id") String image_id
+
+
+
+    );
+
 }

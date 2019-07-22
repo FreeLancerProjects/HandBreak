@@ -6,11 +6,29 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Adversiment_Model implements Serializable {
+    private static String id;
+    private static Adversiting_Model adversiting_model;
     private String city_id;
     private String cat_id;
     private String sub_id;
     private String model_id;
     private List<Uri> uris;
+
+    public static void setId(String id) {
+        Adversiment_Model.id = id;
+    }
+
+    public static String getId() {
+        return id;
+    }
+
+    public static void setAdversiting_model(Adversiting_Model adversiting_model) {
+        Adversiment_Model.adversiting_model = adversiting_model;
+    }
+
+    public static Adversiting_Model getAdversiting_model() {
+        return adversiting_model;
+    }
 
     public void setCity_id(String city_id) {
         this.city_id = city_id;

@@ -32,16 +32,29 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     >
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView_show_images"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        >
+
+                    </androidx.recyclerview.widget.RecyclerView>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
-                        android:background="@color/gray4"/>
+                        android:background="@color/gray4"
+                        android:layout_marginTop="25dp"
+                        />
+
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recView_images"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+
                         >
 
                     </androidx.recyclerview.widget.RecyclerView>

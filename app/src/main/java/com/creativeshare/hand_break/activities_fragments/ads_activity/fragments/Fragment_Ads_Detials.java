@@ -35,12 +35,14 @@ import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.adapters.GalleryAdapter;
+import com.creativeshare.hand_break.adapters.ShowGalleryAdapter;
 import com.creativeshare.hand_break.adapters.Spinner_Adapter;
 import com.creativeshare.hand_break.adapters.Spinner_Sub_Sub_catogry_Adapter;
 import com.creativeshare.hand_break.adapters.Spinner_Sub_catogry_Adapter;
 import com.creativeshare.hand_break.adapters.Spinner_catogry_Adapter;
 import com.creativeshare.hand_break.adapters.ViewPagerAdapter;
 import com.creativeshare.hand_break.models.Adversiment_Model;
+import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.remote.Api;
@@ -74,14 +76,17 @@ public class Fragment_Ads_Detials extends Fragment {
     private LinearLayout ll_cv;
     private RecyclerView recyclerView_images;
     private GalleryAdapter galleryAdapter;
+    private RecyclerView recyclerViewshow_images;
+    private ShowGalleryAdapter showgalleryAdapter;
     private List<Uri> uriList;
     private List<Catogry_Model.Categories.sub> subs;
     private List<Catogry_Model.Categories> categories;
     private List<Catogry_Model.Categories.sub.Sub> subs_sub;
     private final int IMG2 = 2;
     private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
-    private String city_id,cat_id,sub_id,model_id;
-private Adversiment_Model adversiment_model;
+    private String city_id, cat_id, sub_id, model_id;
+    private Adversiment_Model adversiment_model;
+private List<Adversiting_Model.Advertisement_images> advertisement_images;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -93,7 +98,8 @@ private Adversiment_Model adversiment_model;
     }
 
     private void initView(View view) {
-        adversiment_model=new Adversiment_Model();
+        adversiment_model = new Adversiment_Model();
+        advertisement_images=new ArrayList<>();
         adsActivity = (AdsActivity) getActivity();
         Paper.init(adsActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
@@ -102,8 +108,9 @@ private Adversiment_Model adversiment_model;
         tv_terms = view.findViewById(R.id.tv_terms);
         sp_cat = view.findViewById(R.id.sp_cat);
         ll_cv = view.findViewById(R.id.ll_cv);
-        checkBox=view.findViewById(R.id.checkbox);
+        checkBox = view.findViewById(R.id.checkbox);
         recyclerView_images = view.findViewById(R.id.recView_images);
+        recyclerViewshow_images = view.findViewById(R.id.recView_show_images);
 
         sp_sub_cat = view.findViewById(R.id.sp_sub);
         sp_model = view.findViewById(R.id.sp_model);
@@ -118,7 +125,12 @@ private Adversiment_Model adversiment_model;
         galleryAdapter = new GalleryAdapter(uriList, adsActivity, this);
         recyclerView_images.setLayoutManager(new LinearLayoutManager(adsActivity, LinearLayoutManager.HORIZONTAL, true));
         recyclerView_images.setAdapter(galleryAdapter);
-
+        recyclerViewshow_images.setDrawingCacheEnabled(true);
+        recyclerViewshow_images.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
+        recyclerViewshow_images.setItemViewCacheSize(25);
+        showgalleryAdapter = new ShowGalleryAdapter(advertisement_images, adsActivity, this);
+        recyclerViewshow_images.setLayoutManager(new LinearLayoutManager(adsActivity, LinearLayoutManager.HORIZONTAL, true));
+        recyclerViewshow_images.setAdapter(showgalleryAdapter);
         if (cuurent_language.equals("ar")) {
             cities_models.add(new CityModel("اختر"));
             subs.add(new Catogry_Model.Categories.sub("الكل"));
@@ -131,6 +143,12 @@ private Adversiment_Model adversiment_model;
             categories.add(new Catogry_Model.Categories("all"));
             subs_sub.add(new Catogry_Model.Categories.sub.Sub("all"));
 
+
+        }
+        if(!Adversiment_Model.getId().equals("-1")){
+            recyclerViewshow_images.setVisibility(View.VISIBLE);
+            getadeversmentdetials(Adversiment_Model.getId());
+            checkBox.setChecked(true);
         }
 
 
@@ -161,8 +179,8 @@ private Adversiment_Model adversiment_model;
         cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i>0){
-                    city_id=cities_models.get(i).getId_city();
+                if (i > 0) {
+                    city_id = cities_models.get(i).getId_city();
                 }
             }
 
@@ -185,7 +203,7 @@ private Adversiment_Model adversiment_model;
                 if (i > 0 && categories.get(i).getsub() != null) {
                     subs.addAll(categories.get(i).getsub());
                     spinner_sub_catogry_adapter.notifyDataSetChanged();
-                    cat_id=categories.get(i).getMain_category_fk();
+                    cat_id = categories.get(i).getMain_category_fk();
                 }
             }
 
@@ -208,11 +226,11 @@ private Adversiment_Model adversiment_model;
                 if (i > 0 && subs.get(i).getSubs() != null) {
                     subs_sub.addAll(subs.get(i).getSubs());
                     spinner_sub_sub_catogry_adapter.notifyDataSetChanged();
-                //   Log.e("sssdd",subs.get(i).getSub_category_fk());
+                    //   Log.e("sssdd",subs.get(i).getSub_category_fk());
 
                 }
-                if(i>0){
-                    sub_id=subs.get(i).getSub_category_fk();
+                if (i > 0) {
+                    sub_id = subs.get(i).getSub_category_fk();
 
                 }
             }
@@ -225,8 +243,8 @@ private Adversiment_Model adversiment_model;
         sp_model.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i > 0 ) {
-                    model_id=subs_sub.get(i).getModel_id_fk();
+                if (i > 0) {
+                    model_id = subs_sub.get(i).getModel_id_fk();
 
                 }
             }
@@ -239,41 +257,70 @@ private Adversiment_Model adversiment_model;
         ll_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkBox.isChecked()){
-                    if(city_id!=null&&cat_id!=null&&sub_id!=null&&uriList.size()>0){
+                if (checkBox.isChecked()) {
+                    if (city_id != null && cat_id != null && sub_id != null && uriList.size() > 0) {
                         adversiment_model.setCity_id(city_id);
                         adversiment_model.setCat_id(cat_id);
                         adversiment_model.setSub_id(sub_id);
                         adversiment_model.setUris(uriList);
-                        if(model_id!=null){
+                        if (model_id != null) {
                             adversiment_model.setModel_id(model_id);
                             adsActivity.gotonext(adversiment_model);
 
-                        }
-                        else if(subs_sub.size()==1){
+                        } else if (subs_sub.size() == 1) {
                             adversiment_model.setModel_id("no_model_id");
                             adsActivity.gotonext(adversiment_model);
 
 
-                        }
-                        else {
+                        } else {
                             Common.CreateSignAlertDialog(adsActivity, getString(R.string.complete_all));
 
                         }
-                    }
-                    else {
+                    } else {
                         Common.CreateSignAlertDialog(adsActivity, getString(R.string.complete_all));
-                       // Log.e("ssss",subs_sub.size()+"'"+cat_id+" "+city_id+"  "+sub_id);
+                        // Log.e("ssss",subs_sub.size()+"'"+cat_id+" "+city_id+"  "+sub_id);
 
                     }
-                }
-                else {
-                    Common.CreateSignAlertDialog(adsActivity,getString(R.string.apply_terms_and_conditions));
+                } else {
+                    Common.CreateSignAlertDialog(adsActivity, getString(R.string.apply_terms_and_conditions));
                 }
             }
         });
 
     }
+
+    private void getadeversmentdetials(String id_advertisement) {
+        final ProgressDialog dialog = Common.createProgressDialog(adsActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService().getadversmentdetials(id_advertisement).enqueue(new Callback<Adversiting_Model>() {
+            @Override
+            public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
+
+                dialog.dismiss();
+                if (response.isSuccessful() && response.body() != null) {
+                   // updateTermsContent(response.body());
+                    advertisement_images.clear();
+                    advertisement_images.addAll(response.body().getAdvertisement_images());
+                    showgalleryAdapter.notifyDataSetChanged();
+                   Adversiment_Model.setAdversiting_model(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Adversiting_Model> call, Throwable t) {
+                try {
+                    dialog.dismiss();
+                    // smoothprogressbar.setVisibility(View.GONE);
+                    Toast.makeText(adsActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
+                } catch (Exception e) {
+                }
+            }
+        });
+
+    }
+
 
     public static Fragment_Ads_Detials newInstance() {
         return new Fragment_Ads_Detials();
@@ -338,11 +385,10 @@ private Adversiment_Model adversiment_model;
 
                     if (response.body().getCategories() != null && response.body().getCategories().size() > 0) {
                         categories.clear();
-                        if(cuurent_language.equals("ar")){
+                        if (cuurent_language.equals("ar")) {
                             categories.add(new Catogry_Model.Categories("الكل"));
 
-                        }
-                        else {
+                        } else {
                             categories.add(new Catogry_Model.Categories("all"));
                         }
                         categories.addAll(response.body().getCategories());
@@ -489,5 +535,36 @@ private Adversiment_Model adversiment_model;
                 }
             }
         }
+    }
+
+
+    public void Deleteimageapi(String image_id) {
+        final ProgressDialog dialog = Common.createProgressDialog(adsActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+Api.getService().deleteimageads(Adversiment_Model.getId(),image_id).enqueue(new Callback<Adversiting_Model>() {
+    @Override
+    public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
+        dialog.dismiss();
+        if(response.isSuccessful()){
+            Log.e("msg",response.code()+"");
+
+advertisement_images.clear();
+advertisement_images.addAll(response.body().getAdvertisement_images());
+showgalleryAdapter.notifyDataSetChanged();
+        }
+        else {
+            Log.e("msg",response.code()+"");
+        }
+    }
+
+    @Override
+    public void onFailure(Call<Adversiting_Model> call, Throwable t) {
+dialog.dismiss();
+
+        Log.e("msg",t.getMessage()+"");
+
+    }
+});
     }
 }

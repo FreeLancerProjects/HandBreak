@@ -116,7 +116,7 @@ public class Fragment_Search extends Fragment {
         sp_sub_cat = view.findViewById(R.id.sp_sub_cat);
         sp_model = view.findViewById(R.id.sp_model);
         bt_search=view.findViewById(R.id.bt_search);
-        cities_models = new ArrayList<>();
+        //cities_models = new ArrayList<>();
         categories2 = new ArrayList<>();
         subs = new ArrayList<>();
         subs_sub = new ArrayList<>();

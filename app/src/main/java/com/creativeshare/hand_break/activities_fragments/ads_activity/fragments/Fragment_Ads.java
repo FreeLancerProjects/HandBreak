@@ -33,6 +33,7 @@ public class Fragment_Ads extends Fragment {
     private ViewPagerAdapter pageAdapter;
     private ImageView back_arrow;
     private Adversiment_Model adversiment_model;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,12 +48,13 @@ public class Fragment_Ads extends Fragment {
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         fragmentList = new ArrayList<>();
         viewPager = view.findViewById(R.id.pager);
-        back_arrow=view.findViewById(R.id.arrow);
+        viewPager.beginFakeDrag();
+        back_arrow = view.findViewById(R.id.arrow);
         pageAdapter = new ViewPagerAdapter(adsActivity.getSupportFragmentManager());
         intitfragmentspage();
         pageAdapter.AddFragments(fragmentList);
         viewPager.setAdapter(pageAdapter);
-        if(cuurent_language.equals("en")){
+        if (cuurent_language.equals("en")) {
             back_arrow.setRotation(180.0f);
         }
         back_arrow.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +64,8 @@ public class Fragment_Ads extends Fragment {
             }
         });
 
-         }
+    }
+
     private void intitfragmentspage() {
         fragment_ads_detials = Fragment_Ads_Detials.newInstance();
         fragment_ads_adder_info = Fragment_Ads_Adder_Info.newInstance();
@@ -71,23 +74,30 @@ public class Fragment_Ads extends Fragment {
         fragmentList.add(fragment_ads_adder_info);
 
     }
+
     public void Back() {
-        if(viewPager.getCurrentItem()>0){
+        if (viewPager.getCurrentItem() > 0) {
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
 
-        }
-        else {
+        } else {
             adsActivity.Back();
         }
 
     }
+
     public void gotonext(Adversiment_Model adversiment_model) {
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-        this.adversiment_model=adversiment_model;
-fragment_ads_adder_info.setmodel(adversiment_model);
+        this.adversiment_model = adversiment_model;
+
+        fragment_ads_adder_info.setmodel(adversiment_model);
+
+        fragment_ads_adder_info.setdata();
+
     }
+
     public static Fragment_Ads newInstance() {
         return new Fragment_Ads();
     }
+
 
 }

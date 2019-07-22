@@ -298,8 +298,10 @@ private Fragment_Adversiment_Detials fragment_adversiment_detials;
     }
 
 
-    public void getoAds() {
+    public void getoAds(String adversiment_id) {
         Intent intent=new Intent(HomeActivity.this, AdsActivity.class);
+        intent.putExtra("adversiment_id",adversiment_id);
+
         startActivity(intent);
     }
 

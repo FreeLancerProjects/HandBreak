@@ -55,7 +55,7 @@
     <string name="advertisment_address"> عنوان الاعلان</string>
     <string name="price">سعر</string>
     <string name="detials">تفاصيل</string>
-    <string name="department">قسم </string>
+    <string name="department">قسم / </string>
     <string name="user_exists">المستخدم موجود</string>
     <string name="location">المنطقه / </string>
     <string name="commercial_register">السجل التجارى /</string>
@@ -69,8 +69,8 @@
     <string name="news">جديد</string>
     <string name="edit">تعديل</string>
     <string name="city">المدينه</string>
-    <string name="add_comment">Add comment</string>
-    <string name="follow_comment">follow comment</string>
+    <string name="add_comment">اضافة تعليق</string>
+    <string name="follow_comment">تتبع التعليقات </string>
 
     <string name="just_now">الان</string>
     <string name="a_minute_ago">منذ دقيقة</string>

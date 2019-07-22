@@ -33,8 +33,10 @@ public class AdsActivity extends AppCompatActivity {
     private String cuurent_language;
     private FragmentManager fragmentManager;
     private int fragment_count=0;
+    private String adversiment_id;
     private Fragment_Ads fragment_ads;
     private Fragment_Adviersiment_Terms_Conditions fragment_adviersiment_terms_conditions;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(Language_Helper.updateResources(newBase,  Preferences.getInstance().getLanguage(newBase)));
@@ -44,6 +46,8 @@ public class AdsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ads);
+        adversiment_id=getIntent().getStringExtra("adversiment_id");
+        Adversiment_Model.setId(adversiment_id);
         initView();
         if(savedInstanceState==null){
             DisplayFragmentAds();
@@ -62,6 +66,7 @@ public class AdsActivity extends AppCompatActivity {
         fragment_count+=1;
         if (fragment_ads == null) {
             fragment_ads = Fragment_Ads.newInstance();
+
         }
 
         if (fragment_ads.isAdded()) {

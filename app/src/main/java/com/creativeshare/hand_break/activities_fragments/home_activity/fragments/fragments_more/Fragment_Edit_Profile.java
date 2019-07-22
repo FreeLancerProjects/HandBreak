@@ -1,24 +1,34 @@
 package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
+import com.creativeshare.hand_break.adapters.Spinner_Adapter;
+import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
@@ -28,6 +38,8 @@ import com.hbb20.CountryCodePicker;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,9 +54,14 @@ public class Fragment_Edit_Profile extends Fragment {
     private CircleImageView imageprofile;
     private CountryCodePicker countryCodePicker;
     private EditText edt_name, edt_email, edt_phone, edt_location, edt_address, edt_commercial, edt_pass;
+    private Spinner cities;
+    private String city_id;
     private Preferences preferences;
     private UserModel userModel;
+    private Spinner_Adapter city_adapter;
+    private List<CityModel> cities_models;
     private Button bt_save;
+    private CircleImageView image;
 
     @Nullable
     @Override
@@ -55,15 +72,18 @@ public class Fragment_Edit_Profile extends Fragment {
     }
 
     private void initView(View view) {
+        cities_models = new ArrayList<>();
         homeActivity = (HomeActivity) getActivity();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
+        cities = view.findViewById(R.id.sp_city);
         imageprofile = view.findViewById(R.id.image);
         edt_name = view.findViewById(R.id.edt_name);
         edt_email = view.findViewById(R.id.edt_email);
         edt_phone = view.findViewById(R.id.edt_phone);
+        image = view.findViewById(R.id.image);
         // edt_location = view.findViewById(R.id.edt_loc);
         edt_address = view.findViewById(R.id.edt_address);
         edt_commercial = view.findViewById(R.id.edt_commercial);
@@ -71,6 +91,33 @@ public class Fragment_Edit_Profile extends Fragment {
         countryCodePicker.registerCarrierNumberEditText(edt_phone);
         edt_pass = view.findViewById(R.id.edt_password);
         bt_save = view.findViewById(R.id.bt_save);
+        if (cuurent_language.equals("ar")) {
+            cities_models.add(new CityModel("إختر"));
+            //   subs.add(new Catogry_Model.Categories.sub("الكل"));
+
+        } else {
+            cities_models.add(new CityModel("Choose"));
+            // subs.add(new Catogry_Model.Categories.sub("all"));
+
+        }
+
+        city_adapter = new Spinner_Adapter(homeActivity, cities_models);
+        cities.setAdapter(city_adapter);
+        cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i > 0) {
+                    city_id = cities_models.get(i).getId_city();
+                } else {
+                    city_id = "all";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         updateprofile();
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,10 +125,42 @@ public class Fragment_Edit_Profile extends Fragment {
                 checkdata();
             }
         });
-
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Check_ReadPermission(1);
+            }
+        });
 
     }
+   /* private void Check_ReadPermission(int img_req) {
+        if (ContextCompat.checkSelfPermission(homeActivity, read_permission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{read_permission}, img_req);
+        } else {
+            select_photo(img_req);
+        }
+    }*/
 
+    private void select_photo(int img1) {
+        Intent intent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            if (img1 == 2) {
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            }
+        } else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            if (img1 == 2) {
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            }
+
+        }
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setType("image/*");
+        startActivityForResult(intent, img1);
+    }
     private void checkdata() {
         String name = edt_name.getText().toString();
         String email = edt_email.getText().toString();
@@ -91,7 +170,7 @@ public class Fragment_Edit_Profile extends Fragment {
         String address = edt_address.getText().toString();
         String coomericial = edt_commercial.getText().toString();
         String pass = edt_pass.getText().toString();
-        if (name.isEmpty() || email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6||address.isEmpty()||coomericial.isEmpty()) {
+        if (name.isEmpty() || email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6 || address.isEmpty() || coomericial.isEmpty() || city_id.equals("all")) {
             if (name.isEmpty()) {
                 edt_name.setError("");
             }
@@ -104,22 +183,25 @@ public class Fragment_Edit_Profile extends Fragment {
             if (pass.isEmpty() || pass.length() < 6) {
                 edt_pass.setError("");
             }
-            if(address.isEmpty()){
+            if (address.isEmpty()) {
                 edt_address.setError("");
             }
-            if(coomericial.isEmpty()){
+            if (coomericial.isEmpty()) {
                 edt_commercial.setError("");
             }
+            if (city_id.equals("all")) {
+
+            }
         } else {
-            updateprofile(name, email, phone, phonecode, address, coomericial, pass);
+            updateprofile(name, email, phone, phonecode, address, coomericial, pass, city_id);
         }
     }
 
-    private void updateprofile(String name, String email, String phone, String phonecode, final String address, String coomericial, String pass) {
+    private void updateprofile(String name, String email, String phone, String phonecode, final String address, String coomericial, String pass, String city_id) {
         final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService().updateprofile(userModel.getUser_id(), email, name, phone, phonecode.replace("+", "00"), address+"", Integer.parseInt(coomericial), pass).enqueue(new Callback<UserModel>() {
+        Api.getService().updateprofile(userModel.getUser_id(), email, name, phone, phonecode.replace("+", "00"), address + "", Integer.parseInt(coomericial), pass, city_id).enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 dialog.dismiss();
@@ -149,7 +231,7 @@ public class Fragment_Edit_Profile extends Fragment {
     }
 
     private void updateprofile() {
-        userModel=preferences.getUserData(homeActivity);
+        userModel = preferences.getUserData(homeActivity);
         if (userModel != null) {
             if (userModel.getUser_image() != null && !userModel.getUser_image().equals("0")) {
                 Picasso.with(homeActivity).load(Tags.IMAGE_URL + userModel.getUser_image()).fit().into(imageprofile);
@@ -170,13 +252,13 @@ public class Fragment_Edit_Profile extends Fragment {
                 edt_phone.setText(userModel.getUser_phone());
                 countryCodePicker.setCountryForPhoneCode(Integer.parseInt(userModel.getUser_phone_code()));
             }
-            if(userModel.getUser_email()!=null){
+            if (userModel.getUser_email() != null) {
                 edt_email.setText(userModel.getUser_email());
             }
-            if(userModel.getUser_address()!=null){
+            if (userModel.getUser_address() != null) {
                 edt_address.setText(userModel.getUser_address());
             }
-            if(userModel.getCommercial_register()!=null){
+            if (userModel.getCommercial_register() != null) {
                 userModel.getCommercial_register();
             }
             // edt_pass.setText(userModel.get);
@@ -186,6 +268,55 @@ public class Fragment_Edit_Profile extends Fragment {
 
     public static Fragment_Edit_Profile newInstance() {
         return new Fragment_Edit_Profile();
+    }
+
+    private void getCities() {
+
+        final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Api.getService()
+                .getCities(cuurent_language)
+                .enqueue(new Callback<List<CityModel>>() {
+                    @Override
+                    public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
+                        dialog.dismiss();
+
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                cities_models.clear();
+                                if (cuurent_language.equals("ar")) {
+                                    cities_models.add(new CityModel("إختر"));
+                                } else {
+                                    cities_models.add(new CityModel("Choose"));
+
+                                }
+                                cities_models.addAll(response.body());
+                                city_adapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            try {
+                                Toast.makeText(homeActivity, R.string.failed, Toast.LENGTH_SHORT).show();
+                                Log.e("Error_code", response.code() + "" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<CityModel>> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            Toast.makeText(homeActivity, R.string.something, Toast.LENGTH_SHORT).show();
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+
     }
 
 }
