@@ -39,7 +39,7 @@
         </service>
         <activity android:name=".activities_fragments.chat_user_info_activity.ChatUserInfoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             >
 
         </activity>
@@ -75,10 +75,10 @@
         <activity
             android:name=".activities_fragments.home_activity.activity.HomeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activities_fragments.sign_in_sign_up_activity.activity.Login_Activity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
         <activity
