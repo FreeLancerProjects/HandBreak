@@ -1,27 +1,30 @@
 package com.creativeshare.hand_break.activities_fragments.home_activity.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
-import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_About;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_About;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Adversiment_Detials;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Edit_Profile;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_More;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_My_adversiment;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Profile;
-import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy.Fragment_Message_Notifications;
-import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_More;
-import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Terms_Conditions;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy.Fragment_Message_Notifications;
 import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 import com.creativeshare.hand_break.language.Language_Helper;
 import com.creativeshare.hand_break.models.Catogry_Model;
@@ -30,6 +33,10 @@ import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.share.Common;
 import com.creativeshare.hand_break.tags.Tags;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -46,26 +53,29 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
-    private int fragment_count=0;
+    private int fragment_count = 0;
     private Fragment_Home fragment_home;
     private Fragment_Main fragment_main;
     private Fragment_Message_Notifications fragment_message_notifications;
     private Fragment_Search fragment_search;
     private Fragment_More fragment_more;
     private Fragment_Terms_Conditions fragmentTerms_conditions;
-private Fragment_About fragment_about;
-private Fragment_Profile fragment_profile;
-private Fragment_Edit_Profile fragment_edit_profile;
-private Fragment_My_adversiment fragment_my_adversiment;
-private Fragment_Adversiment_Detials fragment_adversiment_detials;
+    private Fragment_About fragment_about;
+    private Fragment_Profile fragment_profile;
+    private Fragment_Edit_Profile fragment_edit_profile;
+    private Fragment_My_adversiment fragment_my_adversiment;
+    private Fragment_Adversiment_Detials fragment_adversiment_detials;
     private String cuurent_language;
     private Preferences preferences;
     private UserModel userModel;
+
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(Language_Helper.updateResources(newBase, Preferences.getInstance().getLanguage(newBase)));
+        Paper.init(newBase);
+        super.attachBaseContext(Language_Helper.updateResources(newBase, Paper.book().read("lang", Locale.getDefault().getLanguage())));
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,28 +87,64 @@ private Fragment_Adversiment_Detials fragment_adversiment_detials;
             DisplayFragmentMain();
         }
 
+        if (userModel != null) {
+            updateToken();
+        }
+
     }
+
     private void initView() {
         Paper.init(this);
-        preferences= Preferences.getInstance();
-        userModel=preferences.getUserData(this);
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(this);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         fragmentManager = this.getSupportFragmentManager();
         String visitTime = preferences.getVisitTime(this);
         Calendar calendar = Calendar.getInstance();
         long timeNow = calendar.getTimeInMillis();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy",Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         String date = dateFormat.format(new Date(timeNow));
 
-        if (!date.equals(visitTime))
-        {
+        if (!date.equals(visitTime)) {
             addVisit(date);
         }
     }
-    public void DisplayFragmentHome()
-    {
-        fragment_count+=1;
+
+    private void updateToken() {
+        FirebaseInstanceId.getInstance()
+                .getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (task.isSuccessful()) {
+                            String token = task.getResult().getToken();
+                            Api.getService()
+                                    .updateToken(userModel.getUser_id(), token)
+                                    .enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                            if (response.isSuccessful()) {
+                                                Log.e("Success", "token updated");
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                            try {
+                                                Log.e("Error", t.getMessage());
+                                            } catch (Exception e) {
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+    }
+
+    public void DisplayFragmentHome() {
+        fragment_count += 1;
         if (fragment_home == null) {
             fragment_home = Fragment_Home.newInstance();
         }
@@ -112,29 +158,29 @@ private Fragment_Adversiment_Detials fragment_adversiment_detials;
         }
 
     }
+
     public void DisplayFragmentMain() {
-        if(fragment_main==null){
-            fragment_main=Fragment_Main.newInstance();
+        if (fragment_main == null) {
+            fragment_main = Fragment_Main.newInstance();
         }
-        if(fragment_message_notifications!=null&&fragment_message_notifications.isAdded()){
+        if (fragment_message_notifications != null && fragment_message_notifications.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_message_notifications).commit();
         }
-        if(fragment_search!=null&&fragment_search.isAdded()){
+        if (fragment_search != null && fragment_search.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_search).commit();
         }
-        if(fragment_more!=null&&fragment_more.isAdded()){
+        if (fragment_more != null && fragment_more.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_more).commit();
         }
-        if(fragment_main.isAdded()){
+        if (fragment_main.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_main).commit();
-        }
-        else {
+        } else {
             fragmentManager.beginTransaction().add(R.id.fragment_home_container, fragment_main, "fragment_main").addToBackStack("fragment_main").commit();
 
         }
-        if(fragment_home!=null&&fragment_home.isAdded()){
+        if (fragment_home != null && fragment_home.isAdded()) {
             fragment_home.updateBottomNavigationPosition(0);
-          //fragment_home.setsub();
+            //fragment_home.setsub();
         }
 
     }
@@ -154,6 +200,7 @@ private Fragment_Adversiment_Detials fragment_adversiment_detials;
 
 
     }
+
     public void DisplayFragmentAbout() {
 
         fragment_count += 1;
@@ -184,6 +231,7 @@ private Fragment_Adversiment_Detials fragment_adversiment_detials;
         }
 
     }
+
     public void DisplayFragmentAdversimentDetials(String main_category_fk) {
         fragment_count += 1;
         fragment_adversiment_detials = Fragment_Adversiment_Detials.newInstance(main_category_fk);
@@ -196,6 +244,7 @@ private Fragment_Adversiment_Detials fragment_adversiment_detials;
 
         }
     }
+
     public void DisplayFragmentProfile() {
         fragment_count += 1;
         fragment_profile = Fragment_Profile.newInstance();
@@ -208,6 +257,7 @@ private Fragment_Adversiment_Detials fragment_adversiment_detials;
 
         }
     }
+
     public void DisplayFragmentEditProfile() {
         fragment_count += 1;
         fragment_edit_profile = Fragment_Edit_Profile.newInstance();
@@ -220,94 +270,95 @@ private Fragment_Adversiment_Detials fragment_adversiment_detials;
 
         }
     }
+
     public void DisplayFragmentnotifications() {
-        if(fragment_message_notifications==null){
-            fragment_message_notifications=Fragment_Message_Notifications.newInstance();
+        if (fragment_message_notifications == null) {
+            fragment_message_notifications = Fragment_Message_Notifications.newInstance();
         }
-        if(fragment_main!=null&&fragment_main.isAdded()){
+        if (fragment_main != null && fragment_main.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_main).commit();
         }
-        if(fragment_search!=null&&fragment_search.isAdded()){
+        if (fragment_search != null && fragment_search.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_search).commit();
         }
-        if(fragment_more!=null&&fragment_more.isAdded()){
+        if (fragment_more != null && fragment_more.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_more).commit();
         }
-        if(fragment_message_notifications.isAdded()){
+        if (fragment_message_notifications.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_message_notifications).commit();
-        }
-        else {
+        } else {
             fragmentManager.beginTransaction().add(R.id.fragment_home_container, fragment_message_notifications, "fragment_message_notifications").addToBackStack("fragment_message_notifications").commit();
 
         }
-        if(fragment_home!=null&&fragment_home.isAdded()){
+        if (fragment_home != null && fragment_home.isAdded()) {
             fragment_home.updateBottomNavigationPosition(1);
         }
     }
+
     public void DisplayFragmentSearch() {
-        if(fragment_search==null){
-            fragment_search=Fragment_Search.newInstance();
+        if (fragment_search == null) {
+            fragment_search = Fragment_Search.newInstance();
         }
-        if(fragment_main!=null&&fragment_main.isAdded()){
+        if (fragment_main != null && fragment_main.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_main).commit();
         }
-        if(fragment_message_notifications!=null&&fragment_message_notifications.isAdded()){
+        if (fragment_message_notifications != null && fragment_message_notifications.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_message_notifications).commit();
         }
-        if(fragment_more!=null&&fragment_more.isAdded()){
+        if (fragment_more != null && fragment_more.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_more).commit();
         }
-        if(fragment_search.isAdded()){
+        if (fragment_search.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_search).commit();
             fragment_search.changevisible();
-        }
-        else {
+
+        } else {
             fragmentManager.beginTransaction().add(R.id.fragment_home_container, fragment_search, "fragment_search").addToBackStack("fragment_search").commit();
 
         }
-        if(fragment_home!=null&&fragment_home.isAdded()){
+        if (fragment_home != null && fragment_home.isAdded()) {
             fragment_home.updateBottomNavigationPosition(2);
         }
     }
 
 
-
     public void DisplayFragmentMore() {
-        if(fragment_more==null){
-            fragment_more=Fragment_More.newInstance();
+        if (fragment_more == null) {
+            fragment_more = Fragment_More.newInstance();
         }
-        if(fragment_main!=null&&fragment_main.isAdded()){
+        if (fragment_main != null && fragment_main.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_main).commit();
         }
-        if(fragment_search!=null&&fragment_search.isAdded()){
+        if (fragment_search != null && fragment_search.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_search).commit();
         }
-        if(fragment_message_notifications!=null&&fragment_message_notifications.isAdded()){
+        if (fragment_message_notifications != null && fragment_message_notifications.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_message_notifications).commit();
         }
-        if(fragment_more.isAdded()){
+        if (fragment_more.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_more).commit();
-        }
-        else {
+        } else {
             fragmentManager.beginTransaction().add(R.id.fragment_home_container, fragment_more, "fragment_more").addToBackStack("fragment_more").commit();
 
         }
-        if(fragment_home!=null&&fragment_home.isAdded()){
+        if (fragment_home != null && fragment_home.isAdded()) {
             fragment_home.updateBottomNavigationPosition(3);
         }
     }
 
 
     public void getoAds(String adversiment_id) {
-        Intent intent=new Intent(HomeActivity.this, AdsActivity.class);
-        intent.putExtra("adversiment_id",adversiment_id);
+        Intent intent = new Intent(HomeActivity.this, AdsActivity.class);
+        intent.putExtra("adversiment_id", adversiment_id);
 
         startActivity(intent);
     }
 
+
     @Override
     public void onBackPressed() {
-Back();    }
+        Back();
+    }
 
     public void Back() {
         if (fragment_count > 1) {
@@ -318,7 +369,7 @@ Back();    }
             if (fragment_home != null && fragment_home.isVisible()) {
                 if (fragment_main != null && fragment_main.isVisible()) {
                     if (userModel == null) {
-                        //NavigateToSignInActivity();
+                        finish();
                     } else {
                         finish();
                     }
@@ -331,9 +382,9 @@ Back();    }
         }
 
     }
-    public void Logout()
-    {
-        final ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+
+    public void Logout() {
+        final ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.show();
         Api.getService()
                 .Logout(userModel.getUser_id())
@@ -341,8 +392,7 @@ Back();    }
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         dialog.dismiss();
-                        if (response.isSuccessful())
-                        {
+                        if (response.isSuccessful()) {
                             /*new Handler()
                                     .postDelayed(new Runnable() {
                                         @Override
@@ -352,20 +402,17 @@ Back();    }
                                         }
                                     },1);
                             userSingleTone.clear(ClientHomeActivity.this);*/
-preferences.create_update_userdata(HomeActivity.this,null);
-preferences.create_update_session(HomeActivity.this, Tags.session_logout);
+                            preferences.create_update_userdata(HomeActivity.this, null);
+                            preferences.create_update_session(HomeActivity.this, Tags.session_logout);
                             Intent intent = new Intent(HomeActivity.this, Login_Activity.class);
                             startActivity(intent);
                             finish();
-                            if (cuurent_language.equals("ar"))
-                            {
-                              //  overridePendingTransition(R.anim.from_left,R.anim.to_right);
+                            if (cuurent_language.equals("ar")) {
+                                //  overridePendingTransition(R.anim.from_left,R.anim.to_right);
 
 
-
-                            }else
-                            {
-                              //  overridePendingTransition(R.anim.from_right,R.anim.to_left);
+                            } else {
+                                //  overridePendingTransition(R.anim.from_right,R.anim.to_left);
 
 
                             }
@@ -379,23 +426,20 @@ preferences.create_update_session(HomeActivity.this, Tags.session_logout);
                 });
     }
 
-    private void addVisit(final String timeNow)
-    {
+    private void addVisit(final String timeNow) {
 
         Api.getService()
-                .updateVisit("android",timeNow)
+                .updateVisit("android", timeNow)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful())
-                        {
-                            preferences.saveVisitTime(HomeActivity.this,timeNow);
-                           // Log.e("msg",response.body().toString());
+                        if (response.isSuccessful()) {
+                            preferences.saveVisitTime(HomeActivity.this, timeNow);
+                            // Log.e("msg",response.body().toString());
 
-                        }else
-                        {
+                        } else {
                             try {
-                                Log.e("error_code",response.code()+response.errorBody().string());
+                                Log.e("error_code", response.code() + response.errorBody().string());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -405,17 +449,37 @@ preferences.create_update_session(HomeActivity.this, Tags.session_logout);
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         try {
-                            Log.e("Error",t.getMessage());
-                        }catch (Exception e){}
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+                        }
                     }
                 });
 
     }
 
     public void setsub(List<Catogry_Model.Categories.sub> subs, String main_category_fk) {
-        if(fragment_main!=null&&fragment_main.isAdded()){
+        if (fragment_main != null && fragment_main.isAdded()) {
 
-            fragment_main.addsubtosppinner (subs,main_category_fk);
+            fragment_main.addsubtosppinner(subs, main_category_fk);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+        for (Fragment fragment : fragmentList) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+        for (Fragment fragment : fragmentList) {
+            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

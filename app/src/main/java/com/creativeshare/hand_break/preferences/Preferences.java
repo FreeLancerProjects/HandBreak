@@ -3,7 +3,7 @@ package com.creativeshare.hand_break.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-
+import com.creativeshare.hand_break.models.ChatUserModel;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.tags.Tags;
 import com.google.gson.Gson;
@@ -101,5 +101,35 @@ public class Preferences {
     {
         SharedPreferences preferences = context.getSharedPreferences("visit",Context.MODE_PRIVATE);
         return preferences.getString("time","");
+    }
+
+    public void saveChatUserData(Context context, ChatUserModel chatUserModel)
+    {
+        SharedPreferences preferences = context.getSharedPreferences("chat_user",Context.MODE_PRIVATE);
+
+        Gson gson = new Gson();
+        String  chat_model = gson.toJson(chatUserModel);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("chat_data",chat_model);
+        editor.apply();
+
+    }
+
+
+
+    public ChatUserModel getChatUserData(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences("chat_user",Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        return gson.fromJson(preferences.getString("chat_data",""),ChatUserModel.class);
+    }
+
+    public void clearChatUserData(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences("chat_user",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
     }
 }

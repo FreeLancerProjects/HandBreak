@@ -2,10 +2,15 @@ package com.creativeshare.hand_break.services;
 
 
 import com.creativeshare.hand_break.models.Adversiting_Model;
-import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.AppDataModel;
 import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.models.CityModel;
+import com.creativeshare.hand_break.models.MessageDataModel;
+import com.creativeshare.hand_break.models.MessageModel;
+import com.creativeshare.hand_break.models.RoomIdModel;
 import com.creativeshare.hand_break.models.UserModel;
+import com.creativeshare.hand_break.models.UserRoomModelData;
+import com.creativeshare.hand_break.models.UserSearchDataModel;
 
 import java.util.List;
 
@@ -39,6 +44,7 @@ public interface Service {
                            @Field("soft_type") String soft_type,
                            @Field("user_pass") String user_pass
     );
+
 
     @FormUrlEncoded
     @POST("Api/updateProfile")
@@ -88,6 +94,10 @@ public interface Service {
     Call<Catogry_Model> getcateogries(
             @Header("device-lang") String device_lang
     );
+
+    @GET("api/all-cities")
+    Call<List<CityModel>> getCities();
+
 
     @GET("Api/cyties")
     Call<List<CityModel>> getCities(
@@ -182,6 +192,61 @@ public interface Service {
             @Field("image_id") String image_id
 
 
+
+    );
+
+    @GET("Chating/rooms")
+    Call<UserRoomModelData> getRooms(@Query("user_id") String user_id,
+                                     @Query("page") int page
+    );
+
+    @FormUrlEncoded
+    @POST("Chating/searchUser")
+    Call<UserSearchDataModel> searchUsers(@Field("search_name") String search_name,
+                                          @Field("user_id") String user_id
+    );
+
+    @FormUrlEncoded
+    @POST("Chating/getChatRoom")
+    Call<RoomIdModel> getRoomId(@Field("from_user_id") String from_user_id,
+                                @Field("to_user_id") String to_user_id
+    );
+
+    @FormUrlEncoded
+    @POST("Chating/Typing")
+    Call<ResponseBody> typing(@Field("room_id_fk") String room_id_fk,
+                              @Field("from_user") String from_user_id,
+                              @Field("to_user") String to_user_id,
+                              @Field("typing_value") int typing_value
+
+    );
+
+    @GET("Chating/chat")
+    Call<MessageDataModel> getChatMessages(@Query("user_id") String user_id,
+                                           @Query("room_id") String room_id,
+                                           @Query("page") int page);
+
+    @FormUrlEncoded
+    @POST("Chating/chating")
+    Call<MessageModel> sendMessage(@Field("room_id_fk") String room_id_fk,
+                                   @Field("from_user") String from_user,
+                                   @Field("to_user") String to_user,
+                                   @Field("message") String message
+
+    );
+
+
+    @FormUrlEncoded
+    @POST("Chating/deleteChatRoom")
+    Call<ResponseBody> deleteChat(@Field("room_id") String room_id,
+                                  @Field("user_id") String user_id
+
+    );
+
+    @FormUrlEncoded
+    @POST("Api/updateFirebaseToken")
+    Call<ResponseBody> updateToken(@Field("user_id") String user_id,
+                                   @Field("phone_token") String user_token_id
 
     );
 

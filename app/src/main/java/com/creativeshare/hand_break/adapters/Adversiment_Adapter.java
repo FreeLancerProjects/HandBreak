@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,9 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.creativeshare.hand_break.R;
-import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.tags.Tags;
@@ -29,15 +26,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int ITEM_DATA = 1;
     private final int ITEM_LOAD = 2;
 
     private List<Catogry_Model.Advertsing> advertsings;
     private List<Catogry_Model.Categories> categories;
-
     private Context context;
     private Fragment fragment;
     private String user_type;

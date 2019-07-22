@@ -1,6 +1,7 @@
 package com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 
 import com.creativeshare.hand_break.R;
+import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
@@ -68,7 +70,8 @@ public class Fragment_Login extends Fragment {
         tv_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.NavigateToHomeActivity();
+                Intent intent = new Intent(activity, HomeActivity.class);
+                startActivity(intent);
             }
         });
 
