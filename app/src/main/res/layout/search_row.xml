@@ -13,7 +13,7 @@
         android:layout_height="45dp"
         android:gravity="center_vertical"
         android:text="@string/add_adversiment"
-        android:textColor="@color/black2"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/r_im_search"
@@ -44,21 +44,22 @@
 
                 <ImageView
                     android:id="@+id/im1"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/loction"
-                    android:tint="@color/black2"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:tint="@color/black"
+                    android:padding="3dp"
+                    />
 
                 <TextView
                     android:id="@+id/tv_city"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/user_name"
-                    android:textColor="@color/black2"
+                    android:textColor="@color/gray7"
                     android:textSize="13sp"
 
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -75,28 +76,27 @@
 
                 <ImageView
                     android:id="@+id/im2"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginBottom="8dp"
+                    android:padding="3dp"
                     android:src="@drawable/profile"
+                    android:tint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:tint="@color/black2"
-                    android:layout_marginTop="2dp"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_user"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/user_name"
-                    android:textColor="@color/black2"
+                    android:textColor="@color/gray7"
                     android:textSize="13sp"
                     app:layout_constraintStart_toEndOf="@+id/im2"
 
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="RtlCompat"
-                    android:paddingEnd="8dp"
-                    />
+                    tools:ignore="RtlCompat" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -116,13 +116,14 @@
 
                 <ImageView
                     android:id="@+id/im3"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/cars"
+                    android:padding="5dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:tint="@color/black2"
-                    android:layout_marginTop="1dp"
+                    android:tint="@color/black"
+
                     />
 
                 <TextView
@@ -132,11 +133,12 @@
                     android:gravity="center_vertical"
                     android:paddingStart="5dp"
                     android:text="@string/user_name"
-                    android:textColor="@color/black2"
+                    android:textColor="@color/gray7"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@+id/im3"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="RtlCompat"
+                    android:layout_marginTop="4dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -148,13 +150,13 @@
 
                 <ImageView
                     android:id="@+id/im4"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/clock"
-                    android:tint="@color/black2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="3dp"
+                    android:padding="5dp"
+                    android:tint="@color/black"
                     />
 
                 <TextView
@@ -163,13 +165,14 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/user_name"
-                    android:textColor="@color/black2"
-                    android:textSize="12sp"
+                    android:textColor="@color/gray7"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/im4"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     tools:ignore="RtlCompat"
+                    android:layout_marginTop="5dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

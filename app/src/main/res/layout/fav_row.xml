@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:text="@string/add_adversiment"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/department"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/gray7"
             android:textSize="14sp"
             />
 
