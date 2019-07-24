@@ -81,11 +81,11 @@ public class Fragment_Ads_Adder_Info extends Fragment {
                 String phone = edt_phone.getText().toString();
                 String price = edt_price.getText().toString();
                 String desc = edt_desc.getText().toString();
-                if (title.isEmpty() || phone.isEmpty() || !ccp_phone.isValidFullNumber() || desc.isEmpty()) {
+                if (title.isEmpty() || phone.isEmpty() || desc.isEmpty()) {
                     if (title.isEmpty()) {
                         edt_title.setError(getResources().getString(R.string.field_req));
                     }
-                    if (phone.isEmpty() || !ccp_phone.isValidFullNumber()) {
+                    if (phone.isEmpty() ) {
                         edt_phone.setError("");
                     }
                     if (desc.isEmpty()) {
@@ -94,9 +94,10 @@ public class Fragment_Ads_Adder_Info extends Fragment {
                     }
                 } else {
                     if (adversiment_id.equals("-1")) {
-                        createads(title, ccp_phone.getSelectedCountryCode().replace("+", "00") + phone, price, desc);
+                        Log.e("mdg",adversiment_id);
+                        createads(title, ccp_phone.getSelectedCountryCode()+ phone, price, desc);
                     } else {
-                        updateeads(title, ccp_phone.getSelectedCountryCode().replace("+", "00") + phone, price, desc, adversiment_id);
+                        updateeads(title, ccp_phone.getSelectedCountryCode()+ phone, price, desc, adversiment_id);
 
                     }
                 }
@@ -109,6 +110,7 @@ public class Fragment_Ads_Adder_Info extends Fragment {
         if (adversiting_model != null) {
             edt_title.setText(adversiting_model.getAdvertisement_title());
             ccp_phone.setFullNumber(adversiting_model.getPhone());
+
             edt_phone.setText(ccp_phone.getFullNumber());
             edt_desc.setText(adversiting_model.getAdvertisement_content());
             edt_price.setText(adversiting_model.getAdvertisement_price());
@@ -131,6 +133,7 @@ public class Fragment_Ads_Adder_Info extends Fragment {
         RequestBody adversiment_part = Common.getRequestBodyText(adversiment_id);
 
         List<MultipartBody.Part> partImageList = getMultipartBodyList(adversiment_model.getUris(), "advertisement_images[]");
+        if(partImageList.size()>0){
         Api.getService().updateads(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part, adversiment_part, partImageList).enqueue(new Callback<Adversiting_Model>() {
             @Override
             public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
@@ -151,7 +154,30 @@ public class Fragment_Ads_Adder_Info extends Fragment {
                 Toast.makeText(adsActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
                 Log.e("Error", t.getMessage());
             }
-        });
+        });}
+        else {
+            Api.getService().updatewithoutimage(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part, adversiment_part).enqueue(new Callback<Adversiting_Model>() {
+                @Override
+                public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
+                    dialog.dismiss();
+                    if (response.isSuccessful()) {
+                        // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
+                        adsActivity.finish();
+                    } else {
+                        Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.failed));
+                        Log.e("Error", response.code() + "" + response.errorBody() + response.raw() + response.body() + response.headers());
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Adversiting_Model> call, Throwable t) {
+                    dialog.dismiss();
+                    Toast.makeText(adsActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
+                }
+            });
+        }
 
     }
 
@@ -174,7 +200,7 @@ public class Fragment_Ads_Adder_Info extends Fragment {
             public void onResponse(Call<Catogry_Model.Advertsing> call, Response<Catogry_Model.Advertsing> response) {
                 dialog.dismiss();
                 if (response.isSuccessful()) {
-                    Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.suc));
+                 //   Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.suc));
                     adsActivity.finish();
                 } else {
                     Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.failed));

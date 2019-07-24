@@ -64,10 +64,10 @@ public class AdsActivity extends AppCompatActivity {
     public void DisplayFragmentAds()
     {
         fragment_count+=1;
-        if (fragment_ads == null) {
+
             fragment_ads = Fragment_Ads.newInstance();
 
-        }
+
 
         if (fragment_ads.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_ads).commit();

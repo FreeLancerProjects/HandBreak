@@ -135,6 +135,7 @@ public class Fragment_Login extends Fragment {
                         } else if (response.code() == 404) {
                             Common.CreateSignAlertDialog(activity,getString(R.string.inc_em_pas));
                         } else {
+                            Common.CreateSignAlertDialog(activity,getString(R.string.inc_em_pas));
 
                             try {
                                 Log.e("Error_code",response.code()+"_"+response.errorBody().string());

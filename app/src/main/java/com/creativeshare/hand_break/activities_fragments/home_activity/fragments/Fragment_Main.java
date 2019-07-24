@@ -133,8 +133,8 @@ public class Fragment_Main extends Fragment {
                 if (dy > 0) {
                     int total_item = manager.getItemCount();
                     int last_item_pos = manager.findLastCompletelyVisibleItemPosition();
-                    Log.e("msg", total_item + "  " + last_item_pos);
-                    Log.e("msg", current_page+"");
+                 //   Log.e("msg", total_item + "  " + last_item_pos);
+                   // Log.e("msg", current_page+"");
 
                     if (last_item_pos >= (total_item - 5) && !isLoading&&total_page>current_page) {
                         isLoading = true;
@@ -142,7 +142,7 @@ public class Fragment_Main extends Fragment {
                         adversiment_adapter.notifyItemInserted(advertsings.size() - 1);
                         int page = current_page + 1;
                         //cuurent_language+=1;
-                        Log.e("msg", page+"");
+                     //   Log.e("msg", page+"");
 
                         loadMore(page);
                     }

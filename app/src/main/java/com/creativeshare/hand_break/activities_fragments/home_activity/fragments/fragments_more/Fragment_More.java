@@ -56,30 +56,30 @@ public class Fragment_More extends Fragment {
         ll_logout = view.findViewById(R.id.ll_logout);
         ll_adversiment=view.findViewById(R.id.ll_advertisement);
         ll_language=view.findViewById(R.id.ll_lang);
-        arrow1 = view.findViewById(R.id.arrow1);
-        arrow2 = view.findViewById(R.id.arrow2);
+     //   arrow1 = view.findViewById(R.id.arrow1);
+       // arrow2 = view.findViewById(R.id.arrow2);
         arrow3 = view.findViewById(R.id.arrow3);
-        arrow4 = view.findViewById(R.id.arrow4);
+       // arrow4 = view.findViewById(R.id.arrow4);
         arrow5 = view.findViewById(R.id.arrow5);
         arrow6 = view.findViewById(R.id.arrow6);
         arrow7 = view.findViewById(R.id.arrow7);
-        arrow8 = view.findViewById(R.id.arrow8);
-        arrow9 = view.findViewById(R.id.arrow9);
-        arrow10 = view.findViewById(R.id.arrow10);
+       // arrow8 = view.findViewById(R.id.arrow8);
+        //arrow9 = view.findViewById(R.id.arrow9);
+        //arrow10 = view.findViewById(R.id.arrow10);
         arrow11 = view.findViewById(R.id.arrow11);
         if (cuurent_language.equals("en")) {
             im_log.setRotation(180.0f);
         } else {
-            arrow1.setRotation(180.0f);
-            arrow2.setRotation(180.0f);
+          //  arrow1.setRotation(180.0f);
+          //  arrow2.setRotation(180.0f);
             arrow3.setRotation(180.0f);
-            arrow4.setRotation(180.0f);
+           // arrow4.setRotation(180.0f);
             arrow5.setRotation(180.0f);
             arrow6.setRotation(180.0f);
             arrow7.setRotation(180.0f);
-            arrow8.setRotation(180.0f);
-            arrow9.setRotation(180.0f);
-            arrow10.setRotation(180.0f);
+          //  arrow8.setRotation(180.0f);
+            //arrow9.setRotation(180.0f);
+            //arrow10.setRotation(180.0f);
             arrow11.setRotation(180.0f);
 
 

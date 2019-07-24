@@ -52,6 +52,7 @@ public class ShowGalleryAdapter extends RecyclerView.Adapter<ShowGalleryAdapter.
                 fragment_ads_detials.Deleteimageapi(advertisement_images.get(holder.getLayoutPosition()).getImage_id());
             }
         });
+
     }
 
     @Override

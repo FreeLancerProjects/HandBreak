@@ -285,29 +285,31 @@ public class Fragment_Edit_Profile extends Fragment {
         String pass = edt_pass.getText().toString();
         if (name.isEmpty() || email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6 || address.isEmpty() || coomericial.isEmpty() || city_id.equals("all")) {
             if (name.isEmpty()) {
-                edt_name.setError("");
+name=userModel.getUser_name();
             }
             if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                edt_email.setError("");
-            }
+email=userModel.getUser_email();            }
             if (phone.isEmpty() || !countryCodePicker.isValidFullNumber()) {
-                edt_phone.setError("");
-            }
-            if (pass.isEmpty() || pass.length() < 6) {
-                edt_pass.setError("");
-            }
-            if (address.isEmpty()) {
-                edt_address.setError("");
-            }
-            if (coomericial.isEmpty()) {
-                edt_commercial.setError("");
-            }
-            if (city_id.equals("all")) {
+phone=userModel.getUser_phone();
+            phonecode=userModel.getUser_phone_code();
 
             }
-        } else {
-            updateprofile(name, email, phone, phonecode, address, coomericial, pass, city_id);
+
+            if (address.isEmpty()) {
+address=userModel.getUser_address();            }
+            if (coomericial.isEmpty()) {
+coomericial=userModel.getCommercial_register();
+            }
+            if (city_id.equals("all")) {
+city_id=userModel.getUser_city();
+            }
         }
+         if (pass.isEmpty() || pass.length() < 6) {
+             edt_pass.setError("");
+        }
+        else {
+            updateprofile(name, email, phone, phonecode, address, coomericial, pass, city_id);}
+
     }
 
     private void updateprofile(String name, String email, String phone, String phonecode, final String address, String coomericial, String pass, String city_id) {
@@ -321,7 +323,10 @@ public class Fragment_Edit_Profile extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     preferences = Preferences.getInstance();
                     preferences.create_update_userdata(homeActivity, response.body());
-                    Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.suc));
+                   // Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.suc));
+                    homeActivity.Back();
+                    homeActivity.Back();
+                    homeActivity.DisplayFragmentProfile();
                     edt_pass.setText("");
                     updateprofile();
                 } else {

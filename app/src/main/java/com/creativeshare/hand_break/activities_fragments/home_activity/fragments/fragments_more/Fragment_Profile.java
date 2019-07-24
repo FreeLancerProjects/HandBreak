@@ -1,11 +1,14 @@
 package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,15 +16,24 @@ import androidx.fragment.app.Fragment;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
+import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
+import com.creativeshare.hand_break.remote.Api;
+import com.creativeshare.hand_break.share.Common;
 import com.creativeshare.hand_break.tags.Tags;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Fragment_Profile extends Fragment {
     private HomeActivity homeActivity;
@@ -32,11 +44,13 @@ public class Fragment_Profile extends Fragment {
     private Preferences preferences;
     private UserModel userModel;
 private ImageView back;
+List<CityModel> cityModels;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         initView(view);
+        getCities();
         return view;
     }
 
@@ -44,6 +58,7 @@ private ImageView back;
         homeActivity = (HomeActivity) getActivity();
         preferences=Preferences.getInstance();
         userModel=preferences.getUserData(homeActivity);
+        cityModels=new ArrayList<>();
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         imageprofile=view.findViewById(R.id.image);
@@ -77,7 +92,7 @@ private ImageView back;
                 homeActivity.Back();
             }
         });
-        updateprofile();
+      //  updateprofile();
 im_edit.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
@@ -85,7 +100,50 @@ im_edit.setOnClickListener(new View.OnClickListener() {
     }
 });
     }
+    private void getCities() {
 
+        final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Api.getService()
+                .getCities(cuurent_language)
+                .enqueue(new Callback<List<CityModel>>() {
+                    @Override
+                    public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
+                        dialog.dismiss();
+
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                cityModels.clear();
+
+                                cityModels.addAll(response.body());
+                                updateprofile();
+
+                            }
+                        } else {
+                            try {
+                                Toast.makeText(homeActivity, R.string.failed, Toast.LENGTH_SHORT).show();
+                                Log.e("Error_code", response.code() + "" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<CityModel>> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            Toast.makeText(homeActivity, R.string.something, Toast.LENGTH_SHORT).show();
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+
+    }
     private void updateprofile() {
         if(userModel!=null){
             if(userModel.getUser_image()!=null&&!userModel.getUser_image().equals("0")){
@@ -95,7 +153,14 @@ im_edit.setOnClickListener(new View.OnClickListener() {
                 tv_name.setText(userModel.getUser_name());
             }
             if(userModel.getUser_city()!=null){
-                tv_loaction.setText(userModel.getUser_city());
+                Log.e("msg",cityModels.size()+"");
+              //  tv_loaction.setText(userModel.getUser_city());
+                for(int i=0;i<cityModels.size();i++){
+                    if(cityModels.get(i).getId_city().equals(userModel.getUser_city())){
+                        tv_loaction.setText(cityModels.get(i).getCity_title());
+                        break;
+                    }
+                }
             }
             if(userModel.getUser_address()!=null){
                 tv_address.setText(userModel.getUser_address());

@@ -145,7 +145,7 @@
                     android:layout_marginStart="8dp"
                     android:padding="8dp"
                     />
-                <ImageView
+              <!--  <ImageView
                     android:id="@+id/im_chat"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -156,7 +156,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp"
                     android:padding="8dp"
-                    />
+                    />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

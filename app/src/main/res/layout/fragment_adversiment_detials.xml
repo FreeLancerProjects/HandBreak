@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray1"
@@ -73,9 +75,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/toolBar"
@@ -90,7 +90,9 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                app:layout_scrollFlags="exitUntilCollapsed|scroll">
+                app:layout_scrollFlags="scroll"
+
+                >
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -124,11 +126,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+         >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -238,15 +242,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:padding="8dp"
-                    android:text="sfjksbfsdbsdhbhbdshbgdhbhbdfhbgdhbghdfbghdfbhbdfhb
-jdjdbjdfbhgbdfhbgdfhbdfhbgfhbdfhbdfdfbfd
-ndjbdfbgdfhbghdfbfghdfbhdfbdfhb
-djbgdfbgfhbghbfghfbgfh
-ndjgbfbghbfhbhhhhhhhhhhhhhhhhhhhhhhhhhfdg
-dfngjfbfbdghdfbfhfhdbdfh
-bdfjbgdfhbdghbdfbdffh
-bdjfbgdfhfdbdfhbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbh
-ndjbgdfbgh"
+
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     app:layout_constraintTop_toBottomOf="@+id/cons1" />
@@ -262,7 +258,7 @@ ndjbgdfbgh"
 
                     <ImageView
                         android:id="@+id/im5"
-                        android:layout_width="15dp"
+                        android:layout_width="45dp"
                         android:layout_height="25dp"
                         android:src="@drawable/call"
                         app:layout_constraintStart_toStartOf="parent"
@@ -321,7 +317,7 @@ ndjbgdfbgh"
                         tools:ignore="RtlCompat" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+          <!--      <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cons4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -445,7 +441,7 @@ ndjbgdfbgh"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray4"
                     android:textSize="14sp"
-                    app:layout_constraintTop_toBottomOf="@+id/cons6" />
+                    app:layout_constraintTop_toBottomOf="@+id/cons6" />-->
 
                 <View
                     android:id="@+id/view"
@@ -454,13 +450,13 @@ ndjbgdfbgh"
 
                     android:layout_marginTop="5dp"
                     android:background="@color/gray4"
-                    app:layout_constraintTop_toBottomOf="@+id/edt_comment" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/cons3" />
+<!--
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cons7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view"
@@ -491,14 +487,15 @@ ndjbgdfbgh"
                         app:layout_constraintTop_toTopOf="parent" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec_images"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cons7">
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/view"
+                    >
 
 
                 </androidx.recyclerview.widget.RecyclerView>

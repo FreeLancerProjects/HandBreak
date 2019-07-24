@@ -48,7 +48,7 @@ public class Fragment_My_adversiment extends Fragment {
     private ProgressBar progBar;
     private LinearLayout ll_no_order;
     private boolean isLoading = false;
-    private int current_page = 1;
+    private int current_page = 1,total_page;
     private GridLayoutManager manager;
     @Nullable
     @Override
@@ -90,7 +90,9 @@ public class Fragment_My_adversiment extends Fragment {
                     int total_item = adversiment_adapter.getItemCount();
                     int last_item_pos = manager.findLastCompletelyVisibleItemPosition();
 
-                    if (total_item > 5 && last_item_pos == (total_item - 5) && !isLoading) {
+                    if (last_item_pos >= (total_item - 5) && !isLoading && total_page > current_page) {
+                    //    Log.e("msg", total_item + "  " + last_item_pos);
+
                         isLoading = true;
                         advertsings.add(null);
                         adversiment_adapter.notifyItemInserted(advertsings.size() - 1);
@@ -119,10 +121,11 @@ public class Fragment_My_adversiment extends Fragment {
                             advertsings.clear();
                             advertsings.addAll(response.body().getAdvertsing());
                            adversiment_adapter.notifyDataSetChanged();
+                            total_page=response.body().getMeta().getLast_page();
+
                             if (advertsings.size() > 0) {
                                 ll_no_order.setVisibility(View.GONE);
                                 adversiment_adapter.notifyDataSetChanged();
-
                             } else {
                                 ll_no_order.setVisibility(View.VISIBLE);
 
@@ -155,7 +158,7 @@ public class Fragment_My_adversiment extends Fragment {
 
 
         Api.getService()
-                .getmyadversment(1, userModel.getUser_id())
+                .getmyadversment(page, userModel.getUser_id())
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -168,6 +171,8 @@ public class Fragment_My_adversiment extends Fragment {
                            // categories.addAll(response.body().getCategories());
 
                             adversiment_adapter.notifyDataSetChanged();
+                            current_page=response.body().getMeta().getCurrent_page();
+                            Log.e("msg", response.code() + "  " +response.body().getAdvertsing().size());
 
                         } else {
                             Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();

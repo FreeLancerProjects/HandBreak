@@ -73,7 +73,7 @@
     <string name="my_advertisment">اعلاناتى</string>
     <string name="upload">رفع صور</string>
     <string name="perm_image_denied">لم يتمكن التطبيق للوصل الى الصور</string>
-    <string name="complete_all">اكمل الكل</string>
+    <string name="complete_all">اكمل بياناتك</string>
     <string name="used">مستخدم</string>
     <string name="news">جديد</string>
     <string name="edit">تعديل</string>
@@ -90,4 +90,7 @@
     <string name="day">يوم</string>
     <string name="no_notification_found">لا توجد اشعارات </string>
     <string name="select_language">اختر اللغه</string>
+    <string name="department2">القسم</string>
+    <string name="type">النوع </string>
+    <string name="model">الموديل</string>
 </resources>

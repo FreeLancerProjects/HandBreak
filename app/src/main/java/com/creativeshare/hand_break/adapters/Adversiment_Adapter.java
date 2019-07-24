@@ -82,6 +82,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     activity.DisplayFragmentAdversimentDetials(advertsings.get(holder.getLayoutPosition()).getId_advertisement());
                 }
             });
+            Log.e("msg",advertsing.getMain_image());
         } else {
             LoadMoreHolder loadMoreHolder = (LoadMoreHolder) holder;
             loadMoreHolder.progBar.setIndeterminate(true);

@@ -187,6 +187,21 @@ public interface Service {
              @Part List<MultipartBody.Part> advertisement_images
 
             );
+    @Multipart
+    @POST("App/updateAdvertsing")
+    Call<Adversiting_Model> updatewithoutimage
+            (@Part("advertisement_user") RequestBody advertisement_user,
+             @Part("main_category_fk") RequestBody main_category_fk,
+             @Part("sub_category_fk") RequestBody sub_category_fk,
+             @Part("model_id_fk") RequestBody model_id_fk,
+             @Part("advertisement_title") RequestBody advertisement_title,
+             @Part("advertisement_content") RequestBody advertisement_content,
+             @Part("advertisement_price") RequestBody advertisement_price,
+             @Part("city_id") RequestBody city_id,
+             @Part("phone") RequestBody phone,
+             @Part("id_advertisement") RequestBody id_advertisement
+
+            );
     @FormUrlEncoded
     @POST("App/deleteImage")
     Call<Adversiting_Model> deleteimageads(

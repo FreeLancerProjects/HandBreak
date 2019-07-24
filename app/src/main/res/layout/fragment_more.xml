@@ -20,7 +20,7 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-            <LinearLayout
+   <!--         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                  android:src="@drawable/plus" />
+                    android:src="@drawable/plus" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -89,7 +89,7 @@
                     android:textSize="15sp" />
 
                 <ImageView
-android:id="@+id/arrow2"
+                    android:id="@+id/arrow2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
@@ -104,6 +104,8 @@ android:id="@+id/arrow2"
                 android:layout_height="1px"
                 android:background="@color/gray3" />
 
+
+-->
             <LinearLayout
                 android:id="@+id/ll_about"
                 android:layout_width="match_parent"
@@ -146,8 +148,7 @@ android:id="@+id/arrow2"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/gray3" />
-
-            <LinearLayout
+        <!--    <LinearLayout
                 android:id="@+id/ll_contact_us"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -159,7 +160,7 @@ android:id="@+id/arrow2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                   android:src="@drawable/contact" />
+                    android:src="@drawable/contact" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -187,7 +188,7 @@ android:id="@+id/arrow2"
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray3" />
+                android:background="@color/gray3" />-->
 
             <LinearLayout
                 android:id="@+id/ll_terms"
@@ -201,7 +202,7 @@ android:id="@+id/arrow2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                   android:src="@drawable/terms" />
+                    android:src="@drawable/terms" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -243,7 +244,7 @@ android:id="@+id/arrow2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                   android:src="@drawable/profile"
+                    android:src="@drawable/profile"
                     android:tint="@color/delete"
                     />
 
@@ -320,7 +321,7 @@ android:id="@+id/arrow2"
                 android:layout_height="1px"
                 android:background="@color/gray3" />
 
-            <LinearLayout
+         <!--   <LinearLayout
                 android:id="@+id/ll_market"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -332,7 +333,7 @@ android:id="@+id/arrow2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                   android:src="@drawable/market" />
+                    android:src="@drawable/market" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -374,7 +375,7 @@ android:id="@+id/arrow2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                   android:src="@drawable/follower" />
+                    android:src="@drawable/follower" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -416,7 +417,7 @@ android:id="@+id/arrow2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                   android:src="@drawable/fav" />
+                    android:src="@drawable/fav" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -444,7 +445,7 @@ android:id="@+id/arrow2"
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray3" />
+                android:background="@color/gray3" />-->
             <LinearLayout
                 android:id="@+id/ll_lang"
                 android:layout_width="match_parent"

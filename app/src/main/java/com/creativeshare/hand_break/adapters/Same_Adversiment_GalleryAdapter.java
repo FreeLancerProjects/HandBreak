@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.fragments.Fragment_Ads_Detials;
+import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.tags.Tags;
@@ -33,10 +34,11 @@ public class Same_Adversiment_GalleryAdapter extends RecyclerView.Adapter<Same_A
 
     private List<Adversiting_Model.Same_advertisements> same_advertisements;
     private Context context;
-
+private HomeActivity homeActivity;
     public Same_Adversiment_GalleryAdapter(List<Adversiting_Model.Same_advertisements> same_advertisements, Context context) {
         this.same_advertisements = same_advertisements;
         this.context = context;
+        homeActivity=(HomeActivity)context;
     }
 
     @NonNull
@@ -55,6 +57,12 @@ public class Same_Adversiment_GalleryAdapter extends RecyclerView.Adapter<Same_A
 
        // Log.e("ssssss",uri.toString());
         getimage(same_advertisement.getId_advertisement(),holder.ivGallery,holder.progBar);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeActivity.DisplayFragmentAdversimentDetials(same_advertisements.get(holder.getLayoutPosition()).getId_advertisement());
+            }
+        });
 
     }
 

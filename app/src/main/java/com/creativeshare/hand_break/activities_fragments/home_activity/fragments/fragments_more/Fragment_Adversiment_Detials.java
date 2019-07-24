@@ -1,6 +1,7 @@
 package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -22,13 +24,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.creativeshare.hand_break.R;
+import com.creativeshare.hand_break.activities_fragments.chat_activity.ChatActivity;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
+import com.creativeshare.hand_break.activities_fragments.search_activity.SearchUsersActivity;
 import com.creativeshare.hand_break.adapters.GalleryAdapter;
 import com.creativeshare.hand_break.adapters.Same_Adversiment_GalleryAdapter;
 import com.creativeshare.hand_break.adapters.SlidingImage_Adapter;
+import com.creativeshare.hand_break.models.Adversiment_Model;
 import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.models.AppDataModel;
 import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.models.ChatUserModel;
+import com.creativeshare.hand_break.models.RoomIdModel;
+import com.creativeshare.hand_break.models.UserModel;
+import com.creativeshare.hand_break.models.UserSearchDataModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.share.Common;
@@ -66,7 +75,11 @@ public class Fragment_Adversiment_Detials extends Fragment {
     private SlidingImage_Adapter slidingImage__adapter;
     private Same_Adversiment_GalleryAdapter same_adversiment_galleryAdapter;
     private List<Adversiting_Model.Same_advertisements> advertisementsList;
-
+    private boolean isCreateChat=false;
+    private ConstraintLayout cons_chat;
+private Adversiting_Model adversiting_model;
+private UserModel userModel;
+private Preferences preferences;
     public static Fragment_Adversiment_Detials newInstance(String id_adversmentt) {
         Fragment_Adversiment_Detials fragment_adversiment_detials = new Fragment_Adversiment_Detials();
         Bundle bundle = new Bundle();
@@ -87,6 +100,8 @@ public class Fragment_Adversiment_Detials extends Fragment {
     private void intitview(View view) {
         advertisementsList = new ArrayList<>();
         activity = (HomeActivity) getActivity();
+        preferences = Preferences.getInstance();
+        userModel=preferences.getUserData(activity);
         Paper.init(activity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         back = view.findViewById(R.id.arrow_back);
@@ -101,6 +116,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
         mPager = view.findViewById(R.id.pager);
         indicator = view.findViewById(R.id.tablayout);
         recyclerView_images = view.findViewById(R.id.rec_images);
+        cons_chat=view.findViewById(R.id.cons3);
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         // preferences = Preferences.getInstance();
         recyclerView_images.setDrawingCacheEnabled(true);
@@ -119,6 +135,16 @@ public class Fragment_Adversiment_Detials extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.Back();
+            }
+        });
+        cons_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(userModel!=null){
+                search();}
+                else {
+                    Common.CreateUserNotSignInAlertDialog(activity);
+                }
             }
         });
         //preferences= Preferences.getInstance();
@@ -153,6 +179,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
     }
 
     private void updateTermsContent(Adversiting_Model advertsing) {
+        this.adversiting_model=advertsing;
         tv_time.setText(Time_Ago.getTimeAgo(Long.parseLong(advertsing.getAdvertisement_date()), activity));
         tv_title.setText(advertsing.getAdvertisement_title());
         Log.e("msg", Integer.parseInt(advertsing.getAdvertisement_date()) + "");
@@ -189,6 +216,84 @@ public class Fragment_Adversiment_Detials extends Fragment {
                 handler.post(Update);
             }
         }, 3000, 3000);
+    }
+    private void search() {
+     //   userSearchModelList.clear();
+        progBar.setVisibility(View.VISIBLE);
+Log.e("msg",adversiting_model.getAdvertisement_user());
+        Api.getService()
+                .searchUsers(adversiting_model.getUser_name(), userModel.getUser_id())
+                .enqueue(new Callback<UserSearchDataModel>() {
+                    @Override
+                    public void onResponse(Call<UserSearchDataModel> call, Response<UserSearchDataModel> response) {
+                        progBar.setVisibility(View.GONE);
+                        if (response.isSuccessful()&&response.body()!=null&&response.body().getData()!=null)
+                        {
+                          //  userSearchModelList.addAll(response.body().getData());
+                            //adapter.notifyDataSetChanged();
+                            UserSearchDataModel.UserSearchModel userSearchDataModel=response.body().getData().get(0);
+                            gotochat(userSearchDataModel);
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserSearchDataModel> call, Throwable t) {
+                        try {
+                            progBar.setVisibility(View.GONE);
+                            Toast.makeText(activity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                            Log.e("Error",t.getMessage());
+                        }catch (Exception e){}
+                    }
+                });
+    }
+
+    private void gotochat(UserSearchDataModel.UserSearchModel userSearchDataModel) {
+        if(userSearchDataModel.getRoom_id().equals("0"))
+        {
+            getChatRoomId(userSearchDataModel);
+        }else
+        {
+            ChatUserModel chatUserModel = new ChatUserModel(userSearchDataModel.getUser_name(),userSearchDataModel.getUser_image(),userSearchDataModel.getUser_id(),userSearchDataModel.getRoom_id(),userSearchDataModel.getDate_registration());
+            Intent intent = new Intent(activity, ChatActivity.class);
+            intent.putExtra("data",chatUserModel);
+            intent.putExtra("from",true);
+            startActivity(intent);
+        }
+    }
+    private void getChatRoomId(final UserSearchDataModel.UserSearchModel userSearchModel) {
+        final ProgressDialog dialog = Common.createProgressDialog(activity,getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Api.getService()
+                .getRoomId(userSearchModel.getUser_id(),userSearchModel.getUser_id())
+                .enqueue(new Callback<RoomIdModel>() {
+                    @Override
+                    public void onResponse(Call<RoomIdModel> call, Response<RoomIdModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful()&&response.body()!=null)
+                        {
+                            isCreateChat = true;
+                            userSearchModel.setRoom_id(response.body().getRoom_id());
+
+                            ChatUserModel chatUserModel = new ChatUserModel(userSearchModel.getUser_name(),userSearchModel.getUser_image(),userSearchModel.getUser_id(),userSearchModel.getRoom_id(),userSearchModel.getDate_registration());
+                            Intent intent = new Intent(activity, ChatActivity.class);
+                            intent.putExtra("data",chatUserModel);
+                            intent.putExtra("from",true);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RoomIdModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            Toast.makeText(activity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                            Log.e("Error",t.getMessage());
+                        }catch (Exception e){}
+                    }
+                });
     }
 
 

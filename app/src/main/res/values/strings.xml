@@ -90,4 +90,7 @@
     <string name="day">يوم</string>
     <string name="no_notification_found">No Notification Found</string>
     <string name="select_language">select_language</string>
+    <string name="department2">Department</string>
+    <string name="type">Type</string>
+    <string name="model">Model</string>
 </resources>

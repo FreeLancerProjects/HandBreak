@@ -258,7 +258,7 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
             @Override
             public void onClick(View view) {
                 if (checkBox.isChecked()) {
-                    if (city_id != null && cat_id != null && sub_id != null && uriList.size() > 0) {
+                    if (city_id != null && cat_id != null && sub_id != null && ((uriList.size() > 0&&Adversiment_Model.getId().equals("-1"))||!Adversiment_Model.getId().equals("-1"))) {
                         adversiment_model.setCity_id(city_id);
                         adversiment_model.setCat_id(cat_id);
                         adversiment_model.setSub_id(sub_id);
