@@ -30,14 +30,13 @@ public class CatogriesAdapter extends RecyclerView.Adapter<CatogriesAdapter.Eyas
     Context context;
     private HomeActivity homeActivity;
     private int select;
-    Fragment_Home fragment_home;
+    private Fragment_Main fragment_main;
 
-    public CatogriesAdapter(List<Catogry_Model.Categories> list, Context context, Fragment_Home fragment_home) {
+    public CatogriesAdapter(List<Catogry_Model.Categories> list, Context context, Fragment_Main fragment_main) {
         this.list = list;
         this.context = context;
         homeActivity = (HomeActivity) context;
-        this.fragment_home = fragment_home;
-
+        this.fragment_main = fragment_main;
     }
 
     @Override
@@ -58,7 +57,8 @@ public class CatogriesAdapter extends RecyclerView.Adapter<CatogriesAdapter.Eyas
                 select = i;
                 notifyDataSetChanged();
                 homeActivity.DisplayFragmentMain();
-                fragment_home.setsub(list.get(i).getsub(),list.get(i).getMain_category_fk());
+                fragment_main.addsubtosppinner(list.get(i).getsub(),list.get(i).getMain_category_fk());
+                //  fragment_home.setsub(list.get(i).getsub(),list.get(i).getMain_category_fk());
             }
 
         });

@@ -40,9 +40,7 @@ public class Fragment_Home extends Fragment {
     private AHBottomNavigation ah_bottom_nav;
     private String cuurent_language;
     private FloatingActionButton fab_add_ads;
-    private RecyclerView rec_catogry;
-    private CatogriesAdapter catogriesAdapter;
-    private List<Catogry_Model.Categories> categories;
+
 private Preferences preferences;
 private UserModel userModel;
     @Nullable
@@ -54,7 +52,7 @@ private UserModel userModel;
     }
 
     private void initView(View view) {
-        categories = new ArrayList<>();
+
         homeActivity = (HomeActivity) getActivity();
         preferences=Preferences.getInstance();
         userModel=preferences.getUserData(homeActivity);
@@ -62,13 +60,7 @@ private UserModel userModel;
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         ah_bottom_nav = view.findViewById(R.id.ah_bottom_nav);
         fab_add_ads = view.findViewById(R.id.fab_add_ads);
-        rec_catogry = view.findViewById(R.id.rec_data);
-        catogriesAdapter = new CatogriesAdapter(categories, homeActivity, this);
-        rec_catogry.setDrawingCacheEnabled(true);
-        rec_catogry.setItemViewCacheSize(25);
-        rec_catogry.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        rec_catogry.setLayoutManager(new LinearLayoutManager(homeActivity, RecyclerView.HORIZONTAL, false));
-        rec_catogry.setAdapter(catogriesAdapter);
+
         fab_add_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,7 +120,7 @@ private UserModel userModel;
         ah_bottom_nav.addItem(item2);
         ah_bottom_nav.addItem(item3);
         ah_bottom_nav.addItem(item4);
-        categories();
+
 
     }
 
@@ -140,60 +132,6 @@ private UserModel userModel;
         return new Fragment_Home();
     }
 
-    public void categories() {
 
-        Api.getService().getcateogries(cuurent_language).enqueue(new Callback<Catogry_Model>() {
-            @Override
-            public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
-                //progBar.setVisibility(View.GONE);
-                if (response.isSuccessful()) {
 
-                    if (response.body().getCategories() != null && response.body().getCategories().size() > 0) {
-                        categories.clear();
-                        categories.addAll(response.body().getCategories());
-                        catogriesAdapter.notifyDataSetChanged();
-                        setsub();
-                    } else {
-                        // error.setText(activity.getString(R.string.no_data));
-                        //recc.setVisibility(View.GONE);
-                        //      mPager.setVisibility(View.GONE);
-                    }
-
-                    // Inflate the layout for this fragment
-                } else if (response.code() == 404) {
-                    //error.setText(activity.getString(R.string.no_data));
-                    //recc.setVisibility(View.GONE);
-                    //mPager.setVisibility(View.GONE);
-                } else {
-                    //recc.setVisibility(View.GONE);
-                    //mPager.setVisibility(View.GONE);
-                    try {
-                        Log.e("Error_code", response.code() + "_" + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //error.setText(activity.getString(R.string.faild));
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Catogry_Model> call, Throwable t) {
-
-                Log.e("Error", t.getMessage());
-                //progBar.setVisibility(View.GONE);
-                //error.setText(activity.getString(R.string.faild));
-                //mPager.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    public void setsub(List<Catogry_Model.Categories.sub> subs, String main_category_fk) {
-        homeActivity.setsub(subs,main_category_fk);
-    }
-
-    public void setsub() {
-        if(categories.size()>0){
-        homeActivity.setsub(categories.get(0).getsub(), categories.get(0).getMain_category_fk());}
-    }
 }

@@ -44,7 +44,6 @@ import com.creativeshare.hand_break.share.Common;
 import com.creativeshare.hand_break.share.Time_Ago;
 import com.google.android.material.tabs.TabLayout;
 
-import org.ocpsoft.prettytime.PrettyTime;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

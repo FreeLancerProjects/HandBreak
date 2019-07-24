@@ -482,12 +482,7 @@ Common.CreateUserNotSignInAlertDialog(this);                    } else {
 
     }
 
-    public void setsub(List<Catogry_Model.Categories.sub> subs, String main_category_fk) {
-        if (fragment_main != null && fragment_main.isAdded()) {
 
-            fragment_main.addsubtosppinner(subs, main_category_fk);
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

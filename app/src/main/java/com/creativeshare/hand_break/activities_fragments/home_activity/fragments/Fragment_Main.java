@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativeshare.hand_break.R;
@@ -54,9 +55,12 @@ public class Fragment_Main extends Fragment {
     private Spinner_Adapter city_adapter;
     private List<CityModel> cities_models;
     private RecyclerView rec_search;
+    private RecyclerView rec_catogry;
+    private CatogriesAdapter catogriesAdapter;
+    private List<Catogry_Model.Categories> categories;
     private ImageView im_search;
     private Adversiment_Adapter adversiment_adapter;
-    private List<Catogry_Model.Categories> categories;
+    private List<Catogry_Model.Categories> categories1;
     private List<Catogry_Model.Advertsing> advertsings;
     private Preferences preferences;
     private UserModel userModel;
@@ -77,7 +81,7 @@ public class Fragment_Main extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         initView(view);
         getCities();
-        //     getadversment();
+        categories();
         return view;
     }
 
@@ -88,6 +92,12 @@ public class Fragment_Main extends Fragment {
         progBar = view.findViewById(R.id.progBar);
         im_search = view.findViewById(R.id.im_search);
         ll_no_order = view.findViewById(R.id.ll_no_order);
+        categories1 = new ArrayList<>();
+        rec_catogry = view.findViewById(R.id.rec_data);
+
+        rec_catogry.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        rec_catogry.setLayoutManager(new LinearLayoutManager(homeActivity, RecyclerView.HORIZONTAL, false));
+        rec_catogry.setAdapter(catogriesAdapter);
         subs = new ArrayList<>();
         categories = new ArrayList<>();
         advertsings = new ArrayList<>();
@@ -95,6 +105,10 @@ public class Fragment_Main extends Fragment {
         homeActivity = (HomeActivity) getActivity();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
+        catogriesAdapter = new CatogriesAdapter(categories1, homeActivity,this);
+        rec_catogry.setDrawingCacheEnabled(true);
+        rec_catogry.setItemViewCacheSize(25);
+        rec_catogry.setAdapter(catogriesAdapter);
         if (userModel == null) {
             user_id = "";
         } else {
@@ -133,16 +147,16 @@ public class Fragment_Main extends Fragment {
                 if (dy > 0) {
                     int total_item = manager.getItemCount();
                     int last_item_pos = manager.findLastCompletelyVisibleItemPosition();
-                 //   Log.e("msg", total_item + "  " + last_item_pos);
-                   // Log.e("msg", current_page+"");
+                    //   Log.e("msg", total_item + "  " + last_item_pos);
+                    // Log.e("msg", current_page+"");
 
-                    if (last_item_pos >= (total_item - 5) && !isLoading&&total_page>current_page) {
+                    if (last_item_pos >= (total_item - 5) && !isLoading && total_page > current_page) {
                         isLoading = true;
                         advertsings.add(null);
                         adversiment_adapter.notifyItemInserted(advertsings.size() - 1);
                         int page = current_page + 1;
                         //cuurent_language+=1;
-                     //   Log.e("msg", page+"");
+                        //   Log.e("msg", page+"");
 
                         loadMore(page);
                     }
@@ -203,7 +217,7 @@ public class Fragment_Main extends Fragment {
         return new Fragment_Main();
     }
 
-    public void addsubtosppinner(List<Catogry_Model.Categories.sub> subs, String main_category_fk) {
+    public void addsubtosppinner(List<Catogry_Model.Categories.sub> subs, String maincatogryfk) {
 
         this.subs.clear();
         if (cuurent_language.equals("ar")) {
@@ -216,8 +230,7 @@ public class Fragment_Main extends Fragment {
         this.subs.addAll(subs);
         spinner_sub_catogry_adapter.notifyDataSetChanged();
         sub_cat.setSelection(0);
-
-        maincatogryfk = main_category_fk;
+        this.maincatogryfk = maincatogryfk;
 
 
         getadversment();
@@ -359,7 +372,7 @@ public class Fragment_Main extends Fragment {
                             isLoading = false;
                             advertsings.remove(advertsings.size() - 1);
                             adversiment_adapter.notifyItemRemoved(advertsings.size() - 1);
-                           // isLoading = false;
+                            // isLoading = false;
                             Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
                             Log.e("error", t.getMessage());
                         } catch (Exception e) {
@@ -367,4 +380,54 @@ public class Fragment_Main extends Fragment {
                     }
                 });
     }
+
+    public void categories() {
+
+        Api.getService().getcateogries(cuurent_language).enqueue(new Callback<Catogry_Model>() {
+            @Override
+            public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
+                //progBar.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+
+                    if (response.body().getCategories() != null && response.body().getCategories().size() > 0) {
+                        categories1.clear();
+                        categories1.addAll(response.body().getCategories());
+                        catogriesAdapter.notifyDataSetChanged();
+                        addsubtosppinner(response.body().getCategories().get(0).getsub(), response.body().getCategories().get(0).getMain_category_fk());
+                        getadversment();
+                    } else {
+                        // error.setText(activity.getString(R.string.no_data));
+                        //recc.setVisibility(View.GONE);
+                        //      mPager.setVisibility(View.GONE);
+                    }
+
+                    // Inflate the layout for this fragment
+                } else if (response.code() == 404) {
+                    //error.setText(activity.getString(R.string.no_data));
+                    //recc.setVisibility(View.GONE);
+                    //mPager.setVisibility(View.GONE);
+                } else {
+                    //recc.setVisibility(View.GONE);
+                    //mPager.setVisibility(View.GONE);
+                    try {
+                        Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //error.setText(activity.getString(R.string.faild));
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Catogry_Model> call, Throwable t) {
+
+                Log.e("Error", t.getMessage());
+                //progBar.setVisibility(View.GONE);
+                //error.setText(activity.getString(R.string.faild));
+                //mPager.setVisibility(View.GONE);
+            }
+        });
+    }
+
 }
