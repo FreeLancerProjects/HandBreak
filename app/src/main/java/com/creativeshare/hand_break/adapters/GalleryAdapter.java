@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -26,12 +27,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyHolder
     private List<Uri> advertisement_images;
     private Context context;
     private Fragment_Ads_Detials fragment_ads_detials;
-
-    public GalleryAdapter(List<Uri> advertisement_images, Context context, Fragment_Ads_Detials fragment_ads_detials) {
+private Fragment fragment;
+    public GalleryAdapter(List<Uri> advertisement_images, Context context, Fragment fragment) {
         this.advertisement_images = advertisement_images;
         this.context = context;
-        this.fragment_ads_detials = fragment_ads_detials;
-    }
+this.fragment=fragment;  }
 
     @NonNull
     @Override
@@ -51,7 +51,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyHolder
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment_ads_detials.Delete(holder.getLayoutPosition());
+                if(fragment instanceof  Fragment_Ads_Detials){
+                    fragment_ads_detials=(Fragment_Ads_Detials)fragment;
+                fragment_ads_detials.Delete(holder.getLayoutPosition());}
             }
         });
     }

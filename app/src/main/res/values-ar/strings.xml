@@ -93,4 +93,8 @@
     <string name="department2">القسم</string>
     <string name="type">النوع </string>
     <string name="model">الموديل</string>
+    <string name="color">اللون</string>
+    <string name="plate_number">رقم اللوحه</string>
+    <string name="add">اضافه</string>
+    <string name="near_to_me">القريب منى</string>
 </resources>

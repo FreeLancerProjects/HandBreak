@@ -93,4 +93,8 @@
     <string name="department2">Department</string>
     <string name="type">Type</string>
     <string name="model">Model</string>
+    <string name="color">color</string>
+    <string name="plate_number">Plate Number</string>
+    <string name="add">add</string>
+    <string name="near_to_me">near to me</string>
 </resources>

@@ -231,6 +231,9 @@ public class Fragment_Main extends Fragment {
         spinner_sub_catogry_adapter.notifyDataSetChanged();
         sub_cat.setSelection(0);
         this.maincatogryfk = maincatogryfk;
+        city_id="all";
+        sub_id="all";
+        cities.setSelection(0);
 
 
         getadversment();

@@ -37,13 +37,23 @@
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
             android:layout_gravity="center_vertical"
-            android:weightSum="2"
+            android:weightSum="3"
             android:layout_weight="1"
             >
 
 
-
-
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/near_to_me"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/gray7" />
 
             <Spinner
                 android:id="@+id/sp_city"
@@ -66,6 +76,7 @@
                 android:layout_weight="1"
 
                 ></Spinner>
+
         </LinearLayout>
 
         <ImageView

@@ -19,6 +19,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_About;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Add_Car;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Adversiment_Detials;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Edit_Profile;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_More;
@@ -65,6 +66,7 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_Profile fragment_profile;
     private Fragment_Edit_Profile fragment_edit_profile;
     private Fragment_My_adversiment fragment_my_adversiment;
+    private Fragment_Add_Car fragment_add_car;
     private Fragment_Adversiment_Detials fragment_adversiment_detials;
     private String cuurent_language;
     private Preferences preferences;
@@ -271,7 +273,18 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     }
+    public void DisplayFragmentAddCar() {
+        fragment_count += 1;
+        fragment_add_car = Fragment_Add_Car.newInstance();
 
+
+        if (fragment_add_car.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_add_car).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_add_car, "fragment_add_car").addToBackStack("fragment_add_car").commit();
+
+        }
+    }
     public void DisplayFragmentnotifications() {
         if (fragment_message_notifications == null) {
             fragment_message_notifications = Fragment_Message_Notifications.newInstance();

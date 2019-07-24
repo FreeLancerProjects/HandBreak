@@ -122,17 +122,17 @@ public class Fragment_Search extends Fragment {
         subs_sub = new ArrayList<>();
         cities_models = new ArrayList<>();
         if (cuurent_language.equals("ar")) {
-            cities_models.add(new CityModel("إختر"));
+            cities_models.add(new CityModel("المدينه"));
          //   subs.add(new Catogry_Model.Categories.sub("الكل"));
-            subs.add(new Catogry_Model.Categories.sub("الكل"));
-            categories.add(new Catogry_Model.Categories("الكل"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("الكل"));
+            subs.add(new Catogry_Model.Categories.sub("النوع"));
+            categories.add(new Catogry_Model.Categories("القسم"));
+            subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
         } else {
-            cities_models.add(new CityModel("Choose"));
+            cities_models.add(new CityModel("City"));
            // subs.add(new Catogry_Model.Categories.sub("all"));
-            subs.add(new Catogry_Model.Categories.sub("all"));
-            categories.add(new Catogry_Model.Categories("all"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("all"));
+            subs.add(new Catogry_Model.Categories.sub("Type"));
+            categories.add(new Catogry_Model.Categories("Depart"));
+            subs_sub.add(new Catogry_Model.Categories.sub.Sub("Model"));
         }
 
         city_adapter = new Spinner_Adapter(homeActivity, cities_models);
@@ -161,10 +161,10 @@ public class Fragment_Search extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 subs.clear();
                 if (cuurent_language.equals("ar")) {
-                    subs.add(new Catogry_Model.Categories.sub("الكل"));
+                    subs.add(new Catogry_Model.Categories.sub("النوع"));
 
                 } else {
-                    subs.add(new Catogry_Model.Categories.sub("all"));
+                    subs.add(new Catogry_Model.Categories.sub("Type"));
 
                 }
                 if (i > 0 && categories.get(i).getsub() != null) {
@@ -187,10 +187,10 @@ public class Fragment_Search extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 subs_sub.clear();
                 if (cuurent_language.equals("ar")) {
-                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("الكل"));
+                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
 
                 } else {
-                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("all"));
+                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("Model"));
 
                 }
                 if (i > 0 && subs.get(i).getSubs() != null) {
@@ -501,9 +501,9 @@ searchadversment(city_id,cat_id,sub_id,model_id);
                             if (response.body() != null) {
                                 cities_models.clear();
                                 if (cuurent_language.equals("ar")) {
-                                    cities_models.add(new CityModel("إختر"));
+                                    cities_models.add(new CityModel("المدينه"));
                                 } else {
-                                    cities_models.add(new CityModel("Choose"));
+                                    cities_models.add(new CityModel("City"));
 
                                 }
                                 cities_models.addAll(response.body());
@@ -544,11 +544,11 @@ searchadversment(city_id,cat_id,sub_id,model_id);
                         categories.clear();
                         categories2.clear();
                         if(cuurent_language.equals("ar")){
-                            categories.add(new Catogry_Model.Categories("الكل"));
+                            categories.add(new Catogry_Model.Categories("القسم"));
 
                         }
                         else {
-                            categories.add(new Catogry_Model.Categories("all"));
+                            categories.add(new Catogry_Model.Categories("Depart"));
                         }
                         categories.addAll(response.body().getCategories());
                         categories2.addAll(response.body().getCategories());

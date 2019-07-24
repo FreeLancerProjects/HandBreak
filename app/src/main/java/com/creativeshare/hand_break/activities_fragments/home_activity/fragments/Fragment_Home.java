@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,7 @@ import retrofit2.Response;
 
 public class Fragment_Home extends Fragment {
     private HomeActivity homeActivity;
+    private ImageView im_search;
     private AHBottomNavigation ah_bottom_nav;
     private String cuurent_language;
     private FloatingActionButton fab_add_ads;
@@ -58,9 +60,15 @@ private UserModel userModel;
         userModel=preferences.getUserData(homeActivity);
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
+        im_search=view.findViewById(R.id.im_search);
         ah_bottom_nav = view.findViewById(R.id.ah_bottom_nav);
         fab_add_ads = view.findViewById(R.id.fab_add_ads);
-
+im_search.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        homeActivity.DisplayFragmentSearch();
+    }
+});
         fab_add_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
