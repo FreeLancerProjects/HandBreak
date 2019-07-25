@@ -108,9 +108,11 @@ public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConne
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        CheckPermission();
+
 
         initView(view);
+        CheckPermission();
+
         getCities();
         categories();
         return view;
@@ -568,7 +570,8 @@ public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConne
 
         this.location = location;
 lang=location.getLongitude();
-lat=location.getLongitude();
+lat=location.getLatitude();
+Log.e("lang",lang+"  "+lat);
         if (googleApiClient!=null)
         {
             googleApiClient.disconnect();
