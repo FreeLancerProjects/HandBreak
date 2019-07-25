@@ -67,7 +67,7 @@ public class Fragment_Home extends Fragment {
         im_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeActivity.DisplayFragmentSearch();
+                homeActivity.DisplayFragmentCarSearch();
             }
         });
         fab_add_ads.setOnClickListener(new View.OnClickListener() {

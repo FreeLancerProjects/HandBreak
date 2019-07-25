@@ -1,9 +1,16 @@
 package com.creativeshare.hand_break.activities_fragments.home_activity.fragments;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
+import android.location.Location;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -35,6 +43,20 @@ import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.share.Common;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.OnMapReadyCallback;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +68,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Fragment_Main extends Fragment {
+public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConnectionFailedListener,GoogleApiClient.ConnectionCallbacks, LocationListener {
     private HomeActivity homeActivity;
     private String cuurent_language;
     private List<Catogry_Model.Categories.sub> subs;
@@ -74,15 +96,66 @@ public class Fragment_Main extends Fragment {
     private String city_id = "all";
     private String sub_id = "all";
     private int total_page;
+    private final String gps_perm = Manifest.permission.ACCESS_FINE_LOCATION;
+    private final int gps_req = 22;
+    private double lat=0.0,lang=0.0;
+    private GoogleApiClient googleApiClient;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
+    private Location location;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        CheckPermission();
+
         initView(view);
         getCities();
         categories();
         return view;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1255)
+        {
+            if (resultCode == Activity.RESULT_OK)
+            {
+           startLocationUpdate();
+            }
+        }
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == gps_req && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            initGoogleApiClient();
+        }
+    }
+    private void CheckPermission()
+    {
+        if (ActivityCompat.checkSelfPermission(homeActivity, gps_perm) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(homeActivity, new String[]{gps_perm}, gps_req);
+        } else {
+
+            initGoogleApiClient();
+        }
+    }
+    private void initGoogleApiClient()
+    {
+        googleApiClient = new GoogleApiClient.Builder(homeActivity)
+                .addOnConnectionFailedListener(this)
+                .addConnectionCallbacks(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
     }
 
     private void initView(View view) {
@@ -433,4 +506,90 @@ public class Fragment_Main extends Fragment {
         });
     }
 
+    private void intLocationRequest()
+    {
+        locationRequest = new LocationRequest();
+        locationRequest.setFastestInterval(1000*60*2);
+        locationRequest.setInterval(1000*60*2);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(@NonNull LocationSettingsResult result) {
+
+                Status status = result.getStatus();
+                switch (status.getStatusCode())
+                {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        startLocationUpdate();
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try {
+                            status.startResolutionForResult(homeActivity,1255);
+                        }catch (Exception e)
+                        {
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        Log.e("not available","not available");
+                        break;
+                }
+            }
+        });
+
+    }
+
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle)
+    {
+        intLocationRequest();
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        if (googleApiClient!=null)
+        {
+            googleApiClient.connect();
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        this.location = location;
+lang=location.getLongitude();
+lat=location.getLongitude();
+        if (googleApiClient!=null)
+        {
+            googleApiClient.disconnect();
+        }
+
+        if (locationCallback!=null)
+        {
+            LocationServices.getFusedLocationProviderClient(homeActivity).removeLocationUpdates(locationCallback);
+        }
+    }
+    @SuppressLint("MissingPermission")
+    private void startLocationUpdate()
+    {
+        locationCallback = new LocationCallback()
+        {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                onLocationChanged(locationResult.getLastLocation());
+            }
+        };
+        LocationServices.getFusedLocationProviderClient(homeActivity)
+                .requestLocationUpdates(locationRequest,locationCallback, Looper.myLooper());
+    }
 }

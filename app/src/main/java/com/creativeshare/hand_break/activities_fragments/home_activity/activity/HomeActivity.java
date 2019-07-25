@@ -1,8 +1,10 @@
 package com.creativeshare.hand_break.activities_fragments.home_activity.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,11 +12,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.activity.AdsActivity;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Car_Search;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
@@ -60,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_Main fragment_main;
     private Fragment_Message_Notifications fragment_message_notifications;
     private Fragment_Search fragment_search;
+    private Fragment_Car_Search fragment_car_search;
     private Fragment_More fragment_more;
     private Fragment_Terms_Conditions fragmentTerms_conditions;
     private Fragment_About fragment_about;
@@ -71,7 +76,8 @@ public class HomeActivity extends AppCompatActivity {
     private String cuurent_language;
     private Preferences preferences;
     private UserModel userModel;
-
+    private final String gps_perm = Manifest.permission.ACCESS_FINE_LOCATION;
+    private final int gps_req = 22;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -86,6 +92,8 @@ public class HomeActivity extends AppCompatActivity {
         initView();
 
         if (savedInstanceState == null) {
+            CheckPermission();
+
             DisplayFragmentHome();
             DisplayFragmentMain();
         }
@@ -94,6 +102,23 @@ public class HomeActivity extends AppCompatActivity {
             updateToken();
         }
 
+    }
+    private void CheckPermission()
+    {
+        if (ActivityCompat.checkSelfPermission(this, gps_perm) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{gps_perm}, gps_req);
+        } else {
+
+           // initGoogleApiClient();
+           /* if (isGpsOpen())
+            {
+                StartService(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            }else
+                {
+                    CreateGpsDialog();
+
+                }*/
+        }
     }
 
     private void initView() {
@@ -219,7 +244,21 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+    public void DisplayFragmentCarSearch() {
 
+        fragment_count += 1;
+        fragment_car_search= Fragment_Car_Search.newInstance();
+
+
+        if (fragment_car_search.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_car_search).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_car_search, "fragment_car_search").addToBackStack("fragment_car_search").commit();
+
+        }
+
+
+    }
     public void DisplayFragmentMYAdversiment() {
 
         fragment_count += 1;
@@ -398,6 +437,7 @@ Common.CreateUserNotSignInAlertDialog(this);                    } else {
     public void RefreshActivity(String lang)
     {
         Paper.book().write("lang",lang);
+        preferences.create_update_language(this,lang);
         Language_Helper.setNewLocale(this,lang);
         new Handler()
                 .postDelayed(new Runnable() {

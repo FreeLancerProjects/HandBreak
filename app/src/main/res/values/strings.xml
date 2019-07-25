@@ -98,4 +98,5 @@
     <string name="add">add</string>
     <string name="near_to_me">near to me</string>
     <string name="piece_number">piece number</string>
+    <string name="responsible_person">responsible person</string>
 </resources>

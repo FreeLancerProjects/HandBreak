@@ -60,6 +60,7 @@ import retrofit2.Response;
 public class Fragment_Add_Car extends Fragment {
     private HomeActivity homeActivity;
     private String cuurent_language;
+    private ImageView arrow_back;
     private LinearLayout ll_continue;
     private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
     private Spinner_catogry_Adapter spinner_catogry_adapter;
@@ -101,6 +102,17 @@ public class Fragment_Add_Car extends Fragment {
 
         sp_sub_cat = view.findViewById(R.id.sp_sub);
         sp_model = view.findViewById(R.id.sp_model);
+        arrow_back=view.findViewById(R.id.arrow_back);
+        if (cuurent_language.equals("en")) {
+
+            arrow_back.setRotation(180);
+        }
+        arrow_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeActivity.Back();
+            }
+        });
         cities_models = new ArrayList<>();
         categories = new ArrayList<>();
         subs = new ArrayList<>();

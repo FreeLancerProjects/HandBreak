@@ -98,4 +98,5 @@
     <string name="add">اضافه</string>
     <string name="near_to_me">القريب منى</string>
     <string name="piece_number">رقم القطعه</string>
+    <string name="responsible_person">الشخص المسئول</string>
 </resources>
