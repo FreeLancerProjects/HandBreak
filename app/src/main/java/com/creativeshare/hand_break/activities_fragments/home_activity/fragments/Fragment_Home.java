@@ -43,8 +43,9 @@ public class Fragment_Home extends Fragment {
     private String cuurent_language;
     private FloatingActionButton fab_add_ads;
 
-private Preferences preferences;
-private UserModel userModel;
+    private Preferences preferences;
+    private UserModel userModel;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,26 +57,25 @@ private UserModel userModel;
     private void initView(View view) {
 
         homeActivity = (HomeActivity) getActivity();
-        preferences=Preferences.getInstance();
-        userModel=preferences.getUserData(homeActivity);
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(homeActivity);
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
-        im_search=view.findViewById(R.id.im_search);
+        im_search = view.findViewById(R.id.im_search);
         ah_bottom_nav = view.findViewById(R.id.ah_bottom_nav);
         fab_add_ads = view.findViewById(R.id.fab_add_ads);
-im_search.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        homeActivity.DisplayFragmentSearch();
-    }
-});
+        im_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeActivity.DisplayFragmentSearch();
+            }
+        });
         fab_add_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(userModel!=null){
+                if (userModel != null) {
                     homeActivity.getoAds("-1");
-                }
-                else {
+                } else {
                     Common.CreateUserNotSignInAlertDialog(homeActivity);
                 }
             }
@@ -89,9 +89,9 @@ im_search.setOnClickListener(new View.OnClickListener() {
                         homeActivity.DisplayFragmentMain();
                         break;
                     case 1:
-                        if(userModel!=null){
-                        homeActivity.DisplayFragmentnotifications();}
-                        else {
+                        if (userModel != null) {
+                            homeActivity.DisplayFragmentnotifications();
+                        } else {
                             Common.CreateUserNotSignInAlertDialog(homeActivity);
                         }
 
@@ -139,7 +139,6 @@ im_search.setOnClickListener(new View.OnClickListener() {
     public static Fragment_Home newInstance() {
         return new Fragment_Home();
     }
-
 
 
 }

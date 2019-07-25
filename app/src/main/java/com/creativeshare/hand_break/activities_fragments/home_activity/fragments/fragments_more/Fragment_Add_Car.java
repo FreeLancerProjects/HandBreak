@@ -114,16 +114,16 @@ public class Fragment_Add_Car extends Fragment {
         recyclerView_images.setAdapter(galleryAdapter);
 
         if (cuurent_language.equals("ar")) {
-            cities_models.add(new CityModel("اختر"));
-            subs.add(new Catogry_Model.Categories.sub("الكل"));
-            categories.add(new Catogry_Model.Categories("الكل"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("الكل"));
+            cities_models.add(new CityModel("مدينتى"));
+            subs.add(new Catogry_Model.Categories.sub("النوع"));
+            categories.add(new Catogry_Model.Categories("كل الاقسام"));
+            subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
 
         } else {
-            cities_models.add(new CityModel("choose"));
-            subs.add(new Catogry_Model.Categories.sub("all"));
-            categories.add(new Catogry_Model.Categories("all"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("all"));
+            cities_models.add(new CityModel("City"));
+            subs.add(new Catogry_Model.Categories.sub("Type"));
+            categories.add(new Catogry_Model.Categories("all departments"));
+            subs_sub.add(new Catogry_Model.Categories.sub.Sub("model"));
 
 
         }
@@ -164,10 +164,10 @@ public class Fragment_Add_Car extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 subs.clear();
                 if (cuurent_language.equals("ar")) {
-                    subs.add(new Catogry_Model.Categories.sub("الكل"));
+                    subs.add(new Catogry_Model.Categories.sub("النوع"));
 
                 } else {
-                    subs.add(new Catogry_Model.Categories.sub("all"));
+                    subs.add(new Catogry_Model.Categories.sub("Type"));
 
                 }
                 if (i > 0 && categories.get(i).getsub() != null) {
@@ -187,10 +187,10 @@ public class Fragment_Add_Car extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 subs_sub.clear();
                 if (cuurent_language.equals("ar")) {
-                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("الكل"));
+                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
 
                 } else {
-                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("all"));
+                    subs_sub.add(new Catogry_Model.Categories.sub.Sub("model"));
 
                 }
                 if (i > 0 && subs.get(i).getSubs() != null) {
@@ -313,9 +313,9 @@ public class Fragment_Add_Car extends Fragment {
                             if (response.body() != null) {
                                 cities_models.clear();
                                 if (cuurent_language.equals("ar")) {
-                                    cities_models.add(new CityModel("إختر"));
+                                    cities_models.add(new CityModel("مدينتى"));
                                 } else {
-                                    cities_models.add(new CityModel("Choose"));
+                                    cities_models.add(new CityModel("City"));
 
                                 }
                                 cities_models.addAll(response.body());
@@ -356,10 +356,10 @@ public class Fragment_Add_Car extends Fragment {
                     if (response.body().getCategories() != null && response.body().getCategories().size() > 0) {
                         categories.clear();
                         if (cuurent_language.equals("ar")) {
-                            categories.add(new Catogry_Model.Categories("الكل"));
+                            categories.add(new Catogry_Model.Categories("كل الاقسام"));
 
                         } else {
-                            categories.add(new Catogry_Model.Categories("all"));
+                            categories.add(new Catogry_Model.Categories("all departments"));
                         }
                         categories.addAll(response.body().getCategories());
                         spinner_catogry_adapter.notifyDataSetChanged();

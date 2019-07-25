@@ -112,11 +112,11 @@ public class Fragment_Edit_Profile extends Fragment {
             back.setRotation(180);
         }
         if (cuurent_language.equals("ar")) {
-            cities_models.add(new CityModel("إختر"));
+            cities_models.add(new CityModel("مدينتى"));
             //   subs.add(new Catogry_Model.Categories.sub("الكل"));
 
         } else {
-            cities_models.add(new CityModel("Choose"));
+            cities_models.add(new CityModel("City"));
             // subs.add(new Catogry_Model.Categories.sub("all"));
 
         }
@@ -405,9 +405,9 @@ city_id=userModel.getUser_city();
                             if (response.body() != null) {
                                 cities_models.clear();
                                 if (cuurent_language.equals("ar")) {
-                                    cities_models.add(new CityModel("إختر"));
+                                    cities_models.add(new CityModel("مدينتى"));
                                 } else {
-                                    cities_models.add(new CityModel("Choose"));
+                                    cities_models.add(new CityModel("City"));
 
                                 }
                                 cities_models.addAll(response.body());

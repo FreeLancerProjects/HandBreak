@@ -105,7 +105,7 @@ public class Fragment_Main extends Fragment {
         homeActivity = (HomeActivity) getActivity();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
-        catogriesAdapter = new CatogriesAdapter(categories1, homeActivity,this);
+        catogriesAdapter = new CatogriesAdapter(categories1, homeActivity, this);
         rec_catogry.setDrawingCacheEnabled(true);
         rec_catogry.setItemViewCacheSize(25);
         rec_catogry.setAdapter(catogriesAdapter);
@@ -121,12 +121,12 @@ public class Fragment_Main extends Fragment {
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         cities_models = new ArrayList<>();
         if (cuurent_language.equals("ar")) {
-            cities_models.add(new CityModel("إختر"));
-            subs.add(new Catogry_Model.Categories.sub("الكل"));
+            cities_models.add(new CityModel("مدينتى"));
+            subs.add(new Catogry_Model.Categories.sub("النوع"));
 
         } else {
-            cities_models.add(new CityModel("Choose"));
-            subs.add(new Catogry_Model.Categories.sub("all"));
+            cities_models.add(new CityModel("City"));
+            subs.add(new Catogry_Model.Categories.sub("Type"));
 
         }
 
@@ -221,18 +221,18 @@ public class Fragment_Main extends Fragment {
 
         this.subs.clear();
         if (cuurent_language.equals("ar")) {
-            this.subs.add(new Catogry_Model.Categories.sub("الكل"));
+            this.subs.add(new Catogry_Model.Categories.sub("النوع"));
 
         } else {
-            this.subs.add(new Catogry_Model.Categories.sub("all"));
+            this.subs.add(new Catogry_Model.Categories.sub("Type"));
 
         }
         this.subs.addAll(subs);
         spinner_sub_catogry_adapter.notifyDataSetChanged();
         sub_cat.setSelection(0);
         this.maincatogryfk = maincatogryfk;
-        city_id="all";
-        sub_id="all";
+        city_id = "all";
+        sub_id = "all";
         cities.setSelection(0);
 
 
@@ -256,9 +256,9 @@ public class Fragment_Main extends Fragment {
                             if (response.body() != null) {
                                 cities_models.clear();
                                 if (cuurent_language.equals("ar")) {
-                                    cities_models.add(new CityModel("إختر"));
+                                    cities_models.add(new CityModel("مدينتى"));
                                 } else {
-                                    cities_models.add(new CityModel("Choose"));
+                                    cities_models.add(new CityModel("City"));
 
                                 }
                                 cities_models.addAll(response.body());

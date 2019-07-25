@@ -90,8 +90,9 @@ public class Fragment_Ads extends Fragment {
         this.adversiment_model = adversiment_model;
 
         fragment_ads_adder_info.setmodel(adversiment_model);
-if(!Adversiment_Model.getId().equals("-1")){
-        fragment_ads_adder_info.setdata();}
+        if (!Adversiment_Model.getId().equals("-1")) {
+            fragment_ads_adder_info.setdata();
+        }
 
     }
 

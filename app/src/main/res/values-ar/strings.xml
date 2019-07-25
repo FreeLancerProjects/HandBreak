@@ -10,7 +10,7 @@
     <string name="search">بحث</string>
     <string name="more">المزيد</string>
     <string name="message">الرسائل</string>
-    <string name="add_search_for_missing_car">اضافة / البحث عن سيارة مفقودة</string>
+    <string name="add_search_for_missing_car">اضافة سيارة مفقودة</string>
     <string name="application_commission">عمولة التطبيق </string>
     <string name="about_hand_break">عن التطبيق</string>
     <string name="contact_us">تواصل معنا</string>
@@ -97,4 +97,5 @@
     <string name="plate_number">رقم اللوحه</string>
     <string name="add">اضافه</string>
     <string name="near_to_me">القريب منى</string>
+    <string name="piece_number">رقم القطعه</string>
 </resources>

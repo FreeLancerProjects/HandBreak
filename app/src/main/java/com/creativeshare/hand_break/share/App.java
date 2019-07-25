@@ -12,6 +12,14 @@ public class App extends Application {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(Language_Helper.updateResources(newBase, com.creativeshare.hand_break.preferences.Preferences.getInstance().getLanguage(newBase)));
     }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        TypefaceUtil.overrideFont(this, "SERIF", "fonts/din-next-lt-w23-regular.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
+        TypefaceUtil.overrideFont(this, "DEFAULT", "fonts/din-next-lt-w23-regular.ttf");
+        TypefaceUtil.overrideFont(this, "MONOSPACE", "fonts/din-next-lt-w23-regular.ttf");
+        TypefaceUtil.overrideFont(this, "SANS_SERIF", "fonts/din-next-lt-w23-regular.ttf");
+    }
 
 }
 

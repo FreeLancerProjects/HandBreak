@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:fillViewport="true"
-    android:background="@color/gray1"
+    android:background="@color/white"
     android:clickable="true"
-    android:focusable="true"
-    >
+    android:fillViewport="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,135 +20,127 @@
         >
 
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:background="@color/gray1">
 
-
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray1"
-                android:layout_marginBottom="30dp"
-                >
-                <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:gravity="center"
+                    android:layout_height="1px"
+                    android:layout_marginTop="25dp"
+                    android:background="@color/gray4" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recView_images"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+
                     >
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/gray4"
-                        android:layout_marginTop="25dp"
-                        />
+                </androidx.recyclerview.widget.RecyclerView>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray4" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recView_images"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                <LinearLayout
+                    android:id="@+id/ll_cv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
 
-                        >
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:padding="3dp"
+                        android:src="@drawable/ic_upload" />
 
-                    </androidx.recyclerview.widget.RecyclerView>
+                    <TextView
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/gray4"/>
-
-                    <LinearLayout
-                        android:id="@+id/ll_cv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal"
-                        >
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_upload"
-                            android:padding="3dp"
-                            android:clickable="false"
-                            android:longClickable="false"
-                            />
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:text="@string/upload"
-                            android:textStyle="bold"
-                            />
-                    </LinearLayout>
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/upload"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
-            </FrameLayout>
-
-
-
+            </LinearLayout>
+        </FrameLayout>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@string/the_manufacture_company"
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            />
+            android:textStyle="bold" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
             android:background="@color/white"
             android:hint="@string/the_manufacture_company"
-            />
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray7"
-            />
+            android:background="@color/gray7" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
             android:background="@color/white"
             android:hint="@string/color"
-            />
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray7"
-            />
+            android:background="@color/gray7" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
             android:background="@color/white"
             android:hint="@string/plate_number"
-            />
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray7"
-            />
+            android:background="@color/gray7" />
+
         <Spinner
             android:id="@+id/sp_city"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@drawable/spinnerbackground"></Spinner>
+            android:background="@color/white"></Spinner>
 
         <View
             android:layout_width="match_parent"
@@ -161,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/spinnerbackground"></Spinner>
+            android:background="@color/white"></Spinner>
 
         <View
             android:layout_width="match_parent"
@@ -173,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/spinnerbackground"></Spinner>
+            android:background="@color/white"></Spinner>
 
         <View
             android:layout_width="match_parent"
@@ -185,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/spinnerbackground"></Spinner>
+            android:background="@color/white"></Spinner>
 
         <View
             android:layout_width="match_parent"
@@ -193,33 +184,25 @@
             android:background="@color/gray7" />
 
 
-
-
-
-
-
         <LinearLayout
             android:id="@+id/ll_continue"
             android:layout_width="180dp"
             android:layout_height="45dp"
-            android:background="@drawable/bt_shape"
-            android:orientation="horizontal"
             android:layout_gravity="end"
             android:layout_marginTop="20dp"
-            >
+            android:background="@drawable/bt_shape"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
                 android:gravity="center_vertical"
                 android:text="@string/add"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:layout_marginStart="16dp"
 
                 tools:ignore="RtlCompat" />
-
-
 
 
         </LinearLayout>

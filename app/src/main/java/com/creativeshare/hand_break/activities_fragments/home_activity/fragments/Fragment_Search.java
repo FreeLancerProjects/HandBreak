@@ -122,16 +122,16 @@ public class Fragment_Search extends Fragment {
         subs_sub = new ArrayList<>();
         cities_models = new ArrayList<>();
         if (cuurent_language.equals("ar")) {
-            cities_models.add(new CityModel("المدينه"));
+            cities_models.add(new CityModel("مدينتى"));
          //   subs.add(new Catogry_Model.Categories.sub("الكل"));
             subs.add(new Catogry_Model.Categories.sub("النوع"));
-            categories.add(new Catogry_Model.Categories("القسم"));
+            categories.add(new Catogry_Model.Categories("كل الاقسام"));
             subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
         } else {
             cities_models.add(new CityModel("City"));
            // subs.add(new Catogry_Model.Categories.sub("all"));
             subs.add(new Catogry_Model.Categories.sub("Type"));
-            categories.add(new Catogry_Model.Categories("Depart"));
+            categories.add(new Catogry_Model.Categories("all department"));
             subs_sub.add(new Catogry_Model.Categories.sub.Sub("Model"));
         }
 
@@ -501,7 +501,7 @@ searchadversment(city_id,cat_id,sub_id,model_id);
                             if (response.body() != null) {
                                 cities_models.clear();
                                 if (cuurent_language.equals("ar")) {
-                                    cities_models.add(new CityModel("المدينه"));
+                                    cities_models.add(new CityModel("مدينتى"));
                                 } else {
                                     cities_models.add(new CityModel("City"));
 
@@ -544,11 +544,11 @@ searchadversment(city_id,cat_id,sub_id,model_id);
                         categories.clear();
                         categories2.clear();
                         if(cuurent_language.equals("ar")){
-                            categories.add(new Catogry_Model.Categories("القسم"));
+                            categories.add(new Catogry_Model.Categories("كل الاقسام"));
 
                         }
                         else {
-                            categories.add(new Catogry_Model.Categories("Depart"));
+                            categories.add(new Catogry_Model.Categories("all department"));
                         }
                         categories.addAll(response.body().getCategories());
                         categories2.addAll(response.body().getCategories());

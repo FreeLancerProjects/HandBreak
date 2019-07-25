@@ -17,7 +17,7 @@
     >
 <FrameLayout
     android:id="@+id/f1"
-    android:layout_width="90dp"
+    android:layout_width="70dp"
     android:layout_height="45dp"
     android:background="@drawable/lang_shape3"
     app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
 </FrameLayout>
     <FrameLayout
         android:id="@+id/f2"
-        android:layout_width="90dp"
+        android:layout_width="70dp"
         android:layout_height="45dp"
         android:background="@drawable/lang_shape4"
         app:layout_constraintTop_toTopOf="parent"
