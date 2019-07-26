@@ -1,6 +1,7 @@
 package com.creativeshare.hand_break.services;
 
 
+import com.creativeshare.hand_break.models.Adversiment_Comment_Model;
 import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.AppDataModel;
@@ -210,6 +211,29 @@ public interface Service {
 
 
 
+    );
+    @FormUrlEncoded
+    @POST("App/followAdvertsing")
+    Call<ResponseBody> followadversiment(
+            @Field("id_advertisement") String id_advertisement,
+            @Field("user_id") String user_id
+
+
+
+    );
+    @FormUrlEncoded
+    @POST("App/commentAdvertising")
+    Call<Adversiment_Comment_Model> addcomment(
+            @Field("id_advertisement") String id_advertisement,
+            @Field("user_id") String user_id,
+            @Field("comment_text") String comment_text
+
+
+
+    );
+    @GET("App/AdvertisingComments")
+    Call<Adversiment_Comment_Model> getcomments(@Query("id_advertisement") String id_advertisement,
+                                     @Query("page") int page
     );
     @GET("Chating/rooms")
     Call<UserRoomModelData> getRooms(@Query("user_id") String user_id,
