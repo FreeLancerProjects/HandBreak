@@ -125,7 +125,9 @@ public interface Service {
             @Query("user_id") String user_id,
             @Query("main_category_fk") String main_category_fk,
             @Query("sub_category_fk") String sub_category_fk,
-            @Query("city_id") String city_id
+            @Query("city_id") String city_id,
+            @Query("google_lat") String google_lat,
+            @Query("google_long") String google_long
     );
 
     @GET("App/searchAdvertsing")
@@ -177,6 +179,8 @@ public interface Service {
                                           @Part("advertisement_price") RequestBody advertisement_price,
                                           @Part("city_id") RequestBody city_id,
                                           @Part("phone") RequestBody phone,
+                                          @Part("google_lat") RequestBody google_lat,
+                                          @Part("google_long") RequestBody google_long,
                                           @Part List<MultipartBody.Part> advertisement_images
 
     );
@@ -194,6 +198,8 @@ public interface Service {
              @Part("city_id") RequestBody city_id,
              @Part("phone") RequestBody phone,
              @Part("id_advertisement") RequestBody id_advertisement,
+             @Part("google_lat") RequestBody google_lat,
+             @Part("google_long") RequestBody google_long,
              @Part List<MultipartBody.Part> advertisement_images
 
             );

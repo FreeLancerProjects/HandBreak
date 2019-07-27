@@ -453,7 +453,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
                     public void onResponse(Call<Adversiment_Comment_Model> call, Response<Adversiment_Comment_Model> response) {
                         progBar.setVisibility(View.GONE);
                         if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
-                            Log.e("data",response.body().getData().get(0).getDate());
+                           // Log.e("data",response.body().getData().get(0).getDate());
                             data.clear();
 
                             data.addAll(response.body().getData());

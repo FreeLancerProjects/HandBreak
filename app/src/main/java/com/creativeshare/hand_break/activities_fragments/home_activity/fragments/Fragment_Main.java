@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -103,7 +104,7 @@ public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConne
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
     private Location location;
-
+private TextView tv_near;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -169,6 +170,7 @@ public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConne
         ll_no_order = view.findViewById(R.id.ll_no_order);
         categories1 = new ArrayList<>();
         rec_catogry = view.findViewById(R.id.rec_data);
+tv_near=view.findViewById(R.id.tv_near);
 
         rec_catogry.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         rec_catogry.setLayoutManager(new LinearLayoutManager(homeActivity, RecyclerView.HORIZONTAL, false));
@@ -286,6 +288,16 @@ public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConne
                 getadversment();
             }
         });
+        tv_near.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+city_id="all";
+sub_id="all";
+cities.setSelection(0);
+sub_cat.setSelection(0);
+getadversment();
+            }
+        });
     }
 
     public static Fragment_Main newInstance() {
@@ -370,7 +382,7 @@ public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConne
 
 
         Api.getService()
-                .getadversment(1, user_id, maincatogryfk, sub_id, city_id)
+                .getadversment(1, user_id, maincatogryfk, sub_id, city_id,lat+"",lang+"")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -418,7 +430,7 @@ public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConne
 
 
         Api.getService()
-                .getadversment(page, user_id, maincatogryfk, sub_id, city_id + "")
+                .getadversment(page, user_id, maincatogryfk, sub_id, city_id + "",lat+"",lang+"")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
