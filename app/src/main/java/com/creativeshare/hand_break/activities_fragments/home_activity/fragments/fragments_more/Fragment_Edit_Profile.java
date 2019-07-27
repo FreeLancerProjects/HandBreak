@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,7 +63,7 @@ public class Fragment_Edit_Profile extends Fragment {
     private String cuurent_language;
     // private CircleImageView imageprofile;
     private CountryCodePicker countryCodePicker;
-    private EditText edt_name, edt_email, edt_phone, edt_location, edt_address, edt_commercial, edt_pass;
+    private EditText edt_name, edt_email, edt_phone, edt_location, edt_address,  edt_pass;
     private Spinner cities;
     private String city_id;
     private Preferences preferences;
@@ -102,7 +103,7 @@ public class Fragment_Edit_Profile extends Fragment {
 
         // edt_location = view.findViewById(R.id.edt_loc);
         edt_address = view.findViewById(R.id.edt_address);
-        edt_commercial = view.findViewById(R.id.edt_commercial);
+       // edt_commercial = view.findViewById(R.id.edt_commercial);
         countryCodePicker = view.findViewById(R.id.ccp);
         countryCodePicker.registerCarrierNumberEditText(edt_phone);
         edt_pass = view.findViewById(R.id.edt_password);
@@ -281,9 +282,9 @@ public class Fragment_Edit_Profile extends Fragment {
         String phonecode = countryCodePicker.getSelectedCountryCode();
         //String city = edt_location.getText().toString();
         String address = edt_address.getText().toString();
-        String coomericial = edt_commercial.getText().toString();
+        //String coomericial = edt_commercial.getText().toString();
         String pass = edt_pass.getText().toString();
-        if (name.isEmpty() || email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6 || address.isEmpty() || coomericial.isEmpty() || city_id.equals("all")) {
+        if (name.isEmpty() || email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6 || address.isEmpty() || city_id.equals("all")) {
             if (name.isEmpty()) {
 name=userModel.getUser_name();
             }
@@ -297,9 +298,7 @@ phone=userModel.getUser_phone();
 
             if (address.isEmpty()) {
 address=userModel.getUser_address();            }
-            if (coomericial.isEmpty()) {
-coomericial=userModel.getCommercial_register();
-            }
+
             if (city_id.equals("all")) {
 city_id=userModel.getUser_city();
             }
@@ -308,15 +307,15 @@ city_id=userModel.getUser_city();
              edt_pass.setError("");
         }
         else {
-            updateprofile(name, email, phone, phonecode, address, coomericial, pass, city_id);}
+            updateprofile(name, email, phone, phonecode, address, pass, city_id);}
 
     }
 
-    private void updateprofile(String name, String email, String phone, String phonecode, final String address, String coomericial, String pass, String city_id) {
+    private void updateprofile(String name, String email, String phone, String phonecode, final String address,  String pass, String city_id) {
         final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService().updateprofile(userModel.getUser_id(), email, name, phone, phonecode.replace("+", "00"), address + "", Integer.parseInt(coomericial), pass, city_id).enqueue(new Callback<UserModel>() {
+        Api.getService().updateprofile(userModel.getUser_id(), email, name, phone, phonecode.replace("+", "00"), address + "", pass, city_id).enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 dialog.dismiss();
@@ -363,9 +362,7 @@ city_id=userModel.getUser_city();
             if (userModel.getUser_address() != null) {
                 edt_address.setText(userModel.getUser_address());
             }
-            if (userModel.getCommercial_register() != null) {
-                edt_commercial.setText(userModel.getCommercial_register());
-            }
+
             if (userModel.getUser_phone() != null) {
                 edt_phone.setText(userModel.getUser_phone());
                 countryCodePicker.setCountryForPhoneCode(Integer.parseInt(userModel.getUser_phone_code()));

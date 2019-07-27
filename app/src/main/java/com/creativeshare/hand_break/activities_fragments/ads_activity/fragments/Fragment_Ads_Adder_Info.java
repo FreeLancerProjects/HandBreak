@@ -420,7 +420,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         this.location = location;
         lng = location.getLongitude();
         lat = location.getLatitude();
-        if (Adversiment_Model.getId() == "-1") {
+        if (Adversiment_Model.getId().equals("-1")) {
             AddMarker(lat, lng);
         }
         if (googleApiClient != null) {

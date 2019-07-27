@@ -30,6 +30,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_My_adversiment;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Profile;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Terms_Conditions;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Upgrade;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy.Fragment_Message_Notifications;
 import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 import com.creativeshare.hand_break.language.Language_Helper;
@@ -73,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_My_adversiment fragment_my_adversiment;
     private Fragment_Add_Car fragment_add_car;
     private Fragment_Adversiment_Detials fragment_adversiment_detials;
+    private Fragment_Upgrade fragment_upgrade;
     private String cuurent_language;
     private Preferences preferences;
     private UserModel userModel;
@@ -286,7 +288,18 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     }
+    public void DisplayFragmentupgrade() {
+        fragment_count += 1;
+        fragment_upgrade = Fragment_Upgrade.newInstance();
 
+
+        if (fragment_upgrade.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_upgrade).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_upgrade, "fragment_upgrade").addToBackStack("fragment_upgrade").commit();
+
+        }
+    }
     public void DisplayFragmentProfile() {
         fragment_count += 1;
         fragment_profile = Fragment_Profile.newInstance();

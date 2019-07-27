@@ -56,7 +56,9 @@ private HomeActivity homeActivity;
         Adversiting_Model.Same_advertisements same_advertisement = same_advertisements.get(position);
 
        // Log.e("ssssss",uri.toString());
-        getimage(same_advertisement.getId_advertisement(),holder.ivGallery,holder.progBar);
+        Picasso.with(context).load(Tags.IMAGE_URL+same_advertisement.getMain_image()).fit().into(holder.ivGallery);
+holder.progBar.setVisibility(View.GONE);
+       // getimage(same_advertisement.getId_advertisement(),holder.ivGallery,holder.progBar);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,23 +68,7 @@ private HomeActivity homeActivity;
 
     }
 
-    private void getimage(String id_advertisement, final CircleImageView ivGallery, final ProgressBar progBar) {
-        Api.getService().getadversmentdetials(id_advertisement).enqueue(new Callback<Adversiting_Model>() {
-            @Override
-            public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
-                progBar.setVisibility(View.GONE);
-                if(response.isSuccessful()){
-                    Picasso.with(context).load(Tags.IMAGE_URL+response.body().getMain_image()).fit().into(ivGallery);
 
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Adversiting_Model> call, Throwable t) {
-progBar.setVisibility(View.GONE);
-            }
-        });
-    }
 
     @Override
     public int getItemCount() {

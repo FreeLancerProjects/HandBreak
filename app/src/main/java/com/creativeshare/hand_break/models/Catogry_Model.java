@@ -111,7 +111,7 @@ private Meta meta;
          private String main_image;
          private List<Advertisement_images> advertisement_images;
          private List<Same_advertisements> same_advertisements;
-
+private boolean follow_status;
          public class Advertisement_images implements Serializable {
              private String image_id;
              private String image_name;
@@ -243,6 +243,14 @@ private String id_advertisement;
 
          public List<Same_advertisements> getSame_advertisements() {
              return same_advertisements;
+         }
+
+         public boolean isFollow_status() {
+             return follow_status;
+         }
+
+         public void setFollow_status(boolean follow_status) {
+             this.follow_status = follow_status;
          }
      }
           public class Meta implements Serializable{

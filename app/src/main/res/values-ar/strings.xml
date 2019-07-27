@@ -99,4 +99,6 @@
     <string name="near_to_me">القريب منى</string>
     <string name="piece_number">رقم القطعه</string>
     <string name="responsible_person">الشخص المسئول</string>
+    <string name="title">العنوان</string>
+    <string name="upgrade">تحويل الى تاجر</string>
 </resources>

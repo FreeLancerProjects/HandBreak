@@ -278,7 +278,15 @@ public class Fragment_Adversiment_Detials extends Fragment {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 dialog.dismiss();
                 if (response.isSuccessful() ) {
+if(adversiting_model.isFollow_status()==true){
+    im_follow.setImageDrawable(getResources().getDrawable(R.drawable.follow));
+    adversiting_model.setFollow_status(false);
+}
+else {
+    im_follow.setImageDrawable(getResources().getDrawable(R.drawable.ic_follow));
+    adversiting_model.setFollow_status(true);
 
+}
                 }
                 else {
                     Toast.makeText(activity,getResources().getString(R.string.failed),Toast.LENGTH_LONG).show();
@@ -339,6 +347,13 @@ public class Fragment_Adversiment_Detials extends Fragment {
         progBar.setVisibility(View.GONE);
         NUM_PAGES = advertsing.getAdvertisement_images().size();
         slidingImage__adapter = new SlidingImage_Adapter(activity, advertsing.getAdvertisement_images());
+        if(advertsing.isFollow_status()==true){
+            im_follow.setImageDrawable(getResources().getDrawable(R.drawable.ic_follow));
+        }
+        else {
+            im_follow.setImageDrawable(getResources().getDrawable(R.drawable.follow));
+
+        }
         mPager.setAdapter(slidingImage__adapter);
         indicator.setupWithViewPager(mPager);
         change_slide_image();
@@ -443,7 +458,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
                     }
                 });
     }
-    public void getadversmentcomment() {
+    private void getadversmentcomment() {
         //progBar.setVisibility(View.VISIBLE);
         // ll_no_order.setVisibility(View.GONE);
         Api.getService()

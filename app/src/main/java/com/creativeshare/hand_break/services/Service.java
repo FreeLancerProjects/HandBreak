@@ -56,7 +56,6 @@ public interface Service {
             @Field("user_phone") String user_phone,
             @Field("user_phone_code") String user_phone_code,
             @Field("user_address") String user_address,
-            @Field("commercial_register") int commercial_register,
             @Field("user_pass") String user_pass,
             @Field("user_city") String user_city
 
@@ -236,6 +235,17 @@ public interface Service {
 
 
     );
+    @FormUrlEncoded
+    @POST("App/ratingUser")
+    Call<ResponseBody> makerating(
+            @Field("user_id") String user_id,
+            @Field("rating_user") String rating_user,
+            @Field("rating_value") String rating_value
+
+
+
+
+            );
     @FormUrlEncoded
     @POST("App/commentAdvertising")
     Call<Adversiment_Comment_Model> addcomment(

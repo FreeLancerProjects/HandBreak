@@ -99,4 +99,6 @@
     <string name="near_to_me">near to me</string>
     <string name="piece_number">piece number</string>
     <string name="responsible_person">responsible person</string>
+    <string name="title">title</string>
+    <string name="upgrade">Upgrade to dealer</string>
 </resources>

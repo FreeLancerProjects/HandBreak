@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.share.Common;
 import com.creativeshare.hand_break.tags.Tags;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -43,6 +45,8 @@ public class Fragment_Profile extends Fragment {
     private CircleImageView imageprofile;
     private TextView tv_name,tv_loaction,tv_address,tv_commericial,tv_phone,tv_email;
     private ImageView  arrow1, arrow2, arrow3, arrow4, arrow5,im_edit;
+    private SimpleRatingBar simpleRatingBar;
+    private Button bt_upgrade;
     private Preferences preferences;
     private UserModel userModel;
 private ImageView back;
@@ -59,6 +63,7 @@ List<CityModel> cityModels;
     private void initView(View view) {
         homeActivity = (HomeActivity) getActivity();
         preferences=Preferences.getInstance();
+
         if(Adversiment_Model.getId()==null){
         userModel=preferences.getUserData(homeActivity);}
         else{
@@ -81,7 +86,8 @@ List<CityModel> cityModels;
         arrow5 = view.findViewById(R.id.arrow5);
         im_edit=view.findViewById(R.id.im_edit);
         back=view.findViewById(R.id.arrow_back);
-
+simpleRatingBar=view.findViewById(R.id.rating);
+bt_upgrade=view.findViewById(R.id.bt_upgrade);
         if(cuurent_language.equals("en"))
         {
             arrow1.setRotation(180.0f);
@@ -98,9 +104,25 @@ List<CityModel> cityModels;
                 homeActivity.Back();
             }
         });
+        bt_upgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeActivity.DisplayFragmentupgrade();
+            }
+        });
         if(Adversiment_Model.getId()!=null){
             im_edit.setImageDrawable(getResources().getDrawable(R.drawable.follow));
+simpleRatingBar.setVisibility(View.VISIBLE);
+bt_upgrade.setVisibility(View.GONE);
         }
+        else {
+            if(userModel!=null){
+                if(userModel.getUser_type().equals("2")){
+                    bt_upgrade.setVisibility(View.GONE);
+                }
+            }
+        }
+
       //  updateprofile();
 im_edit.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -113,6 +135,47 @@ im_edit.setOnClickListener(new View.OnClickListener() {
         }
     }
 });
+        simpleRatingBar.setOnRatingBarChangeListener(new SimpleRatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(SimpleRatingBar simpleRatingBar, float rating, boolean fromUser) {
+                updaterating();
+            }
+        });
+    }
+
+    private void updaterating() {
+        final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService().makerating(preferences.getUserData(homeActivity).getUser_id(),userModel.getUser_id(),simpleRatingBar.getRating()+"").enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                dialog.dismiss();
+                if (response.isSuccessful()) {
+
+                }
+                else {
+                    try {
+                        Toast.makeText(homeActivity, R.string.failed, Toast.LENGTH_SHORT).show();
+                        Log.e("Error_code", response.code() + "" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                dialog.dismiss();
+
+                try {
+                    Toast.makeText(homeActivity, R.string.something, Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
+                } catch (Exception e) {
+
+                }
+            }
+        });
     }
 
     private void followuser() {
