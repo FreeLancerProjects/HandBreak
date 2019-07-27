@@ -75,8 +75,8 @@ public class Fragment_Adversiment_Detials extends Fragment {
     private ViewPager mPager;
     private TabLayout indicator;
     private RecyclerView recyclerView_images,recyclerView_comment;
-    private ConstraintLayout cons_chat,cons_follow,cons_comment;
-private EditText edt_comment;
+    private ConstraintLayout cons_chat,cons_follow,cons_comment,cons_profile;
+    private EditText edt_comment;
     private int current_page = 0, NUM_PAGES,total_page,current_page1=1;
     private ProgressBar progBar;
     private SlidingImage_Adapter slidingImage__adapter;
@@ -85,10 +85,10 @@ private EditText edt_comment;
     private List<Adversiting_Model.Same_advertisements> advertisementsList;
     private List<Adversiment_Comment_Model.Data> data;
     private boolean isCreateChat=false;
-private Adversiting_Model adversiting_model;
-private GridLayoutManager manager;
-private UserModel userModel;
-private Preferences preferences;
+    private Adversiting_Model adversiting_model;
+    private GridLayoutManager manager;
+    private UserModel userModel;
+    private Preferences preferences;
     private boolean isLoading = false;
 
     public static Fragment_Adversiment_Detials newInstance(String id_adversmentt) {
@@ -135,6 +135,7 @@ private Preferences preferences;
         cons_chat=view.findViewById(R.id.cons3);
         cons_comment=view.findViewById(R.id.cons_comment);
         edt_comment=view.findViewById(R.id.edt_comment);
+        cons_profile=view.findViewById(R.id.cons_profile);
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         // preferences = Preferences.getInstance();
         recyclerView_images.setDrawingCacheEnabled(true);
@@ -186,7 +187,7 @@ private Preferences preferences;
             @Override
             public void onClick(View view) {
                 if(userModel!=null){
-                search();}
+                    search();}
                 else {
                     Common.CreateUserNotSignInAlertDialog(activity);
                 }
@@ -214,8 +215,19 @@ private Preferences preferences;
                 }
             }
         });
+        cons_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(userModel!=null){
+                    Adversiment_Model.setId(adversiting_model.getAdvertisement_user());
+                    activity.DisplayFragmentProfile();
+                }
+            }
+        });
         //preferences= Preferences.getInstance();
     }
+
+
 
     private void checkdata() {
         String comment=edt_comment.getText().toString();
@@ -261,27 +273,27 @@ private Preferences preferences;
         final ProgressDialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-Api.getService().followadversiment(id_advertisement,userModel.getUser_id()).enqueue(new Callback<ResponseBody>() {
-    @Override
-    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-        dialog.dismiss();
-        if (response.isSuccessful() ) {
+        Api.getService().followadversiment(id_advertisement,userModel.getUser_id()).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                dialog.dismiss();
+                if (response.isSuccessful() ) {
 
-        }
-        else {
-            Toast.makeText(activity,getResources().getString(R.string.failed),Toast.LENGTH_LONG).show();
-            Log.e("Error_Code ",response.code()+"_"+response.errorBody());
-        }
-    }
+                }
+                else {
+                    Toast.makeText(activity,getResources().getString(R.string.failed),Toast.LENGTH_LONG).show();
+                    Log.e("Error_Code ",response.code()+"_"+response.errorBody());
+                }
+            }
 
-    @Override
-    public void onFailure(Call<ResponseBody> call, Throwable t) {
-dialog.dismiss();
-        Toast.makeText(activity,getResources().getString(R.string.something),Toast.LENGTH_LONG).show();
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(activity,getResources().getString(R.string.something),Toast.LENGTH_LONG).show();
 
-        Log.e("Error",t.getMessage());
-    }
-});
+                Log.e("Error",t.getMessage());
+            }
+        });
     }
 
     private void getadeversmentdetials(String id_advertisement) {
@@ -354,9 +366,9 @@ dialog.dismiss();
         }, 3000, 3000);
     }
     private void search() {
-     //   userSearchModelList.clear();
+        //   userSearchModelList.clear();
         progBar.setVisibility(View.VISIBLE);
-Log.e("msg",adversiting_model.getAdvertisement_user());
+        Log.e("msg",adversiting_model.getAdvertisement_user());
         Api.getService()
                 .searchUsers(adversiting_model.getUser_name(), userModel.getUser_id())
                 .enqueue(new Callback<UserSearchDataModel>() {
@@ -365,7 +377,7 @@ Log.e("msg",adversiting_model.getAdvertisement_user());
                         progBar.setVisibility(View.GONE);
                         if (response.isSuccessful()&&response.body()!=null&&response.body().getData()!=null)
                         {
-                          //  userSearchModelList.addAll(response.body().getData());
+                            //  userSearchModelList.addAll(response.body().getData());
                             //adapter.notifyDataSetChanged();
                             UserSearchDataModel.UserSearchModel userSearchDataModel=response.body().getData().get(0);
                             gotochat(userSearchDataModel);
@@ -433,7 +445,7 @@ Log.e("msg",adversiting_model.getAdvertisement_user());
     }
     public void getadversmentcomment() {
         //progBar.setVisibility(View.VISIBLE);
-       // ll_no_order.setVisibility(View.GONE);
+        // ll_no_order.setVisibility(View.GONE);
         Api.getService()
                 .getcomments(id_advertisement, 1)
                 .enqueue(new Callback<Adversiment_Comment_Model>() {

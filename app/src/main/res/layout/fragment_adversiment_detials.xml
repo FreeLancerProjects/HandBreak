@@ -128,7 +128,7 @@
             android:background="@color/white"
 
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-         >
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -149,7 +149,7 @@
                 <TextView
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
-                    android:layout_height="45dp"
+                    android:layout_height="35dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
@@ -162,7 +162,7 @@
                 <TextView
                     android:id="@+id/tv_commercial"
                     android:layout_width="wrap_content"
-                    android:layout_height="45dp"
+                    android:layout_height="35dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
@@ -173,6 +173,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cons_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -183,17 +184,18 @@
                     <ImageView
                         android:id="@+id/im3"
                         android:layout_width="15dp"
-                        android:layout_height="15dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_user"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:tint="@color/black2"
+
                         />
 
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:gravity="center_vertical"
                         android:paddingStart="5dp"
                         android:text="@string/user_name"
@@ -217,7 +219,7 @@
                     <ImageView
                         android:id="@+id/im4"
                         android:layout_width="15dp"
-                        android:layout_height="25dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/loction"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -225,7 +227,7 @@
                     <TextView
                         android:id="@+id/tv_city"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:gravity="center_vertical"
                         android:paddingStart="5dp"
                         android:text="@string/user_name"
@@ -317,44 +319,44 @@
                         tools:ignore="RtlCompat" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-             <!--  <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cons4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cons2"
-                    tools:ignore="RtlCompat"
+                <!--  <androidx.constraintlayout.widget.ConstraintLayout
+                       android:id="@+id/cons4"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="8dp"
+                       android:layout_marginTop="8dp"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toBottomOf="@+id/cons2"
+                       tools:ignore="RtlCompat"
 
-                    >
+                       >
 
-                    <ImageView
-                        android:id="@+id/im7"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/like"
-                        android:tint="@color/black2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                       <ImageView
+                           android:id="@+id/im7"
+                           android:layout_width="15dp"
+                           android:layout_height="15dp"
+                           android:src="@drawable/like"
+                           android:tint="@color/black2"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
 
-                        />
+                           />
 
-                    <TextView
-                        android:id="@+id/tv_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:paddingStart="5dp"
-                        android:text="@string/user_name"
-                        android:textColor="@color/black2"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toEndOf="@+id/im7"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="RtlCompat" />
+                       <TextView
+                           android:id="@+id/tv_rate"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:gravity="center_vertical"
+                           android:paddingStart="5dp"
+                           android:text="@string/user_name"
+                           android:textColor="@color/black2"
+                           android:textSize="14sp"
+                           app:layout_constraintStart_toEndOf="@+id/im7"
+                           app:layout_constraintTop_toTopOf="parent"
+                           tools:ignore="RtlCompat" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
--->
+                   </androidx.constraintlayout.widget.ConstraintLayout>
+   -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cons5"
                     android:layout_width="wrap_content"
@@ -404,7 +406,7 @@
                     <TextView
                         android:id="@+id/tv_comment"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:gravity="center_vertical"
                         android:paddingStart="5dp"
                         android:text="@string/add_comment"
@@ -418,13 +420,12 @@
                     <ImageView
                         android:id="@+id/im9"
                         android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/comment"
                         app:layout_constraintStart_toEndOf="@+id/tv_comment"
                         app:layout_constraintTop_toTopOf="parent"
                         android:tint="@color/colorPrimary"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         />
 
 
@@ -452,42 +453,42 @@
                     android:background="@color/gray4"
                     app:layout_constraintTop_toBottomOf="@+id/edt_comment" />
 
-      <!--          <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cons7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view"
-                    tools:ignore="RtlCompat"
+                <!--          <androidx.constraintlayout.widget.ConstraintLayout
+                              android:id="@+id/cons7"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="10dp"
+                              android:layout_marginEnd="8dp"
+                              app:layout_constraintEnd_toEndOf="parent"
+                              app:layout_constraintTop_toBottomOf="@+id/view"
+                              tools:ignore="RtlCompat"
 
-                    >
+                              >
 
-                    <TextView
-                        android:id="@+id/tv_follow_comment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:paddingStart="5dp"
-                        android:text="@string/follow_comment"
-                        android:textColor="@color/gray5"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
+                              <TextView
+                                  android:id="@+id/tv_follow_comment"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:paddingStart="5dp"
+                                  android:text="@string/follow_comment"
+                                  android:textColor="@color/gray5"
+                                  android:textSize="14sp"
+                                  app:layout_constraintStart_toStartOf="parent"
 
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="RtlCompat" />
+                                  app:layout_constraintTop_toTopOf="parent"
+                                  tools:ignore="RtlCompat" />
 
-                    <ImageView
-                        android:id="@+id/im10"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/wifi"
-                        app:layout_constraintStart_toEndOf="@+id/tv_follow_comment"
-                        app:layout_constraintTop_toTopOf="parent" />
+                              <ImageView
+                                  android:id="@+id/im10"
+                                  android:layout_width="15dp"
+                                  android:layout_height="15dp"
+                                  android:src="@drawable/wifi"
+                                  app:layout_constraintStart_toEndOf="@+id/tv_follow_comment"
+                                  app:layout_constraintTop_toTopOf="parent" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>-->
+                          </androidx.constraintlayout.widget.ConstraintLayout>-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec_comment"
                     android:layout_width="match_parent"

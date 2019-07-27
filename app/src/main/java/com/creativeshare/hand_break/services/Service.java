@@ -69,6 +69,15 @@ public interface Service {
                                @Part MultipartBody.Part advertisement_images
 
     );
+    @GET("App/showProfile")
+    Call<UserModel> Showotherprofile(@Query("user_id") String user_id,
+                           @Query("other_user_id_fk") String other_user_id_fk
+    );
+    @FormUrlEncoded
+    @POST("App/followUser")
+    Call<ResponseBody> followuser(@Field("user_id") String user_id,
+                                     @Field("other_user_id_fk") String other_user_id_fk
+    );
     @FormUrlEncoded
     @POST("Api/logout")
     Call<ResponseBody> Logout(@Field("user_id") String user_id

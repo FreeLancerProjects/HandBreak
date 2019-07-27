@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
+import com.creativeshare.hand_break.models.Adversiment_Model;
 import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
@@ -31,6 +32,7 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +59,11 @@ List<CityModel> cityModels;
     private void initView(View view) {
         homeActivity = (HomeActivity) getActivity();
         preferences=Preferences.getInstance();
-        userModel=preferences.getUserData(homeActivity);
+        if(Adversiment_Model.getId()==null){
+        userModel=preferences.getUserData(homeActivity);}
+        else{
+            getdata(Adversiment_Model.getId());
+        }
         cityModels=new ArrayList<>();
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
@@ -92,14 +98,91 @@ List<CityModel> cityModels;
                 homeActivity.Back();
             }
         });
+        if(Adversiment_Model.getId()!=null){
+            im_edit.setImageDrawable(getResources().getDrawable(R.drawable.follow));
+        }
       //  updateprofile();
 im_edit.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        homeActivity.DisplayFragmentEditProfile();
+
+        if(Adversiment_Model.getId()==null){
+        homeActivity.DisplayFragmentEditProfile();}
+        else {
+            followuser();
+        }
     }
 });
     }
+
+    private void followuser() {
+        final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+Api.getService().followuser(preferences.getUserData(homeActivity).getUser_id(),userModel.getUser_id()).enqueue(new Callback<ResponseBody>() {
+    @Override
+    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        dialog.dismiss();
+        if(response.isSuccessful()){
+
+        }
+        else {
+            try {
+                Toast.makeText(homeActivity, R.string.failed, Toast.LENGTH_SHORT).show();
+                Log.e("Error_code", response.code() + "" + response.errorBody().string());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onFailure(Call<ResponseBody> call, Throwable t) {
+        dialog.dismiss();
+
+        try {
+            Toast.makeText(homeActivity, R.string.something, Toast.LENGTH_SHORT).show();
+            Log.e("Error", t.getMessage());
+        } catch (Exception e) {
+
+        }
+    }
+});
+    }
+
+    private void getdata(final String id) {
+        final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+
+        userModel=Preferences.getInstance().getUserData(homeActivity);
+        Api.getService().Showotherprofile(userModel.getUser_id(),id).enqueue(new Callback<UserModel>() {
+            @Override
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                dialog.dismiss();
+                if(response.isSuccessful()){
+                    userModel=response.body();
+
+                }
+                else {
+                    Toast.makeText(homeActivity, R.string.failed, Toast.LENGTH_SHORT).show();
+                    Log.e("Error_code", response.code() + "" + response.errorBody()+response.headers()+response.message()+response.raw()+" "+id);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserModel> call, Throwable t) {
+                try {
+                    dialog.dismiss();
+                    Toast.makeText(homeActivity, R.string.something, Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
+                } catch (Exception e) {
+
+                }
+            }
+        });
+    }
+
     private void getCities() {
 
         final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
