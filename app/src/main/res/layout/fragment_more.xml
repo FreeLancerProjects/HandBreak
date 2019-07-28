@@ -43,6 +43,7 @@
         app:layout_constraintTop_toTopOf="parent"
    app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/f1"
+
         >
         <TextView
             android:id="@+id/tv_en"
@@ -52,7 +53,6 @@
             android:layout_gravity="center"
             android:textColor="@color/delete"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:gravity="center"
             />
     </FrameLayout>
