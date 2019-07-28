@@ -32,7 +32,7 @@ public class Fragment_More extends Fragment {
     private HomeActivity homeActivity;
     private String cuurent_language;
     private ImageView im_log, arrow1, arrow2, arrow3, arrow4, arrow5, arrow6, arrow7, arrow8, arrow9, arrow10, arrow11;
-    private LinearLayout ll_logout, ll_terms, ll_about, ll_profile,ll_adversiment,ll_language,ll_addcar;
+    private LinearLayout ll_logout, ll_terms, ll_about, ll_profile,ll_adversiment,ll_language,ll_addcar,ll_follow;
     private FrameLayout fr_arabic,fr_english;
     private TextView tv_ar,tv_en;
     private Preferences preferences;
@@ -63,6 +63,7 @@ public class Fragment_More extends Fragment {
         ll_terms = view.findViewById(R.id.ll_terms);
         ll_about = view.findViewById(R.id.ll_about);
         ll_profile = view.findViewById(R.id.ll_profile);
+        ll_follow=view.findViewById(R.id.ll_follow);
         ll_logout = view.findViewById(R.id.ll_logout);
         ll_adversiment=view.findViewById(R.id.ll_advertisement);
        // ll_language=view.findViewById(R.id.ll_lang);
@@ -74,7 +75,7 @@ public class Fragment_More extends Fragment {
         arrow6 = view.findViewById(R.id.arrow6);
         arrow7 = view.findViewById(R.id.arrow7);
        // arrow8 = view.findViewById(R.id.arrow8);
-        //arrow9 = view.findViewById(R.id.arrow9);
+        arrow9 = view.findViewById(R.id.arrow9);
         //arrow10 = view.findViewById(R.id.arrow10);
        // arrow11 = view.findViewById(R.id.arrow11);
         if (cuurent_language.equals("en")) {
@@ -93,7 +94,7 @@ public class Fragment_More extends Fragment {
             arrow6.setRotation(180.0f);
             arrow7.setRotation(180.0f);
           //  arrow8.setRotation(180.0f);
-            //arrow9.setRotation(180.0f);
+            arrow9.setRotation(180.0f);
             //arrow10.setRotation(180.0f);
          //   arrow11.setRotation(180.0f);
             fr_arabic.setBackground(getResources().getDrawable(R.drawable.lang_shape1));
@@ -172,6 +173,14 @@ homeActivity.DisplayFragmentProfile();
                     Common.CreateUserNotSignInAlertDialog(homeActivity);
                 } else {
                     homeActivity.Logout();
+                }
+            }
+        });
+        ll_follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(userModel!=null){
+                    homeActivity.DisplayFragmentfollowers();
                 }
             }
         });

@@ -6,6 +6,7 @@ import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.AppDataModel;
 import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.models.Follower_Model;
 import com.creativeshare.hand_break.models.MessageDataModel;
 import com.creativeshare.hand_break.models.MessageModel;
 import com.creativeshare.hand_break.models.Notification_Model;
@@ -180,7 +181,10 @@ public interface Service {
                                           @Part("phone") RequestBody phone,
                                           @Part("google_lat") RequestBody google_lat,
                                           @Part("google_long") RequestBody google_long,
-                                          @Part List<MultipartBody.Part> advertisement_images
+                                          @Part List<MultipartBody.Part> advertisement_images,
+                                          @Part("piece_number") RequestBody piece_number,
+                                          @Part("plate_number") RequestBody plate_number,
+                                          @Part("advertisement_type") RequestBody advertisement_type
 
     );
 
@@ -199,7 +203,10 @@ public interface Service {
              @Part("id_advertisement") RequestBody id_advertisement,
              @Part("google_lat") RequestBody google_lat,
              @Part("google_long") RequestBody google_long,
-             @Part List<MultipartBody.Part> advertisement_images
+             @Part List<MultipartBody.Part> advertisement_images,
+             @Part("piece_number") RequestBody piece_number,
+             @Part("plate_number") RequestBody plate_number,
+             @Part("advertisement_type") RequestBody advertisement_type
 
             );
     @Multipart
@@ -259,6 +266,10 @@ public interface Service {
     @GET("App/AdvertisingComments")
     Call<Adversiment_Comment_Model> getcomments(@Query("id_advertisement") String id_advertisement,
                                      @Query("page") int page
+    );
+    @GET("App/followers")
+    Call<Follower_Model> getfollowers(@Query("user_id") String user_id,
+                                      @Query("type") String type
     );
     @GET("Chating/rooms")
     Call<UserRoomModelData> getRooms(@Query("user_id") String user_id,

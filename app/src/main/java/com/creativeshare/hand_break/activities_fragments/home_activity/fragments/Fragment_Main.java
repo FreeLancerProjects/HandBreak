@@ -166,15 +166,15 @@ private TextView tv_near;
         cities = view.findViewById(R.id.sp_city);
         rec_search = view.findViewById(R.id.rec_search);
         progBar = view.findViewById(R.id.progBar);
-        im_search = view.findViewById(R.id.im_search);
         ll_no_order = view.findViewById(R.id.ll_no_order);
+        im_search = view.findViewById(R.id.im_search);
+
         categories1 = new ArrayList<>();
         rec_catogry = view.findViewById(R.id.rec_data);
 tv_near=view.findViewById(R.id.tv_near);
 
-        rec_catogry.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         rec_catogry.setLayoutManager(new LinearLayoutManager(homeActivity, RecyclerView.HORIZONTAL, false));
-        rec_catogry.setAdapter(catogriesAdapter);
+        //rec_catogry.setAdapter(catogriesAdapter);
         subs = new ArrayList<>();
         categories = new ArrayList<>();
         advertsings = new ArrayList<>();
@@ -183,6 +183,8 @@ tv_near=view.findViewById(R.id.tv_near);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
         catogriesAdapter = new CatogriesAdapter(categories1, homeActivity, this);
+        rec_catogry.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
         rec_catogry.setDrawingCacheEnabled(true);
         rec_catogry.setItemViewCacheSize(25);
         rec_catogry.setAdapter(catogriesAdapter);

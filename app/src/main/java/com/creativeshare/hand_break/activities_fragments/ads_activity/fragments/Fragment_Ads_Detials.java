@@ -11,14 +11,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +52,7 @@ import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.share.Common;
 
 import java.io.IOException;
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -61,6 +65,8 @@ import retrofit2.Response;
 public class Fragment_Ads_Detials extends Fragment {
     private AdsActivity adsActivity;
     private String cuurent_language;
+    private EditText edt_piece,edt_plate;
+    private RadioGroup group_type;
     private LinearLayout ll_continue;
     private ImageView bt_arrow;
     private TextView tv_terms;
@@ -103,6 +109,9 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         adsActivity = (AdsActivity) getActivity();
         Paper.init(adsActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
+        edt_piece=view.findViewById(R.id.edt_piece);
+        edt_plate=view.findViewById(R.id.edt_plate);
+        group_type=view.findViewById(R.id.group_type);
         ll_continue = view.findViewById(R.id.ll_continue);
         bt_arrow = view.findViewById(R.id.bt_arrow);
         tv_terms = view.findViewById(R.id.tv_terms);
@@ -259,12 +268,29 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         ll_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String piecen=edt_piece.getText().toString();
+                String plate=edt_plate.getText().toString();
                 if (checkBox.isChecked()) {
-                    if (city_id != null && cat_id != null && sub_id != null && ((uriList.size() > 0&&Adversiment_Model.getId().equals("-1"))||!Adversiment_Model.getId().equals("-1"))) {
+                    if (city_id != null && cat_id != null && sub_id != null && (uriList.size() > 0 || !Adversiment_Model.getId().equals("-1"))) {
                         adversiment_model.setCity_id(city_id);
                         adversiment_model.setCat_id(cat_id);
                         adversiment_model.setSub_id(sub_id);
                         adversiment_model.setUris(uriList);
+                        if(TextUtils.isEmpty(piecen)){
+                            piecen="0";
+                        }
+                        if(TextUtils.isEmpty(plate)){
+                            plate="0";
+                        }
+                        if(group_type.getCheckedRadioButtonId()==R.id.r_new){
+                            adversiment_model.setType("1");
+                        }
+                        else if(group_type.getCheckedRadioButtonId()==R.id.r_used){
+                            adversiment_model.setType("2");
+
+                        }
+                        adversiment_model.setPalte(plate);
+                        adversiment_model.setPiece(piecen);
                         if (model_id != null) {
                             adversiment_model.setModel_id(model_id);
                             adsActivity.gotonext(adversiment_model);
@@ -302,9 +328,7 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
                 dialog.dismiss();
                 if (response.isSuccessful() && response.body() != null) {
                    // updateTermsContent(response.body());
-                    advertisement_images.clear();
-                    advertisement_images.addAll(response.body().getAdvertisement_images());
-                    showgalleryAdapter.notifyDataSetChanged();
+                  updatedata(response.body());
                    Adversiment_Model.setAdversiting_model(response.body());
                 }
             }
@@ -321,6 +345,19 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
             }
         });
 
+    }
+
+    private void updatedata(Adversiting_Model body) {
+        advertisement_images.clear();
+        advertisement_images.addAll(body.getAdvertisement_images());
+
+        showgalleryAdapter.notifyDataSetChanged();
+        if(body.getAdvertisement_type().equals("1")){
+            group_type.check(R.id.r_new);
+        }
+        else {
+            group_type.check(R.id.r_used);
+        }
     }
 
 

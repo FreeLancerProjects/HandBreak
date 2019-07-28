@@ -2,6 +2,7 @@ package com.creativeshare.hand_break.activities_fragments.home_activity.fragment
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.renderscript.Float2;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,9 +67,7 @@ List<CityModel> cityModels;
 
         if(Adversiment_Model.getId()==null){
         userModel=preferences.getUserData(homeActivity);}
-        else{
-            getdata(Adversiment_Model.getId());
-        }
+
         cityModels=new ArrayList<>();
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
@@ -114,6 +113,7 @@ bt_upgrade=view.findViewById(R.id.bt_upgrade);
             im_edit.setImageDrawable(getResources().getDrawable(R.drawable.follow));
 simpleRatingBar.setVisibility(View.VISIBLE);
 bt_upgrade.setVisibility(View.GONE);
+
         }
         else {
             if(userModel!=null){
@@ -138,7 +138,8 @@ im_edit.setOnClickListener(new View.OnClickListener() {
         simpleRatingBar.setOnRatingBarChangeListener(new SimpleRatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(SimpleRatingBar simpleRatingBar, float rating, boolean fromUser) {
-                updaterating();
+                if(userModel!=null){
+                updaterating();}
             }
         });
     }
@@ -147,12 +148,13 @@ im_edit.setOnClickListener(new View.OnClickListener() {
         final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService().makerating(preferences.getUserData(homeActivity).getUser_id(),userModel.getUser_id(),simpleRatingBar.getRating()+"").enqueue(new Callback<ResponseBody>() {
+        Api.getService().makerating(userModel.getUser_id(),preferences.getUserData(homeActivity).getUser_id(),simpleRatingBar.getRating()+"").enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 dialog.dismiss();
                 if (response.isSuccessful()) {
-
+                    Log.e("uu",((float)simpleRatingBar.getRating())+"");
+                    userModel.setRating_value(simpleRatingBar.getRating());
                 }
                 else {
                     try {
@@ -187,7 +189,16 @@ Api.getService().followuser(preferences.getUserData(homeActivity).getUser_id(),u
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
         dialog.dismiss();
         if(response.isSuccessful()){
+if(userModel.isUser_follow()==true){
+    im_edit.setImageDrawable(getResources().getDrawable(R.drawable.follow));
+    userModel.setUser_follow(false);
 
+}
+else {
+    im_edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_follow));
+    userModel.setUser_follow(true);
+
+}
         }
         else {
             try {
@@ -208,6 +219,7 @@ Api.getService().followuser(preferences.getUserData(homeActivity).getUser_id(),u
             Log.e("Error", t.getMessage());
         } catch (Exception e) {
 
+
         }
     }
 });
@@ -218,13 +230,14 @@ Api.getService().followuser(preferences.getUserData(homeActivity).getUser_id(),u
         dialog.setCancelable(false);
         dialog.show();
 
-        userModel=Preferences.getInstance().getUserData(homeActivity);
-        Api.getService().Showotherprofile(userModel.getUser_id(),id).enqueue(new Callback<UserModel>() {
+        ;
+        Api.getService().Showotherprofile(Preferences.getInstance().getUserData(homeActivity).getUser_id(),id).enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 dialog.dismiss();
                 if(response.isSuccessful()){
                     userModel=response.body();
+                    updateprofile();
 
                 }
                 else {
@@ -264,7 +277,13 @@ Api.getService().followuser(preferences.getUserData(homeActivity).getUser_id(),u
                                 cityModels.clear();
 
                                 cityModels.addAll(response.body());
-                                updateprofile();
+                                if(Adversiment_Model.getId()==null){
+                                updateprofile();}
+
+                                     else{
+                                        getdata(Adversiment_Model.getId());
+                                    }
+
 
                             }
                         } else {
@@ -299,7 +318,7 @@ Api.getService().followuser(preferences.getUserData(homeActivity).getUser_id(),u
                 tv_name.setText(userModel.getUser_name());
             }
             if(userModel.getUser_city()!=null){
-                Log.e("msg",cityModels.size()+"");
+              //  Log.e("msg",cityModels.size()+"");
               //  tv_loaction.setText(userModel.getUser_city());
                 for(int i=0;i<cityModels.size();i++){
                     if(cityModels.get(i).getId_city().equals(userModel.getUser_city())){
@@ -320,6 +339,20 @@ Api.getService().followuser(preferences.getUserData(homeActivity).getUser_id(),u
             if(userModel.getUser_email()!=null){
                 tv_email.setText(userModel.getUser_email());
             }
+            if(Adversiment_Model.getId()!=null){
+                if(userModel.isUser_follow()==true){
+                    im_edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_follow));
+                }
+                else {
+                    im_edit.setImageDrawable(getResources().getDrawable(R.drawable.follow));
+
+                }
+
+                   // Log.e("lll",userModel.getRating_value()+"");
+                    simpleRatingBar.setRating(userModel.getRating_value());
+
+            }
+
         }
     }
 

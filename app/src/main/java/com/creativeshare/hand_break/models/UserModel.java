@@ -5,7 +5,7 @@ import java.util.List;
 
 public class UserModel implements Serializable {
 
-    private String user_id="";
+    private String user_id = "";
     private String user_name;
     private String user_email;
     private String user_phone_code;
@@ -19,6 +19,9 @@ public class UserModel implements Serializable {
     private String user_google_long;
     private String user_country;
     private String user_city;
+    private boolean user_follow;
+    private boolean rating_status;
+    private float rating_value;
 
     public String getUser_id() {
         return user_id;
@@ -74,5 +77,29 @@ public class UserModel implements Serializable {
 
     public String getUser_city() {
         return user_city;
+    }
+
+    public boolean isUser_follow() {
+        return user_follow;
+    }
+
+    public void setUser_follow(boolean user_follow) {
+        this.user_follow = user_follow;
+    }
+
+    public boolean isRating_status() {
+        return rating_status;
+    }
+
+    public float getRating_value() {
+        return rating_value;
+    }
+
+    public void setRating_status(boolean rating_status) {
+        this.rating_status = rating_status;
+    }
+
+    public void setRating_value(float rating_value) {
+        this.rating_value = rating_value;
     }
 }

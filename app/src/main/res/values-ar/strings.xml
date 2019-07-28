@@ -101,4 +101,7 @@
     <string name="responsible_person">الشخص المسئول</string>
     <string name="title">العنوان</string>
     <string name="upgrade">تحويل الى تاجر</string>
+    <string name="market_name">اسم المتجر</string>
+    <string name="piece_number_if_not_present_it_will_be_placed_0">رقم القطعه فى حالة عدم وجودها سيتم وضعها ب 0</string>
+    <string name="plate_number_if_not_present_it_will_be_placed_0">رقم اللوحه فى حالة عدم وجودها سيتم وضعها ب 0</string>
 </resources>

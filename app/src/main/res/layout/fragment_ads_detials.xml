@@ -101,16 +101,63 @@
 
 
 
-        <TextView
+        <EditText
+            android:id="@+id/edt_piece"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/the_manufacture_company"
-            android:textColor="@color/colorPrimary"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            />
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:hint="@string/piece_number_if_not_present_it_will_be_placed_0"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray7" />
+
+        <EditText
+            android:id="@+id/edt_plate"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:hint="@string/plate_number_if_not_present_it_will_be_placed_0"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray7" />
+        <RadioGroup
+            android:id="@+id/group_type"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            >
+            <RadioButton
+                android:id="@+id/r_used"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="@string/used"
+                android:padding="5dp"
+                android:layout_weight="1"
+                android:checked="true"
+                />
+            <RadioButton
+                android:id="@+id/r_new"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="@string/news"
+                android:padding="5dp"
+                android:layout_weight="1"
+                />
+        </RadioGroup>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray7" />
         <Spinner
             android:id="@+id/sp_city"
             android:layout_width="match_parent"

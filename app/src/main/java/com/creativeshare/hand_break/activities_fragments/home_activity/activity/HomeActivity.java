@@ -26,6 +26,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Add_Car;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Adversiment_Detials;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Edit_Profile;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Follower_List;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_More;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_My_adversiment;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Profile;
@@ -67,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_Search fragment_search;
     private Fragment_Car_Search fragment_car_search;
     private Fragment_More fragment_more;
+    private Fragment_Follower_List fragment_follower_list;
     private Fragment_Terms_Conditions fragmentTerms_conditions;
     private Fragment_About fragment_about;
     private Fragment_Profile fragment_profile;
@@ -275,7 +277,20 @@ public class HomeActivity extends AppCompatActivity {
         }
 
     }
+    public void DisplayFragmentfollowers() {
 
+        fragment_count += 1;
+        fragment_follower_list = Fragment_Follower_List.newInstance();
+
+
+        if (fragment_follower_list.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_follower_list).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_follower_list, "fragment_follower_list").addToBackStack("fragment_follower_list").commit();
+
+        }
+
+    }
     public void DisplayFragmentAdversimentDetials(String id_adversiment) {
         fragment_count += 1;
         fragment_adversiment_detials = Fragment_Adversiment_Detials.newInstance(id_adversiment);

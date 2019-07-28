@@ -101,4 +101,7 @@
     <string name="responsible_person">responsible person</string>
     <string name="title">title</string>
     <string name="upgrade">Upgrade to dealer</string>
+    <string name="market_name">market name</string>
+    <string name="piece_number_if_not_present_it_will_be_placed_0">piece_number If not present, it will be placed 0</string>
+    <string name="plate_number_if_not_present_it_will_be_placed_0">plate_number If not present, it will be placed 0</string>
 </resources>

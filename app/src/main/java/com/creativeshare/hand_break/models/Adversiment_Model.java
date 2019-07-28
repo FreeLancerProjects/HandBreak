@@ -13,7 +13,9 @@ public class Adversiment_Model implements Serializable {
     private String sub_id;
     private String model_id;
     private List<Uri> uris;
-
+private String type;
+private String palte;
+private String piece;
     public static void setId(String id) {
         Adversiment_Model.id = id;
     }
@@ -68,5 +70,31 @@ public class Adversiment_Model implements Serializable {
 
     public List<Uri> getUris() {
         return uris;
+    }
+
+
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setPalte(String palte) {
+        this.palte = palte;
+    }
+
+    public void setPiece(String piece) {
+        this.piece = piece;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getPalte() {
+        return palte;
+    }
+
+    public String getPiece() {
+        return piece;
     }
 }
