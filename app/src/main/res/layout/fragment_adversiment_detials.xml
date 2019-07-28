@@ -184,7 +184,7 @@
                     <ImageView
                         android:id="@+id/im3"
                         android:layout_width="15dp"
-                        android:layout_height="35dp"
+                        android:layout_height="45dp"
                         android:src="@drawable/ic_user"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -195,7 +195,7 @@
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
+                        android:layout_height="45dp"
                         android:gravity="center_vertical"
                         android:paddingStart="5dp"
                         android:text="@string/user_name"
@@ -219,7 +219,7 @@
                     <ImageView
                         android:id="@+id/im4"
                         android:layout_width="15dp"
-                        android:layout_height="35dp"
+                        android:layout_height="45dp"
                         android:src="@drawable/loction"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -227,7 +227,7 @@
                     <TextView
                         android:id="@+id/tv_city"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
+                        android:layout_height="45dp"
                         android:gravity="center_vertical"
                         android:paddingStart="5dp"
                         android:text="@string/user_name"
@@ -261,15 +261,16 @@
                     <ImageView
                         android:id="@+id/im5"
                         android:layout_width="45dp"
-                        android:layout_height="25dp"
+                        android:layout_height="45dp"
                         android:src="@drawable/call"
+                        android:paddingTop="5dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_phone"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="45dp"
                         android:gravity="center_vertical"
                         android:paddingStart="5dp"
                         android:text="@string/user_name"
@@ -295,7 +296,7 @@
                     <ImageView
                         android:id="@+id/im6"
                         android:layout_width="15dp"
-                        android:layout_height="15dp"
+                        android:layout_height="45dp"
                         android:src="@drawable/ic_mail"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -306,9 +307,8 @@
 
                     <TextView
                         android:id="@+id/tv_msg"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
                         android:gravity="center_vertical"
                         android:paddingStart="5dp"
                         android:text="@string/messaging"

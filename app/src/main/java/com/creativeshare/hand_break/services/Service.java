@@ -7,6 +7,8 @@ import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.AppDataModel;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.Follower_Model;
+import com.creativeshare.hand_break.models.Insuarce_Data_Model;
+import com.creativeshare.hand_break.models.Insuarce_Model;
 import com.creativeshare.hand_break.models.MessageDataModel;
 import com.creativeshare.hand_break.models.MessageModel;
 import com.creativeshare.hand_break.models.Notification_Model;
@@ -62,6 +64,7 @@ public interface Service {
 
 
     );
+
     @Multipart
     @POST("Api/updateProfile")
     Call<UserModel> udateimage(@Part("user_id") RequestBody user_id,
@@ -69,15 +72,18 @@ public interface Service {
                                @Part MultipartBody.Part advertisement_images
 
     );
+
     @GET("App/showProfile")
     Call<UserModel> Showotherprofile(@Query("user_id") String user_id,
-                           @Query("other_user_id_fk") String other_user_id_fk
+                                     @Query("other_user_id_fk") String other_user_id_fk
     );
+
     @FormUrlEncoded
     @POST("App/followUser")
     Call<ResponseBody> followuser(@Field("user_id") String user_id,
-                                     @Field("other_user_id_fk") String other_user_id_fk
+                                  @Field("other_user_id_fk") String other_user_id_fk
     );
+
     @FormUrlEncoded
     @POST("Api/logout")
     Call<ResponseBody> Logout(@Field("user_id") String user_id
@@ -209,21 +215,7 @@ public interface Service {
              @Part("advertisement_type") RequestBody advertisement_type
 
             );
-    @Multipart
-    @POST("App/updateAdvertsing")
-    Call<Adversiting_Model> updatewithoutimage
-            (@Part("advertisement_user") RequestBody advertisement_user,
-             @Part("main_category_fk") RequestBody main_category_fk,
-             @Part("sub_category_fk") RequestBody sub_category_fk,
-             @Part("model_id_fk") RequestBody model_id_fk,
-             @Part("advertisement_title") RequestBody advertisement_title,
-             @Part("advertisement_content") RequestBody advertisement_content,
-             @Part("advertisement_price") RequestBody advertisement_price,
-             @Part("city_id") RequestBody city_id,
-             @Part("phone") RequestBody phone,
-             @Part("id_advertisement") RequestBody id_advertisement
 
-            );
     @FormUrlEncoded
     @POST("App/deleteImage")
     Call<Adversiting_Model> deleteimageads(
@@ -231,8 +223,8 @@ public interface Service {
             @Field("image_id") String image_id
 
 
-
     );
+
     @FormUrlEncoded
     @POST("App/followAdvertsing")
     Call<ResponseBody> followadversiment(
@@ -240,8 +232,8 @@ public interface Service {
             @Field("user_id") String user_id
 
 
-
     );
+
     @FormUrlEncoded
     @POST("App/ratingUser")
     Call<ResponseBody> makerating(
@@ -250,9 +242,8 @@ public interface Service {
             @Field("rating_value") String rating_value
 
 
+    );
 
-
-            );
     @FormUrlEncoded
     @POST("App/commentAdvertising")
     Call<Adversiment_Comment_Model> addcomment(
@@ -261,16 +252,18 @@ public interface Service {
             @Field("comment_text") String comment_text
 
 
-
     );
+
     @GET("App/AdvertisingComments")
     Call<Adversiment_Comment_Model> getcomments(@Query("id_advertisement") String id_advertisement,
-                                     @Query("page") int page
+                                                @Query("page") int page
     );
+
     @GET("App/followers")
     Call<Follower_Model> getfollowers(@Query("user_id") String user_id,
                                       @Query("type") String type
     );
+
     @GET("Chating/rooms")
     Call<UserRoomModelData> getRooms(@Query("user_id") String user_id,
                                      @Query("page") int page
@@ -325,12 +318,74 @@ public interface Service {
                                    @Field("phone_token") String user_token_id
 
     );
+
     @GET("Note/me")
     Call<Notification_Model>
     getnotification(
 
             @Query("user_id") String user_id,
             @Query("page") int page
+
+
+    );
+
+    @Multipart
+    @POST("Insurance/add")
+    Call<Insuarce_Model> Addinsurance
+            (@Part("car_owner_id") RequestBody car_owner_id,
+             @Part("car_owner_phone") RequestBody car_owner_phone,
+             @Part("car_owner_name") RequestBody car_owner_name,
+             @Part("insurance_type") RequestBody insurance_type,
+             @Part("personal_id_num") RequestBody personal_id_num,
+             @Part("personal_id_date") RequestBody personal_id_date,
+             @Part("car_model") RequestBody car_model,
+             @Part("car_type") RequestBody car_type,
+
+             @Part MultipartBody.Part form_image,
+             @Part MultipartBody.Part car_image
+
+
+            );
+
+    @FormUrlEncoded
+    @POST("Insurance/sendOffer")
+    Call<ResponseBody> sendinsuranceoffer
+            (@Field("user_id") String user_id,
+             @Field("client_id") String client_id,
+             @Field("id_notification") String id_notification,
+             @Field("request_id") String request_id,
+             @Field("offer_value") String offer_value
+
+            );
+
+    @FormUrlEncoded
+    @POST("Insurance/refuseSendOffer")
+    Call<ResponseBody> refuesinsuranceoffer
+            (@Field("user_id") String user_id,
+             @Field("client_id") String client_id,
+             @Field("id_notification") String id_notification,
+             @Field("request_id") String request_id
+
+
+            );
+
+    @FormUrlEncoded
+    @POST("Insurance/replyOffer")
+    Call<ResponseBody> acceptrefuesinsuranceoffer
+            (@Field("user_id") String user_id,
+             @Field("client_id") String client_id,
+             @Field("id_notification") String id_notification,
+             @Field("request_id") String request_id,
+             @Field("status") String status
+
+
+            );
+
+    @GET("Insurance/show")
+    Call<Insuarce_Data_Model>
+    showinsurancerequsts(
+
+            @Query("user_id") String user_id
 
 
     );

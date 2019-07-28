@@ -175,6 +175,8 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
                         Log.e("mdg", adversiment_id);
                         createads(title, ccp_phone.getSelectedCountryCode() + phone, price, desc,lat,lng);
                     } else {
+                        Log.e("msg", lat+" "+lng);
+
                         updateeads(title, ccp_phone.getSelectedCountryCode() + phone, price, desc, adversiment_id,lat,lng);
 
                     }
@@ -194,7 +196,9 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
             edt_price.setText(adversiting_model.getAdvertisement_price());
 lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         lng=Double.parseDouble(adversiting_model.getGoogle_long());
-        AddMarker(lat,lng);
+            Log.e("mfg", lat+" "+lng+" "+adversiting_model.getGoogle_lat());
+
+            AddMarker(lat,lng);
         }
     }
 
@@ -216,11 +220,12 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         RequestBody desc_part = Common.getRequestBodyText(desc);
         RequestBody lat_part = Common.getRequestBodyText(lat+"");
         RequestBody lng_part = Common.getRequestBodyText(lng+"");
+        Log.e("nnn",lat+"  "+lng);
 
         RequestBody adversiment_part = Common.getRequestBodyText(adversiment_id);
 
         List<MultipartBody.Part> partImageList = getMultipartBodyList(adversiment_model.getUris(), "advertisement_images[]");
-        if (partImageList.size() > 0) {
+
             Api.getService().updateads(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part, adversiment_part,lat_part,lng_part, partImageList,piece_part,plate_part,type_part).enqueue(new Callback<Adversiting_Model>() {
                 @Override
                 public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
@@ -242,29 +247,6 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
                     Log.e("Error", t.getMessage());
                 }
             });
-        } else {
-            Api.getService().updatewithoutimage(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part, adversiment_part).enqueue(new Callback<Adversiting_Model>() {
-                @Override
-                public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
-                    dialog.dismiss();
-                    if (response.isSuccessful()) {
-                        // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
-                        adsActivity.finish();
-                    } else {
-                        Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.failed));
-                        Log.e("Error", response.code() + "" + response.errorBody() + response.raw() + response.body() + response.headers());
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Adversiting_Model> call, Throwable t) {
-                    dialog.dismiss();
-                    Toast.makeText(adsActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                    Log.e("Error", t.getMessage());
-                }
-            });
-        }
 
     }
 
@@ -467,6 +449,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
                 public void onMapClick(LatLng latLng) {
                     lat = latLng.latitude;
                     lng = latLng.longitude;
+                    Log.e("nnn",lat+"  "+lng);
                     AddMarker(lat, lng);
                 }
             });
