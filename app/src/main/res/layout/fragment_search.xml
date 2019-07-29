@@ -150,6 +150,7 @@ android:layout_marginTop="25dp"
             android:weightSum="2"
             >
             <RadioButton
+                android:id="@+id/r_used"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:text="@string/used"
@@ -157,6 +158,7 @@ android:layout_marginTop="25dp"
                 android:layout_weight="1"
                 />
             <RadioButton
+                android:id="@+id/r_new"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:text="@string/news"

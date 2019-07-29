@@ -236,7 +236,9 @@
                     android:hint="@string/residency_number"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:inputType="number"
+                    />
 
 
             </LinearLayout>
@@ -321,6 +323,67 @@
                     >
 
                 </Spinner>
+
+            </LinearLayout>
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/linear_shape"
+                android:orientation="horizontal"
+
+
+                >
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp"
+                    android:src="@drawable/model"
+                    android:tint="@color/black"
+
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/insurance_type"
+                    android:tint="@color/black"
+
+
+                    />
+                <RadioGroup
+                    android:id="@+id/group_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    >
+                    <RadioButton
+                        android:id="@+id/r_comprehensive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/comprehensive"
+                        android:padding="5dp"
+                        android:layout_weight="1"
+                        />
+                    <RadioButton
+                        android:id="@+id/r_against_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/against_change"
+                        android:padding="5dp"
+                        android:layout_weight="1"
+                        />
+                </RadioGroup>
+
+
+
 
             </LinearLayout>
 

@@ -106,6 +106,9 @@
     <string name="market_name">اسم المتجر</string>
     <string name="piece_number_if_not_present_it_will_be_placed_0">رقم القطعه فى حالة عدم وجودها سيتم وضعها ب 0</string>
     <string name="plate_number_if_not_present_it_will_be_placed_0">رقم اللوحه فى حالة عدم وجودها سيتم وضعها ب 0</string>
+    <string name="insurance_type">insurance type</string>
+    <string name="comprehensive">comprehensive</string>
+    <string name="against_change">Against change</string>
     <string-array name="models">
         <item>اختر</item>
         <item>2000</item>

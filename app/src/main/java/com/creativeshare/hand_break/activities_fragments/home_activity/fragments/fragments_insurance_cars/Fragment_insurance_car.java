@@ -4,6 +4,7 @@ package com.creativeshare.hand_break.activities_fragments.home_activity.fragment
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -29,6 +30,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,10 @@ import android.widget.Toast;
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.adapters.Spinner_Adapter;
+import com.creativeshare.hand_break.models.Insuarce_Model;
+import com.creativeshare.hand_break.models.UserModel;
+import com.creativeshare.hand_break.preferences.Preferences;
+import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.share.Common;
 import com.hbb20.CountryCodePicker;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -51,6 +57,11 @@ import java.util.List;
 import java.util.Locale;
 
 import io.paperdb.Paper;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Fragment_insurance_car extends Fragment implements DatePickerDialog.OnDateSetListener {
 
@@ -61,12 +72,12 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
     private Uri imgUri1 = null, imgUri2 = null;
     private EditText phone, name, id_num, car_type;
     private CountryCodePicker countryCodePicker;
-private EditText btn_send;
+    private Button btn_send;
     // private ImageView image_phone_code;
     private LinearLayout ll_date;
     private TextView tv_code, tv_date;
     private Spinner spinner_model;
-    private long date = 0;
+    private String date = "";
     // private Spinner_Adapter model_adapter;
     private DatePickerDialog datePickerDialog;
     private HomeActivity activity;
@@ -75,9 +86,14 @@ private EditText btn_send;
     private String model_id = "";
     private List<String> model_ids;
     private ArrayAdapter<String> arrayAdapter;
-    private FrameLayout fl1,fl2;
-    private ImageView icon1,icon2;
-    private RoundedImageView image1,image2;
+    private FrameLayout fl1, fl2;
+    private ImageView icon1, icon2;
+    private RoundedImageView image1, image2;
+    private RadioGroup group_type;
+
+    private Preferences preferences;
+    private UserModel userModel;
+
     public static Fragment_insurance_car newInstance() {
         return new Fragment_insurance_car();
     }
@@ -95,6 +111,10 @@ private EditText btn_send;
         model_ids = new ArrayList<>();
         model_ids.addAll(Arrays.asList(getResources().getStringArray(R.array.models)));
         activity = (HomeActivity) getActivity();
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(activity);
+        group_type = view.findViewById(R.id.group_type);
+
         Paper.init(activity);
         current_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         //image_phone_code = view.findViewById(R.id.image_phone_code);
@@ -119,9 +139,9 @@ private EditText btn_send;
         fl2 = view.findViewById(R.id.fl2);
         icon1 = view.findViewById(R.id.icon_upload_car);
         icon2 = view.findViewById(R.id.icon_form);
-        image1=view.findViewById(R.id.image_car);
-        image2=view.findViewById(R.id.image_form);
-        btn_send=view.findViewById(R.id.btn_send);
+        image1 = view.findViewById(R.id.image_car);
+        image2 = view.findViewById(R.id.image_form);
+        btn_send = view.findViewById(R.id.btn_send);
         spinner_model.setAdapter(arrayAdapter);
         tv_code.setText(countryCodePicker.getSelectedCountryCode());
 
@@ -175,27 +195,27 @@ private EditText btn_send;
             }
         });
         createDatePickerDialog();
-btn_send.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        isDataOk();
-    }
-});
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isDataOk();
+            }
+        });
     }
 
-    public boolean isDataOk() {
+    public void isDataOk() {
         String m_phone = phone.getText().toString().trim();
         String m_name = name.getText().toString();
         String m_car_typee = car_type.getText().toString();
         String m_id_num = id_num.getText().toString();
 
         if (!TextUtils.isEmpty(m_phone) &&
-                !TextUtils.isEmpty(code) &&
+                countryCodePicker.isValidFullNumber() &&
                 !TextUtils.isEmpty(m_name) &&
                 !TextUtils.isEmpty(m_car_typee) &&
                 !TextUtils.isEmpty(m_id_num) &&
                 !TextUtils.isEmpty(model_id) &&
-                date != 0
+                !TextUtils.isEmpty(date) && imgUri1 != null && imgUri2 != null
         ) {
             tv_code.setError(null);
             phone.setError(null);
@@ -204,12 +224,19 @@ btn_send.setOnClickListener(new View.OnClickListener() {
             id_num.setError(null);
             tv_date.setError(null);
             Common.CloseKeyBoard(activity, phone);
-            return true;
+            String in_type = "";
+            if (group_type.getCheckedRadioButtonId() == R.id.r_comprehensive) {
+                in_type = "1";
+
+            } else if (group_type.getCheckedRadioButtonId() == R.id.r_against_change) {
+                in_type = "2";
+            }
+            makeinsurance(m_phone, m_name, m_car_typee, m_id_num, model_id, date, in_type);
         } else {
-            if (TextUtils.isEmpty(code)) {
-                tv_code.setError(getString(R.string.field_req));
+            if (!countryCodePicker.isValidFullNumber()) {
+                phone.setError("");
             } else {
-                tv_code.setError(null);
+                //  tv_code.setError(null);
 
             }
             if (TextUtils.isEmpty(m_phone)) {
@@ -239,15 +266,57 @@ btn_send.setOnClickListener(new View.OnClickListener() {
                 id_num.setError(null);
 
         }
-        if (date == 0) {
+        if (date.isEmpty()) {
             tv_date.setError(getString(R.string.field_req));
         }
 
-        if (TextUtils.isEmpty(model_id)) {
+        if (TextUtils.isEmpty(model_id) || imgUri2 == null || imgUri1 == null) {
             Toast.makeText(activity, getString(R.string.field_req), Toast.LENGTH_SHORT).show();
         }
 
-        return false;
+    }
+
+    private void makeinsurance(final String m_phone, final String m_name, final String m_car_typee, final String m_id_num, String model_id, String date, final String in_type) {
+
+        final Dialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));
+        dialog.show();
+        RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
+        RequestBody phone_part = Common.getRequestBodyText(m_phone);
+        RequestBody name_part = Common.getRequestBodyText(m_name);
+        RequestBody cartype_part = Common.getRequestBodyText(m_car_typee);
+        RequestBody id_part = Common.getRequestBodyText(m_id_num);
+        RequestBody type_part = Common.getRequestBodyText(in_type);
+        RequestBody model_part = Common.getRequestBodyText(model_id);
+        RequestBody date_part = Common.getRequestBodyText(date);
+
+        MultipartBody.Part image_part = Common.getMultiPart(activity, imgUri1, "car_image");
+        MultipartBody.Part image_part2 = Common.getMultiPart(activity, imgUri2, "form_image");
+        Log.e("Error",m_phone+" "+imgUri1+" "+imgUri2+"  " +in_type+"  "+date+"  "+m_name+" "+m_id_num+" "+model_id+" "+m_car_typee+userModel.getUser_id());
+
+        Api.getService().Addinsurance(user_part, phone_part, name_part, type_part, id_part, date_part, model_part, cartype_part, image_part2, image_part).enqueue(new Callback<Insuarce_Model>() {
+            @Override
+            public void onResponse(Call<Insuarce_Model> call, Response<Insuarce_Model> response) {
+                dialog.dismiss();
+                dialog.dismiss();
+                if (response.isSuccessful()) {
+                    // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
+                    activity.Back();
+                } else {
+                    Common.CreateSignAlertDialog(activity, getResources().getString(R.string.failed));
+                    Log.e("Error", response.code()+response.message().toString() + "" + response.errorBody() + response.raw() + response.body() + response.headers()+response.errorBody().contentType().toString());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Insuarce_Model> call, Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(activity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                Log.e("Error", t.getMessage());
+            }
+        });
+
+
     }
 
     private void createDatePickerDialog() {
@@ -280,13 +349,12 @@ btn_send.setOnClickListener(new View.OnClickListener() {
 
 
         tv_date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-        date = calendar.getTimeInMillis();
+        date = dayOfMonth+"-"+(monthOfYear+1)+"-"+year;
 
     }
 
 
-    private void CheckReadPermission(int img_req)
-    {
+    private void CheckReadPermission(int img_req) {
         if (ActivityCompat.checkSelfPermission(activity, READ_PERM) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{READ_PERM}, img_req);
         } else {
@@ -300,42 +368,41 @@ btn_send.setOnClickListener(new View.OnClickListener() {
         Intent intent = new Intent();
 
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            {
-                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            }else
-            {
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        } else {
+            intent.setAction(Intent.ACTION_GET_CONTENT);
 
-            }
+        }
 
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setType("image/*");
-            startActivityForResult(intent,img_req);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setType("image/*");
+        startActivityForResult(intent, img_req);
 
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == IMG_REQ1) {
 
 
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    SelectImage(IMG_REQ1);
-                } else {
-                    Toast.makeText(activity, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
-                }
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                SelectImage(IMG_REQ1);
+            } else {
+                Toast.makeText(activity, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
+            }
 
 
         } else if (requestCode == IMG_REQ2) {
 
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    SelectImage(IMG_REQ2);
-                } else {
-                    Toast.makeText(activity, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
-                }
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                SelectImage(IMG_REQ2);
+            } else {
+                Toast.makeText(activity, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
+            }
 
         }
 
@@ -343,30 +410,24 @@ btn_send.setOnClickListener(new View.OnClickListener() {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMG_REQ1 && resultCode == Activity.RESULT_OK && data != null) {
 
-                imgUri1 = data.getData();
-                icon1.setVisibility(View.GONE);
-                File file = new File(Common.getImagePath(activity, imgUri1));
-                Picasso.with(activity).load(file).fit().into(image1);
-
-
-
+            imgUri1 = data.getData();
+            icon1.setVisibility(View.GONE);
+            File file = new File(Common.getImagePath(activity, imgUri1));
+            Picasso.with(activity).load(file).fit().into(image1);
 
 
         } else if (requestCode == IMG_REQ2 && resultCode == Activity.RESULT_OK && data != null) {
 
 
-                imgUri2 = data.getData();
-                icon2.setVisibility(View.GONE);
-                File file = new File(Common.getImagePath(activity, imgUri2));
+            imgUri2 = data.getData();
+            icon2.setVisibility(View.GONE);
+            File file = new File(Common.getImagePath(activity, imgUri2));
 
-                Picasso.with(activity).load(file).fit().into(image2);
-
-
+            Picasso.with(activity).load(file).fit().into(image2);
 
 
         }

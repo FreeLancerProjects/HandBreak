@@ -19,10 +19,9 @@ public class Api {
 
     private static Retrofit retrofit = null;
 
-    private static Retrofit getRetrofit()
+    private static Retrofit getRetrofit(String baseUrl)
     {
-        if (retrofit == null)
-        {
+
             Interceptor interceptor   = new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
@@ -51,7 +50,7 @@ public class Api {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
-        }
+
 
         return retrofit;
     }
@@ -59,6 +58,10 @@ public class Api {
 
     public static Service getService()
     {
-        return getRetrofit().create(Service.class);
+        return getRetrofit(Tags.base_url).create(Service.class);
+    }
+    public static Service getService(String base_url)
+    {
+        return getRetrofit(base_url).create(Service.class);
     }
 }

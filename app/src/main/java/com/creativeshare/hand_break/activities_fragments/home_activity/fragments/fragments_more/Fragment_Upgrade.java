@@ -59,6 +59,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 import com.hbb20.CountryCodePicker;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -257,6 +258,7 @@ private ImageView back_arrow;
     public void onLocationChanged(Location location) {
 
         this.location = location;
+
         lng = location.getLongitude();
         lat = location.getLatitude();
 
@@ -304,5 +306,46 @@ private ImageView back_arrow;
             });
 
         }
+    }
+    private void getGeoData(final double lat, final double lng) {
+
+        String location = lat + "," + lng;
+        Api.getService("https://maps.googleapis.com/maps/api/")
+                .getGeoData(location, current_language, getString(R.string.map_api_key))
+                .enqueue(new Callback<PlaceGeocodeData>() {
+                    @Override
+                    public void onResponse(Call<PlaceGeocodeData> call, Response<PlaceGeocodeData> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+
+
+                            if (response.body().getResults().size() > 0) {
+                                formatedaddress = response.body().getResults().get(0).getFormatted_address().replace("Unnamed Road,", "");
+                                address.setText(formatedaddress);
+                                AddMarker(lat, lng);
+                                //place_id = response.body().getCandidates().get(0).getPlace_id();
+                            }
+                        } else {
+
+                            try {
+                                Log.e("error_code", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<PlaceGeocodeData> call, Throwable t) {
+                        try {
+
+
+                            // Toast.makeText(activity, getString(R.string.something), Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
     }
 }

@@ -400,4 +400,8 @@ public interface Service {
 
 
     );
+    @GET("geocode/json")
+    Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
+                                      @Query(value = "language") String language,
+                                      @Query(value = "key") String key);
 }
