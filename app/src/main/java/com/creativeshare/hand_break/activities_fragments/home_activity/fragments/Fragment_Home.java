@@ -38,7 +38,7 @@ import retrofit2.Response;
 
 public class Fragment_Home extends Fragment {
     private HomeActivity homeActivity;
-    private ImageView im_search;
+    private ImageView im_search,insurance_car;
     private AHBottomNavigation ah_bottom_nav;
     private String cuurent_language;
     private FloatingActionButton fab_add_ads;
@@ -62,12 +62,21 @@ public class Fragment_Home extends Fragment {
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         im_search = view.findViewById(R.id.im_search);
+        insurance_car=view.findViewById(R.id.img_insurance_car);
         ah_bottom_nav = view.findViewById(R.id.ah_bottom_nav);
         fab_add_ads = view.findViewById(R.id.fab_add_ads);
         im_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 homeActivity.DisplayFragmentCarSearch();
+            }
+        });
+        insurance_car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                homeActivity.DisplayFragmentInsuranceCar();
+
             }
         });
         fab_add_ads.setOnClickListener(new View.OnClickListener() {

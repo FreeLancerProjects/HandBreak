@@ -3,7 +3,6 @@
 
     <string name="app_name">هاند بريك</string>
     <string name="map_api_key">AIzaSyCbc2Y5AIwZ8uUeHRUXiozGN3CnpjKT0oI</string>
-
     <string name="hand_break">هاند بريك</string>
     <string name="home">الرئيسية</string>
     <string name="notifications">الاشعارات</string>
@@ -22,11 +21,8 @@
     <string name="favorite">المفضلة</string>
     <string name="log_out">تسجيل الخروج </string>
     <string name="language_setting">اعدادات اللغة </string>
-
-
     <string name="code">الكود</string>
     <string name="sign_up2">إنشاء حساب</string>
-
     <string name="login" >دخول</string>
     <string name="skip">تخطي</string>
     <string name="user_name">إسم المستخدم</string>
@@ -36,7 +32,6 @@
     <string name="register">تسجيل</string>
     <string name="si_su">قم بتسجيل الدخول أو إنشاء حساب جديد .</string>
     <string name="new_user">إنشاء حساب جديد.</string>
-
     <string name="cancel">إلغاء</string>
     <string name="suc"> تم بنجاح !</string>
     <string name="field_req">الحقل مطلوب</string>
@@ -49,7 +44,6 @@
     <string name="add_adversiment">اضافة اعلان</string>
     <string name="the_manufacture_company">شركة التصنيع</string>
     <string name="continuation">استمرار</string>
-
     <string name="apply_terms_and_conditions">اقبل الشروط والاحكام</string>
     <string name="terms_and_conditions1"><a  href="">الشروط والاحكام</a></string>
     <string name="advertisment_address"> عنوان الاعلان</string>
@@ -80,7 +74,6 @@
     <string name="city">المدينه</string>
     <string name="add_comment">اضافة تعليق</string>
     <string name="follow_comment">تتبع التعليقات </string>
-
     <string name="just_now">الان</string>
     <string name="a_minute_ago">منذ دقيقة</string>
     <string name="min">دقيقة</string>
@@ -99,6 +92,15 @@
     <string name="near_to_me">القريب منى</string>
     <string name="piece_number">رقم القطعه</string>
     <string name="responsible_person">الشخص المسئول</string>
+    <string name="insurance_car">طلب تأمين سيارة</string>
+    <string name="residency_number">رقم الاقامة / رقم الهوية</string>
+    <string name="Date_expire_residence">تاريخ انتهاء الإقامة / الهوية</string>
+    <string name="car_model">طراز السيارة</string>
+    <string name="car_type">نوع السيارة</string>
+    <string name="image_car">صورة السيارة </string>
+    <string name="image_form">صورة الاستمارة </string>
+    <string name="send">ارسال</string>
+    <string name="select">اختار</string>
     <string name="title">العنوان</string>
     <string name="upgrade">تحويل الى تاجر</string>
     <string name="market_name">اسم المتجر</string>

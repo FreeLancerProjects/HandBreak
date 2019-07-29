@@ -3,7 +3,6 @@
 
     <string name="app_name">Hand Break</string>
     <string name="map_api_key">AIzaSyCbc2Y5AIwZ8uUeHRUXiozGN3CnpjKT0oI</string>
-
     <string name="hand_break">Hand Break</string>
     <string name="home">Home</string>
     <string name="notifications">Notifications</string>
@@ -22,12 +21,9 @@
     <string name="favorite">Favorite</string>
     <string name="log_out">Log Out</string>
     <string name="language_setting">Language Setting </string>
-
-
     <string name="code">code</string>
     <string name="sign_up2">Create Account</string>
-
-    <string name="login" >Login</string>
+    <string name="login">Login</string>
     <string name="skip">Skip</string>
     <string name="user_name">User name</string>
     <string name="user_password">password</string>
@@ -36,7 +32,6 @@
     <string name="register">Register</string>
     <string name="si_su">Sign in or create a new account .</string>
     <string name="new_user">Create new Account .</string>
-
     <string name="cancel">Cancel</string>
     <string name="suc"> Succes</string>
     <string name="field_req">Field Required</string>
@@ -49,9 +44,8 @@
     <string name="add_adversiment">Add Adversiment</string>
     <string name="the_manufacture_company">Manufacture Company</string>
     <string name="continuation">Continuation</string>
-
     <string name="apply_terms_and_conditions">Apply Terms and Conditions</string>
-    <string name="terms_and_conditions1"><a  href="">Terms and Conditions</a></string>
+    <string name="terms_and_conditions1"><a href="">Terms and Conditions</a></string>
     <string name="advertisment_address"> Adversiment Title</string>
     <string name="price">Price</string>
     <string name="detials">Detials</string>
@@ -80,7 +74,6 @@
     <string name="city">City</string>
     <string name="add_comment">Add Comment</string>
     <string name="follow_comment">=Follow Comments </string>
-
     <string name="just_now">Just Now</string>
     <string name="a_minute_ago">Minute Ago</string>
     <string name="min">Minute</string>
@@ -99,6 +92,15 @@
     <string name="near_to_me">near to me</string>
     <string name="piece_number">piece number</string>
     <string name="responsible_person">responsible person</string>
+    <string name="insurance_car">insurance car</string>
+    <string name="residency_number">Residence Number / Identity Number</string>
+    <string name="Date_expire_residence">Date of expiry of residence / identity</string>
+    <string name="car_model">car model</string>
+    <string name="car_type">car type</string>
+    <string name="image_car">image car</string>
+    <string name="image_form">image form</string>
+    <string name="send">send</string>
+    <string name="select">select</string>
     <string name="title">title</string>
     <string name="upgrade">Upgrade to dealer</string>
     <string name="market_name">market name</string>

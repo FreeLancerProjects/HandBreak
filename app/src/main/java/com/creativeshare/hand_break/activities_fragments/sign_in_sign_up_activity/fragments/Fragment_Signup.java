@@ -112,6 +112,13 @@ public class Fragment_Signup extends Fragment implements OnCountryPickerListener
 
 
     }
+    private void updateUi(Country country) {
+
+        tv_code.setText(country.getDialCode());
+        code = country.getDialCode();
+
+
+    }
 
     private void CreateCountryDialog() {
         CountryPicker.Builder builder = new CountryPicker.Builder()
@@ -146,13 +153,7 @@ public class Fragment_Signup extends Fragment implements OnCountryPickerListener
         updateUi(country);
     }
 
-    private void updateUi(Country country) {
 
-        tv_code.setText(country.getDialCode());
-        code = country.getDialCode();
-
-
-    }
 
     private void checkData() {
 

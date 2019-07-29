@@ -22,6 +22,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_insurance_cars.Fragment_insurance_car;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_About;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Add_Car;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Adversiment_Detials;
@@ -35,7 +36,6 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy.Fragment_Message_Notifications;
 import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 import com.creativeshare.hand_break.language.Language_Helper;
-import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
@@ -76,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_My_adversiment fragment_my_adversiment;
     private Fragment_Add_Car fragment_add_car;
     private Fragment_Adversiment_Detials fragment_adversiment_detials;
+    private Fragment_insurance_car fragment_insurance_car;
     private Fragment_Upgrade fragment_upgrade;
     private String cuurent_language;
     private Preferences preferences;
@@ -203,6 +204,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         if (fragment_more != null && fragment_more.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_more).commit();
+        }
+        if (fragment_insurance_car != null && fragment_insurance_car.isAdded()) {
+            fragmentManager.beginTransaction().hide(fragment_insurance_car).commit();
         }
         if (fragment_main.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_main).commit();
@@ -352,6 +356,18 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     }
+    public void DisplayFragmentInsuranceCar() {
+        fragment_count += 1;
+        fragment_insurance_car = Fragment_insurance_car.newInstance();
+
+
+        if (fragment_insurance_car.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_insurance_car).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_insurance_car, "fragment_insurance_car").addToBackStack("fragment_insurance_car").commit();
+
+        }
+    }
     public void DisplayFragmentnotifications() {
         if (fragment_message_notifications == null) {
             fragment_message_notifications = Fragment_Message_Notifications.newInstance();
@@ -364,6 +380,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         if (fragment_more != null && fragment_more.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_more).commit();
+        }
+        if (fragment_insurance_car != null && fragment_insurance_car.isAdded()) {
+            fragmentManager.beginTransaction().hide(fragment_insurance_car).commit();
         }
         if (fragment_message_notifications.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_message_notifications).commit();
@@ -388,6 +407,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         if (fragment_more != null && fragment_more.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_more).commit();
+        }
+        if (fragment_insurance_car != null && fragment_insurance_car.isAdded()) {
+            fragmentManager.beginTransaction().hide(fragment_insurance_car).commit();
         }
         if (fragment_search.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_search).commit();
@@ -415,6 +437,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         if (fragment_message_notifications != null && fragment_message_notifications.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_message_notifications).commit();
+        }
+        if (fragment_insurance_car != null && fragment_insurance_car.isAdded()) {
+            fragmentManager.beginTransaction().hide(fragment_insurance_car).commit();
         }
         if (fragment_more.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_more).commit();
@@ -450,7 +475,7 @@ public class HomeActivity extends AppCompatActivity {
             if (fragment_home != null && fragment_home.isVisible()) {
                 if (fragment_main != null && fragment_main.isVisible()) {
                     if (userModel == null) {
-Common.CreateUserNotSignInAlertDialog(this);                    } else {
+            Common.CreateUserNotSignInAlertDialog(this);                    } else {
                         finish();
                     }
                 } else {
