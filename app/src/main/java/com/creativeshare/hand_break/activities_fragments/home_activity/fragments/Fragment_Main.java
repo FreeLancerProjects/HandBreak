@@ -69,7 +69,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConnectionFailedListener,GoogleApiClient.ConnectionCallbacks, LocationListener {
+public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener {
     private HomeActivity homeActivity;
     private String cuurent_language;
     private List<Catogry_Model.Categories.sub> subs;
@@ -80,7 +80,7 @@ public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConne
     private RecyclerView rec_search;
     private RecyclerView rec_catogry;
     private CatogriesAdapter catogriesAdapter;
-    private List<Catogry_Model.Categories> categories;
+    // private List<Catogry_Model.Categories> categories;
     private ImageView im_search;
     private Adversiment_Adapter adversiment_adapter;
     private List<Catogry_Model.Categories> categories1;
@@ -99,12 +99,14 @@ public class Fragment_Main extends Fragment  implements  GoogleApiClient.OnConne
     private int total_page;
     private final String gps_perm = Manifest.permission.ACCESS_FINE_LOCATION;
     private final int gps_req = 22;
-    private double lat=0.0,lang=0.0;
+    private double lat = 0.0, lang = 0.0;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
     private Location location;
-private TextView tv_near;
+    private TextView tv_near;
+    private int type;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -118,23 +120,21 @@ private TextView tv_near;
         categories();
         return view;
     }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1255)
-        {
-            if (resultCode == Activity.RESULT_OK)
-            {
-           startLocationUpdate();
+        if (requestCode == 1255) {
+            if (resultCode == Activity.RESULT_OK) {
+                startLocationUpdate();
             }
         }
 
     }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == gps_req && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -142,8 +142,8 @@ private TextView tv_near;
             initGoogleApiClient();
         }
     }
-    private void CheckPermission()
-    {
+
+    private void CheckPermission() {
         if (ActivityCompat.checkSelfPermission(homeActivity, gps_perm) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(homeActivity, new String[]{gps_perm}, gps_req);
         } else {
@@ -151,8 +151,8 @@ private TextView tv_near;
             initGoogleApiClient();
         }
     }
-    private void initGoogleApiClient()
-    {
+
+    private void initGoogleApiClient() {
         googleApiClient = new GoogleApiClient.Builder(homeActivity)
                 .addOnConnectionFailedListener(this)
                 .addConnectionCallbacks(this)
@@ -171,12 +171,12 @@ private TextView tv_near;
 
         categories1 = new ArrayList<>();
         rec_catogry = view.findViewById(R.id.rec_data);
-tv_near=view.findViewById(R.id.tv_near);
+        tv_near = view.findViewById(R.id.tv_near);
 
         rec_catogry.setLayoutManager(new LinearLayoutManager(homeActivity, RecyclerView.HORIZONTAL, false));
         //rec_catogry.setAdapter(catogriesAdapter);
         subs = new ArrayList<>();
-        categories = new ArrayList<>();
+        //categories = new ArrayList<>();
         advertsings = new ArrayList<>();
 
         homeActivity = (HomeActivity) getActivity();
@@ -213,7 +213,7 @@ tv_near=view.findViewById(R.id.tv_near);
         sub_cat.setAdapter(spinner_sub_catogry_adapter);
         city_adapter = new Spinner_Adapter(homeActivity, cities_models);
         cities.setAdapter(city_adapter);
-        adversiment_adapter = new Adversiment_Adapter(advertsings, categories, homeActivity);
+        adversiment_adapter = new Adversiment_Adapter(advertsings, homeActivity);
         rec_search.setDrawingCacheEnabled(true);
         rec_search.setItemViewCacheSize(25);
         rec_search.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
@@ -236,8 +236,11 @@ tv_near=view.findViewById(R.id.tv_near);
                         int page = current_page + 1;
                         //cuurent_language+=1;
                         //   Log.e("msg", page+"");
-
-                        loadMore(page);
+                        if (type == 2) {
+                            loadMore(page);
+                        } else {
+                            loadnearMore(page);
+                        }
                     }
                 }
             }
@@ -293,11 +296,11 @@ tv_near=view.findViewById(R.id.tv_near);
         tv_near.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-city_id="all";
-sub_id="all";
-cities.setSelection(0);
-sub_cat.setSelection(0);
-getadversment();
+                city_id = "all";
+                sub_id = "all";
+                cities.setSelection(0);
+                sub_cat.setSelection(0);
+                getadversment();
             }
         });
     }
@@ -325,7 +328,58 @@ getadversment();
         cities.setSelection(0);
 
 
-        getadversment();
+        getnearadversment();
+    }
+
+    private void getnearadversment() {
+        rec_search.setVisibility(View.GONE);
+        ll_no_order.setVisibility(View.GONE);
+        progBar.setVisibility(View.VISIBLE);
+        type = 1;
+
+        Api.getService()
+                .getnearadversment(1, user_id, maincatogryfk, lat + "", lang + "")
+                .enqueue(new Callback<Catogry_Model>() {
+                    @Override
+                    public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
+                        progBar.setVisibility(View.GONE);
+                        rec_search.setVisibility(View.VISIBLE);
+                        if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
+                            advertsings.clear();
+                            advertsings.addAll(response.body().getAdvertsing());
+                            //categories.clear();
+                            //categories.addAll(response.body().getCategories());
+                            //total_page = response.body().getMeta().getLast_page();
+                            if (advertsings.size() > 0) {
+                                //ll_no_order.setVisibility(View.GONE);
+                                adversiment_adapter.notifyDataSetChanged();
+                                total_page = response.body().getMeta().getLast_page();
+                            } else {
+                                ll_no_order.setVisibility(View.VISIBLE);
+
+                            }
+                        } else {
+
+                            Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Catogry_Model> call, Throwable t) {
+                        try {
+
+                            progBar.setVisibility(View.GONE);
+                            Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                            Log.e("error", t.getMessage());
+                        } catch (Exception e) {
+                        }
+                    }
+                });
     }
 
     private void getCities() {
@@ -378,13 +432,14 @@ getadversment();
     }
 
     private void getadversment() {
+        type = 2;
         rec_search.setVisibility(View.GONE);
         ll_no_order.setVisibility(View.GONE);
         progBar.setVisibility(View.VISIBLE);
 
 
         Api.getService()
-                .getadversment(1, user_id, maincatogryfk, sub_id, city_id,lat+"",lang+"")
+                .getadversment(1, user_id, maincatogryfk, sub_id, city_id)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -393,8 +448,8 @@ getadversment();
                         if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
                             advertsings.clear();
                             advertsings.addAll(response.body().getAdvertsing());
-                            categories.clear();
-                            categories.addAll(response.body().getCategories());
+                            //categories.clear();
+                            //categories.addAll(response.body().getCategories());
                             //total_page = response.body().getMeta().getLast_page();
                             if (advertsings.size() > 0) {
                                 //ll_no_order.setVisibility(View.GONE);
@@ -432,7 +487,7 @@ getadversment();
 
 
         Api.getService()
-                .getadversment(page, user_id, maincatogryfk, sub_id, city_id + "",lat+"",lang+"")
+                .getadversment(page, user_id, maincatogryfk, sub_id, city_id + "")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -442,7 +497,52 @@ getadversment();
                         if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
 
                             advertsings.addAll(response.body().getAdvertsing());
-                            categories.addAll(response.body().getCategories());
+                            //categories.addAll(response.body().getCategories());
+
+                            adversiment_adapter.notifyDataSetChanged();
+
+                            current_page = response.body().getMeta().getCurrent_page();
+
+                        } else {
+                            Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Catogry_Model> call, Throwable t) {
+                        try {
+                            isLoading = false;
+                            advertsings.remove(advertsings.size() - 1);
+                            adversiment_adapter.notifyItemRemoved(advertsings.size() - 1);
+                            // isLoading = false;
+                            Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                            Log.e("error", t.getMessage());
+                        } catch (Exception e) {
+                        }
+                    }
+                });
+    }
+
+    private void loadnearMore(int page) {
+
+
+        Api.getService()
+                .getnearadversment(page, user_id, maincatogryfk, lat + "", lang + "")
+                .enqueue(new Callback<Catogry_Model>() {
+                    @Override
+                    public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
+                        advertsings.remove(advertsings.size() - 1);
+                        adversiment_adapter.notifyItemRemoved(advertsings.size() - 1);
+                        isLoading = false;
+                        if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
+
+                            advertsings.addAll(response.body().getAdvertsing());
+                            //categories.addAll(response.body().getCategories());
 
                             adversiment_adapter.notifyDataSetChanged();
 
@@ -522,11 +622,10 @@ getadversment();
         });
     }
 
-    private void intLocationRequest()
-    {
+    private void intLocationRequest() {
         locationRequest = new LocationRequest();
-        locationRequest.setFastestInterval(1000*60*2);
-        locationRequest.setInterval(1000*60*2);
+        locationRequest.setFastestInterval(1000 * 60 * 2);
+        locationRequest.setInterval(1000 * 60 * 2);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
         PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
@@ -536,20 +635,18 @@ getadversment();
             public void onResult(@NonNull LocationSettingsResult result) {
 
                 Status status = result.getStatus();
-                switch (status.getStatusCode())
-                {
+                switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
                         startLocationUpdate();
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         try {
-                            status.startResolutionForResult(homeActivity,1255);
-                        }catch (Exception e)
-                        {
+                            status.startResolutionForResult(homeActivity, 1255);
+                        } catch (Exception e) {
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        Log.e("not available","not available");
+                        Log.e("not available", "not available");
                         break;
                 }
             }
@@ -558,18 +655,15 @@ getadversment();
     }
 
 
-
     @Override
-    public void onConnected(@Nullable Bundle bundle)
-    {
+    public void onConnected(@Nullable Bundle bundle) {
         intLocationRequest();
 
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        if (googleApiClient!=null)
-        {
+        if (googleApiClient != null) {
             googleApiClient.connect();
         }
     }
@@ -583,30 +677,27 @@ getadversment();
     public void onLocationChanged(Location location) {
 
         this.location = location;
-lang=location.getLongitude();
-lat=location.getLatitude();
-Log.e("lang",lang+"  "+lat);
-        if (googleApiClient!=null)
-        {
+        lang = location.getLongitude();
+        lat = location.getLatitude();
+        Log.e("lang", lang + "  " + lat);
+        if (googleApiClient != null) {
             googleApiClient.disconnect();
         }
 
-        if (locationCallback!=null)
-        {
+        if (locationCallback != null) {
             LocationServices.getFusedLocationProviderClient(homeActivity).removeLocationUpdates(locationCallback);
         }
     }
+
     @SuppressLint("MissingPermission")
-    private void startLocationUpdate()
-    {
-        locationCallback = new LocationCallback()
-        {
+    private void startLocationUpdate() {
+        locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 onLocationChanged(locationResult.getLastLocation());
             }
         };
         LocationServices.getFusedLocationProviderClient(homeActivity)
-                .requestLocationUpdates(locationRequest,locationCallback, Looper.myLooper());
+                .requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
     }
 }

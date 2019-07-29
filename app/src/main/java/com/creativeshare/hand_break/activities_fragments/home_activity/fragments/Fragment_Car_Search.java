@@ -59,7 +59,7 @@ public class Fragment_Car_Search extends Fragment {
     private ProgressBar progBar;
     private LinearLayout ll_no_order;
 
-    private List<Catogry_Model.Categories> categories2;
+    //  private List<Catogry_Model.Categories> categories2;
 
     private boolean isLoading = false;
     private int current_page = 1;
@@ -106,14 +106,14 @@ public class Fragment_Car_Search extends Fragment {
             }
         });
         //cities_models = new ArrayList<>();
-        categories2 = new ArrayList<>();
+        //   categories2 = new ArrayList<>();
 
 
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-
+        progBar.setVisibility(View.GONE);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
-        adversiment_adapter = new Adversiment_Adapter(advertsings, categories2, homeActivity);
+        adversiment_adapter = new Adversiment_Adapter(advertsings, homeActivity);
         rec_search.setDrawingCacheEnabled(true);
         rec_search.setItemViewCacheSize(25);
         rec_search.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);

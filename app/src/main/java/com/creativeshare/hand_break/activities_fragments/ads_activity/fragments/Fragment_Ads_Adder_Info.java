@@ -211,7 +211,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         RequestBody sub_part = Common.getRequestBodyText(adversiment_model.getSub_id());
         RequestBody model_part = Common.getRequestBodyText(adversiment_model.getModel_id());
         RequestBody city_part = Common.getRequestBodyText(adversiment_model.getCity_id());
-        RequestBody piece_part = Common.getRequestBodyText(adversiment_model.getPiece());
+        //RequestBody piece_part = Common.getRequestBodyText(adversiment_model.getPiece());
         RequestBody plate_part = Common.getRequestBodyText(adversiment_model.getPalte());
         RequestBody type_part = Common.getRequestBodyText(adversiment_model.getType());
         RequestBody title_part = Common.getRequestBodyText(title);
@@ -226,7 +226,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
 
         List<MultipartBody.Part> partImageList = getMultipartBodyList(adversiment_model.getUris(), "advertisement_images[]");
 
-            Api.getService().updateads(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part, adversiment_part,lat_part,lng_part, partImageList,piece_part,plate_part,type_part).enqueue(new Callback<Adversiting_Model>() {
+            Api.getService().updateads(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part, adversiment_part,lat_part,lng_part, partImageList,plate_part,type_part).enqueue(new Callback<Adversiting_Model>() {
                 @Override
                 public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
                     dialog.dismiss();
@@ -259,7 +259,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         RequestBody sub_part = Common.getRequestBodyText(adversiment_model.getSub_id());
         RequestBody model_part = Common.getRequestBodyText(adversiment_model.getModel_id());
         RequestBody city_part = Common.getRequestBodyText(adversiment_model.getCity_id());
-        RequestBody piece_part = Common.getRequestBodyText(adversiment_model.getPiece());
+        //RequestBody piece_part = Common.getRequestBodyText(adversiment_model.getPiece());
         RequestBody plate_part = Common.getRequestBodyText(adversiment_model.getPalte());
         RequestBody type_part = Common.getRequestBodyText(adversiment_model.getType());
         RequestBody title_part = Common.getRequestBodyText(title);
@@ -269,7 +269,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         RequestBody lat_part = Common.getRequestBodyText(lat+"");
         RequestBody lng_part = Common.getRequestBodyText(lng+"");
         List<MultipartBody.Part> partImageList = getMultipartBodyList(adversiment_model.getUris(), "advertisement_images[]");
-        Api.getService().addads(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part,lat_part,lng_part,partImageList,piece_part,plate_part,type_part).enqueue(new Callback<Catogry_Model.Advertsing>() {
+        Api.getService().addads(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part,lat_part,lng_part,partImageList,plate_part,type_part).enqueue(new Callback<Catogry_Model.Advertsing>() {
             @Override
             public void onResponse(Call<Catogry_Model.Advertsing> call, Response<Catogry_Model.Advertsing> response) {
                 dialog.dismiss();

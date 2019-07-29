@@ -131,11 +131,19 @@ public interface Service {
             @Query("user_id") String user_id,
             @Query("main_category_fk") String main_category_fk,
             @Query("sub_category_fk") String sub_category_fk,
-            @Query("city_id") String city_id,
-            @Query("google_lat") String google_lat,
-            @Query("google_long") String google_long
-    );
+            @Query("city_id") String city_id
 
+    );
+    @GET("App/nearBy")
+    Call<Catogry_Model>
+    getnearadversment(
+            @Query("page") int page,
+            @Query("user_id") String user_id,
+            @Query("main_category_fk") String main_category_fk,
+            @Query("lat") String lat,
+            @Query("long") String long1
+
+    );
     @GET("App/searchAdvertsing")
     Call<Catogry_Model>
     searchadversment(
@@ -150,11 +158,15 @@ public interface Service {
     searchadversment2(
             @Query("page") int page,
             @Query("user_id") String user_id,
+            @Query("city_id") String city_id,
+
             @Query("main_category_fk") String main_category_fk,
             @Query("sub_category_fk") String sub_category_fk,
-            @Query("model_id_fk") String model_id_fk
+            @Query("model_id_fk") String model_id_fk,
+            @Query("advertisement_type") String advertisement_type,
+            @Query("plate_number") String plate_number
 
-    );
+            );
 
     @GET("App/myAdvertsing")
     Call<Catogry_Model>
@@ -174,14 +186,7 @@ public interface Service {
 
 
     );
-    @GET("App/getOneAdvertsing")
-    Call<Adversiting_Model>
-    getadversmentdetials(
 
-            @Query("id_advertisement") String id_advertisement
-
-
-    );
     @Multipart
     @POST("App/addAdvertsing")
     Call<Catogry_Model.Advertsing> addads(@Part("advertisement_user") RequestBody advertisement_user,
@@ -196,7 +201,6 @@ public interface Service {
                                           @Part("google_lat") RequestBody google_lat,
                                           @Part("google_long") RequestBody google_long,
                                           @Part List<MultipartBody.Part> advertisement_images,
-                                          @Part("piece_number") RequestBody piece_number,
                                           @Part("plate_number") RequestBody plate_number,
                                           @Part("advertisement_type") RequestBody advertisement_type
 
@@ -218,7 +222,6 @@ public interface Service {
              @Part("google_lat") RequestBody google_lat,
              @Part("google_long") RequestBody google_long,
              @Part List<MultipartBody.Part> advertisement_images,
-             @Part("piece_number") RequestBody piece_number,
              @Part("plate_number") RequestBody plate_number,
              @Part("advertisement_type") RequestBody advertisement_type
 

@@ -3,6 +3,7 @@ package com.creativeshare.hand_break.activities_fragments.home_activity.fragment
 import android.app.ProgressDialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -69,7 +71,7 @@ public class Fragment_Search extends Fragment {
     private List<CityModel> cities_models;
     private List<Catogry_Model.Categories.sub> subs;
     private List<Catogry_Model.Categories> categories;
-    private List<Catogry_Model.Categories> categories2;
+   // private List<Catogry_Model.Categories> categories2;
 
     private List<Catogry_Model.Categories.sub.Sub> subs_sub;
     private boolean isLoading = false;
@@ -80,8 +82,9 @@ public class Fragment_Search extends Fragment {
     private UserModel userModel;
     private List<Catogry_Model.Advertsing> advertsings;
    // private List<Catogry_Model.Categories> categories;
-   private String city_id,cat_id,sub_id,model_id;
-
+   private String city_id,cat_id,sub_id,model_id,platenumber,typeused;
+    private RadioGroup group_type;
+private EditText edt_plate;
     private Adversiment_Adapter adversiment_adapter;
 
     private String search;
@@ -105,7 +108,10 @@ public class Fragment_Search extends Fragment {
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         edt_name = view.findViewById(R.id.edt_name);
+
         im_search = view.findViewById(R.id.im_search);
+        edt_plate=view.findViewById(R.id.edt_plate);
+        group_type=view.findViewById(R.id.group_type);
         scrollView = view.findViewById(R.id.scrollable);
         rec_search = view.findViewById(R.id.rec_search);
         progBar = view.findViewById(R.id.progBar);
@@ -117,7 +123,7 @@ public class Fragment_Search extends Fragment {
         sp_model = view.findViewById(R.id.sp_model);
         bt_search=view.findViewById(R.id.bt_search);
         //cities_models = new ArrayList<>();
-        categories2 = new ArrayList<>();
+        //categories2 = new ArrayList<>();
         subs = new ArrayList<>();
         subs_sub = new ArrayList<>();
         cities_models = new ArrayList<>();
@@ -234,7 +240,7 @@ public class Fragment_Search extends Fragment {
 
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
-        adversiment_adapter = new Adversiment_Adapter(advertsings, categories2, homeActivity);
+        adversiment_adapter = new Adversiment_Adapter(advertsings, homeActivity);
         rec_search.setDrawingCacheEnabled(true);
         rec_search.setItemViewCacheSize(25);
         rec_search.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
@@ -295,17 +301,32 @@ bt_search.setOnClickListener(new View.OnClickListener() {
         current_page=1;
         advertsings.clear();
         type=1;
-searchadversment(city_id,cat_id,sub_id,model_id);
+        if(TextUtils.isEmpty(edt_plate.getText())){
+            platenumber="all";
+        }
+        else {
+            platenumber=edt_plate.getText().toString();
+        }
+        if(group_type.getCheckedRadioButtonId()==R.id.r_new){
+           // adversiment_model.setType("1");
+            typeused="1";
+        }
+        else if(group_type.getCheckedRadioButtonId()==R.id.r_used){
+          //  adversiment_model.setType("2");
+            typeused="2";
+
+        }
+searchadversment(city_id,cat_id,sub_id,model_id,typeused,platenumber);
     }
 });
     }
 
-    private void searchadversment(String city_id, String cat_id, String sub_id, String model_id) {
+    private void searchadversment(String city_id, String cat_id, String sub_id, String model_id, String typeused, String platenumber) {
         progBar.setVisibility(View.VISIBLE);
         ll_no_order.setVisibility(View.GONE);
 
         Api.getService()
-                .searchadversment2(1, user_id,cat_id,sub_id,model_id)
+                .searchadversment2(1, user_id,city_id,cat_id,sub_id,model_id,typeused,platenumber)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -388,7 +409,7 @@ searchadversment(city_id,cat_id,sub_id,model_id);
     }
     private void loadMore2(int page) {
         Api.getService()
-                .searchadversment2(page, user_id , cat_id,sub_id,model_id)
+                .searchadversment2(page, user_id,city_id , cat_id,sub_id,model_id,typeused,platenumber)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -542,7 +563,7 @@ searchadversment(city_id,cat_id,sub_id,model_id);
 
                     if (response.body().getCategories() != null && response.body().getCategories().size() > 0) {
                         categories.clear();
-                        categories2.clear();
+                        //categories2.clear();
                         if(cuurent_language.equals("ar")){
                             categories.add(new Catogry_Model.Categories("كل الاقسام"));
 
@@ -551,7 +572,7 @@ searchadversment(city_id,cat_id,sub_id,model_id);
                             categories.add(new Catogry_Model.Categories("all department"));
                         }
                         categories.addAll(response.body().getCategories());
-                        categories2.addAll(response.body().getCategories());
+                       // categories2.addAll(response.body().getCategories());
 
                         spinner_catogry_adapter.notifyDataSetChanged();
                         //setsub();

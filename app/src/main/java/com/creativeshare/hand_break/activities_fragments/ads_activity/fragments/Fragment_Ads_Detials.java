@@ -69,7 +69,7 @@ public class Fragment_Ads_Detials extends Fragment {
     private Preferences preferences;
     private UserModel userModel;
     private String cuurent_language;
-    private EditText edt_piece,edt_plate;
+    private EditText edt_plate;
     private RadioGroup group_type;
     private LinearLayout ll_continue;
     private ImageView bt_arrow;
@@ -113,7 +113,7 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         adsActivity = (AdsActivity) getActivity();
         Paper.init(adsActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
-        edt_piece=view.findViewById(R.id.edt_piece);
+       // edt_piece=view.findViewById(R.id.edt_piece);
         edt_plate=view.findViewById(R.id.edt_plate);
         group_type=view.findViewById(R.id.group_type);
         ll_continue = view.findViewById(R.id.ll_continue);
@@ -272,7 +272,7 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         ll_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String piecen=edt_piece.getText().toString();
+               // String piecen=edt_piece.getText().toString();
                 String plate=edt_plate.getText().toString();
                 if (checkBox.isChecked()) {
                     if (city_id != null && cat_id != null && sub_id != null && (uriList.size() > 0 || !Adversiment_Model.getId().equals("-1"))) {
@@ -280,9 +280,9 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
                         adversiment_model.setCat_id(cat_id);
                         adversiment_model.setSub_id(sub_id);
                         adversiment_model.setUris(uriList);
-                        if(TextUtils.isEmpty(piecen)){
+                    /*    if(TextUtils.isEmpty(piecen)){
                             piecen="0";
-                        }
+                        }*/
                         if(TextUtils.isEmpty(plate)){
                             plate="0";
                         }
@@ -294,7 +294,7 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
 
                         }
                         adversiment_model.setPalte(plate);
-                        adversiment_model.setPiece(piecen);
+                   //     adversiment_model.setPiece(piecen);
                         if (model_id != null) {
                             adversiment_model.setModel_id(model_id);
                             adsActivity.gotonext(adversiment_model);
@@ -325,7 +325,7 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         final ProgressDialog dialog = Common.createProgressDialog(adsActivity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService().getadversmentdetials(id_advertisement).enqueue(new Callback<Adversiting_Model>() {
+        Api.getService().getadversmentdetials(id_advertisement,"all").enqueue(new Callback<Adversiting_Model>() {
             @Override
             public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
 

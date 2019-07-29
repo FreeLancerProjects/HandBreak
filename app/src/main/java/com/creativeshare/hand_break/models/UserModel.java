@@ -22,6 +22,8 @@ public class UserModel implements Serializable {
     private boolean user_follow;
     private boolean rating_status;
     private float rating_value;
+    private String ar_city_title;
+    private String en_city_title;
 
     public String getUser_id() {
         return user_id;
@@ -101,5 +103,13 @@ public class UserModel implements Serializable {
 
     public void setRating_value(float rating_value) {
         this.rating_value = rating_value;
+    }
+
+    public String getAr_city_title() {
+        return ar_city_title;
+    }
+
+    public String getEn_city_title() {
+        return en_city_title;
     }
 }

@@ -100,7 +100,7 @@
 
 
 
-
+<!--
         <EditText
             android:id="@+id/edt_piece"
             android:layout_width="match_parent"
@@ -113,7 +113,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray7" />
+            android:background="@color/gray7" />-->
 
         <EditText
             android:id="@+id/edt_plate"

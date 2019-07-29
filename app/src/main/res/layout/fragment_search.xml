@@ -106,12 +106,13 @@ android:layout_marginTop="25dp"
 
         >
         <EditText
+            android:id="@+id/edt_palte"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:background="@color/white"
-            android:hint="@string/the_manufacture_company"
+            android:hint="@string/plate_number"
             />
         <View
             android:layout_width="match_parent"
@@ -141,6 +142,7 @@ android:layout_marginTop="25dp"
             android:background="@color/gray7"
             />
         <RadioGroup
+            android:id="@+id/group_type"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="15dp"
