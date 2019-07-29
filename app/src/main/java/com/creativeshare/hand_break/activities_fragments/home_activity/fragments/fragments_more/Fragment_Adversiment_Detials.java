@@ -110,6 +110,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
     }
 
     private void intitview(View view) {
+        id_advertisement = getArguments().getString(Tag1);
         advertisementsList = new ArrayList<>();
         data=new ArrayList<>();
         activity = (HomeActivity) getActivity();
@@ -175,7 +176,6 @@ public class Fragment_Adversiment_Detials extends Fragment {
 
             back.setRotation(180);
         }
-        id_advertisement = getArguments().getString(Tag1);
         getadeversmentdetials(id_advertisement);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,7 +277,9 @@ public class Fragment_Adversiment_Detials extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 dialog.dismiss();
+
                 if (response.isSuccessful() ) {
+                    Log.e("foll",id_advertisement+"  "+userModel.getUser_id());
 if(adversiting_model.isFollow_status()==true){
     im_follow.setImageDrawable(getResources().getDrawable(R.drawable.follow));
     adversiting_model.setFollow_status(false);
@@ -310,7 +312,7 @@ else {
         dialog.setCancelable(false);
         dialog.show();
         getadversmentcomment();
-        Api.getService().getadversmentdetials(id_advertisement).enqueue(new Callback<Adversiting_Model>() {
+        Api.getService().getadversmentdetials(id_advertisement,userModel.getUser_id()).enqueue(new Callback<Adversiting_Model>() {
             @Override
             public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
 

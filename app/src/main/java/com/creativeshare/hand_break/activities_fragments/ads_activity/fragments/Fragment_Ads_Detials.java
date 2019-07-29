@@ -48,6 +48,8 @@ import com.creativeshare.hand_break.models.Adversiment_Model;
 import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.CityModel;
+import com.creativeshare.hand_break.models.UserModel;
+import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
 import com.creativeshare.hand_break.share.Common;
 
@@ -64,6 +66,8 @@ import retrofit2.Response;
 
 public class Fragment_Ads_Detials extends Fragment {
     private AdsActivity adsActivity;
+    private Preferences preferences;
+    private UserModel userModel;
     private String cuurent_language;
     private EditText edt_piece,edt_plate;
     private RadioGroup group_type;

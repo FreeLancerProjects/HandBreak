@@ -71,8 +71,8 @@ private HomeActivity activity;
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa", Locale.ENGLISH);
             String date = dateFormat.format(new Date(Long.parseLong(advertsing.getAdvertisement_date()) * 1000));
             ((MyHolder) holder).tv_time.setText(date.replace(" ",""));
-            String name = getname(advertsing.getMain_category_fk());
-            ((MyHolder) holder).tv_depart.setText(name);
+
+            ((MyHolder) holder).tv_depart.setText(advertsing.getMain_category_title());
             Picasso.with(context).load(Tags.IMAGE_URL+advertsing.getMain_image()).fit().into(((MyHolder) holder).image);
             ((MyHolder) holder).im_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,14 +86,7 @@ private HomeActivity activity;
         }
     }
 
-    private String getname(String main_category_fk) {
-        for (int i = 0; i < categories.size(); i++) {
-            if (categories.get(i).getMain_category_fk().equals(main_category_fk)) {
-                return categories.get(i).getMain_category_title();
-            }
-        }
-        return null;
-    }
+
 
     @Override
     public int getItemCount() {

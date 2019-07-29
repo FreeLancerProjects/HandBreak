@@ -109,6 +109,12 @@ private Meta meta;
          private String user_name;
          private String city_title;
          private String main_image;
+         private String main_category_title;
+
+         public String getMain_category_title() {
+             return main_category_title;
+         }
+
          private List<Advertisement_images> advertisement_images;
          private List<Same_advertisements> same_advertisements;
 private boolean follow_status;

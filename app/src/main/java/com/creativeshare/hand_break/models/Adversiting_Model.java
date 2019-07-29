@@ -33,6 +33,12 @@ public class Adversiting_Model
     private String main_image;
     private List<Advertisement_images> advertisement_images;
     private List<Same_advertisements> same_advertisements;
+    private String main_category_title;
+
+    public String getMain_category_title() {
+        return main_category_title;
+    }
+
     private boolean follow_status;
 
     public class Advertisement_images implements Serializable {

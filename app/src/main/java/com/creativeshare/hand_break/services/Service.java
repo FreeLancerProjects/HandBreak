@@ -169,11 +169,19 @@ public interface Service {
     Call<Adversiting_Model>
     getadversmentdetials(
 
+            @Query("id_advertisement") String id_advertisement,
+            @Query("user_id") String user_id
+
+
+    );
+    @GET("App/getOneAdvertsing")
+    Call<Adversiting_Model>
+    getadversmentdetials(
+
             @Query("id_advertisement") String id_advertisement
 
 
     );
-
     @Multipart
     @POST("App/addAdvertsing")
     Call<Catogry_Model.Advertsing> addads(@Part("advertisement_user") RequestBody advertisement_user,

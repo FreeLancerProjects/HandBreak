@@ -135,11 +135,11 @@ im_edit.setOnClickListener(new View.OnClickListener() {
         }
     }
 });
-        simpleRatingBar.setOnRatingBarChangeListener(new SimpleRatingBar.OnRatingBarChangeListener() {
+        simpleRatingBar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRatingChanged(SimpleRatingBar simpleRatingBar, float rating, boolean fromUser) {
-                if(userModel!=null){
-                updaterating();}
+            public void onClick(View view) {
+                if(userModel!=null&&Adversiment_Model.getId()!=null){
+                    updaterating();}
             }
         });
     }
@@ -153,7 +153,7 @@ im_edit.setOnClickListener(new View.OnClickListener() {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 dialog.dismiss();
                 if (response.isSuccessful()) {
-                    Log.e("uu",((float)simpleRatingBar.getRating())+"");
+                    Log.e("uu",((float)simpleRatingBar.getRating())+""+userModel.getUser_id()+" "+preferences.getUserData(homeActivity).getUser_id());
                     userModel.setRating_value(simpleRatingBar.getRating());
                 }
                 else {
@@ -348,7 +348,7 @@ else {
 
                 }
 
-                   // Log.e("lll",userModel.getRating_value()+"");
+                    Log.e("lll",userModel.getRating_value()+"");
                     simpleRatingBar.setRating(userModel.getRating_value());
 
             }

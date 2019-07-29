@@ -73,8 +73,8 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa", Locale.ENGLISH);
             String date = dateFormat.format(new Date(Long.parseLong(advertsing.getAdvertisement_date()) * 1000));
             ((MyHolder) holder).tv_time.setText(date.replace(" ",""));
-            String name = getname(advertsing.getMain_category_fk());
-            ((MyHolder) holder).tv_name.setText(name);
+
+            ((MyHolder) holder).tv_name.setText(advertsing.getMain_category_title());
             Picasso.with(context).load(Tags.IMAGE_URL+advertsing.getMain_image()).fit().into(((MyHolder) holder).image);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,15 +89,6 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private String getname(String main_category_fk) {
-        for (int i = 0; i < categories.size(); i++) {
-            Log.e("cat",categories.size()+"");
-            if (categories.get(i).getMain_category_fk().equals(main_category_fk)) {
-                return categories.get(i).getMain_category_title();
-            }
-        }
-        return null;
-    }
 
     @Override
     public int getItemCount() {
