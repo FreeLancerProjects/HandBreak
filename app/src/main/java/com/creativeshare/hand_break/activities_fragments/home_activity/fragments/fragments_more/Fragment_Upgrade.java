@@ -8,20 +8,24 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.creativeshare.hand_break.R;
@@ -30,6 +34,8 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.activity.
 import com.creativeshare.hand_break.models.Adversiment_Model;
 import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.models.Insuarce_Model;
+import com.creativeshare.hand_break.models.PlaceGeocodeData;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
@@ -58,7 +64,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 import com.hbb20.CountryCodePicker;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,8 +96,16 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
     private GoogleMap mMap;
     private Preferences preferences;
     private UserModel userModel;
-private String cuurent_language;
-private ImageView back_arrow;
+    private String cuurent_language, formatedaddress;
+    private ImageView back_arrow;
+    private FrameLayout fl1;
+    private ImageView icon1,image1;
+    private final int IMG1 = 1;
+    private Uri uri = null;
+    private ImageView back;
+    private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
+    private EditText edt_name;
+    private Button bt_upgrde;
     public static Fragment_Upgrade newInstance() {
         return new Fragment_Upgrade();
     }
@@ -142,9 +158,13 @@ private ImageView back_arrow;
         userModel = preferences.getUserData(homeActivity);
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
-        back_arrow=view.findViewById(R.id.arrow_back);
-        if(cuurent_language.equals("en"))
-        {
+        back_arrow = view.findViewById(R.id.arrow_back);
+        fl1 = view.findViewById(R.id.fl1);
+        icon1 = view.findViewById(R.id.image_icon_upload);
+        image1 = view.findViewById(R.id.image);
+        edt_name=view.findViewById(R.id.edt_name);
+        bt_upgrde=view.findViewById(R.id.bt_upgrade);
+        if (cuurent_language.equals("en")) {
 
             back_arrow.setRotation(180);
 
@@ -155,12 +175,78 @@ private ImageView back_arrow;
                 homeActivity.Back();
             }
         });
+fl1.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Check_ReadPermission(IMG1);
 
     }
+});
+bt_upgrde.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        checkdata();
+    }
+});
+    }
+
+    private void checkdata() {
+        String name=edt_name.getText().toString();
+        if(TextUtils.isEmpty(name)||(lat==0.0||lng==0.0)||uri==null||formatedaddress==null){
+            if(TextUtils.isEmpty(name)){
+            edt_name.setError(getResources().getString(R.string.field_req));}
+            if(lat==0.0||lng==0.0||uri==null||formatedaddress==null){
+                Toast.makeText(homeActivity,getResources().getString(R.string.field_req),Toast.LENGTH_LONG).show();
+            }
+        }
+        else {
+            upgrade(name,uri,lat,lng,formatedaddress);
+        }
+    }
+
+    private void upgrade(String name, Uri uri, double lat, double lng, String formatedaddress) {
+
+        final Dialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
+        dialog.show();
+        RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
+        RequestBody lat_part = Common.getRequestBodyText(lat+"");
+        RequestBody long_part = Common.getRequestBodyText(lng+"");
+        RequestBody address_part = Common.getRequestBodyText(formatedaddress);
+        RequestBody name_part = Common.getRequestBodyText(name);
 
 
+        MultipartBody.Part image_part = Common.getMultiPart(homeActivity, uri, "commercial_register");
+       // Log.e("Error",m_phone+" "+imgUri1+" "+imgUri2+"  " +in_type+"  "+date+"  "+m_name+" "+m_id_num+" "+model_id+" "+m_car_typee+userModel.getUser_id());
 
+        Api.getService().upgrademarket(user_part,lat_part,long_part,name_part,address_part,image_part).enqueue(new Callback<UserModel>() {
+            @Override
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                dialog.dismiss();
+                dialog.dismiss();
+                if (response.isSuccessful()) {
+                    // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
+                   // preferences = Preferences.getInstance();
+                    preferences.create_update_userdata(homeActivity, response.body());
+                    // Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.suc));
+                    homeActivity.Back();
+                    homeActivity.Back();
+                    homeActivity.DisplayFragmentProfile();
+                } else {
+                    Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.failed));
+                    Log.e("Error", response.code()+response.message().toString() + "" + response.errorBody() + response.raw() + response.body() + response.headers()+response.errorBody().contentType().toString());
 
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserModel> call, Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                Log.e("Error", t.getMessage());
+            }
+        });
+
+    }
 
 
     @Override
@@ -172,6 +258,15 @@ private ImageView back_arrow;
                 startLocationUpdate();
             }
         }
+        if (requestCode == IMG1 && resultCode == Activity.RESULT_OK && data != null) {
+            uri = data.getData();
+            icon1.setVisibility(View.GONE);
+            File file = new File(Common.getImagePath(homeActivity, uri));
+
+            Picasso.with(homeActivity).load(file).fit().into(image1);
+
+            //  UpdateImage(uri);
+        }
 
     }
 
@@ -182,6 +277,15 @@ private ImageView back_arrow;
         if (requestCode == gps_req && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
             initGoogleApiClient();
+        }
+        if (requestCode == IMG1) {
+            if (grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    select_photo(IMG1);
+                } else {
+                    Toast.makeText(homeActivity, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
@@ -261,8 +365,8 @@ private ImageView back_arrow;
 
         lng = location.getLongitude();
         lat = location.getLatitude();
-
-            AddMarker(lat, lng);
+        getGeoData(lat, lng);
+        AddMarker(lat, lng);
 
         if (googleApiClient != null) {
             googleApiClient.disconnect();
@@ -301,17 +405,20 @@ private ImageView back_arrow;
                 public void onMapClick(LatLng latLng) {
                     lat = latLng.latitude;
                     lng = latLng.longitude;
+                    getGeoData(lat, lng);
+
                     AddMarker(lat, lng);
                 }
             });
 
         }
     }
+
     private void getGeoData(final double lat, final double lng) {
 
         String location = lat + "," + lng;
         Api.getService("https://maps.googleapis.com/maps/api/")
-                .getGeoData(location, current_language, getString(R.string.map_api_key))
+                .getGeoData(location, cuurent_language, getString(R.string.map_api_key))
                 .enqueue(new Callback<PlaceGeocodeData>() {
                     @Override
                     public void onResponse(Call<PlaceGeocodeData> call, Response<PlaceGeocodeData> response) {
@@ -320,8 +427,8 @@ private ImageView back_arrow;
 
                             if (response.body().getResults().size() > 0) {
                                 formatedaddress = response.body().getResults().get(0).getFormatted_address().replace("Unnamed Road,", "");
-                                address.setText(formatedaddress);
-                                AddMarker(lat, lng);
+                                // address.setText(formatedaddress);
+                                //AddMarker(lat, lng);
                                 //place_id = response.body().getCandidates().get(0).getPlace_id();
                             }
                         } else {
@@ -348,4 +455,36 @@ private ImageView back_arrow;
                     }
                 });
     }
+
+    private void Check_ReadPermission(int img_req) {
+        if (ContextCompat.checkSelfPermission(homeActivity, read_permission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(homeActivity, new String[]{read_permission}, img_req);
+        } else {
+            select_photo(img_req);
+        }
+    }
+
+    private void select_photo(int img1) {
+        Intent intent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            if (img1 == 2) {
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            }
+        } else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            if (img1 == 2) {
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            }
+
+        }
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setType("image/*");
+        startActivityForResult(intent, img1);
+    }
+
+
+
 }

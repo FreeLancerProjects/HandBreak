@@ -65,6 +65,7 @@ public class Fragment_Home extends Fragment {
         insurance_car=view.findViewById(R.id.img_insurance_car);
         ah_bottom_nav = view.findViewById(R.id.ah_bottom_nav);
         fab_add_ads = view.findViewById(R.id.fab_add_ads);
+
         im_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +83,7 @@ public class Fragment_Home extends Fragment {
         fab_add_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (userModel != null) {
+                if (userModel != null&&userModel.getUser_type().equals("2")) {
                     homeActivity.getoAds("-1");
                 } else {
                     Common.CreateUserNotSignInAlertDialog(homeActivity);

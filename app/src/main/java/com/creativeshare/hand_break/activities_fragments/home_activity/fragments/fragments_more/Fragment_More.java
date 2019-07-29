@@ -76,6 +76,11 @@ public class Fragment_More extends Fragment {
         arrow7 = view.findViewById(R.id.arrow7);
        // arrow8 = view.findViewById(R.id.arrow8);
         arrow9 = view.findViewById(R.id.arrow9);
+        if(userModel!=null){
+            if(!userModel.getUser_type().equals("2")){
+                ll_follow.setVisibility(View.GONE);
+            }
+        }
         //arrow10 = view.findViewById(R.id.arrow10);
        // arrow11 = view.findViewById(R.id.arrow11);
         if (cuurent_language.equals("en")) {

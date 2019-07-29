@@ -72,7 +72,7 @@ public class Fragment_Edit_Profile extends Fragment {
     private List<CityModel> cities_models;
     private Button bt_save;
     private CircleImageView image;
-    private final int IMG1 = 1, IMG2 = 2;
+    private final int IMG1 = 1;
     private Uri uri = null;
     private ImageView back;
     private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -212,14 +212,6 @@ public class Fragment_Edit_Profile extends Fragment {
                     Toast.makeText(homeActivity, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
                 }
             }
-        } else if (requestCode == IMG2) {
-            if (grantResults.length > 0) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    select_photo(IMG2);
-                } else {
-                    Toast.makeText(homeActivity, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
-                }
-            }
         }
     }
     private void UpdateImage(Uri uri) {
@@ -326,8 +318,8 @@ city_id=userModel.getUser_city();
                     homeActivity.Back();
                     homeActivity.Back();
                     homeActivity.DisplayFragmentProfile();
-                    edt_pass.setText("");
-                    updateprofile();
+                   // edt_pass.setText("");
+                   // updateprofile();
                 } else {
 
                     try {

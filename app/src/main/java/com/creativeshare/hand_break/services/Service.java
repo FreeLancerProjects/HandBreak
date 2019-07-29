@@ -12,6 +12,7 @@ import com.creativeshare.hand_break.models.Insuarce_Model;
 import com.creativeshare.hand_break.models.MessageDataModel;
 import com.creativeshare.hand_break.models.MessageModel;
 import com.creativeshare.hand_break.models.Notification_Model;
+import com.creativeshare.hand_break.models.PlaceGeocodeData;
 import com.creativeshare.hand_break.models.RoomIdModel;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.models.UserRoomModelData;
@@ -404,4 +405,18 @@ public interface Service {
     Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
                                       @Query(value = "language") String language,
                                       @Query(value = "key") String key);
+    @FormUrlEncoded
+    @POST("Api/upgrade")
+    Call<UserModel> upgrademarket
+            (@Part("user_id") RequestBody user_id,
+             @Part("user_google_lat") RequestBody user_google_lat,
+             @Part("user_google_long") RequestBody user_google_long,
+             @Part("user_full_name") RequestBody user_full_name,
+             @Part("user_address") RequestBody user_address,
+
+
+             @Part MultipartBody.Part commercial_register
+
+
+            );
 }
