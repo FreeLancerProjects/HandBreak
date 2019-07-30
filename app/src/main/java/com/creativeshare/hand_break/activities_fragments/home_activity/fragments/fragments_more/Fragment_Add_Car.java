@@ -73,7 +73,7 @@ public class Fragment_Add_Car extends Fragment {
     private UserModel userModel;
     private ImageView arrow_back;
     private LinearLayout ll_continue;
-    private EditText edt_manufc,edt_responsible,edt_color,edt_platenume,edt_phone;
+    private EditText edt_manufc, edt_responsible, edt_color, edt_platenume, edt_phone;
     private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
     private Spinner_catogry_Adapter spinner_catogry_adapter;
     private Spinner_Sub_Sub_catogry_Adapter spinner_sub_sub_catogry_adapter;
@@ -91,6 +91,7 @@ public class Fragment_Add_Car extends Fragment {
     private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
     private String city_id, cat_id, sub_id, model_id;
     private Adversiment_Model adversiment_model;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -104,23 +105,23 @@ public class Fragment_Add_Car extends Fragment {
     private void initView(View view) {
         adversiment_model = new Adversiment_Model();
         homeActivity = (HomeActivity) getActivity();
-        preferences=Preferences.getInstance();
-        userModel=preferences.getUserData(homeActivity);
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(homeActivity);
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         ll_continue = view.findViewById(R.id.ll_continue);
-edt_manufc=view.findViewById(R.id.edt_manufacture);
-edt_responsible=view.findViewById(R.id.edt_responsilbel);
-edt_color=view.findViewById(R.id.edt_color);
-edt_platenume=view.findViewById(R.id.edt_platenum);
-edt_phone=view.findViewById(R.id.edt_phone);
+        edt_manufc = view.findViewById(R.id.edt_manufacture);
+        edt_responsible = view.findViewById(R.id.edt_responsilbel);
+        edt_color = view.findViewById(R.id.edt_color);
+        edt_platenume = view.findViewById(R.id.edt_platenum);
+        edt_phone = view.findViewById(R.id.edt_phone);
         sp_cat = view.findViewById(R.id.sp_cat);
         ll_cv = view.findViewById(R.id.ll_cv);
         recyclerView_images = view.findViewById(R.id.recView_images);
 
         sp_sub_cat = view.findViewById(R.id.sp_sub);
         sp_model = view.findViewById(R.id.sp_model);
-        arrow_back=view.findViewById(R.id.arrow_back);
+        arrow_back = view.findViewById(R.id.arrow_back);
         if (cuurent_language.equals("en")) {
 
             arrow_back.setRotation(180);
@@ -157,7 +158,6 @@ edt_phone=view.findViewById(R.id.edt_phone);
 
 
         }
-
 
 
         cities = view.findViewById(R.id.sp_city);
@@ -254,12 +254,12 @@ edt_phone=view.findViewById(R.id.edt_phone);
 
             }
         });
-       ll_continue.setOnClickListener(new View.OnClickListener() {
+        ll_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
- checkdata();
-                    }
+                checkdata();
+            }
 
 
         });
@@ -267,41 +267,38 @@ edt_phone=view.findViewById(R.id.edt_phone);
     }
 
     private void checkdata() {
-        String manuf=edt_manufc.getText().toString();
-        String responsilble=edt_responsible.getText().toString();
-        String colors=edt_color.getText().toString();
-        String platenum=edt_platenume.getText().toString();
-        String phone=edt_phone.getText().toString();
-        if (city_id != null && cat_id != null && sub_id != null && ((uriList.size() > 0))&&!TextUtils.isEmpty(manuf)&&!TextUtils.isEmpty(responsilble)&&!TextUtils.isEmpty(colors)&&!TextUtils.isEmpty(platenum)&&!TextUtils.isEmpty(phone)) {
-            if(model_id==null&&subs_sub.size()==1){
+        String manuf = edt_manufc.getText().toString();
+        String responsilble = edt_responsible.getText().toString();
+        String colors = edt_color.getText().toString();
+        String platenum = edt_platenume.getText().toString();
+        String phone = edt_phone.getText().toString();
+        if (city_id != null && cat_id != null && sub_id != null && ((uriList.size() > 0)) && !TextUtils.isEmpty(manuf) && !TextUtils.isEmpty(responsilble) && !TextUtils.isEmpty(colors) && !TextUtils.isEmpty(platenum) && !TextUtils.isEmpty(phone)) {
+            if (model_id == null && subs_sub.size() == 1) {
                 adversiment_model.setModel_id("no_model_id");
-            }
-            else if(model_id==null){
+            } else if (model_id == null) {
                 Common.CreateSignAlertDialog(homeActivity, getString(R.string.complete_all));
 
+            } else {
+                addlostcar(manuf, responsilble, colors, platenum, phone);
             }
-            else {
-addlostcar(manuf,responsilble,colors,platenum,phone);
+        } else {
+            if (TextUtils.isEmpty(manuf)) {
+                edt_manufc.setError(getResources().getString(R.string.field_req));
             }
-        }
-        else {
-if(TextUtils.isEmpty(manuf)){
-    edt_manufc.setError(getResources().getString(R.string.field_req));
-}
-            if(TextUtils.isEmpty(responsilble)){
+            if (TextUtils.isEmpty(responsilble)) {
                 edt_responsible.setError(getResources().getString(R.string.field_req));
             }
 
-            if(TextUtils.isEmpty(colors)){
+            if (TextUtils.isEmpty(colors)) {
                 edt_color.setError(getResources().getString(R.string.field_req));
             }
-            if(TextUtils.isEmpty(platenum)){
+            if (TextUtils.isEmpty(platenum)) {
                 edt_platenume.setError(getResources().getString(R.string.field_req));
             }
-            if(TextUtils.isEmpty(phone)){
+            if (TextUtils.isEmpty(phone)) {
                 edt_phone.setError(getResources().getString(R.string.field_req));
             }
-            if(city_id == null || cat_id == null || sub_id == null || (uriList.size() > 0)){
+            if (city_id == null || cat_id == null || sub_id == null || (uriList.size() > 0)) {
                 Common.CreateSignAlertDialog(homeActivity, getString(R.string.complete_all));
 
             }
@@ -310,6 +307,7 @@ if(TextUtils.isEmpty(manuf)){
 
     private void addlostcar(String manuf, String responsilble, String colors, String platenum, String phone) {
         final Dialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
         dialog.show();
         RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
         RequestBody cat_part = Common.getRequestBodyText(cat_id);
@@ -325,28 +323,33 @@ if(TextUtils.isEmpty(manuf)){
         RequestBody color_part = Common.getRequestBodyText(colors);
 
         List<MultipartBody.Part> partImageList = getMultipartBodyList(uriList, "advertisement_images[]");
-Api.getService().addlostcar(user_part,cat_part,sub_part,model_part,manuf_part,respons_part,plate_part,city_part,phone_part,color_part,partImageList).enqueue(new Callback<Adversiting_Model>() {
-    @Override
-    public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
-        dialog.dismiss();
-        if (response.isSuccessful()) {
+        Api.getService().addlostcar(user_part, cat_part, sub_part, model_part, manuf_part, respons_part, plate_part, city_part, phone_part, color_part, partImageList).enqueue(new Callback<Adversiting_Model>() {
+            @Override
+            public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
+                dialog.dismiss();
+                if (response.isSuccessful()) {
 
-            // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
-            homeActivity.Back();
-        } else {
-            Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.failed));
-            Log.e("Error", response.code() + "" + response.errorBody() + response.raw() + response.body() + response.headers());
+                    // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
+                    homeActivity.Back();
+                } else {
+                    Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.failed));
+                    Log.e("Error", response.code() + "" + response.errorBody() + response.raw() + response.body() + response.headers());
 
-        }
-    }
+                }
+            }
 
-    @Override
-    public void onFailure(Call<Adversiting_Model> call, Throwable t) {
-        dialog.dismiss();
-        Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-        Log.e("Error", t.getMessage());
-    }
-});
+            @Override
+            public void onFailure(Call<Adversiting_Model> call, Throwable t) {
+                dialog.dismiss();
+                try {
+                    Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
+                } catch (Exception e) {
+
+                }
+
+            }
+        });
 
     }
 
@@ -354,6 +357,7 @@ Api.getService().addlostcar(user_part,cat_part,sub_part,model_part,manuf_part,re
     public static Fragment_Add_Car newInstance() {
         return new Fragment_Add_Car();
     }
+
     private List<MultipartBody.Part> getMultipartBodyList(List<Uri> uriList, String image_cv) {
         List<MultipartBody.Part> partList = new ArrayList<>();
         for (Uri uri : uriList) {
@@ -362,6 +366,7 @@ Api.getService().addlostcar(user_part,cat_part,sub_part,model_part,manuf_part,re
         }
         return partList;
     }
+
     private void getCities() {
 
         final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
@@ -456,8 +461,13 @@ Api.getService().addlostcar(user_part,cat_part,sub_part,model_part,manuf_part,re
 
             @Override
             public void onFailure(Call<Catogry_Model> call, Throwable t) {
+try {
+    Log.e("Error", t.getMessage());
 
-                Log.e("Error", t.getMessage());
+}
+catch (Exception e){
+
+}
                 //progBar.setVisibility(View.GONE);
                 //error.setText(activity.getString(R.string.faild));
                 //mPager.setVisibility(View.GONE);

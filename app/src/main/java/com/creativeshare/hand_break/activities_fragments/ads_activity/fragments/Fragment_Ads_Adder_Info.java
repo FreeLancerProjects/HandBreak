@@ -205,6 +205,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
     private void updateeads(String title, String phone, String price, String desc, String adversiment_id, double lat, double lng) {
 
         final Dialog dialog = Common.createProgressDialog(adsActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
         dialog.show();
         RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
         RequestBody cat_part = Common.getRequestBodyText(adversiment_model.getCat_id());
@@ -243,8 +244,13 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
                 @Override
                 public void onFailure(Call<Adversiting_Model> call, Throwable t) {
                     dialog.dismiss();
-                    Toast.makeText(adsActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                    Log.e("Error", t.getMessage());
+                    try {
+                        Toast.makeText(adsActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                        Log.e("Error", t.getMessage());
+                    }
+                    catch (Exception e){
+
+                    }
                 }
             });
 
@@ -253,6 +259,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
     private void createads(String title, String phone, String price, String desc, double lat, double lng) {
 
         final Dialog dialog = Common.createProgressDialog(adsActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
         dialog.show();
         RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
         RequestBody cat_part = Common.getRequestBodyText(adversiment_model.getCat_id());
@@ -285,8 +292,13 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
             @Override
             public void onFailure(Call<Catogry_Model.Advertsing> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(adsActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                Log.e("Error", t.getMessage());
+                try {
+                    Toast.makeText(adsActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
+                }
+                catch (Exception e){
+
+                }
             }
         });
 

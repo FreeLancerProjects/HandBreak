@@ -202,8 +202,13 @@ public class Fragment_Profile extends Fragment {
                 @Override
                 public void onFailure(Call<UserModel> call, Throwable t) {
                     dialog.dismiss();
-                    Log.e("Error", t.getMessage());
-                    Toast.makeText(homeActivity, getResources().getString(R.string.something), Toast.LENGTH_LONG).show();
+                    try {
+                        Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                        Log.e("Error", t.getMessage());
+                    }
+                    catch (Exception e){
+
+                    }
                 }
             });
         }

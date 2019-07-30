@@ -87,7 +87,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
     private List<String> model_ids;
     private ArrayAdapter<String> arrayAdapter;
     private FrameLayout fl1, fl2;
-    private ImageView icon1, icon2,back_arrow;
+    private ImageView icon1, icon2, back_arrow;
     private RoundedImageView image1, image2;
     private RadioGroup group_type;
 
@@ -114,7 +114,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(activity);
         group_type = view.findViewById(R.id.group_type);
-back_arrow=view.findViewById(R.id.arrow);
+        back_arrow = view.findViewById(R.id.arrow);
         Paper.init(activity);
         current_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         //image_phone_code = view.findViewById(R.id.image_phone_code);
@@ -125,7 +125,12 @@ back_arrow=view.findViewById(R.id.arrow);
             //   image_phone_code.setRotation(180.0f);
             back_arrow.setRotation(180.0f);
         }
-
+        back_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.Back();
+            }
+        });
         tv_code = view.findViewById(R.id.tv_code);
         phone = view.findViewById(R.id.edt_phone);
         name = view.findViewById(R.id.edt_name);
@@ -280,6 +285,7 @@ back_arrow=view.findViewById(R.id.arrow);
     private void makeinsurance(final String m_phone, final String m_name, final String m_car_typee, final String m_id_num, String model_id, String date, final String in_type) {
 
         final Dialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));
+        dialog.setCancelable(false);
         dialog.show();
         RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
         RequestBody phone_part = Common.getRequestBodyText(m_phone);
@@ -292,7 +298,7 @@ back_arrow=view.findViewById(R.id.arrow);
 
         MultipartBody.Part image_part = Common.getMultiPart(activity, imgUri1, "car_image");
         MultipartBody.Part image_part2 = Common.getMultiPart(activity, imgUri2, "form_image");
-        Log.e("Error",m_phone+" "+imgUri1+" "+imgUri2+"  " +in_type+"  "+date+"  "+m_name+" "+m_id_num+" "+model_id+" "+m_car_typee+userModel.getUser_id());
+        Log.e("Error", m_phone + " " + imgUri1 + " " + imgUri2 + "  " + in_type + "  " + date + "  " + m_name + " " + m_id_num + " " + model_id + " " + m_car_typee + userModel.getUser_id());
 
         Api.getService().Addinsurance(user_part, phone_part, name_part, type_part, id_part, date_part, model_part, cartype_part, image_part2, image_part).enqueue(new Callback<Insuarce_Model>() {
             @Override
@@ -304,7 +310,7 @@ back_arrow=view.findViewById(R.id.arrow);
                     activity.Back();
                 } else {
                     Common.CreateSignAlertDialog(activity, getResources().getString(R.string.failed));
-                    Log.e("Error", response.code()+response.message().toString() + "" + response.errorBody() + response.raw() + response.body() + response.headers()+response.errorBody().contentType().toString());
+                    Log.e("Error", response.code() + response.message().toString() + "" + response.errorBody() + response.raw() + response.body() + response.headers() + response.errorBody().contentType().toString());
 
                 }
             }
@@ -312,8 +318,14 @@ back_arrow=view.findViewById(R.id.arrow);
             @Override
             public void onFailure(Call<Insuarce_Model> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(activity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                Log.e("Error", t.getMessage());
+                try {
+                    Log.e("Error", t.getMessage());
+                    Toast.makeText(activity, getResources().getString(R.string.something), Toast.LENGTH_LONG).show();
+                }
+                catch (Exception e){
+
+                }
+
             }
         });
 
@@ -350,7 +362,7 @@ back_arrow=view.findViewById(R.id.arrow);
 
 
         tv_date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-        date = dayOfMonth+"-"+(monthOfYear+1)+"-"+year;
+        date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
 
     }
 

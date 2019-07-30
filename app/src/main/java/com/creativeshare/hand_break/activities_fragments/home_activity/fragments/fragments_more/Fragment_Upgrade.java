@@ -251,8 +251,13 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
             @Override
             public void onFailure(Call<UserModel> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                Log.e("Error", t.getMessage() + t.getLocalizedMessage() + t.getCause());
+                try {
+                    Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
+                }
+                catch (Exception e){
+
+                }
             }
         });
 

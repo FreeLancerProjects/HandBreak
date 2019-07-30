@@ -46,6 +46,7 @@ import com.hbb20.CountryCodePicker;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -333,8 +334,14 @@ city_id=userModel.getUser_city();
             @Override
             public void onFailure(Call<UserModel> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                Log.e("Error", t.getMessage());
+                try {
+                    Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
+                }
+                catch (Exception e){
+
+                }
+
             }
         });
     }

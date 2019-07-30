@@ -400,7 +400,7 @@ public interface Service {
     @POST("Insurance/replyOffer")
     Call<ResponseBody> acceptrefuesinsuranceoffer
             (@Field("user_id") String user_id,
-             @Field("client_id") String client_id,
+             @Field("from_user_id_fk") String from_user_id_fk,
              @Field("id_notification") String id_notification,
              @Field("request_id") String request_id,
              @Field("status") String status
@@ -414,6 +414,14 @@ public interface Service {
 
             @Query("user_id") String user_id
 
+
+    );
+    @GET("Insurance/one")
+    Call<Insuarce_Model>
+    showoneinsurancerequsts(
+
+            @Query("user_id") String user_id,
+            @Query("request_id") String request_id
 
     );
     @GET("geocode/json")

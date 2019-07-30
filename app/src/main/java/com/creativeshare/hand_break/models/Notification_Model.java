@@ -30,6 +30,7 @@ public class Notification_Model implements Serializable {
         private String from_user_phone;
         private String from_user_image;
         private String request_id;
+        private String offer_value;
 
         public String getId_notification() {
             return id_notification;
@@ -81,6 +82,10 @@ public class Notification_Model implements Serializable {
 
         public String getRequest_id() {
             return request_id;
+        }
+
+        public String getOffer_value() {
+            return offer_value;
         }
     }
 
