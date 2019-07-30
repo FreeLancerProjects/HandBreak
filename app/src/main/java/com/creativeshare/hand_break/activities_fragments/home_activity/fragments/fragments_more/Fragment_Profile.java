@@ -144,12 +144,7 @@ public class Fragment_Profile extends Fragment {
                 }
             }
         });
-        if (Adversiment_Model.getId() != null) {
-         if(userModel.isRating_status()==true){
-             simpleRatingBar.setIndicator(true);
 
-         }
-        }
         switchCompat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -304,6 +299,9 @@ public class Fragment_Profile extends Fragment {
                 dialog.dismiss();
                 if (response.isSuccessful()) {
                     userModel = response.body();
+                    if(userModel.isRating_status()){
+                        simpleRatingBar.setIndicator(true);
+                    }
                     updateprofile();
 
                 } else {
