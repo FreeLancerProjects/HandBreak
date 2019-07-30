@@ -22,6 +22,8 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Home;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Main;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.Fragment_Search;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_insurance_cars.Fragment_Accept_Refues_insurance_Offer;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_insurance_cars.Fragment_Send_insurance_Offer;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_insurance_cars.Fragment_insurance_car;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_About;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Add_Car;
@@ -36,6 +38,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy.Fragment_Message_Notifications;
 import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 import com.creativeshare.hand_break.language.Language_Helper;
+import com.creativeshare.hand_break.models.Notification_Model;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
@@ -77,6 +80,8 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_Add_Car fragment_add_car;
     private Fragment_Adversiment_Detials fragment_adversiment_detials;
     private Fragment_insurance_car fragment_insurance_car;
+    private Fragment_Send_insurance_Offer fragment_send_insurance_offer;
+    private Fragment_Accept_Refues_insurance_Offer fragment_accept_refues_insurance_offer;
     private Fragment_Upgrade fragment_upgrade;
     private String cuurent_language;
     private Preferences preferences;
@@ -205,9 +210,7 @@ public class HomeActivity extends AppCompatActivity {
         if (fragment_more != null && fragment_more.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_more).commit();
         }
-        if (fragment_insurance_car != null && fragment_insurance_car.isAdded()) {
-            fragmentManager.beginTransaction().hide(fragment_insurance_car).commit();
-        }
+
         if (fragment_main.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_main).commit();
         } else {
@@ -368,6 +371,30 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     }
+    public void DisplayFragmentSendInsuranceOffer(Notification_Model.Data data) {
+        fragment_count += 1;
+        fragment_send_insurance_offer = Fragment_Send_insurance_Offer.newInstance(data);
+
+
+        if (fragment_send_insurance_offer.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_send_insurance_offer).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_send_insurance_offer, "fragment_send_insurance_offer").addToBackStack("fragment_send_insurance_offer").commit();
+
+        }
+    }
+    public void DisplayFragmentAccept_RefuesInsuranceOffer(Notification_Model.Data data) {
+        fragment_count += 1;
+        fragment_accept_refues_insurance_offer = Fragment_Accept_Refues_insurance_Offer.newInstance(data);
+
+
+        if (fragment_accept_refues_insurance_offer.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_accept_refues_insurance_offer).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_accept_refues_insurance_offer, "fragment_accept_refues_insurance_offer").addToBackStack("fragment_accept_refues_insurance_offer").commit();
+
+        }
+    }
     public void DisplayFragmentnotifications() {
         if (fragment_message_notifications == null) {
             fragment_message_notifications = Fragment_Message_Notifications.newInstance();
@@ -381,9 +408,7 @@ public class HomeActivity extends AppCompatActivity {
         if (fragment_more != null && fragment_more.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_more).commit();
         }
-        if (fragment_insurance_car != null && fragment_insurance_car.isAdded()) {
-            fragmentManager.beginTransaction().hide(fragment_insurance_car).commit();
-        }
+
         if (fragment_message_notifications.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_message_notifications).commit();
         } else {
@@ -408,9 +433,7 @@ public class HomeActivity extends AppCompatActivity {
         if (fragment_more != null && fragment_more.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_more).commit();
         }
-        if (fragment_insurance_car != null && fragment_insurance_car.isAdded()) {
-            fragmentManager.beginTransaction().hide(fragment_insurance_car).commit();
-        }
+
         if (fragment_search.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_search).commit();
             fragment_search.changevisible();
@@ -438,9 +461,7 @@ public class HomeActivity extends AppCompatActivity {
         if (fragment_message_notifications != null && fragment_message_notifications.isAdded()) {
             fragmentManager.beginTransaction().hide(fragment_message_notifications).commit();
         }
-        if (fragment_insurance_car != null && fragment_insurance_car.isAdded()) {
-            fragmentManager.beginTransaction().hide(fragment_insurance_car).commit();
-        }
+
         if (fragment_more.isAdded()) {
             fragmentManager.beginTransaction().show(fragment_more).commit();
         } else {

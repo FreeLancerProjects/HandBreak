@@ -106,9 +106,14 @@
     <string name="market_name">اسم المتجر</string>
     <string name="piece_number_if_not_present_it_will_be_placed_0">رقم القطعه فى حالة عدم وجودها سيتم وضعها ب 0</string>
     <string name="plate_number_if_not_present_it_will_be_placed_0">رقم اللوحه فى حالة عدم وجودها سيتم وضعها ب 0</string>
-    <string name="insurance_type">insurance type</string>
-    <string name="comprehensive">comprehensive</string>
-    <string name="against_change">Against change</string>
+    <string name="insurance_type">نوع التامين</string>
+    <string name="comprehensive">شامل</string>
+    <string name="against_change">ضد الغير</string>
+    <string name="offer">عرض</string>
+    <string name="refues">رفض</string>
+    <string name="accept">قيول</string>
+    <string name="view_insurance_data">View insurance data</string>
+    <string name="name_of_the_owner_of_the_car">Name of the owner of the car</string>
     <string-array name="models">
         <item>اختر</item>
         <item>2000</item>

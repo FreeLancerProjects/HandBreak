@@ -87,7 +87,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
     private List<String> model_ids;
     private ArrayAdapter<String> arrayAdapter;
     private FrameLayout fl1, fl2;
-    private ImageView icon1, icon2;
+    private ImageView icon1, icon2,back_arrow;
     private RoundedImageView image1, image2;
     private RadioGroup group_type;
 
@@ -114,7 +114,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(activity);
         group_type = view.findViewById(R.id.group_type);
-
+back_arrow=view.findViewById(R.id.arrow);
         Paper.init(activity);
         current_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         //image_phone_code = view.findViewById(R.id.image_phone_code);
@@ -123,6 +123,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
 
         if (current_language.equals("ar")) {
             //   image_phone_code.setRotation(180.0f);
+            back_arrow.setRotation(180.0f);
         }
 
         tv_code = view.findViewById(R.id.tv_code);

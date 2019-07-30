@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.ads_activity.fragments.Fragment_Ads_Detials;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Add_Car;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.UserModel;
 import com.github.siyamed.shapeimageview.RoundedImageView;
@@ -27,6 +28,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyHolder
     private List<Uri> advertisement_images;
     private Context context;
     private Fragment_Ads_Detials fragment_ads_detials;
+    private Fragment_Add_Car fragment_add_car;
 private Fragment fragment;
     public GalleryAdapter(List<Uri> advertisement_images, Context context, Fragment fragment) {
         this.advertisement_images = advertisement_images;
@@ -54,6 +56,11 @@ this.fragment=fragment;  }
                 if(fragment instanceof  Fragment_Ads_Detials){
                     fragment_ads_detials=(Fragment_Ads_Detials)fragment;
                 fragment_ads_detials.Delete(holder.getLayoutPosition());}
+                else if(fragment instanceof Fragment_Add_Car){
+                    fragment_add_car=(Fragment_Add_Car)fragment;
+                    fragment_add_car.Delete(holder.getLayoutPosition());
+
+                }
             }
         });
     }

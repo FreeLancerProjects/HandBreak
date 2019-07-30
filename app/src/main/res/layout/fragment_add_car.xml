@@ -169,6 +169,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edt_manufacture"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/white"
@@ -181,6 +182,7 @@
                 android:layout_height="1px"
                 android:background="@color/gray7" />
             <EditText
+                android:id="@+id/edt_responsilbel"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/white"
@@ -193,6 +195,7 @@
                 android:layout_height="1px"
                 android:background="@color/gray7" />
             <EditText
+                android:id="@+id/edt_color"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/white"
@@ -206,6 +209,7 @@
                 android:background="@color/gray7" />
 
             <EditText
+                android:id="@+id/edt_platenum"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/white"
@@ -217,7 +221,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/gray7" />
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:hint="@string/user_phone"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:inputType="phone"
+                />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray7" />
             <Spinner
                 android:id="@+id/sp_city"
                 android:layout_width="match_parent"
@@ -258,7 +276,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/white"></Spinner>
+                android:background="@color/white">
+
+            </Spinner>
 
             <View
                 android:layout_width="match_parent"
@@ -276,10 +296,10 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:text="@string/add"
                     android:textColor="@color/white"
                     android:textSize="15sp"

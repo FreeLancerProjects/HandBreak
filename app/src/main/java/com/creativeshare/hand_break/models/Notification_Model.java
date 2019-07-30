@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Notification_Model implements Serializable {
     private List<Data> data;
-private Meta meta;
+    private Meta meta;
+
     public List<Data> getData() {
         return data;
     }
@@ -14,7 +15,7 @@ private Meta meta;
         return meta;
     }
 
-    public class Data implements Serializable{
+    public class Data implements Serializable {
 
         private String id_notification;
         private String id_advertisement;
@@ -28,6 +29,7 @@ private Meta meta;
         private String from_user_phone_code;
         private String from_user_phone;
         private String from_user_image;
+        private String order_id;
 
         public String getId_notification() {
             return id_notification;
@@ -76,9 +78,13 @@ private Meta meta;
         public String getFrom_user_image() {
             return from_user_image;
         }
+
+        public String getOrder_id() {
+            return order_id;
+        }
     }
 
-    public class Meta implements Serializable{
+    public class Meta implements Serializable {
         private int current_page;
         private int last_page;
         private int total_notification;

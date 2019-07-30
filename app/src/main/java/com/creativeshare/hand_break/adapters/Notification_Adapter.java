@@ -50,9 +50,16 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-if(!list.get(viewHolder.getLayoutPosition()).getAction_type().equals("0")){
+if(list.get(viewHolder.getLayoutPosition()).getAction_type().equals("1")){
     homeActivity.DisplayFragmentAdversimentDetials(list.get(viewHolder.getLayoutPosition()).getId_advertisement());
 }
+               else if(list.get(viewHolder.getLayoutPosition()).getAction_type().equals("2")){
+                    homeActivity.DisplayFragmentSendInsuranceOffer(list.get(i));
+                }
+else if(list.get(viewHolder.getLayoutPosition()).getAction_type().equals("3")){
+    homeActivity.DisplayFragmentAccept_RefuesInsuranceOffer(list.get(i));
+}
+
             }
 
         });

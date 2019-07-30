@@ -65,7 +65,15 @@ public interface Service {
 
 
     );
+    @FormUrlEncoded
+    @POST("Api/updateProfile")
+    Call<UserModel> updateprofile(
+            @Field("user_id") String user_id,
+            @Field("insurance_services") String insurance_services
 
+
+
+    );
     @Multipart
     @POST("Api/updateProfile")
     Call<UserModel> udateimage(@Part("user_id") RequestBody user_id,
@@ -416,6 +424,24 @@ public interface Service {
 
 
              @Part MultipartBody.Part commercial_register
+
+
+            );
+
+    @Multipart
+    @POST("App/lostCar")
+    Call<Adversiting_Model> addlostcar
+            (@Part("advertisement_user") RequestBody advertisement_user,
+             @Part("main_category_fk") RequestBody main_category_fk,
+             @Part("sub_category_fk") RequestBody sub_category_fk,
+             @Part("model_id_fk") RequestBody model_id_fk,
+             @Part("advertisement_title") RequestBody advertisement_title,
+             @Part("advertisement_content") RequestBody advertisement_content,
+             @Part("plate_number") RequestBody advertisement_price,
+             @Part("city_id") RequestBody city_id,
+             @Part("phone") RequestBody phone,
+             @Part("color") RequestBody color,
+             @Part List<MultipartBody.Part> advertisement_images
 
 
             );

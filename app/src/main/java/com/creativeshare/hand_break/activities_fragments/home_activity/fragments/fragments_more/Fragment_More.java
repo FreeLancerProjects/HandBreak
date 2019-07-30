@@ -128,7 +128,12 @@ public class Fragment_More extends Fragment {
         ll_addcar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeActivity.DisplayFragmentAddCar();
+                if(userModel!=null){
+                homeActivity.DisplayFragmentAddCar();}
+                else {
+                    Common.CreateUserNotSignInAlertDialog(homeActivity);
+
+                }
             }
         });
         ll_adversiment.setOnClickListener(new View.OnClickListener() {
@@ -187,6 +192,10 @@ homeActivity.DisplayFragmentProfile();
             public void onClick(View view) {
                 if(userModel!=null){
                     homeActivity.DisplayFragmentfollowers();
+                }
+                else {
+                    Common.CreateUserNotSignInAlertDialog(homeActivity);
+
                 }
             }
         });

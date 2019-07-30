@@ -24,7 +24,7 @@ public class UserModel implements Serializable {
     private float rating_value;
     private String ar_city_title;
     private String en_city_title;
-
+private String insurance_services;
     public String getUser_id() {
         return user_id;
     }
@@ -111,5 +111,9 @@ public class UserModel implements Serializable {
 
     public String getEn_city_title() {
         return en_city_title;
+    }
+
+    public String getInsurance_services() {
+        return insurance_services;
     }
 }

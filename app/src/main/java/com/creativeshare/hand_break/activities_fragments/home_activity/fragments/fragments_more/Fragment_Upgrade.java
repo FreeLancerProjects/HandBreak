@@ -99,13 +99,14 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
     private String cuurent_language, formatedaddress;
     private ImageView back_arrow;
     private FrameLayout fl1;
-    private ImageView icon1,image1;
+    private ImageView icon1, image1;
     private final int IMG1 = 1;
     private Uri uri = null;
     private ImageView back;
     private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
     private EditText edt_name;
     private Button bt_upgrde;
+
     public static Fragment_Upgrade newInstance() {
         return new Fragment_Upgrade();
     }
@@ -162,8 +163,8 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
         fl1 = view.findViewById(R.id.fl1);
         icon1 = view.findViewById(R.id.image_icon_upload);
         image1 = view.findViewById(R.id.image);
-        edt_name=view.findViewById(R.id.edt_name);
-        bt_upgrde=view.findViewById(R.id.bt_upgrade);
+        edt_name = view.findViewById(R.id.edt_name);
+        bt_upgrde = view.findViewById(R.id.bt_upgrade);
         if (cuurent_language.equals("en")) {
 
             back_arrow.setRotation(180);
@@ -175,73 +176,74 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
                 homeActivity.Back();
             }
         });
-fl1.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Check_ReadPermission(IMG1);
+        fl1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Check_ReadPermission(IMG1);
 
-    }
-});
-bt_upgrde.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        checkdata();
-    }
-});
+            }
+        });
+        bt_upgrde.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkdata();
+            }
+        });
     }
 
     private void checkdata() {
-        String name=edt_name.getText().toString();
-        if(TextUtils.isEmpty(name)||(lat==0.0||lng==0.0)||uri==null||formatedaddress==null){
-            if(TextUtils.isEmpty(name)){
-            edt_name.setError(getResources().getString(R.string.field_req));}
-            if(lat==0.0||lng==0.0||uri==null){
-                Toast.makeText(homeActivity,getResources().getString(R.string.field_req),Toast.LENGTH_LONG).show();
-                }
+        String name = edt_name.getText().toString();
+        if (TextUtils.isEmpty(name) || (lat == 0.0 || lng == 0.0) || uri == null || formatedaddress == null) {
+            if (TextUtils.isEmpty(name)) {
+                edt_name.setError(getResources().getString(R.string.field_req));
+            }
+            if (lat == 0.0 || lng == 0.0 || uri == null) {
+                Toast.makeText(homeActivity, getResources().getString(R.string.field_req), Toast.LENGTH_LONG).show();
+            }
 
 //            Log.e("kklkkl",formatedaddress);
 
-        }
-        else {
-            if(formatedaddress==null){
-                getGeoData(lat,lng);
+        } else {
+            if (formatedaddress == null) {
+                getGeoData(lat, lng);
             }
-            Log.e("kklkkl",formatedaddress);
-            upgrade(name,uri,lat,lng,formatedaddress);
+            Log.e("kklkkl", formatedaddress);
+            upgrade(name, uri, lat, lng, formatedaddress);
         }
     }
 
     private void upgrade(String name, Uri uri, double lat, double lng, String formatedaddress) {
-        Log.e("kkkl",formatedaddress);
+        Log.e("kkkl", formatedaddress);
 
         final Dialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
         dialog.show();
         RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
-        RequestBody lat_part = Common.getRequestBodyText(lat+"");
-        RequestBody long_part = Common.getRequestBodyText(lng+"");
+        RequestBody lat_part = Common.getRequestBodyText(lat + "");
+        RequestBody long_part = Common.getRequestBodyText(lng + "");
         RequestBody address_part = Common.getRequestBodyText(formatedaddress);
         RequestBody name_part = Common.getRequestBodyText(name);
 
 
         MultipartBody.Part image_part = Common.getMultiPart(homeActivity, uri, "commercial_register");
-       // Log.e("Error",m_phone+" "+imgUri1+" "+imgUri2+"  " +in_type+"  "+date+"  "+m_name+" "+m_id_num+" "+model_id+" "+m_car_typee+userModel.getUser_id());
+        Log.e("Error", lat + " " + lng + " " + userModel.getUser_id() + "  " + name + "  " + formatedaddress + " " + uri);
 
-        Api.getService().upgrademarket(user_part,lat_part,long_part,name_part,address_part,image_part).enqueue(new Callback<UserModel>() {
+        Api.getService().upgrademarket(user_part, lat_part, long_part, name_part, address_part, image_part).enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 dialog.dismiss();
-                dialog.dismiss();
+                // dialog.dismiss();
                 if (response.isSuccessful()) {
                     // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
-                   // preferences = Preferences.getInstance();
+                    // preferences = Preferences.getInstance();
+                    Log.e("ss", response.body().getUser_type());
+
                     preferences.create_update_userdata(homeActivity, response.body());
                     // Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.suc));
-                    homeActivity.Back();
-                    homeActivity.Back();
-                    homeActivity.DisplayFragmentProfile();
+                    homeActivity.RefreshActivity(cuurent_language);
+
                 } else {
                     Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.failed));
-                    Log.e("Error", response.code()+response.message().toString() + "" + response.errorBody() + response.raw() + response.body() + response.headers()+response.errorBody().contentType().toString());
+                    Log.e("Error", response.code() + response.message().toString() + "" + response.errorBody() + response.raw() + response.body() + response.headers() + response.errorBody().contentType().toString());
 
                 }
             }
@@ -250,7 +252,7 @@ bt_upgrde.setOnClickListener(new View.OnClickListener() {
             public void onFailure(Call<UserModel> call, Throwable t) {
                 dialog.dismiss();
                 Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                Log.e("Error", t.getMessage());
+                Log.e("Error", t.getMessage() + t.getLocalizedMessage() + t.getCause());
             }
         });
 
@@ -438,10 +440,10 @@ bt_upgrde.setOnClickListener(new View.OnClickListener() {
                                 // address.setText(formatedaddress);
                                 //AddMarker(lat, lng);
                                 //place_id = response.body().getCandidates().get(0).getPlace_id();
-                                Log.e("kkk",formatedaddress);
+                                Log.e("kkk", formatedaddress);
                             }
                         } else {
-                            Log.e("error_code", response.errorBody()+" "+response.code());
+                            Log.e("error_code", response.errorBody() + " " + response.code());
 
                             try {
                                 Log.e("error_code", response.errorBody().string());
@@ -494,7 +496,6 @@ bt_upgrde.setOnClickListener(new View.OnClickListener() {
         intent.setType("image/*");
         startActivityForResult(intent, img1);
     }
-
 
 
 }

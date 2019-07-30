@@ -109,6 +109,11 @@
     <string name="insurance_type">insurance type</string>
     <string name="comprehensive">comprehensive</string>
     <string name="against_change">Against change</string>
+    <string name="offer">offer</string>
+    <string name="refues">refues</string>
+    <string name="accept">accept</string>
+    <string name="view_insurance_data">View insurance data</string>
+    <string name="name_of_the_owner_of_the_car">Name of the owner of the car</string>
     <string-array name="models">
         <item>Choose</item>
 
