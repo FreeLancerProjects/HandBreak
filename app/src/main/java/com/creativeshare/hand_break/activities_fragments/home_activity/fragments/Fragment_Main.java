@@ -679,7 +679,7 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
         this.location = location;
         lang = location.getLongitude();
         lat = location.getLatitude();
-        Log.e("lang", lang + "  " + lat);
+        //Log.e("lang", lang + "  " + lat);
         if (googleApiClient != null) {
             googleApiClient.disconnect();
         }

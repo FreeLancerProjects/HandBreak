@@ -207,13 +207,13 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
             if (formatedaddress == null) {
                 getGeoData(lat, lng);
             }
-            Log.e("kklkkl", formatedaddress);
+           // Log.e("kklkkl", formatedaddress);
             upgrade(name, uri, lat, lng, formatedaddress);
         }
     }
 
     private void upgrade(String name, Uri uri, double lat, double lng, String formatedaddress) {
-        Log.e("kkkl", formatedaddress);
+      //  Log.e("kkkl", formatedaddress);
 
         final Dialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
         dialog.show();
@@ -225,7 +225,7 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
 
 
         MultipartBody.Part image_part = Common.getMultiPart(homeActivity, uri, "commercial_register");
-        Log.e("Error", lat + " " + lng + " " + userModel.getUser_id() + "  " + name + "  " + formatedaddress + " " + uri);
+//        Log.e("Error", lat + " " + lng + " " + userModel.getUser_id() + "  " + name + "  " + formatedaddress + " " + uri);
 
         Api.getService().upgrademarket(user_part, lat_part, long_part, name_part, address_part, image_part).enqueue(new Callback<UserModel>() {
             @Override
@@ -235,7 +235,7 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
                 if (response.isSuccessful()) {
                     // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
                     // preferences = Preferences.getInstance();
-                    Log.e("ss", response.body().getUser_type());
+                //    Log.e("ss", response.body().getUser_type());
 
                     preferences.create_update_userdata(homeActivity, response.body());
                     // Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.suc));
@@ -445,7 +445,7 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
                                 // address.setText(formatedaddress);
                                 //AddMarker(lat, lng);
                                 //place_id = response.body().getCandidates().get(0).getPlace_id();
-                                Log.e("kkk", formatedaddress);
+                             //   Log.e("kkk", formatedaddress);
                             }
                         } else {
                             Log.e("error_code", response.errorBody() + " " + response.code());

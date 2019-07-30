@@ -590,14 +590,14 @@ Api.getService().deleteimageads(Adversiment_Model.getId(),image_id).enqueue(new 
     public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
         dialog.dismiss();
         if(response.isSuccessful()){
-            Log.e("msg",response.code()+"");
+         //   Log.e("msg",response.code()+"");
 
 advertisement_images.clear();
 advertisement_images.addAll(response.body().getAdvertisement_images());
 showgalleryAdapter.notifyDataSetChanged();
         }
         else {
-            Log.e("msg",response.code()+"");
+            Log.e("Error_code",response.code()+"");
         }
     }
 
@@ -605,7 +605,7 @@ showgalleryAdapter.notifyDataSetChanged();
     public void onFailure(Call<Adversiting_Model> call, Throwable t) {
 dialog.dismiss();
 
-        Log.e("msg",t.getMessage()+"");
+        Log.e("Error",t.getMessage()+"");
 
     }
 });

@@ -279,7 +279,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
                 dialog.dismiss();
 
                 if (response.isSuccessful() ) {
-                    Log.e("foll",id_advertisement+"  "+userModel.getUser_id());
+                   // Log.e("foll",id_advertisement+"  "+userModel.getUser_id());
 if(adversiting_model.isFollow_status()==true){
     im_follow.setImageDrawable(getResources().getDrawable(R.drawable.follow));
     adversiting_model.setFollow_status(false);
@@ -340,7 +340,7 @@ else {
         this.adversiting_model=advertsing;
         tv_time.setText(Time_Ago.getTimeAgo(Long.parseLong(advertsing.getAdvertisement_date()), activity));
         tv_title.setText(advertsing.getAdvertisement_title());
-        Log.e("msg", Integer.parseInt(advertsing.getAdvertisement_date()) + "");
+       // Log.e("msg", Integer.parseInt(advertsing.getAdvertisement_date()) + "");
         tv_name.setText(advertsing.getUser_name());
         tv_phone.setText(advertsing.getPhone());
         tv_city.setText(advertsing.getCity_title());
@@ -385,7 +385,7 @@ else {
     private void search() {
         //   userSearchModelList.clear();
         progBar.setVisibility(View.VISIBLE);
-        Log.e("msg",adversiting_model.getAdvertisement_user());
+       // Log.e("msg",adversiting_model.getAdvertisement_user());
         Api.getService()
                 .searchUsers(adversiting_model.getUser_name(), userModel.getUser_id())
                 .enqueue(new Callback<UserSearchDataModel>() {
@@ -520,7 +520,7 @@ else {
 
                             adversiment_comment_adapter.notifyDataSetChanged();
                             current_page1=response.body().getMeta().getCurrent_page();
-                            Log.e("msg", response.code() + "  " +response.body().getData().size());
+                         //   Log.e("msg", response.code() + "  " +response.body().getData().size());
 
                         } else {
                             Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show();

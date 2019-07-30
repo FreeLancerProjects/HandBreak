@@ -172,7 +172,7 @@ public class Fragment_My_adversiment extends Fragment {
 
                             adversiment_adapter.notifyDataSetChanged();
                             current_page=response.body().getMeta().getCurrent_page();
-                            Log.e("msg", response.code() + "  " +response.body().getAdvertsing().size());
+                          //  Log.e("msg", response.code() + "  " +response.body().getAdvertsing().size());
 
                         } else {
                             Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();

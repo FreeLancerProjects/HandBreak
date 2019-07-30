@@ -126,7 +126,7 @@ public class Fragment_Car_Search extends Fragment {
                 if (dy > 0) {
                     int total_item = adversiment_adapter.getItemCount();
                     int last_item_pos = manager.findLastCompletelyVisibleItemPosition();
-                    Log.e("msg", total_item + "  " + last_item_pos);
+                  //  Log.e("msg", total_item + "  " + last_item_pos);
                     if (last_item_pos >= (total_item - 5) && !isLoading && total_page > current_page) {
                         isLoading = true;
                         advertsings.add(null);

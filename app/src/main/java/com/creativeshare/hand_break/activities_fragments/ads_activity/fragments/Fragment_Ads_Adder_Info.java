@@ -172,10 +172,10 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
                     }
                 } else {
                     if (adversiment_id.equals("-1")) {
-                        Log.e("mdg", adversiment_id);
+                       // Log.e("mdg", adversiment_id);
                         createads(title, ccp_phone.getSelectedCountryCode() + phone, price, desc,lat,lng);
                     } else {
-                        Log.e("msg", lat+" "+lng);
+                       // Log.e("msg", lat+" "+lng);
 
                         updateeads(title, ccp_phone.getSelectedCountryCode() + phone, price, desc, adversiment_id,lat,lng);
 
@@ -196,7 +196,7 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
             edt_price.setText(adversiting_model.getAdvertisement_price());
 lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         lng=Double.parseDouble(adversiting_model.getGoogle_long());
-            Log.e("mfg", lat+" "+lng+" "+adversiting_model.getGoogle_lat());
+           // Log.e("mfg", lat+" "+lng+" "+adversiting_model.getGoogle_lat());
 
             AddMarker(lat,lng);
         }
@@ -221,7 +221,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         RequestBody desc_part = Common.getRequestBodyText(desc);
         RequestBody lat_part = Common.getRequestBodyText(lat+"");
         RequestBody lng_part = Common.getRequestBodyText(lng+"");
-        Log.e("nnn",lat+"  "+lng);
+        //Log.e("nnn",lat+"  "+lng);
 
         RequestBody adversiment_part = Common.getRequestBodyText(adversiment_id);
 
@@ -461,7 +461,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
                 public void onMapClick(LatLng latLng) {
                     lat = latLng.latitude;
                     lng = latLng.longitude;
-                    Log.e("nnn",lat+"  "+lng);
+                  //  Log.e("nnn",lat+"  "+lng);
                     AddMarker(lat, lng);
                 }
             });

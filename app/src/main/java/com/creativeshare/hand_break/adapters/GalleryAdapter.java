@@ -48,7 +48,7 @@ this.fragment=fragment;  }
     public void onBindViewHolder(@NonNull final GalleryAdapter.MyHolder holder, int position) {
 
         Uri uri = advertisement_images.get(position);
-        Log.e("ssssss",uri.toString());
+       // Log.e("ssssss",uri.toString());
         Picasso.with(context).load(uri).fit().into(holder.ivGallery);
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override

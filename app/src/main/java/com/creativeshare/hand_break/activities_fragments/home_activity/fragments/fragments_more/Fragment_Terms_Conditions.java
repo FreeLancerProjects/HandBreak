@@ -82,7 +82,7 @@ public class Fragment_Terms_Conditions extends Fragment {
                     @Override
                     public void onResponse(Call<AppDataModel> call, Response<AppDataModel> response) {
                         //  smoothprogressbar.setVisibility(View.GONE);
-                        Log.e("lang", cuurent_language);
+                      //  Log.e("lang", cuurent_language);
                         if (response.isSuccessful() && response.body() != null) {
                             updateTermsContent(response.body());
                         } else {

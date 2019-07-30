@@ -184,7 +184,7 @@ public class Fragment_Profile extends Fragment {
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                     dialog.dismiss();
                     if (response.isSuccessful()) {
-                        Log.e("kk",response.body().getInsurance_services());
+                     //   Log.e("kk",response.body().getInsurance_services());
                         preferences.create_update_userdata(homeActivity,response.body());
                         userModel=preferences.getUserData(homeActivity);
 
@@ -380,7 +380,7 @@ public class Fragment_Profile extends Fragment {
 
     private void updateprofile() {
      //   userModel=preferences.getUserData(homeActivity);
-        Log.e("llll",userModel.getInsurance_services());
+      //  Log.e("llll",userModel.getInsurance_services());
         if (userModel != null) {
             if (userModel.getUser_image() != null && !userModel.getUser_image().equals("0")) {
                 Picasso.with(homeActivity).load(Tags.IMAGE_URL + userModel.getUser_image()).fit().into(imageprofile);
@@ -417,7 +417,7 @@ public class Fragment_Profile extends Fragment {
 
                 }
 
-                Log.e("lll", userModel.getRating_value() + "");
+             //   Log.e("lll", userModel.getRating_value() + "");
                 simpleRatingBar.setRating(userModel.getRating_value());
 
             }

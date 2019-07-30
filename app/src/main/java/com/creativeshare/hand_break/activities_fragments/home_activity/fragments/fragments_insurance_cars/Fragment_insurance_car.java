@@ -164,7 +164,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
                     model_id = "";
                 } else {
                     model_id = spinner_model.getSelectedItem().toString();
-                    Log.e("llll", model_id);
+                   // Log.e("llll", model_id);
                 }
             }
 
