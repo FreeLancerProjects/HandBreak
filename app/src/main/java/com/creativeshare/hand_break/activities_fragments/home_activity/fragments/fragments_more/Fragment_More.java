@@ -79,6 +79,7 @@ public class Fragment_More extends Fragment {
         if(userModel!=null){
             if(!userModel.getUser_type().equals("2")){
                 ll_follow.setVisibility(View.GONE);
+                ll_adversiment.setVisibility(View.GONE);
             }
         }
         //arrow10 = view.findViewById(R.id.arrow10);

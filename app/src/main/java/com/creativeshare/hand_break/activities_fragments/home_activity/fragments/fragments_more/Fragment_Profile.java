@@ -118,6 +118,7 @@ public class Fragment_Profile extends Fragment {
         } else {
             if (userModel != null) {
                 if (userModel.getUser_type().equals("2")) {
+
                     bt_upgrade.setVisibility(View.GONE);
                 }
             }

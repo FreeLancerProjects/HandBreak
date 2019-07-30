@@ -83,8 +83,12 @@ public class Fragment_Home extends Fragment {
         fab_add_ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (userModel != null&&userModel.getUser_type().equals("2")) {
-                    homeActivity.getoAds("-1");
+                if (userModel != null) {
+                    if(userModel.getUser_type().equals("2")){
+                    homeActivity.getoAds("-1");}
+                    else {
+                        Common.CreateSignAlertDialog(homeActivity,getResources().getString(R.string.upgrade));
+                    }
                 } else {
                     Common.CreateUserNotSignInAlertDialog(homeActivity);
                 }

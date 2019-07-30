@@ -195,16 +195,24 @@ bt_upgrde.setOnClickListener(new View.OnClickListener() {
         if(TextUtils.isEmpty(name)||(lat==0.0||lng==0.0)||uri==null||formatedaddress==null){
             if(TextUtils.isEmpty(name)){
             edt_name.setError(getResources().getString(R.string.field_req));}
-            if(lat==0.0||lng==0.0||uri==null||formatedaddress==null){
+            if(lat==0.0||lng==0.0||uri==null){
                 Toast.makeText(homeActivity,getResources().getString(R.string.field_req),Toast.LENGTH_LONG).show();
-            }
+                }
+
+//            Log.e("kklkkl",formatedaddress);
+
         }
         else {
+            if(formatedaddress==null){
+                getGeoData(lat,lng);
+            }
+            Log.e("kklkkl",formatedaddress);
             upgrade(name,uri,lat,lng,formatedaddress);
         }
     }
 
     private void upgrade(String name, Uri uri, double lat, double lng, String formatedaddress) {
+        Log.e("kkkl",formatedaddress);
 
         final Dialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
         dialog.show();
@@ -430,8 +438,10 @@ bt_upgrde.setOnClickListener(new View.OnClickListener() {
                                 // address.setText(formatedaddress);
                                 //AddMarker(lat, lng);
                                 //place_id = response.body().getCandidates().get(0).getPlace_id();
+                                Log.e("kkk",formatedaddress);
                             }
                         } else {
+                            Log.e("error_code", response.errorBody()+" "+response.code());
 
                             try {
                                 Log.e("error_code", response.errorBody().string());

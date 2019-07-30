@@ -16,40 +16,42 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Api {
-
     private static Retrofit retrofit = null;
 
     private static Retrofit getRetrofit(String baseUrl)
     {
 
-            Interceptor interceptor   = new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Request request = chain.request();
 
-                    Request accept = request.newBuilder()
-                            .addHeader("ACCEPT", "application/json")
-                            .build();
-                    return chain.proceed(accept);
-                }
-            };
+        Interceptor interceptor   = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
 
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .connectTimeout(1, TimeUnit.MINUTES)
-                    .writeTimeout(1,TimeUnit.MINUTES)
-                    .readTimeout(1,TimeUnit.MINUTES)
-                    .retryOnConnectionFailure(true)
-                    .addInterceptor(interceptor)
-                    .build();
+                Request accept = request.newBuilder()
+                        .addHeader("ACCEPT", "application/json")
+                        .build();
+                return chain.proceed(accept);
+            }
+        };
 
-            Gson gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(Tags.base_url)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(client)
-                    .build();
+        OkHttpClient client=new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .connectTimeout(30,TimeUnit.SECONDS)
+                .readTimeout(30,TimeUnit.SECONDS)
+                .writeTimeout(30,TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .build();
+
+
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(client)
+                .build();
 
 
         return retrofit;

@@ -405,7 +405,7 @@ public interface Service {
     Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
                                       @Query(value = "language") String language,
                                       @Query(value = "key") String key);
-    @FormUrlEncoded
+    @Multipart
     @POST("Api/upgrade")
     Call<UserModel> upgrademarket
             (@Part("user_id") RequestBody user_id,
