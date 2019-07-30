@@ -112,8 +112,9 @@
     <string name="offer">عرض</string>
     <string name="refues">رفض</string>
     <string name="accept">قيول</string>
-    <string name="view_insurance_data">View insurance data</string>
-    <string name="name_of_the_owner_of_the_car">Name of the owner of the car</string>
+    <string name="view_insurance_data">عرض معلومات التامين</string>
+    <string name="name_of_the_owner_of_the_car">اسم صاحب السياره</string>
+    <string name="available">تقديم خدمات التامين</string>
     <string-array name="models">
         <item>اختر</item>
         <item>2000</item>

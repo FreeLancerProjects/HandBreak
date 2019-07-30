@@ -114,6 +114,7 @@
     <string name="accept">accept</string>
     <string name="view_insurance_data">View insurance data</string>
     <string name="name_of_the_owner_of_the_car">Name of the owner of the car</string>
+    <string name="available">InsuraceAvilable</string>
     <string-array name="models">
         <item>Choose</item>
 

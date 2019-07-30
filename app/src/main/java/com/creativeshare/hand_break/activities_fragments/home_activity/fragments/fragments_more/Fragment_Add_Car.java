@@ -330,6 +330,7 @@ Api.getService().addlostcar(user_part,cat_part,sub_part,model_part,manuf_part,re
     public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
         dialog.dismiss();
         if (response.isSuccessful()) {
+
             // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
             homeActivity.Back();
         } else {

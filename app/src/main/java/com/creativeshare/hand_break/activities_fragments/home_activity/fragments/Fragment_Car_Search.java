@@ -167,7 +167,7 @@ public class Fragment_Car_Search extends Fragment {
 
     private void loadMore(int page) {
         Api.getService()
-                .searchadversment(page, user_id, search)
+                .searchadversment2(page, user_id, search)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -215,7 +215,7 @@ public class Fragment_Car_Search extends Fragment {
         ll_no_order.setVisibility(View.GONE);
 
         Api.getService()
-                .searchadversment(1, user_id + "", search)
+                .searchadversment2(1, user_id + "", search)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {

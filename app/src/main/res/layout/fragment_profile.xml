@@ -395,7 +395,7 @@
        android:layout_height="45dp"
        android:textSize="15sp"
        android:textColor="@color/black"
-       android:text="Insurace Avilable"
+       android:text="@string/available"
 android:gravity="center_vertical"
        android:layout_weight="1"
 

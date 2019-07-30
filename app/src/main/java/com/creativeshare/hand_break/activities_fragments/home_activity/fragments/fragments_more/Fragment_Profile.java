@@ -145,7 +145,10 @@ public class Fragment_Profile extends Fragment {
             }
         });
         if (Adversiment_Model.getId() != null) {
-            simpleRatingBar.setIndicator(true);
+         if(userModel.isRating_status()==true){
+             simpleRatingBar.setIndicator(true);
+
+         }
         }
         switchCompat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +178,7 @@ public class Fragment_Profile extends Fragment {
             dialog.show();
            // Log.e("user", userModel.getToken());
             String insurancetype;
-            if(switchCompat.isChecked()){
+            if(userModel.getInsurance_services().equals("1")){
                 insurancetype="0";
             }
             else {
@@ -186,8 +189,10 @@ public class Fragment_Profile extends Fragment {
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                     dialog.dismiss();
                     if (response.isSuccessful()) {
+                        Log.e("kk",response.body().getInsurance_services());
                         preferences.create_update_userdata(homeActivity,response.body());
                         userModel=preferences.getUserData(homeActivity);
+
                         updateprofile();
                     } else {
 
@@ -371,6 +376,8 @@ public class Fragment_Profile extends Fragment {
     }
 
     private void updateprofile() {
+     //   userModel=preferences.getUserData(homeActivity);
+        Log.e("llll",userModel.getInsurance_services());
         if (userModel != null) {
             if (userModel.getUser_image() != null && !userModel.getUser_image().equals("0")) {
                 Picasso.with(homeActivity).load(Tags.IMAGE_URL + userModel.getUser_image()).fit().into(imageprofile);
@@ -409,12 +416,13 @@ public class Fragment_Profile extends Fragment {
 
                 Log.e("lll", userModel.getRating_value() + "");
                 simpleRatingBar.setRating(userModel.getRating_value());
-                if(userModel.getInsurance_services().equals("0")){
-                    switchCompat.setChecked(false);
-                }
-                else {
-                    switchCompat.setChecked(true);
-                }
+
+            }
+            if(userModel.getInsurance_services().equals("0")){
+                switchCompat.setChecked(false);
+            }
+            else {
+                switchCompat.setChecked(true);
             }
 
         }

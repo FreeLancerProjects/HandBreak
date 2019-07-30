@@ -161,7 +161,14 @@ public interface Service {
             @Query("search_name") String search_name
 
     );
+    @GET("App/searchAdvertsing")
+    Call<Catogry_Model>
+    searchadversment2(
+            @Query("page") int page,
+            @Query("user_id") String user_id,
+            @Query("plate_number") String plate_number
 
+    );
     @GET("App/searchAdvertsing")
     Call<Catogry_Model>
     searchadversment2(
@@ -437,7 +444,7 @@ public interface Service {
              @Part("model_id_fk") RequestBody model_id_fk,
              @Part("advertisement_title") RequestBody advertisement_title,
              @Part("advertisement_content") RequestBody advertisement_content,
-             @Part("plate_number") RequestBody advertisement_price,
+             @Part("plate_number") RequestBody plate_number,
              @Part("city_id") RequestBody city_id,
              @Part("phone") RequestBody phone,
              @Part("color") RequestBody color,
