@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:text="@string/commercial_register"
-        android:textColor="@color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="16sp"
 
         />

@@ -100,6 +100,8 @@
         android:textSize="14sp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:hint="@string/plate_number"
+        android:textColorHint="@color/gray4"
         />
     <ImageView
         android:id="@+id/im_search"

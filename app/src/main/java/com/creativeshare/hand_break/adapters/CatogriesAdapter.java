@@ -63,11 +63,11 @@ public class CatogriesAdapter extends RecyclerView.Adapter<CatogriesAdapter.Eyas
 
         });
         if (select == i) {
-            viewHolder.tv_name.setTextColor(homeActivity.getResources().getColor(R.color.colorPrimary));
-            viewHolder.view.setBackgroundColor(homeActivity.getResources().getColor(R.color.colorPrimary));
+            viewHolder.tv_name.setTextColor(homeActivity.getResources().getColor(R.color.black));
+            viewHolder.view.setBackgroundColor(homeActivity.getResources().getColor(R.color.black));
 
         } else {
-            viewHolder.tv_name.setTextColor(homeActivity.getResources().getColor(R.color.black));
+            viewHolder.tv_name.setTextColor(homeActivity.getResources().getColor(R.color.colorPrimary));
             viewHolder.view.setBackgroundColor(homeActivity.getResources().getColor(R.color.white));
         }
 
