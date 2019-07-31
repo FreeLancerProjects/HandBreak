@@ -74,13 +74,14 @@ public class Fragment_Car_Search extends Fragment {
 
     private String search;
     private int total_page;
+    private int type;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_car_search, container, false);
         initView(view);
-
+        getlostcar();
         return view;
     }
 
@@ -126,15 +127,15 @@ public class Fragment_Car_Search extends Fragment {
                 if (dy > 0) {
                     int total_item = adversiment_adapter.getItemCount();
                     int last_item_pos = manager.findLastCompletelyVisibleItemPosition();
-                  //  Log.e("msg", total_item + "  " + last_item_pos);
+                    //  Log.e("msg", total_item + "  " + last_item_pos);
                     if (last_item_pos >= (total_item - 5) && !isLoading && total_page > current_page) {
                         isLoading = true;
                         advertsings.add(null);
                         adversiment_adapter.notifyItemInserted(advertsings.size() - 1);
                         int page = current_page + 1;
-
-                        loadMore(page);
-
+                        if (type == 2) {
+                            loadMore(page);
+                        }
                     }
                 }
             }
@@ -209,13 +210,12 @@ public class Fragment_Car_Search extends Fragment {
         return new Fragment_Car_Search();
     }
 
-
-    public void searchadversment() {
+    public void getlostcar() {
         progBar.setVisibility(View.VISIBLE);
         ll_no_order.setVisibility(View.GONE);
-
+        type = 1;
         Api.getService()
-                .searchadversment2(1, user_id + "", search)
+                .getlostcar(user_id)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -225,6 +225,55 @@ public class Fragment_Car_Search extends Fragment {
                             advertsings.addAll(response.body().getAdvertsing());
 
                             if (advertsings.size() > 0) {
+                                ll_no_order.setVisibility(View.GONE);
+                                adversiment_adapter.notifyDataSetChanged();
+                                total_page = response.body().getMeta().getLast_page();
+
+                            } else {
+                                ll_no_order.setVisibility(View.VISIBLE);
+
+                            }
+                        } else {
+
+                            Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Catogry_Model> call, Throwable t) {
+                        try {
+
+                            progBar.setVisibility(View.GONE);
+                            Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                            Log.e("error", t.getMessage());
+                        } catch (Exception e) {
+                        }
+                    }
+                });
+    }
+
+    public void searchadversment() {
+        rec_search.setVisibility(View.GONE);
+        progBar.setVisibility(View.VISIBLE);
+        ll_no_order.setVisibility(View.GONE);
+        type = 2;
+        Api.getService()
+                .searchadversment2(1, user_id + "", search)
+                .enqueue(new Callback<Catogry_Model>() {
+                    @Override
+                    public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
+                        progBar.setVisibility(View.GONE);
+                        if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
+                            advertsings.clear();
+                            advertsings.addAll(response.body().getAdvertsing());
+                            if (advertsings.size() > 0) {
+                                rec_search.setVisibility(View.VISIBLE);
+
                                 ll_no_order.setVisibility(View.GONE);
                                 adversiment_adapter.notifyDataSetChanged();
                                 total_page = response.body().getMeta().getLast_page();

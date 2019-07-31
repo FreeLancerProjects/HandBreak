@@ -460,4 +460,10 @@ public interface Service {
 
 
             );
+    @GET("App/showLostCars")
+    Call<Catogry_Model>
+   getlostcar(
+           @Query("user_id") String user_id
+
+    );
 }
