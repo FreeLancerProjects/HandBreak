@@ -81,7 +81,7 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
     private String adversiment_id;
     private final String gps_perm = Manifest.permission.ACCESS_FINE_LOCATION;
     private final int gps_req = 22;
-    private final int loc_req = 1225;
+   // private final int loc_req = 1225;
     private double lat = 0.0, lng = 0.0;
     private float zoom = 15.6f;
     private GoogleApiClient googleApiClient;
