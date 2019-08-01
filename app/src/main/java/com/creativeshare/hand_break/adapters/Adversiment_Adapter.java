@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.models.UserModel;
+import com.creativeshare.hand_break.preferences.Preferences;
+import com.creativeshare.hand_break.share.Common;
 import com.creativeshare.hand_break.tags.Tags;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
@@ -33,14 +36,14 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<Catogry_Model.Advertsing> advertsings;
     private Context context;
     private Fragment fragment;
-    private String user_type;
     private HomeActivity activity;
+    private Preferences preferences;
+    private UserModel userModel;
     public Adversiment_Adapter(List<Catogry_Model.Advertsing> advertsings, Context context) {
 
         this.advertsings = advertsings;
         this.context = context;
        // this.fragment = fragment;
-        this.user_type = user_type;
         activity=(HomeActivity)context;
     }
 
@@ -77,7 +80,12 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(userModel!=null){
                     activity.DisplayFragmentAdversimentDetials(advertsings.get(holder.getLayoutPosition()).getId_advertisement());
+                }
+                else {
+                        Common.CreateUserNotSignInAlertDialog(activity);
+                    }
                 }
             });
             //Log.e("msg",advertsing.getMain_image());
