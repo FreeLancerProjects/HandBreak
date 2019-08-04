@@ -37,15 +37,15 @@ this.fragment=fragment;  }
 
     @NonNull
     @Override
-    public GalleryAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.layout_gv_item, parent, false);
-        return new GalleryAdapter.MyHolder(view);
+        return new MyHolder(view);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final GalleryAdapter.MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
 
         Uri uri = advertisement_images.get(position);
        // Log.e("ssssss",uri.toString());

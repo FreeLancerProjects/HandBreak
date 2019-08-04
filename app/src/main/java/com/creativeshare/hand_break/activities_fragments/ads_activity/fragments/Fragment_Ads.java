@@ -49,7 +49,7 @@ public class Fragment_Ads extends Fragment {
         fragmentList = new ArrayList<>();
         viewPager = view.findViewById(R.id.pager);
         viewPager.beginFakeDrag();
-        back_arrow = view.findViewById(R.id.arrow);
+        back_arrow = view.findViewById(R.id.arrow_back);
         pageAdapter = new ViewPagerAdapter(adsActivity.getSupportFragmentManager());
         intitfragmentspage();
         pageAdapter.AddFragments(fragmentList);

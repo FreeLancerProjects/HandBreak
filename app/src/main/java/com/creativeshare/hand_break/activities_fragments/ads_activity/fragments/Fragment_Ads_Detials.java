@@ -69,7 +69,7 @@ public class Fragment_Ads_Detials extends Fragment {
     private Preferences preferences;
     private UserModel userModel;
     private String cuurent_language;
-    private EditText edt_plate;
+  //  private EditText edt_plate;
     private RadioGroup group_type;
     private LinearLayout ll_continue;
     private ImageView bt_arrow;
@@ -77,10 +77,11 @@ public class Fragment_Ads_Detials extends Fragment {
     private CheckBox checkBox;
 
 
-    private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
+   // private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
     private Spinner_catogry_Adapter spinner_catogry_adapter;
-    private Spinner_Sub_Sub_catogry_Adapter spinner_sub_sub_catogry_adapter;
-    private Spinner sp_cat, sp_sub_cat, sp_model, cities;
+    //private Spinner_Sub_Sub_catogry_Adapter spinner_sub_sub_catogry_adapter;
+   // private Spinner , sp_sub_cat, sp_model;
+    private Spinner sp_cat,cities;
     private Spinner_Adapter city_adapter;
     private List<CityModel> cities_models;
     private LinearLayout ll_cv;
@@ -89,12 +90,13 @@ public class Fragment_Ads_Detials extends Fragment {
     private RecyclerView recyclerViewshow_images;
     private ShowGalleryAdapter showgalleryAdapter;
     private List<Uri> uriList;
-    private List<Catogry_Model.Categories.sub> subs;
+    //private List<Catogry_Model.Categories.sub> subs;
     private List<Catogry_Model.Categories> categories;
-    private List<Catogry_Model.Categories.sub.Sub> subs_sub;
+  //  private List<Catogry_Model.Categories.sub.Sub> subs_sub;
     private final int IMG2 = 2;
     private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
-    private String city_id, cat_id, sub_id, model_id;
+   // private String city_id, cat_id, sub_id, model_id;
+    private String city_id, cat_id;
     private Adversiment_Model adversiment_model;
 private List<Adversiting_Model.Advertisement_images> advertisement_images;
     @Nullable
@@ -114,7 +116,7 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         Paper.init(adsActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
        // edt_piece=view.findViewById(R.id.edt_piece);
-        edt_plate=view.findViewById(R.id.edt_plate);
+        //edt_plate=view.findViewById(R.id.edt_plate);
         group_type=view.findViewById(R.id.group_type);
         ll_continue = view.findViewById(R.id.ll_continue);
         bt_arrow = view.findViewById(R.id.bt_arrow);
@@ -125,12 +127,12 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         recyclerView_images = view.findViewById(R.id.recView_images);
         recyclerViewshow_images = view.findViewById(R.id.recView_show_images);
 
-        sp_sub_cat = view.findViewById(R.id.sp_sub);
-        sp_model = view.findViewById(R.id.sp_model);
+     //   sp_sub_cat = view.findViewById(R.id.sp_sub);
+       // sp_model = view.findViewById(R.id.sp_model);
         cities_models = new ArrayList<>();
         categories = new ArrayList<>();
-        subs = new ArrayList<>();
-        subs_sub = new ArrayList<>();
+       // subs = new ArrayList<>();
+        //subs_sub = new ArrayList<>();
         uriList = new ArrayList<>();
         recyclerView_images.setDrawingCacheEnabled(true);
         recyclerView_images.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
@@ -146,15 +148,15 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         recyclerViewshow_images.setAdapter(showgalleryAdapter);
         if (cuurent_language.equals("ar")) {
             cities_models.add(new CityModel("مدينتى "));
-            subs.add(new Catogry_Model.Categories.sub("النوع"));
+          //  subs.add(new Catogry_Model.Categories.sub("النوع"));
             categories.add(new Catogry_Model.Categories("كل الاقسام"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
+            //subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
 
         } else {
             cities_models.add(new CityModel("City"));
-            subs.add(new Catogry_Model.Categories.sub("Type"));
+            //subs.add(new Catogry_Model.Categories.sub("Type"));
             categories.add(new Catogry_Model.Categories("all departments"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("model"));
+            //subs_sub.add(new Catogry_Model.Categories.sub.Sub("model"));
 
 
         }
@@ -167,11 +169,11 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
 
         cities = view.findViewById(R.id.sp_city);
         spinner_catogry_adapter = new Spinner_catogry_Adapter(adsActivity, categories);
-        spinner_sub_catogry_adapter = new Spinner_Sub_catogry_Adapter(adsActivity, subs);
-        spinner_sub_sub_catogry_adapter = new Spinner_Sub_Sub_catogry_Adapter(adsActivity, subs_sub);
+       // spinner_sub_catogry_adapter = new Spinner_Sub_catogry_Adapter(adsActivity, subs);
+        //spinner_sub_sub_catogry_adapter = new Spinner_Sub_Sub_catogry_Adapter(adsActivity, subs_sub);
         sp_cat.setAdapter(spinner_catogry_adapter);
-        sp_sub_cat.setAdapter(spinner_sub_catogry_adapter);
-        sp_model.setAdapter(spinner_sub_sub_catogry_adapter);
+        //sp_sub_cat.setAdapter(spinner_sub_catogry_adapter);
+        //sp_model.setAdapter(spinner_sub_sub_catogry_adapter);
         city_adapter = new Spinner_Adapter(adsActivity, cities_models);
         cities.setAdapter(city_adapter);
         if (cuurent_language.equals("en")) {
@@ -205,7 +207,7 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         sp_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                subs.clear();
+            /*    subs.clear();
                 if (cuurent_language.equals("ar")) {
                     subs.add(new Catogry_Model.Categories.sub("النوع"));
 
@@ -213,10 +215,10 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
                     subs.add(new Catogry_Model.Categories.sub("Type"));
 
                 }
-                sp_sub_cat.setSelection(0);
-                if (i > 0 && categories.get(i).getsub() != null) {
-                    subs.addAll(categories.get(i).getsub());
-                    spinner_sub_catogry_adapter.notifyDataSetChanged();
+                sp_sub_cat.setSelection(0);*/
+                if (i > 0 ) {
+                    //subs.addAll(categories.get(i).getsub());
+                  //  spinner_sub_catogry_adapter.notifyDataSetChanged();
                     cat_id = categories.get(i).getMain_category_fk();
                 }
             }
@@ -226,6 +228,7 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
 
             }
         });
+        /*
         sp_sub_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -268,24 +271,24 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
         ll_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                // String piecen=edt_piece.getText().toString();
-                String plate=edt_plate.getText().toString();
+               // String plate=edt_plate.getText().toString();
                 if (checkBox.isChecked()) {
-                    if (city_id != null && cat_id != null && sub_id != null && (uriList.size() > 0 || !Adversiment_Model.getId().equals("-1"))) {
+                    if (city_id != null && cat_id != null && (uriList.size() > 0 || !Adversiment_Model.getId().equals("-1"))) {
                         adversiment_model.setCity_id(city_id);
                         adversiment_model.setCat_id(cat_id);
-                        adversiment_model.setSub_id(sub_id);
+                       // adversiment_model.setSub_id(sub_id);
                         adversiment_model.setUris(uriList);
                     /*    if(TextUtils.isEmpty(piecen)){
                             piecen="0";
                         }*/
-                        if(TextUtils.isEmpty(plate)){
+                   /*     if(TextUtils.isEmpty(plate)){
                             plate="0";
-                        }
+                        }*/
                         if(group_type.getCheckedRadioButtonId()==R.id.r_new){
                             adversiment_model.setType("1");
                         }
@@ -293,21 +296,22 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
                             adversiment_model.setType("2");
 
                         }
-                        adversiment_model.setPalte(plate);
+                       // adversiment_model.setPalte(plate);
                    //     adversiment_model.setPiece(piecen);
-                        if (model_id != null) {
+                     /*   if (model_id != null) {
                             adversiment_model.setModel_id(model_id);
                             adsActivity.gotonext(adversiment_model);
 
                         } else if (subs_sub.size() == 1) {
                             adversiment_model.setModel_id("no_model_id");
-                            adsActivity.gotonext(adversiment_model);
 
 
                         } else {
                             Common.CreateSignAlertDialog(adsActivity, getString(R.string.complete_all));
 
-                        }
+                        }*/
+                        adsActivity.gotonext(adversiment_model);
+
                     } else {
                         Common.CreateSignAlertDialog(adsActivity, getString(R.string.complete_all));
                         // Log.e("ssss",subs_sub.size()+"'"+cat_id+" "+city_id+"  "+sub_id);

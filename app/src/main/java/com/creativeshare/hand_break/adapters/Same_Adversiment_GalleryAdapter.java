@@ -43,15 +43,15 @@ private HomeActivity homeActivity;
 
     @NonNull
     @Override
-    public Same_Adversiment_GalleryAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.same_adversiment_row, parent, false);
-        return new Same_Adversiment_GalleryAdapter.MyHolder(view);
+        return new MyHolder(view);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final Same_Adversiment_GalleryAdapter.MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
 
         Adversiting_Model.Same_advertisements same_advertisement = same_advertisements.get(position);
 

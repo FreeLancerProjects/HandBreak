@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import com.creativeshare.hand_break.remote.Api;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.paperdb.Paper;
 import retrofit2.Call;
@@ -43,6 +45,8 @@ public class Fragment_Follower_List extends Fragment {
     private HomeActivity homeActivity;
     private UserModel userModel;
     private Preferences preferences;
+    private ImageView back;
+    private String cuurent_language;
 
     @Nullable
     @Override
@@ -102,6 +106,7 @@ public class Fragment_Follower_List extends Fragment {
         rec_follow = view.findViewById(R.id.recView);
         progBar = view.findViewById(R.id.progBar);
         ll_no_order = view.findViewById(R.id.ll_no_order);
+        back = view.findViewById(R.id.arrow_back);
 
 
         homeActivity = (HomeActivity) getActivity();
@@ -110,12 +115,24 @@ public class Fragment_Follower_List extends Fragment {
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
         Paper.init(homeActivity);
+        cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
+
         rec_follow.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         rec_follow.setDrawingCacheEnabled(true);
         rec_follow.setItemViewCacheSize(25);
         followers_adapter = new Followers_Adapter(data, homeActivity);
         rec_follow.setLayoutManager(new GridLayoutManager(homeActivity, 3));
         rec_follow.setAdapter(followers_adapter);
+        if (cuurent_language.equals("en")) {
+
+            back.setRotation(180);
+        }
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeActivity.Back();
+            }
+        });
     }
 
     public static Fragment_Follower_List newInstance() {

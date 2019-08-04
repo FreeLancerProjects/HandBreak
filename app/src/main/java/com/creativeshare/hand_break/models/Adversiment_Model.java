@@ -10,11 +10,11 @@ public class Adversiment_Model implements Serializable {
     private static Adversiting_Model adversiting_model;
     private String city_id;
     private String cat_id;
-    private String sub_id;
-    private String model_id;
+   // private String sub_id;
+ //   private String model_id;
     private List<Uri> uris;
 private String type;
-private String palte;
+//private String palte;
 private String piece;
     public static void setId(String id) {
         Adversiment_Model.id = id;
@@ -39,14 +39,14 @@ private String piece;
     public void setCat_id(String cat_id) {
         this.cat_id = cat_id;
     }
-
+/*
     public void setSub_id(String sub_id) {
         this.sub_id = sub_id;
     }
 
     public void setModel_id(String model_id) {
         this.model_id = model_id;
-    }
+    }*/
 
     public void setUris(List<Uri> uris) {
         this.uris = uris;
@@ -59,14 +59,14 @@ private String piece;
     public String getCat_id() {
         return cat_id;
     }
-
+/*
     public String getSub_id() {
         return sub_id;
     }
 
     public String getModel_id() {
         return model_id;
-    }
+    }*/
 
     public List<Uri> getUris() {
         return uris;
@@ -77,11 +77,11 @@ private String piece;
     public void setType(String type) {
         this.type = type;
     }
-
+/*
     public void setPalte(String palte) {
         this.palte = palte;
     }
-
+*/
     public void setPiece(String piece) {
         this.piece = piece;
     }
@@ -89,10 +89,10 @@ private String piece;
     public String getType() {
         return type;
     }
-
+/*
     public String getPalte() {
         return palte;
-    }
+    }*/
 
     public String getPiece() {
         return piece;

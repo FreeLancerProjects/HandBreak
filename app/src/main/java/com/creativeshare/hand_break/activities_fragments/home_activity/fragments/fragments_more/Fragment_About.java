@@ -28,6 +28,7 @@ import retrofit2.Response;
 /**
  *
  */
+
 public class Fragment_About extends Fragment {
     private Preferences preferences;
     private ImageView back;

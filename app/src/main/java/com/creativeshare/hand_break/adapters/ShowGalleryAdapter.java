@@ -33,15 +33,15 @@ public class ShowGalleryAdapter extends RecyclerView.Adapter<ShowGalleryAdapter.
 
     @NonNull
     @Override
-    public ShowGalleryAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.layout_gv_item, parent, false);
-        return new ShowGalleryAdapter.MyHolder(view);
+        return new MyHolder(view);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ShowGalleryAdapter.MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
 
         Adversiting_Model.Advertisement_images advertisement_image = advertisement_images.get(position);
 

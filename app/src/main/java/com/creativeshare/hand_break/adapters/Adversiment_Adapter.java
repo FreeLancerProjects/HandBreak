@@ -45,6 +45,8 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.context = context;
        // this.fragment = fragment;
         activity=(HomeActivity)context;
+        preferences=Preferences.getInstance();
+        userModel=preferences.getUserData(activity);
     }
 
     @NonNull

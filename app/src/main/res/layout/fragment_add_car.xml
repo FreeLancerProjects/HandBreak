@@ -6,69 +6,38 @@
     android:layout_height="match_parent"
     android:background="@color/gray1"
     android:clickable="true"
-    android:focusable="true"
-    >
+    android:focusable="true">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
-        app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-
+        app:contentInsetEnd="0dp"
+app:layout_constraintTop_toTopOf="parent"
         >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ll_back"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/arrow_back"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:longClickable="false"
+            android:padding="13dp"
+            android:tint="@color/white"
+            android:src="@drawable/ic_right_arrow" />
 
-            <ImageView
-                android:id="@+id/arrow_back"
-                android:layout_width="45dp"
-                android:layout_height="match_parent"
-                android:clickable="false"
-                android:longClickable="false"
-                android:padding="12dp"
-                android:src="@drawable/ic_right_arrow"
-                android:tint="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/add_search_for_missing_car"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:padding="5dp"
-                    android:src="@drawable/logosetting" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/hand_break"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+            />
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -79,7 +48,7 @@
         android:fillViewport="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -174,6 +143,7 @@
                 android:layout_height="45dp"
                 android:background="@color/white"
                 android:hint="@string/the_manufacture_company"
+                android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -181,27 +151,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/gray7" />
+
             <EditText
                 android:id="@+id/edt_responsilbel"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/white"
                 android:hint="@string/responsible_person"
+                android:singleLine="true"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+
+                />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/gray7" />
+
             <EditText
                 android:id="@+id/edt_color"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/white"
                 android:hint="@string/color"
+                android:singleLine="true"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+
+                />
 
             <View
                 android:layout_width="match_parent"
@@ -214,28 +192,35 @@
                 android:layout_height="45dp"
                 android:background="@color/white"
                 android:hint="@string/plate_number"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray7" />
-            <EditText
-                android:id="@+id/edt_phone"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@color/white"
-                android:hint="@string/user_phone"
+                android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:inputType="phone"
+
                 />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/gray7" />
+
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:hint="@string/user_phone"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray7" />
+
             <Spinner
                 android:id="@+id/sp_city"
                 android:layout_width="match_parent"
@@ -247,7 +232,7 @@
                 android:layout_height="1px"
                 android:background="@color/gray7" />
 
-            <Spinner
+      <!--      <Spinner
                 android:id="@+id/sp_cat"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -284,7 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/gray7" />
-
+-->
 
             <LinearLayout
                 android:id="@+id/ll_continue"

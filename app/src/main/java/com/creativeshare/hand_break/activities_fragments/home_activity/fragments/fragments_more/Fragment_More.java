@@ -32,7 +32,7 @@ public class Fragment_More extends Fragment {
     private HomeActivity homeActivity;
     private String cuurent_language;
     private ImageView im_log, arrow1, arrow2, arrow3, arrow4, arrow5, arrow6, arrow7, arrow8, arrow9, arrow10, arrow11;
-    private LinearLayout ll_logout, ll_terms, ll_about, ll_profile,ll_adversiment,ll_language,ll_addcar,ll_follow;
+    private LinearLayout ll_logout, ll_terms, ll_about, ll_profile,ll_adversiment,ll_language,ll_addcar,ll_follow,ll_commission;
     private FrameLayout fr_arabic,fr_english;
     private TextView tv_ar,tv_en;
     private Preferences preferences;
@@ -66,6 +66,7 @@ public class Fragment_More extends Fragment {
         ll_follow=view.findViewById(R.id.ll_follow);
         ll_logout = view.findViewById(R.id.ll_logout);
         ll_adversiment=view.findViewById(R.id.ll_advertisement);
+        ll_commission=view.findViewById(R.id.ll_commission);
        // ll_language=view.findViewById(R.id.ll_lang);
         arrow1 = view.findViewById(R.id.arrow1);
        arrow2 = view.findViewById(R.id.arrow2);
@@ -197,6 +198,12 @@ homeActivity.DisplayFragmentProfile();
                     Common.CreateUserNotSignInAlertDialog(homeActivity);
 
                 }
+            }
+        });
+        ll_commission.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeActivity.DisplayFragmentApp_percentage();
             }
         });
     }

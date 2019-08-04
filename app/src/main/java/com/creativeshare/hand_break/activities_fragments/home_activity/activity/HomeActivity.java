@@ -28,6 +28,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_About;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Add_Car;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Adversiment_Detials;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_App_Percentage;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Edit_Profile;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_Follower_List;
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_More;
@@ -76,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment_About fragment_about;
     private Fragment_Profile fragment_profile;
     private Fragment_Edit_Profile fragment_edit_profile;
+    private Fragment_App_Percentage fragment_app_percentage;
     private Fragment_My_adversiment fragment_my_adversiment;
     private Fragment_Add_Car fragment_add_car;
     private Fragment_Adversiment_Detials fragment_adversiment_detials;
@@ -392,6 +394,18 @@ public class HomeActivity extends AppCompatActivity {
             fragmentManager.beginTransaction().show(fragment_accept_refues_insurance_offer).commit();
         } else {
             fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_accept_refues_insurance_offer, "fragment_accept_refues_insurance_offer").addToBackStack("fragment_accept_refues_insurance_offer").commit();
+
+        }
+    }
+    public void DisplayFragmentApp_percentage() {
+        fragment_count += 1;
+        fragment_app_percentage = Fragment_App_Percentage.newInstance();
+
+
+        if (fragment_app_percentage.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_app_percentage).commit();
+        } else {
+            fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_app_percentage, "fragment_app_percentage").addToBackStack("fragment_app_percentage").commit();
 
         }
     }

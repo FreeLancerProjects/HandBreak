@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,11 +39,11 @@ import retrofit2.Response;
 
 public class Fragment_Home extends Fragment {
     private HomeActivity homeActivity;
-    private ImageView im_search,insurance_car;
+    private ImageView im_search, insurance_car;
     private AHBottomNavigation ah_bottom_nav;
     private String cuurent_language;
     private FloatingActionButton fab_add_ads;
-
+    private TextView tv_title;
     private Preferences preferences;
     private UserModel userModel;
 
@@ -62,10 +63,10 @@ public class Fragment_Home extends Fragment {
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         im_search = view.findViewById(R.id.im_search);
-        insurance_car=view.findViewById(R.id.img_insurance_car);
+        insurance_car = view.findViewById(R.id.img_insurance_car);
         ah_bottom_nav = view.findViewById(R.id.ah_bottom_nav);
         fab_add_ads = view.findViewById(R.id.fab_add_ads);
-
+        tv_title = view.findViewById(R.id.tv_title);
         im_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,17 +85,19 @@ public class Fragment_Home extends Fragment {
             @Override
             public void onClick(View view) {
                 if (userModel != null) {
-                    if(userModel.getUser_type().equals("2")){
-                    homeActivity.getoAds("-1");}
-                    else {
-                        Common.CreateSignAlertDialog(homeActivity,getResources().getString(R.string.upgrade));
+                    if (userModel.getUser_type().equals("2")) {
+                        homeActivity.getoAds("-1");
+                    } else {
+                        Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.upgrade));
                     }
                 } else {
                     Common.CreateUserNotSignInAlertDialog(homeActivity);
                 }
             }
         });
+
         setUpBottomNavigation();
+        updateBottomNavigationPosition(0);
         ah_bottom_nav.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
@@ -148,6 +151,18 @@ public class Fragment_Home extends Fragment {
 
     public void updateBottomNavigationPosition(int pos) {
         ah_bottom_nav.setCurrentItem(pos, false);
+        if(pos==0){
+            tv_title.setText(getResources().getString(R.string.home));
+        }
+        else if(pos==1){
+            tv_title.setText(getResources().getString(R.string.notifications));
+        }
+        else if (pos==2){
+            tv_title.setText(getResources().getString(R.string.search));
+        }
+        else if (pos==3){
+            tv_title.setText(getResources().getString(R.string.more));
+        }
     }
 
     public static Fragment_Home newInstance() {

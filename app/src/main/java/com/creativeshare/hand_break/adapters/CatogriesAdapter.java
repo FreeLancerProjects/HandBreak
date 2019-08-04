@@ -57,7 +57,7 @@ public class CatogriesAdapter extends RecyclerView.Adapter<CatogriesAdapter.Eyas
                 select = i;
                 notifyDataSetChanged();
                 homeActivity.DisplayFragmentMain();
-                fragment_main.addsubtosppinner(list.get(i).getsub(),list.get(i).getMain_category_fk());
+                fragment_main.searchmain(list.get(i).getMain_category_fk());
                 //  fragment_home.setsub(list.get(i).getsub(),list.get(i).getMain_category_fk());
             }
 
