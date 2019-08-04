@@ -74,22 +74,24 @@ public class Fragment_Add_Car extends Fragment {
     private ImageView arrow_back;
     private LinearLayout ll_continue;
     private EditText edt_manufc, edt_responsible, edt_color, edt_platenume, edt_phone;
-    private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
-    private Spinner_catogry_Adapter spinner_catogry_adapter;
-    private Spinner_Sub_Sub_catogry_Adapter spinner_sub_sub_catogry_adapter;
-    private Spinner sp_cat, sp_sub_cat, sp_model, cities;
+  //  private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
+   // private Spinner_catogry_Adapter spinner_catogry_adapter;
+    //private Spinner_Sub_Sub_catogry_Adapter spinner_sub_sub_catogry_adapter;
+   // private Spinner sp_cat, sp_sub_cat, sp_model;
+    private Spinner cities;
     private Spinner_Adapter city_adapter;
     private List<CityModel> cities_models;
     private LinearLayout ll_cv;
     private RecyclerView recyclerView_images;
     private GalleryAdapter galleryAdapter;
     private List<Uri> uriList;
-    private List<Catogry_Model.Categories.sub> subs;
-    private List<Catogry_Model.Categories> categories;
-    private List<Catogry_Model.Categories.sub.Sub> subs_sub;
+    //private List<Catogry_Model.Categories.sub> subs;
+    //private List<Catogry_Model.Categories> categories;
+    //private List<Catogry_Model.Categories.sub.Sub> subs_sub;
     private final int IMG2 = 2;
     private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
-    private String city_id, cat_id, sub_id, model_id;
+   // private String  cat_id, sub_id, model_id;
+    private String city_id;
     private Adversiment_Model adversiment_model;
 
     @Nullable
@@ -98,7 +100,7 @@ public class Fragment_Add_Car extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_car, container, false);
         initView(view);
         getCities();
-        categories();
+    //    categories();
         return view;
     }
 
@@ -115,12 +117,12 @@ public class Fragment_Add_Car extends Fragment {
         edt_color = view.findViewById(R.id.edt_color);
         edt_platenume = view.findViewById(R.id.edt_platenum);
         edt_phone = view.findViewById(R.id.edt_phone);
-        sp_cat = view.findViewById(R.id.sp_cat);
+     //   sp_cat = view.findViewById(R.id.sp_cat);
         ll_cv = view.findViewById(R.id.ll_cv);
         recyclerView_images = view.findViewById(R.id.recView_images);
 
-        sp_sub_cat = view.findViewById(R.id.sp_sub);
-        sp_model = view.findViewById(R.id.sp_model);
+       // sp_sub_cat = view.findViewById(R.id.sp_sub);
+        //sp_model = view.findViewById(R.id.sp_model);
         arrow_back = view.findViewById(R.id.arrow_back);
         if (cuurent_language.equals("en")) {
 
@@ -133,9 +135,9 @@ public class Fragment_Add_Car extends Fragment {
             }
         });
         cities_models = new ArrayList<>();
-        categories = new ArrayList<>();
-        subs = new ArrayList<>();
-        subs_sub = new ArrayList<>();
+        //categories = new ArrayList<>();
+        //subs = new ArrayList<>();
+        //subs_sub = new ArrayList<>();
         uriList = new ArrayList<>();
         recyclerView_images.setDrawingCacheEnabled(true);
         recyclerView_images.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
@@ -146,27 +148,27 @@ public class Fragment_Add_Car extends Fragment {
 
         if (cuurent_language.equals("ar")) {
             cities_models.add(new CityModel("مدينتى"));
-            subs.add(new Catogry_Model.Categories.sub("النوع"));
-            categories.add(new Catogry_Model.Categories("كل الاقسام"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
+          //  subs.add(new Catogry_Model.Categories.sub("النوع"));
+            //categories.add(new Catogry_Model.Categories("كل الاقسام"));
+            //subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
 
         } else {
             cities_models.add(new CityModel("City"));
-            subs.add(new Catogry_Model.Categories.sub("Type"));
-            categories.add(new Catogry_Model.Categories("all departments"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("model"));
+            //subs.add(new Catogry_Model.Categories.sub("Type"));
+            //categories.add(new Catogry_Model.Categories("all departments"));
+            //subs_sub.add(new Catogry_Model.Categories.sub.Sub("model"));
 
 
         }
 
 
         cities = view.findViewById(R.id.sp_city);
-        spinner_catogry_adapter = new Spinner_catogry_Adapter(homeActivity, categories);
+       /* spinner_catogry_adapter = new Spinner_catogry_Adapter(homeActivity, categories);
         spinner_sub_catogry_adapter = new Spinner_Sub_catogry_Adapter(homeActivity, subs);
         spinner_sub_sub_catogry_adapter = new Spinner_Sub_Sub_catogry_Adapter(homeActivity, subs_sub);
         sp_cat.setAdapter(spinner_catogry_adapter);
         sp_sub_cat.setAdapter(spinner_sub_catogry_adapter);
-        sp_model.setAdapter(spinner_sub_sub_catogry_adapter);
+        sp_model.setAdapter(spinner_sub_sub_catogry_adapter);*/
         city_adapter = new Spinner_Adapter(homeActivity, cities_models);
         cities.setAdapter(city_adapter);
 
@@ -189,7 +191,7 @@ public class Fragment_Add_Car extends Fragment {
 
             }
         });
-        sp_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      /*  sp_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 subs.clear();
@@ -253,7 +255,7 @@ public class Fragment_Add_Car extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
         ll_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -272,15 +274,10 @@ public class Fragment_Add_Car extends Fragment {
         String colors = edt_color.getText().toString();
         String platenum = edt_platenume.getText().toString();
         String phone = edt_phone.getText().toString();
-        if (city_id != null && cat_id != null && sub_id != null && ((uriList.size() > 0)) && !TextUtils.isEmpty(manuf) && !TextUtils.isEmpty(responsilble) && !TextUtils.isEmpty(colors) && !TextUtils.isEmpty(platenum) && !TextUtils.isEmpty(phone)) {
-            if (model_id == null && subs_sub.size() == 1) {
-                adversiment_model.setModel_id("no_model_id");
-            } else if (model_id == null) {
-                Common.CreateSignAlertDialog(homeActivity, getString(R.string.complete_all));
+        if (city_id != null &&((uriList.size() > 0)) && !TextUtils.isEmpty(manuf) && !TextUtils.isEmpty(responsilble) && !TextUtils.isEmpty(colors) && !TextUtils.isEmpty(platenum) && !TextUtils.isEmpty(phone)) {
 
-            } else {
                 addlostcar(manuf, responsilble, colors, platenum, phone);
-            }
+
         } else {
             if (TextUtils.isEmpty(manuf)) {
                 edt_manufc.setError(getResources().getString(R.string.field_req));
@@ -298,10 +295,10 @@ public class Fragment_Add_Car extends Fragment {
             if (TextUtils.isEmpty(phone)) {
                 edt_phone.setError(getResources().getString(R.string.field_req));
             }
-            if (city_id == null || cat_id == null || sub_id == null || (uriList.size() > 0)) {
+         /*   if (city_id == null || cat_id == null || sub_id == null || (uriList.size() > 0)) {
                 Common.CreateSignAlertDialog(homeActivity, getString(R.string.complete_all));
 
-            }
+            }*/
         }
     }
 
@@ -310,9 +307,8 @@ public class Fragment_Add_Car extends Fragment {
         dialog.setCancelable(false);
         dialog.show();
         RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
-        RequestBody cat_part = Common.getRequestBodyText(cat_id);
-        RequestBody sub_part = Common.getRequestBodyText(sub_id);
-        RequestBody model_part = Common.getRequestBodyText(model_id);
+//        RequestBody sub_part = Common.getRequestBodyText(sub_id);
+  //      RequestBody model_part = Common.getRequestBodyText(model_id);
         RequestBody manuf_part = Common.getRequestBodyText(manuf);
         //RequestBody piece_part = Common.getRequestBodyText(adversiment_model.getPiece());
 
@@ -323,7 +319,7 @@ public class Fragment_Add_Car extends Fragment {
         RequestBody color_part = Common.getRequestBodyText(colors);
 
         List<MultipartBody.Part> partImageList = getMultipartBodyList(uriList, "advertisement_images[]");
-        Api.getService().addlostcar(user_part, cat_part, sub_part, model_part, manuf_part, respons_part, plate_part, city_part, phone_part, color_part, partImageList).enqueue(new Callback<Adversiting_Model>() {
+        Api.getService().addlostcar(user_part, manuf_part, respons_part, plate_part, city_part, phone_part, color_part, partImageList).enqueue(new Callback<Adversiting_Model>() {
             @Override
             public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
                 dialog.dismiss();
@@ -415,7 +411,7 @@ public class Fragment_Add_Car extends Fragment {
                 });
 
     }
-
+/*
     public void categories() {
 
         Api.getService().getcateogries(cuurent_language).enqueue(new Callback<Catogry_Model>() {
@@ -473,7 +469,7 @@ catch (Exception e){
                 //mPager.setVisibility(View.GONE);
             }
         });
-    }
+    }*/
 
     public void Delete(int position) {
         uriList.remove(position);

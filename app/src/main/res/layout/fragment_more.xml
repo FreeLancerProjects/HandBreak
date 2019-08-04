@@ -18,7 +18,7 @@
 <FrameLayout
     android:id="@+id/f1"
     android:layout_width="70dp"
-    android:layout_height="35dp"
+    android:layout_height="45dp"
     android:background="@drawable/lang_shape3"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -31,14 +31,15 @@
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
         />
 </FrameLayout>
     <FrameLayout
         android:id="@+id/f2"
         android:layout_width="70dp"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:background="@drawable/lang_shape4"
         app:layout_constraintTop_toTopOf="parent"
    app:layout_constraintEnd_toEndOf="parent"
@@ -119,6 +120,7 @@
                 android:background="@color/gray3" />
 
             <LinearLayout
+                android:id="@+id/ll_commission"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:layout_constraintTop_toTopOf="parent"

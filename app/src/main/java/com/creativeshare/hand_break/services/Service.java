@@ -3,6 +3,7 @@ package com.creativeshare.hand_break.services;
 
 import com.creativeshare.hand_break.models.Adversiment_Comment_Model;
 import com.creativeshare.hand_break.models.Adversiting_Model;
+import com.creativeshare.hand_break.models.App_Commission;
 import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.AppDataModel;
 import com.creativeshare.hand_break.models.Catogry_Model;
@@ -65,6 +66,7 @@ public interface Service {
 
 
     );
+
     @FormUrlEncoded
     @POST("Api/updateProfile")
     Call<UserModel> updateprofile(
@@ -72,8 +74,8 @@ public interface Service {
             @Field("insurance_services") String insurance_services
 
 
-
     );
+
     @Multipart
     @POST("Api/updateProfile")
     Call<UserModel> udateimage(@Part("user_id") RequestBody user_id,
@@ -139,8 +141,16 @@ public interface Service {
             @Query("page") int page,
             @Query("user_id") String user_id,
             @Query("main_category_fk") String main_category_fk,
-            @Query("sub_category_fk") String sub_category_fk,
             @Query("city_id") String city_id
+
+    );
+    @GET("App/showAdvertsing")
+    Call<Catogry_Model>
+    getadversment(
+            @Query("page") int page,
+            @Query("user_id") String user_id,
+            @Query("main_category_fk") String main_category_fk
+
 
     );
     @GET("App/nearBy")
@@ -148,11 +158,11 @@ public interface Service {
     getnearadversment(
             @Query("page") int page,
             @Query("user_id") String user_id,
-            @Query("main_category_fk") String main_category_fk,
             @Query("lat") String lat,
             @Query("long") String long1
 
     );
+
     @GET("App/searchAdvertsing")
     Call<Catogry_Model>
     searchadversment(
@@ -161,6 +171,7 @@ public interface Service {
             @Query("search_name") String search_name
 
     );
+
     @GET("App/searchAdvertsing")
     Call<Catogry_Model>
     searchadversment2(
@@ -169,6 +180,7 @@ public interface Service {
             @Query("plate_number") String plate_number
 
     );
+
     @GET("App/searchAdvertsing")
     Call<Catogry_Model>
     searchadversment2(
@@ -177,12 +189,10 @@ public interface Service {
             @Query("city_id") String city_id,
 
             @Query("main_category_fk") String main_category_fk,
-            @Query("sub_category_fk") String sub_category_fk,
-            @Query("model_id_fk") String model_id_fk,
-            @Query("advertisement_type") String advertisement_type,
-            @Query("plate_number") String plate_number
 
-            );
+            @Query("advertisement_type") String advertisement_type
+
+    );
 
     @GET("App/myAdvertsing")
     Call<Catogry_Model>
@@ -207,8 +217,7 @@ public interface Service {
     @POST("App/addAdvertsing")
     Call<Catogry_Model.Advertsing> addads(@Part("advertisement_user") RequestBody advertisement_user,
                                           @Part("main_category_fk") RequestBody main_category_fk,
-                                          @Part("sub_category_fk") RequestBody sub_category_fk,
-                                          @Part("model_id_fk") RequestBody model_id_fk,
+
                                           @Part("advertisement_title") RequestBody advertisement_title,
                                           @Part("advertisement_content") RequestBody advertisement_content,
                                           @Part("advertisement_price") RequestBody advertisement_price,
@@ -217,7 +226,6 @@ public interface Service {
                                           @Part("google_lat") RequestBody google_lat,
                                           @Part("google_long") RequestBody google_long,
                                           @Part List<MultipartBody.Part> advertisement_images,
-                                          @Part("plate_number") RequestBody plate_number,
                                           @Part("advertisement_type") RequestBody advertisement_type
 
     );
@@ -227,8 +235,7 @@ public interface Service {
     Call<Adversiting_Model> updateads
             (@Part("advertisement_user") RequestBody advertisement_user,
              @Part("main_category_fk") RequestBody main_category_fk,
-             @Part("sub_category_fk") RequestBody sub_category_fk,
-             @Part("model_id_fk") RequestBody model_id_fk,
+
              @Part("advertisement_title") RequestBody advertisement_title,
              @Part("advertisement_content") RequestBody advertisement_content,
              @Part("advertisement_price") RequestBody advertisement_price,
@@ -238,7 +245,7 @@ public interface Service {
              @Part("google_lat") RequestBody google_lat,
              @Part("google_long") RequestBody google_long,
              @Part List<MultipartBody.Part> advertisement_images,
-             @Part("plate_number") RequestBody plate_number,
+
              @Part("advertisement_type") RequestBody advertisement_type
 
             );
@@ -416,6 +423,7 @@ public interface Service {
 
 
     );
+
     @GET("Insurance/one")
     Call<Insuarce_Model>
     showoneinsurancerequsts(
@@ -424,10 +432,12 @@ public interface Service {
             @Query("request_id") String request_id
 
     );
+
     @GET("geocode/json")
     Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
                                       @Query(value = "language") String language,
                                       @Query(value = "key") String key);
+
     @Multipart
     @POST("Api/upgrade")
     Call<UserModel> upgrademarket
@@ -447,9 +457,7 @@ public interface Service {
     @POST("App/lostCar")
     Call<Adversiting_Model> addlostcar
             (@Part("advertisement_user") RequestBody advertisement_user,
-             @Part("main_category_fk") RequestBody main_category_fk,
-             @Part("sub_category_fk") RequestBody sub_category_fk,
-             @Part("model_id_fk") RequestBody model_id_fk,
+
              @Part("advertisement_title") RequestBody advertisement_title,
              @Part("advertisement_content") RequestBody advertisement_content,
              @Part("plate_number") RequestBody plate_number,
@@ -460,10 +468,23 @@ public interface Service {
 
 
             );
+
     @GET("App/showLostCars")
     Call<Catogry_Model>
-   getlostcar(
-           @Query("user_id") String user_id
+    getlostcar(
+            @Query("user_id") String user_id
+
+    );
+
+    @GET("Api/getPercentage")
+    Call<App_Commission>
+    getappcommission(
+
+    );
+
+    @GET("Api/banks")
+    Call<App_Commission>
+    getappbankaccount(
 
     );
 }

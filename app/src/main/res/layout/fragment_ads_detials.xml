@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray7" />-->
-
+<!--
         <EditText
             android:id="@+id/edt_plate"
             android:layout_width="match_parent"
@@ -122,12 +122,15 @@
             android:background="@color/white"
             android:hint="@string/plate_number_if_not_present_it_will_be_placed_0"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:singleLine="true"
+
+            />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray7" />
+            android:background="@color/gray7" />-->
         <RadioGroup
             android:id="@+id/group_type"
             android:layout_width="match_parent"
@@ -181,7 +184,7 @@
             android:layout_height="1px"
             android:background="@color/gray7" />
 
-        <Spinner
+   <!--     <Spinner
             android:id="@+id/sp_sub"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -203,7 +206,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray7" />
+            android:background="@color/gray7" />-->
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

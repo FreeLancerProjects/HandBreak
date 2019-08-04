@@ -23,7 +23,7 @@
     <string name="language_setting">اعدادات اللغة </string>
     <string name="code">الكود</string>
     <string name="sign_up2">إنشاء حساب</string>
-    <string name="login" >دخول</string>
+    <string name="login">دخول</string>
     <string name="skip">تخطي</string>
     <string name="user_name">إسم المستخدم</string>
     <string name="user_password">كلمة المرور</string>
@@ -45,7 +45,7 @@
     <string name="the_manufacture_company">شركة التصنيع</string>
     <string name="continuation">استمرار</string>
     <string name="apply_terms_and_conditions">اقبل الشروط والاحكام</string>
-    <string name="terms_and_conditions1"><a  href="">الشروط والاحكام</a></string>
+    <string name="terms_and_conditions1"><a href="">الشروط والاحكام</a></string>
     <string name="advertisment_address"> عنوان الاعلان</string>
     <string name="price">سعر</string>
     <string name="detials">تفاصيل</string>
@@ -68,7 +68,7 @@
     <string name="upload">رفع صور</string>
     <string name="perm_image_denied">لم يتمكن التطبيق للوصل الى الصور</string>
     <string name="complete_all">اكمل بياناتك</string>
-    <string name="used">مستخدم</string>
+    <string name="used">مستعمل</string>
     <string name="news">جديد</string>
     <string name="edit">تعديل</string>
     <string name="city">المدينه</string>
@@ -87,15 +87,15 @@
     <string name="type">النوع </string>
     <string name="model">الموديل</string>
     <string name="color">اللون</string>
-    <string name="plate_number">رقم اللوحه</string>
+    <string name="plate_number"> ادخل رقم اللوحه السياره المفقوده </string>
     <string name="add">اضافه</string>
     <string name="near_to_me">القريب منى</string>
     <string name="piece_number">رقم القطعه</string>
-    <string name="responsible_person">الشخص المسئول</string>
+    <string name="responsible_person">اسم صاحب السياره المفقوده</string>
     <string name="insurance_car">طلب تأمين سيارة</string>
     <string name="residency_number">رقم الاقامة / رقم الهوية</string>
     <string name="Date_expire_residence">تاريخ انتهاء الإقامة / الهوية</string>
-    <string name="car_model">طراز السيارة</string>
+    <string name="car_model">موديل السيارة</string>
     <string name="car_type">نوع السيارة</string>
     <string name="image_car">صورة السيارة </string>
     <string name="image_form">صورة الاستمارة </string>
@@ -115,6 +115,31 @@
     <string name="view_insurance_data">عرض معلومات التامين</string>
     <string name="name_of_the_owner_of_the_car">اسم صاحب السياره</string>
     <string name="available">تقديم خدمات التامين</string>
+    <string name="account_of_commission">حساب العموله</string>
+    <string name="calculation_of_commission_value">حساب قيمة العمولة</string>
+    <string name="if_the_goods_are_sold_at_a_price">إذا تم بيع السلعه بسعر</string>
+    <string name="real_so">ريال فإن</string>
+    <string name="details">تفاصيل :</string>
+    <string name="amount_payable">المبلغ المستحق</string>
+
+    <string name="site_commission_is_10_riyals">عمولة الموقع هى  </string>
+    <string name="the_value_added_tax_is_0_real">ضريبة القيمة المضافه هى : 0 ريال</string>
+    <string name="the_site_commission_is_1_of_the_commodity_price">عمولة الموقع هى 5 % من سعر السلعه</string>
+    <string name="vat_is_5_of_the_site_commission">ضريبة القيمة المضافه هى 5 % من عمولة الموقع</string>
+    <string name="note_please_log_in_if_you_have_a_membership_on_the_site_even_if_you_have_a_discount_calculated_for_you">ملاحظه نرجو تسجيل الدخول إذا كانت لديك عضوية فى الموقع حتى إذا كان لك خصم يتم حسابه لك</string>
+    <string name="_0">0</string>
+    <string name="real">ريال</string>
+    <string name="bank_accounts">الحسابات البنكية</string>
+    <string name="bank_name">إسم البنك</string>
+    <string name="account_iban">الايبان</string>
+    <string name="account_number">رقم الحساب</string>
+    <string name="account_name">إسم الحساب</string>
+    <string name="adversiment_detials">تفاصيل الاعلان</string>
+    <string name="lost_car_search">بحث عن سياره مفقوده</string>
+    <string name="lost_car">السيارات المفقوده</string>
+    <string name="edit_profile">تعديل الصفحه الشخصيه</string>
+    <string name="followers">المتابعين</string>
+    <string name="piece_name">اسم القطعه</string>
     <string-array name="models">
         <item>اختر</item>
         <item>2000</item>

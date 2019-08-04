@@ -58,7 +58,8 @@ public class Fragment_Search extends Fragment {
     private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
     private Spinner_catogry_Adapter spinner_catogry_adapter;
     private Spinner_Sub_Sub_catogry_Adapter spinner_sub_sub_catogry_adapter;
-    private Spinner sp_cat, sp_sub_cat, sp_model;
+    private Spinner sp_cat;
+   // , sp_sub_cat, sp_model
     private ImageView im_search;
     private EditText edt_name;
     private Button bt_search;
@@ -69,11 +70,11 @@ public class Fragment_Search extends Fragment {
     private LinearLayout ll_no_order;
     private Spinner_Adapter city_adapter;
     private List<CityModel> cities_models;
-    private List<Catogry_Model.Categories.sub> subs;
+//    private List<Catogry_Model.Categories.sub> subs;
     private List<Catogry_Model.Categories> categories;
    // private List<Catogry_Model.Categories> categories2;
 
-    private List<Catogry_Model.Categories.sub.Sub> subs_sub;
+  //  private List<Catogry_Model.Categories.sub.Sub> subs_sub;
     private boolean isLoading = false;
     private int current_page = 1;
     private GridLayoutManager manager;
@@ -82,9 +83,10 @@ public class Fragment_Search extends Fragment {
     private UserModel userModel;
     private List<Catogry_Model.Advertsing> advertsings;
    // private List<Catogry_Model.Categories> categories;
-   private String city_id,cat_id,sub_id,model_id,platenumber,typeused;
+   // sub_id,model_id,platenumber,
+   private String city_id,cat_id,typeused;
     private RadioGroup group_type;
-private EditText edt_plate;
+//private EditText edt_plate;
     private Adversiment_Adapter adversiment_adapter;
 
     private String search;
@@ -110,7 +112,7 @@ private EditText edt_plate;
         edt_name = view.findViewById(R.id.edt_name);
 
         im_search = view.findViewById(R.id.im_search);
-        edt_plate=view.findViewById(R.id.edt_plate);
+  //      edt_plate=view.findViewById(R.id.edt_plate);
         group_type=view.findViewById(R.id.group_type);
         scrollView = view.findViewById(R.id.scrollable);
         rec_search = view.findViewById(R.id.rec_search);
@@ -119,35 +121,35 @@ private EditText edt_plate;
         cons = view.findViewById(R.id.cons1);
         cities = view.findViewById(R.id.sp_city);
         sp_cat = view.findViewById(R.id.sp_cat);
-        sp_sub_cat = view.findViewById(R.id.sp_sub_cat);
-        sp_model = view.findViewById(R.id.sp_model);
+      //  sp_sub_cat = view.findViewById(R.id.sp_sub_cat);
+       // sp_model = view.findViewById(R.id.sp_model);
         bt_search=view.findViewById(R.id.bt_search);
         //cities_models = new ArrayList<>();
         //categories2 = new ArrayList<>();
-        subs = new ArrayList<>();
-        subs_sub = new ArrayList<>();
+    //    subs = new ArrayList<>();
+      //  subs_sub = new ArrayList<>();
         cities_models = new ArrayList<>();
         if (cuurent_language.equals("ar")) {
             cities_models.add(new CityModel("مدينتى"));
          //   subs.add(new Catogry_Model.Categories.sub("الكل"));
-            subs.add(new Catogry_Model.Categories.sub("النوع"));
+        //    subs.add(new Catogry_Model.Categories.sub("النوع"));
             categories.add(new Catogry_Model.Categories("كل الاقسام"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
+          //  subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
         } else {
             cities_models.add(new CityModel("City"));
            // subs.add(new Catogry_Model.Categories.sub("all"));
-            subs.add(new Catogry_Model.Categories.sub("Type"));
+            //subs.add(new Catogry_Model.Categories.sub("Type"));
             categories.add(new Catogry_Model.Categories("all department"));
-            subs_sub.add(new Catogry_Model.Categories.sub.Sub("Model"));
+            //subs_sub.add(new Catogry_Model.Categories.sub.Sub("Model"));
         }
 
         city_adapter = new Spinner_Adapter(homeActivity, cities_models);
         spinner_catogry_adapter = new Spinner_catogry_Adapter(homeActivity, categories);
-        spinner_sub_catogry_adapter = new Spinner_Sub_catogry_Adapter(homeActivity, subs);
-        spinner_sub_sub_catogry_adapter = new Spinner_Sub_Sub_catogry_Adapter(homeActivity, subs_sub);
+        //spinner_sub_catogry_adapter = new Spinner_Sub_catogry_Adapter(homeActivity, subs);
+       // spinner_sub_sub_catogry_adapter = new Spinner_Sub_Sub_catogry_Adapter(homeActivity, subs_sub);
         sp_cat.setAdapter(spinner_catogry_adapter);
-        sp_sub_cat.setAdapter(spinner_sub_catogry_adapter);
-        sp_model.setAdapter(spinner_sub_sub_catogry_adapter);
+      //  sp_sub_cat.setAdapter(spinner_sub_catogry_adapter);
+        //sp_model.setAdapter(spinner_sub_sub_catogry_adapter);
         cities.setAdapter(city_adapter);
         cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -165,17 +167,17 @@ private EditText edt_plate;
         sp_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                subs.clear();
+         /*       subs.clear();
                 if (cuurent_language.equals("ar")) {
                     subs.add(new Catogry_Model.Categories.sub("النوع"));
 
                 } else {
                     subs.add(new Catogry_Model.Categories.sub("Type"));
 
-                }
-                if (i > 0 && categories.get(i).getsub() != null) {
-                    subs.addAll(categories.get(i).getsub());
-                    spinner_sub_catogry_adapter.notifyDataSetChanged();
+                }*/
+                if (i > 0 ) {
+                   // subs.addAll(categories.get(i).getsub());
+                   // spinner_sub_catogry_adapter.notifyDataSetChanged();
                     cat_id=categories.get(i).getMain_category_fk();
                 }
                 else {
@@ -187,19 +189,18 @@ private EditText edt_plate;
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });/*
         sp_sub_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                subs_sub.clear();
+               // subs_sub.clear();
                 if (cuurent_language.equals("ar")) {
                     subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
 
                 } else {
                     subs_sub.add(new Catogry_Model.Categories.sub.Sub("Model"));
 
-                }
-                if (i > 0 && subs.get(i).getSubs() != null) {
+                }if (i > 0 && subs.get(i).getSubs() != null) {
                     subs_sub.addAll(subs.get(i).getSubs());
                     spinner_sub_sub_catogry_adapter.notifyDataSetChanged();
                     //   Log.e("sssdd",subs.get(i).getSub_category_fk());
@@ -235,7 +236,7 @@ private EditText edt_plate;
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
         preferences = Preferences.getInstance();
@@ -301,32 +302,34 @@ bt_search.setOnClickListener(new View.OnClickListener() {
         current_page=1;
         advertsings.clear();
         type=1;
-        if(TextUtils.isEmpty(edt_plate.getText())){
+        /*if(TextUtils.isEmpty(edt_plate.getText().toString())){
             platenumber="all";
         }
         else {
+
             platenumber=edt_plate.getText().toString();
-        }
+        }*/
         if(group_type.getCheckedRadioButtonId()==R.id.r_new){
            // adversiment_model.setType("1");
             typeused="1";
         }
+
         else if(group_type.getCheckedRadioButtonId()==R.id.r_used){
           //  adversiment_model.setType("2");
             typeused="2";
 
         }
-searchadversment(city_id,cat_id,sub_id,model_id,typeused,platenumber);
+searchadversment(city_id,cat_id,typeused);
     }
 });
     }
 
-    private void searchadversment(String city_id, String cat_id, String sub_id, String model_id, String typeused, String platenumber) {
+    private void searchadversment(String city_id, String cat_id, String typeused) {
         progBar.setVisibility(View.VISIBLE);
         ll_no_order.setVisibility(View.GONE);
 
         Api.getService()
-                .searchadversment2(1, user_id,city_id,cat_id,sub_id,model_id,typeused,platenumber)
+                .searchadversment2(1, user_id,city_id,cat_id,typeused)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -409,7 +412,7 @@ searchadversment(city_id,cat_id,sub_id,model_id,typeused,platenumber);
     }
     private void loadMore2(int page) {
         Api.getService()
-                .searchadversment2(page, user_id,city_id , cat_id,sub_id,model_id,typeused,platenumber)
+                .searchadversment2(page, user_id,city_id , cat_id,typeused)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {

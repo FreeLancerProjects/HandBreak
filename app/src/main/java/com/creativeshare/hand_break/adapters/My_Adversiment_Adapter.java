@@ -31,17 +31,17 @@ public class My_Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.Vi
     private final int ITEM_LOAD = 2;
 
     private List<Catogry_Model.Advertsing> advertsings;
-    private List<Catogry_Model.Categories> categories;
+   // private List<Catogry_Model.Categories> categories;
 
     private Context context;
     private Fragment fragment;
 private HomeActivity activity;
-    public My_Adversiment_Adapter(List<Catogry_Model.Advertsing> advertsings, List<Catogry_Model.Categories> categories, Context context) {
+    public My_Adversiment_Adapter(List<Catogry_Model.Advertsing> advertsings,  Context context) {
 
         this.advertsings = advertsings;
         this.context = context;
 
-        this.categories = categories;
+       // this.categories = categories;
         activity=(HomeActivity)context;
     }
 

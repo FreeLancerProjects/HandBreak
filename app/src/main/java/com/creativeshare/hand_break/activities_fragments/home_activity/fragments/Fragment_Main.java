@@ -36,6 +36,7 @@ import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.adapters.Adversiment_Adapter;
 import com.creativeshare.hand_break.adapters.CatogriesAdapter;
+import com.creativeshare.hand_break.adapters.Spinner_catogry_Adapter;
 import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.adapters.Spinner_Adapter;
 import com.creativeshare.hand_break.adapters.Spinner_Sub_catogry_Adapter;
@@ -72,8 +73,8 @@ import retrofit2.Response;
 public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener {
     private HomeActivity homeActivity;
     private String cuurent_language;
-    private List<Catogry_Model.Categories.sub> subs;
-    private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
+    private List<Catogry_Model.Categories> subs;
+    private Spinner_catogry_Adapter spinner_catogry_adapter;
     private Spinner sub_cat, cities;
     private Spinner_Adapter city_adapter;
     private List<CityModel> cities_models;
@@ -81,6 +82,7 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
     private RecyclerView rec_catogry;
     private CatogriesAdapter catogriesAdapter;
     // private List<Catogry_Model.Categories> categories;
+
     private ImageView im_search;
     private Adversiment_Adapter adversiment_adapter;
     private List<Catogry_Model.Categories> categories1;
@@ -201,16 +203,16 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
         cities_models = new ArrayList<>();
         if (cuurent_language.equals("ar")) {
             cities_models.add(new CityModel("مدينتى"));
-            subs.add(new Catogry_Model.Categories.sub("النوع"));
+            subs.add(new Catogry_Model.Categories(" كل الاقسام"));
 
         } else {
             cities_models.add(new CityModel("City"));
-            subs.add(new Catogry_Model.Categories.sub("Type"));
+            subs.add(new Catogry_Model.Categories("Department"));
 
         }
 
-        spinner_sub_catogry_adapter = new Spinner_Sub_catogry_Adapter(homeActivity, subs);
-        sub_cat.setAdapter(spinner_sub_catogry_adapter);
+        spinner_catogry_adapter = new Spinner_catogry_Adapter(homeActivity, subs);
+        sub_cat.setAdapter(spinner_catogry_adapter);
         city_adapter = new Spinner_Adapter(homeActivity, cities_models);
         cities.setAdapter(city_adapter);
         adversiment_adapter = new Adversiment_Adapter(advertsings, homeActivity);
@@ -238,8 +240,10 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
                         //   Log.e("msg", page+"");
                         if (type == 2) {
                             loadMore(page);
-                        } else {
+                        } else if (type == 1) {
                             loadnearMore(page);
+                        } else if (type == 3) {
+                            loadMoremain(page);
                         }
                     }
                 }
@@ -255,7 +259,7 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
                     sub_id = "all";
 
                 } else {
-                    sub_id = subs.get(i).getSub_category_fk();
+                    sub_id = subs.get(i).getMain_category_fk();
                     getadversment();
 
                 }
@@ -300,7 +304,7 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
                 sub_id = "all";
                 cities.setSelection(0);
                 sub_cat.setSelection(0);
-                getadversment();
+                getnearadversment();
             }
         });
     }
@@ -309,18 +313,9 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
         return new Fragment_Main();
     }
 
-    public void addsubtosppinner(List<Catogry_Model.Categories.sub> subs, String maincatogryfk) {
+  /*
+    public void addsubtosppinner(List<Catogry_Model.Categories> subs, String maincatogryfk) {
 
-        this.subs.clear();
-        if (cuurent_language.equals("ar")) {
-            this.subs.add(new Catogry_Model.Categories.sub("النوع"));
-
-        } else {
-            this.subs.add(new Catogry_Model.Categories.sub("Type"));
-
-        }
-        this.subs.addAll(subs);
-        spinner_sub_catogry_adapter.notifyDataSetChanged();
         sub_cat.setSelection(0);
         this.maincatogryfk = maincatogryfk;
         city_id = "all";
@@ -329,7 +324,7 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
 
 
         getnearadversment();
-    }
+    }*/
 
     private void getnearadversment() {
         rec_search.setVisibility(View.GONE);
@@ -338,7 +333,7 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
         type = 1;
 
         Api.getService()
-                .getnearadversment(1, user_id, maincatogryfk, lat + "", lang + "")
+                .getnearadversment(1, user_id, lat + "", lang + "")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -439,7 +434,7 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
 
 
         Api.getService()
-                .getadversment(1, user_id, maincatogryfk, sub_id, city_id)
+                .getadversment(1, user_id, sub_id, city_id)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -487,7 +482,7 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
 
 
         Api.getService()
-                .getadversment(page, user_id, maincatogryfk, sub_id, city_id + "")
+                .getadversment(page, user_id, sub_id, city_id + "")
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -532,7 +527,104 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
 
 
         Api.getService()
-                .getnearadversment(page, user_id, maincatogryfk, lat + "", lang + "")
+                .getnearadversment(page, user_id, lat + "", lang + "")
+                .enqueue(new Callback<Catogry_Model>() {
+                    @Override
+                    public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
+                        advertsings.remove(advertsings.size() - 1);
+                        adversiment_adapter.notifyItemRemoved(advertsings.size() - 1);
+                        isLoading = false;
+                        if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
+
+                            advertsings.addAll(response.body().getAdvertsing());
+                            //categories.addAll(response.body().getCategories());
+
+                            adversiment_adapter.notifyDataSetChanged();
+
+                            current_page = response.body().getMeta().getCurrent_page();
+
+                        } else {
+                            Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Catogry_Model> call, Throwable t) {
+                        try {
+                            isLoading = false;
+                            advertsings.remove(advertsings.size() - 1);
+                            adversiment_adapter.notifyItemRemoved(advertsings.size() - 1);
+                            // isLoading = false;
+                            Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                            Log.e("error", t.getMessage());
+                        } catch (Exception e) {
+                        }
+                    }
+                });
+    }
+
+    private void getadversmentmain() {
+        type = 3;
+        rec_search.setVisibility(View.GONE);
+        ll_no_order.setVisibility(View.GONE);
+        progBar.setVisibility(View.VISIBLE);
+
+
+        Api.getService()
+                .getadversment(1, user_id, maincatogryfk)
+                .enqueue(new Callback<Catogry_Model>() {
+                    @Override
+                    public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
+                        progBar.setVisibility(View.GONE);
+                        rec_search.setVisibility(View.VISIBLE);
+                        if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
+                            advertsings.clear();
+                            advertsings.addAll(response.body().getAdvertsing());
+                            //categories.clear();
+                            //categories.addAll(response.body().getCategories());
+                            //total_page = response.body().getMeta().getLast_page();
+                            if (advertsings.size() > 0) {
+                                //ll_no_order.setVisibility(View.GONE);
+                                adversiment_adapter.notifyDataSetChanged();
+                                total_page = response.body().getMeta().getLast_page();
+                            } else {
+                                ll_no_order.setVisibility(View.VISIBLE);
+
+                            }
+                        } else {
+
+                            Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Catogry_Model> call, Throwable t) {
+                        try {
+
+                            progBar.setVisibility(View.GONE);
+                            Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                            Log.e("error", t.getMessage());
+                        } catch (Exception e) {
+                        }
+                    }
+                });
+    }
+
+    private void loadMoremain(int page) {
+
+
+        Api.getService()
+                .getadversment(page, user_id, maincatogryfk)
                 .enqueue(new Callback<Catogry_Model>() {
                     @Override
                     public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
@@ -585,8 +677,20 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
                         categories1.clear();
                         categories1.addAll(response.body().getCategories());
                         catogriesAdapter.notifyDataSetChanged();
-                        addsubtosppinner(response.body().getCategories().get(0).getsub(), response.body().getCategories().get(0).getMain_category_fk());
-                        getadversment();
+                        maincatogryfk = response.body().getCategories().get(0).getMain_category_fk();
+                        subs.clear();
+                        if (cuurent_language.equals("ar")) {
+                            subs.add(new Catogry_Model.Categories("الاقسام"));
+
+                        } else {
+                            subs.add(new Catogry_Model.Categories("Department"));
+
+                        }
+                        subs.addAll(response.body().getCategories());
+                        spinner_catogry_adapter.notifyDataSetChanged();
+                        //    addsubtosppinner(response.body().getCategories().get(0).getsub(), response.body().getCategories().get(0).getMain_category_fk());
+                        //getadversment();
+                        getadversmentmain();
                     } else {
                         // error.setText(activity.getString(R.string.no_data));
                         //recc.setVisibility(View.GONE);
@@ -699,5 +803,10 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
         };
         LocationServices.getFusedLocationProviderClient(homeActivity)
                 .requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+    }
+
+    public void searchmain(String main_category_fk) {
+        this.maincatogryfk = main_category_fk;
+        getadversmentmain();
     }
 }

@@ -42,20 +42,23 @@ public class Fragment_My_adversiment extends Fragment {
     private Preferences preferences;
     private UserModel userModel;
     private RecyclerView recView;
+    private ImageView back;
     private My_Adversiment_Adapter adversiment_adapter;
-    private List<Catogry_Model.Categories> categories;
+  //  private List<Catogry_Model.Categories> categories;
     private List<Catogry_Model.Advertsing> advertsings;
     private ProgressBar progBar;
     private LinearLayout ll_no_order;
     private boolean isLoading = false;
     private int current_page = 1,total_page;
     private GridLayoutManager manager;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_adversiment, container, false);
         initView(view);
-        categories();
+        //categories();
+        getadversment();
         return view;
     }
 
@@ -63,19 +66,23 @@ public class Fragment_My_adversiment extends Fragment {
         homeActivity = (HomeActivity) getActivity();
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
-        categories = new ArrayList<>();
+       // categories = new ArrayList<>();
         advertsings = new ArrayList<>();
 
         progBar = view.findViewById(R.id.progBar);
         recView = view.findViewById(R.id.recView);
+        back = view.findViewById(R.id.arrow_back);
 
 
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         ll_no_order = view.findViewById(R.id.ll_no_order);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
+        if (cuurent_language.equals("en")) {
 
-        adversiment_adapter = new My_Adversiment_Adapter(advertsings, categories, homeActivity);
+            back.setRotation(180);
+        }
+        adversiment_adapter = new My_Adversiment_Adapter(advertsings,  homeActivity);
         recView.setDrawingCacheEnabled(true);
         recView.setItemViewCacheSize(25);
         recView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
@@ -102,7 +109,12 @@ public class Fragment_My_adversiment extends Fragment {
                 }
             }
         });
-
+back.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        homeActivity.Back();
+    }
+});
     }
 
     public static Fragment_My_adversiment newInstance() {
@@ -195,7 +207,7 @@ public class Fragment_My_adversiment extends Fragment {
                     }
                 });
     }
-    public void categories() {
+   /* public void categories() {
 
         Api.getService().getcateogries(cuurent_language).enqueue(new Callback<Catogry_Model>() {
             @Override
@@ -241,5 +253,5 @@ public class Fragment_My_adversiment extends Fragment {
                 //mPager.setVisibility(View.GONE);
             }
         });
-    }
+    }*/
 }

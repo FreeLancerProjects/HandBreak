@@ -304,6 +304,8 @@
     android:textColor="@color/black"
     android:textColorHint="@color/gray4"
     android:inputType="number"
+    android:singleLine="true"
+
     />
             <Button
                 android:id="@+id/btn_send"

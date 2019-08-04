@@ -29,6 +29,9 @@
         android:textSize="14sp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:singleLine="true"
+        android:hint="@string/piece_name"
+
         />
     <ImageView
         android:id="@+id/im_search"
@@ -105,7 +108,7 @@ android:layout_marginTop="25dp"
 
 
         >
-        <EditText
+     <!--   <EditText
             android:id="@+id/edt_palte"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -113,12 +116,14 @@ android:layout_marginTop="25dp"
             android:textSize="14sp"
             android:background="@color/white"
             android:hint="@string/plate_number"
+            android:singleLine="true"
+
             />
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray7"
-            />
+            />-->
    <!--     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -199,7 +204,7 @@ android:layout_marginTop="25dp"
             android:textColor="@color/colorPrimary"
 
             />-->
-        <Spinner
+     <!--   <Spinner
             android:id="@+id/sp_sub_cat"
 
             android:layout_width="match_parent"
@@ -214,14 +219,14 @@ android:layout_marginTop="25dp"
             android:layout_height="1px"
             android:background="@color/gray7"
             />
-    <!--    <TextView
+       <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/model"
             android:textSize="16sp"
             android:textColor="@color/colorPrimary"
 
-            />-->
+            />
         <Spinner
             android:id="@+id/sp_model"
 
@@ -235,7 +240,7 @@ android:layout_marginTop="25dp"
             android:layout_height="1px"
             android:background="@color/gray7"
 
-            />
+            />-->
         <Button
             android:id="@+id/bt_search"
             android:layout_width="180dp"

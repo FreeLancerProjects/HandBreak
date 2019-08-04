@@ -74,7 +74,7 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
     private String cuurent_language;
     private Preferences preferences;
     private UserModel userModel;
-    private CountryCodePicker ccp_phone;
+   // private CountryCodePicker ccp_phone;
     private EditText edt_title, edt_phone, edt_price, edt_desc;
     private Button bt_add;
     private Adversiment_Model adversiment_model;
@@ -146,9 +146,10 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
         edt_phone = view.findViewById(R.id.edt_phone);
         edt_price = view.findViewById(R.id.edt_price);
         edt_desc = view.findViewById(R.id.edt_desc);
-        ccp_phone = view.findViewById(R.id.ccp);
+        //ccp_phone = view.findViewById(R.id.ccp);
         bt_add = view.findViewById(R.id.bt_add);
-        ccp_phone.registerCarrierNumberEditText(edt_phone);
+        //ccp_phone.registerCarrierNumberEditText(edt_phone);
+
         if (!adversiment_id.equals("-1")) {
             bt_add.setText(getResources().getString(R.string.edit));
         }
@@ -173,11 +174,11 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
                 } else {
                     if (adversiment_id.equals("-1")) {
                        // Log.e("mdg", adversiment_id);
-                        createads(title, ccp_phone.getSelectedCountryCode() + phone, price, desc,lat,lng);
+                        createads(title,  phone, price, desc,lat,lng);
                     } else {
                        // Log.e("msg", lat+" "+lng);
 
-                        updateeads(title, ccp_phone.getSelectedCountryCode() + phone, price, desc, adversiment_id,lat,lng);
+                        updateeads(title,  phone, price, desc, adversiment_id,lat,lng);
 
                     }
                 }
@@ -189,9 +190,9 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
         Adversiting_Model adversiting_model = Adversiment_Model.getAdversiting_model();
         if (adversiting_model != null) {
             edt_title.setText(adversiting_model.getAdvertisement_title());
-            ccp_phone.setFullNumber(adversiting_model.getPhone());
+         //   ccp_phone.setFullNumber(adversiting_model.getPhone());
 
-            edt_phone.setText(ccp_phone.getFullNumber());
+            edt_phone.setText(adversiting_model.getPhone());
             edt_desc.setText(adversiting_model.getAdvertisement_content());
             edt_price.setText(adversiting_model.getAdvertisement_price());
 lat=Double.parseDouble(adversiting_model.getGoogle_lat());
@@ -209,11 +210,11 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         dialog.show();
         RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
         RequestBody cat_part = Common.getRequestBodyText(adversiment_model.getCat_id());
-        RequestBody sub_part = Common.getRequestBodyText(adversiment_model.getSub_id());
-        RequestBody model_part = Common.getRequestBodyText(adversiment_model.getModel_id());
+        //RequestBody sub_part = Common.getRequestBodyText(adversiment_model.getSub_id());
+       // RequestBody model_part = Common.getRequestBodyText(adversiment_model.getModel_id());
         RequestBody city_part = Common.getRequestBodyText(adversiment_model.getCity_id());
         //RequestBody piece_part = Common.getRequestBodyText(adversiment_model.getPiece());
-        RequestBody plate_part = Common.getRequestBodyText(adversiment_model.getPalte());
+      //  RequestBody plate_part = Common.getRequestBodyText(adversiment_model.getPalte());
         RequestBody type_part = Common.getRequestBodyText(adversiment_model.getType());
         RequestBody title_part = Common.getRequestBodyText(title);
         RequestBody phone_part = Common.getRequestBodyText(phone);
@@ -227,7 +228,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
 
         List<MultipartBody.Part> partImageList = getMultipartBodyList(adversiment_model.getUris(), "advertisement_images[]");
 
-            Api.getService().updateads(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part, adversiment_part,lat_part,lng_part, partImageList,plate_part,type_part).enqueue(new Callback<Adversiting_Model>() {
+            Api.getService().updateads(user_part, cat_part,  title_part, desc_part, price_part, city_part, phone_part, adversiment_part,lat_part,lng_part, partImageList,type_part).enqueue(new Callback<Adversiting_Model>() {
                 @Override
                 public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
                     dialog.dismiss();
@@ -263,11 +264,11 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         dialog.show();
         RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
         RequestBody cat_part = Common.getRequestBodyText(adversiment_model.getCat_id());
-        RequestBody sub_part = Common.getRequestBodyText(adversiment_model.getSub_id());
-        RequestBody model_part = Common.getRequestBodyText(adversiment_model.getModel_id());
+      //  RequestBody sub_part = Common.getRequestBodyText(adversiment_model.getSub_id());
+        //RequestBody model_part = Common.getRequestBodyText(adversiment_model.getModel_id());
         RequestBody city_part = Common.getRequestBodyText(adversiment_model.getCity_id());
         //RequestBody piece_part = Common.getRequestBodyText(adversiment_model.getPiece());
-        RequestBody plate_part = Common.getRequestBodyText(adversiment_model.getPalte());
+       // RequestBody plate_part = Common.getRequestBodyText(adversiment_model.getPalte());
         RequestBody type_part = Common.getRequestBodyText(adversiment_model.getType());
         RequestBody title_part = Common.getRequestBodyText(title);
         RequestBody phone_part = Common.getRequestBodyText(phone);
@@ -276,7 +277,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
         RequestBody lat_part = Common.getRequestBodyText(lat+"");
         RequestBody lng_part = Common.getRequestBodyText(lng+"");
         List<MultipartBody.Part> partImageList = getMultipartBodyList(adversiment_model.getUris(), "advertisement_images[]");
-        Api.getService().addads(user_part, cat_part, sub_part, model_part, title_part, desc_part, price_part, city_part, phone_part,lat_part,lng_part,partImageList,plate_part,type_part).enqueue(new Callback<Catogry_Model.Advertsing>() {
+        Api.getService().addads(user_part, cat_part, title_part, desc_part, price_part, city_part, phone_part,lat_part,lng_part,partImageList,type_part).enqueue(new Callback<Catogry_Model.Advertsing>() {
             @Override
             public void onResponse(Call<Catogry_Model.Advertsing> call, Response<Catogry_Model.Advertsing> response) {
                 dialog.dismiss();
