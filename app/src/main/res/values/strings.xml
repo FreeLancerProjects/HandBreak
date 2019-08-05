@@ -140,6 +140,7 @@
     <string name="followers">Followers</string>
     <string name="piece_name">Piece name</string>
     <string name="upload_car_image">upload Car Images</string>
+    <string name="same_adversiment">Same Adversiment</string>
     <string-array name="models">
         <item>Choose</item>
 
