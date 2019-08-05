@@ -339,6 +339,12 @@ else {
 
     private void updateTermsContent(Adversiting_Model advertsing) {
         this.adversiting_model=advertsing;
+        if (this.adversiting_model.getAdvertisement_user() == userModel.getUser_id()) {
+            cons_chat.setVisibility(View.GONE);
+            cons_profile.setVisibility(View.GONE);
+            cons_follow.setVisibility(View.GONE);
+
+        }
         tv_time.setText(Time_Ago.getTimeAgo(Long.parseLong(advertsing.getAdvertisement_date()), activity));
         tv_title.setText(advertsing.getAdvertisement_title());
        // Log.e("msg", Integer.parseInt(advertsing.getAdvertisement_date()) + "");
