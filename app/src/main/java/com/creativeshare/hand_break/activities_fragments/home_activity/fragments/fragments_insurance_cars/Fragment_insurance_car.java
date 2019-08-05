@@ -71,7 +71,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
     private final int IMG_REQ1 = 1, IMG_REQ2 = 2;
     private Uri imgUri1 = null, imgUri2 = null;
     private EditText phone, name, id_num, car_type;
-    private CountryCodePicker countryCodePicker;
+   // private CountryCodePicker countryCodePicker;
     private Button btn_send;
     // private ImageView image_phone_code;
     private LinearLayout ll_date;
@@ -131,15 +131,15 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
                 activity.Back();
             }
         });
-        tv_code = view.findViewById(R.id.tv_code);
+//        tv_code = view.findViewById(R.id.tv_code);
         phone = view.findViewById(R.id.edt_phone);
         name = view.findViewById(R.id.edt_name);
         id_num = view.findViewById(R.id.edt_residency_number);
         tv_date = view.findViewById(R.id.tv_date);
         car_type = view.findViewById(R.id.edt_car_type);
         ll_date = view.findViewById(R.id.ll_date);
-        countryCodePicker = view.findViewById(R.id.ccp);
-        countryCodePicker.registerCarrierNumberEditText(phone);
+      //  countryCodePicker = view.findViewById(R.id.ccp);
+        //countryCodePicker.registerCarrierNumberEditText(phone);
         spinner_model = view.findViewById(R.id.spinner_model);
         fl1 = view.findViewById(R.id.fl1);
         fl2 = view.findViewById(R.id.fl2);
@@ -149,14 +149,14 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
         image2 = view.findViewById(R.id.image_form);
         btn_send = view.findViewById(R.id.btn_send);
         spinner_model.setAdapter(arrayAdapter);
-        tv_code.setText(countryCodePicker.getSelectedCountryCode());
+  //      tv_code.setText(countryCodePicker.getSelectedCountryCode());
 
-        countryCodePicker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
+       /* countryCodePicker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
             public void onCountrySelected() {
                 tv_code.setText(countryCodePicker.getSelectedCountryCode());
             }
-        });
+        });*/
         spinner_model.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -216,7 +216,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
         String m_id_num = id_num.getText().toString();
 
         if (!TextUtils.isEmpty(m_phone) &&
-                countryCodePicker.isValidFullNumber() &&
+
                 !TextUtils.isEmpty(m_name) &&
                 !TextUtils.isEmpty(m_car_typee) &&
                 !TextUtils.isEmpty(m_id_num) &&
@@ -239,12 +239,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
             }
             makeinsurance(m_phone, m_name, m_car_typee, m_id_num, model_id, date, in_type);
         } else {
-            if (!countryCodePicker.isValidFullNumber()) {
-                phone.setError("");
-            } else {
-                //  tv_code.setError(null);
 
-            }
             if (TextUtils.isEmpty(m_phone)) {
                 phone.setError(getString(R.string.field_req));
             } else {
