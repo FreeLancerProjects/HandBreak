@@ -88,7 +88,7 @@ public class Fragment_Home extends Fragment {
                     if (userModel.getUser_type().equals("2")) {
                         homeActivity.getoAds("-1");
                     } else {
-                        Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.upgrade));
+                        Common.CreateSignAlertDialog2(homeActivity, getResources().getString(R.string.upgrade));
                     }
                 } else {
                     Common.CreateUserNotSignInAlertDialog(homeActivity);
