@@ -116,7 +116,6 @@ super.onBackPressed();
            returnIntent.putExtra("result","-1");
            setResult(RESULT_OK,returnIntent);
            finish();
-           finish();
        }
 
     }

@@ -284,7 +284,7 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
                 dialog.dismiss();
                 if (response.isSuccessful()) {
                     //   Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.suc));
-                    adsActivity.finish();
+                    adsActivity.finish(response.body().getId_advertisement());
                 } else {
                     Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.failed));
 
