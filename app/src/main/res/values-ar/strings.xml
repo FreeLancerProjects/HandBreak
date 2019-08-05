@@ -141,7 +141,7 @@
     <string name="followers">المتابعين</string>
     <string name="piece_name">اسم القطعه</string>
     <string name="upload_car_image">رفع صور السياره</string>
-    <string name="same_adversiment">Same Adversiment</string>
+    <string name="same_adversiment">الاعلانات المشابهه</string>
     <string-array name="models">
         <item>اختر</item>
         <item>2000</item>
