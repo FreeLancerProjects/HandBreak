@@ -235,6 +235,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
             edt_comment.setError(getResources().getString(R.string.field_req));
         }
         else {
+            Common.CloseKeyBoard(activity,edt_comment);
             addcomment(comment);
         }
     }

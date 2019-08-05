@@ -190,11 +190,7 @@ public class Fragment_Main extends Fragment implements GoogleApiClient.OnConnect
         rec_catogry.setDrawingCacheEnabled(true);
         rec_catogry.setItemViewCacheSize(25);
         rec_catogry.setAdapter(catogriesAdapter);
-        if (userModel == null) {
-            user_id = "";
-        } else {
-            user_id = userModel.getUser_id();
-        }
+
 
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(homeActivity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 

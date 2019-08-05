@@ -167,7 +167,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:background="@color/white"
-                    android:hint="@string/name"
+                    android:hint="@string/responsible_person"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="14sp"
@@ -352,8 +352,6 @@
                         android:layout_weight="1"
                         />
                 </RadioGroup>
-
-
 
 
             </LinearLayout>

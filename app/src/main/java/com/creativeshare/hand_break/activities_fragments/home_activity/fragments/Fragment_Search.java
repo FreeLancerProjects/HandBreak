@@ -78,13 +78,13 @@ public class Fragment_Search extends Fragment {
     private boolean isLoading = false;
     private int current_page = 1;
     private GridLayoutManager manager;
-    private String user_id;
+    private String user_id="all";
     private Preferences preferences;
     private UserModel userModel;
     private List<Catogry_Model.Advertsing> advertsings;
    // private List<Catogry_Model.Categories> categories;
    // sub_id,model_id,platenumber,
-   private String city_id,cat_id,typeused;
+   private String city_id="all",cat_id="all",typeused;
     private RadioGroup group_type;
 //private EditText edt_plate;
     private Adversiment_Adapter adversiment_adapter;
@@ -156,6 +156,9 @@ public class Fragment_Search extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i>0){
                     city_id=cities_models.get(i).getId_city();
+                }
+                else {
+                    city_id="all";
                 }
             }
 

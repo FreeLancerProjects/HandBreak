@@ -629,7 +629,8 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==1){
+        if(resultCode==RESULT_OK){
+          //  Log.e("lkkkk",resultCode+"");
             if(!data.getStringExtra("result").equals("-1")){
             DisplayFragmentAdversimentDetials(data.getStringExtra("result"));
         }}
