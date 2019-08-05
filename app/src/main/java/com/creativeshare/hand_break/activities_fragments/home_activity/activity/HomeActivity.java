@@ -492,7 +492,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(HomeActivity.this, AdsActivity.class);
         intent.putExtra("adversiment_id", adversiment_id);
 
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
 
@@ -628,10 +628,16 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1){
+            if(!data.getStringExtra("result").equals("-1")){
+            DisplayFragmentAdversimentDetials(data.getStringExtra("result"));
+        }}
+        else {
         List<Fragment> fragmentList = fragmentManager.getFragments();
         for (Fragment fragment : fragmentList) {
-            fragment.onActivityResult(requestCode, resultCode, data);
+            fragment.onActivityResult(requestCode, resultCode, data);}
         }
+
     }
 
     @Override

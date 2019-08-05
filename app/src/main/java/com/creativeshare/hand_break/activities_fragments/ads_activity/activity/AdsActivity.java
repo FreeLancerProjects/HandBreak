@@ -1,6 +1,7 @@
 package com.creativeshare.hand_break.activities_fragments.ads_activity.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -111,8 +112,19 @@ fragment_count-=1;
 super.onBackPressed();
        }
        else {
+           Intent returnIntent = new Intent();
+           returnIntent.putExtra("result","-1");
+           setResult(RESULT_OK,returnIntent);
+           finish();
            finish();
        }
 
+    }
+
+    public void finish(String id_advertisement) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",id_advertisement);
+        setResult(RESULT_OK,returnIntent);
+        finish();
     }
 }
