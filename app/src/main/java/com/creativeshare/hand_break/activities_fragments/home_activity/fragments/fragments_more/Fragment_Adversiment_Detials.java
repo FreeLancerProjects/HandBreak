@@ -339,7 +339,7 @@ else {
 
     private void updateTermsContent(Adversiting_Model advertsing) {
         this.adversiting_model=advertsing;
-        if (this.adversiting_model.getAdvertisement_user() == userModel.getUser_id()) {
+        if (this.adversiting_model.getAdvertisement_user().equals(userModel.getUser_id())) {
             cons_chat.setVisibility(View.GONE);
             cons_profile.setVisibility(View.GONE);
             cons_follow.setVisibility(View.GONE);
