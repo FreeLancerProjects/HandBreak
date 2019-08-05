@@ -83,7 +83,7 @@
 
                     />
 
-                <TextView
+      <!--          <TextView
                     android:id="@+id/tv_code"
                     android:layout_width="wrap_content"
                     android:layout_height="37dp"
@@ -100,7 +100,7 @@
                     app:layout_constraintStart_toEndOf="@id/icon_phone"
                     app:layout_constraintTop_toTopOf="parent"
 
-                    />
+                    />-->
 
                 <View
                     android:id="@+id/view"
@@ -110,7 +110,7 @@
                     android:layout_marginBottom="5dp"
                     android:background="@color/gray4"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_code"
+                    app:layout_constraintStart_toEndOf="@id/view"
                     app:layout_constraintTop_toTopOf="parent"
 
                     />
@@ -130,41 +130,12 @@
                     android:textColorHint="@color/gray4"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/view2"
-                    app:layout_constraintStart_toEndOf="@id/view"
-
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/gray4"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/ccp"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <com.hbb20.CountryCodePicker
-                    android:id="@+id/ccp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="45dp"
-                    android:layout_weight=".1"
-                    android:background="@color/white"
-                    app:ccpDialog_backgroundColor="@color/white"
-                    app:ccpDialog_textColor="@color/black"
-                    app:ccp_showFlag="false"
-                    app:ccp_showFullName="false"
-                    app:ccp_showNameCode="false"
-                    app:ccp_showPhoneCode="false"
-
-                    app:ccp_showArrow="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    ></com.hbb20.CountryCodePicker>
+                    app:layout_constraintStart_toEndOf="@id/icon_phone"
+
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout

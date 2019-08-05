@@ -62,7 +62,7 @@
                     android:background="@color/white"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray4"
-                    android:hint="@string/name"
+                    android:hint="@string/search"
                     android:singleLine="true"
                     android:imeOptions="actionSearch"
                     android:textSize="14sp"

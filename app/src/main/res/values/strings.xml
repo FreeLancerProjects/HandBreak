@@ -65,7 +65,7 @@
     <string name="member_since">Member since </string>
     <string name="failed">Failed</string>
     <string name="my_advertisment">My Adverimant</string>
-    <string name="upload">Upload Images</string>
+    <string name="upload">Upload piece Images</string>
     <string name="perm_image_denied">Permision Images Deined</string>
     <string name="complete_all">Commplete You Information</string>
     <string name="used">Used</string>
@@ -139,6 +139,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="followers">Followers</string>
     <string name="piece_name">Piece name</string>
+    <string name="upload_car_image">upload Car Images</string>
     <string-array name="models">
         <item>Choose</item>
 
