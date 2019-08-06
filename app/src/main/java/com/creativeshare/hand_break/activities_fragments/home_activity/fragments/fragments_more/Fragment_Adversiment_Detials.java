@@ -70,21 +70,21 @@ public class Fragment_Adversiment_Detials extends Fragment {
     private String id_advertisement;
     private HomeActivity activity;
     private String cuurent_language;
-    private ImageView back,im_follow;
-    private TextView tv_title, tv_time, tv_coomericail, tv_name, tv_city, tv_desc, tv_phone,tv_type;
+    private ImageView back, im_follow;
+    private TextView tv_title, tv_time, tv_coomericail, tv_name, tv_city, tv_desc, tv_phone, tv_type;
     private ViewPager mPager;
     private TabLayout indicator;
-    private RecyclerView recyclerView_images,recyclerView_comment;
-    private ConstraintLayout cons_chat,cons_follow,cons_comment,cons_profile;
+    private RecyclerView recyclerView_images, recyclerView_comment;
+    private ConstraintLayout cons_chat, cons_follow, cons_comment, cons_profile;
     private EditText edt_comment;
-    private int current_page = 0, NUM_PAGES,total_page,current_page1=1;
+    private int current_page = 0, NUM_PAGES, total_page, current_page1 = 1;
     private ProgressBar progBar;
     private SlidingImage_Adapter slidingImage__adapter;
     private Same_Adversiment_GalleryAdapter same_adversiment_galleryAdapter;
     private Adversiment_Comment_Adapter adversiment_comment_adapter;
     private List<Adversiting_Model.Same_advertisements> advertisementsList;
     private List<Adversiment_Comment_Model.Data> data;
-    private boolean isCreateChat=false;
+    private boolean isCreateChat = false;
     private Adversiting_Model adversiting_model;
     private GridLayoutManager manager;
     private UserModel userModel;
@@ -112,10 +112,10 @@ public class Fragment_Adversiment_Detials extends Fragment {
     private void intitview(View view) {
         id_advertisement = getArguments().getString(Tag1);
         advertisementsList = new ArrayList<>();
-        data=new ArrayList<>();
+        data = new ArrayList<>();
         activity = (HomeActivity) getActivity();
         preferences = Preferences.getInstance();
-        userModel=preferences.getUserData(activity);
+        userModel = preferences.getUserData(activity);
         Paper.init(activity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         back = view.findViewById(R.id.arrow_back);
@@ -126,18 +126,18 @@ public class Fragment_Adversiment_Detials extends Fragment {
         tv_city = view.findViewById(R.id.tv_city);
         tv_desc = view.findViewById(R.id.tv_desc);
         tv_phone = view.findViewById(R.id.tv_phone);
-        tv_type=view.findViewById(R.id.tv_type);
+        tv_type = view.findViewById(R.id.tv_type);
         progBar = view.findViewById(R.id.progBar);
         mPager = view.findViewById(R.id.pager);
         indicator = view.findViewById(R.id.tablayout);
-        recyclerView_comment=view.findViewById(R.id.rec_comment);
+        recyclerView_comment = view.findViewById(R.id.rec_comment);
         recyclerView_images = view.findViewById(R.id.rec_images);
-        im_follow=view.findViewById(R.id.im8);
-        cons_follow=view.findViewById(R.id.cons5);
-        cons_chat=view.findViewById(R.id.cons3);
-        cons_comment=view.findViewById(R.id.cons_comment);
-        edt_comment=view.findViewById(R.id.edt_comment);
-        cons_profile=view.findViewById(R.id.cons_profile);
+        im_follow = view.findViewById(R.id.im8);
+        cons_follow = view.findViewById(R.id.cons5);
+        cons_chat = view.findViewById(R.id.cons3);
+        cons_comment = view.findViewById(R.id.cons_comment);
+        edt_comment = view.findViewById(R.id.edt_comment);
+        cons_profile = view.findViewById(R.id.cons_profile);
         progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         // preferences = Preferences.getInstance();
         recyclerView_images.setDrawingCacheEnabled(true);
@@ -147,9 +147,9 @@ public class Fragment_Adversiment_Detials extends Fragment {
         recyclerView_comment.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
         recyclerView_comment.setItemViewCacheSize(25);
         same_adversiment_galleryAdapter = new Same_Adversiment_GalleryAdapter(advertisementsList, activity);
-        adversiment_comment_adapter=new Adversiment_Comment_Adapter(data,activity);
+        adversiment_comment_adapter = new Adversiment_Comment_Adapter(data, activity);
         recyclerView_images.setLayoutManager(new GridLayoutManager(activity, 3));
-        manager=new GridLayoutManager(activity,1);
+        manager = new GridLayoutManager(activity, 1);
         recyclerView_comment.setLayoutManager(manager);
         recyclerView_images.setAdapter(same_adversiment_galleryAdapter);
         recyclerView_comment.setAdapter(adversiment_comment_adapter);
@@ -187,9 +187,9 @@ public class Fragment_Adversiment_Detials extends Fragment {
         cons_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(userModel!=null){
-                    search();}
-                else {
+                if (userModel != null) {
+                    search();
+                } else {
                     Common.CreateUserNotSignInAlertDialog(activity);
                 }
             }
@@ -197,10 +197,9 @@ public class Fragment_Adversiment_Detials extends Fragment {
         cons_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(userModel!=null){
+                if (userModel != null) {
                     followadversiment();
-                }
-                else {
+                } else {
                     Common.CreateUserNotSignInAlertDialog(activity);
                 }
             }
@@ -208,10 +207,9 @@ public class Fragment_Adversiment_Detials extends Fragment {
         cons_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(userModel!=null){
+                if (userModel != null) {
                     checkdata();
-                }
-                else {
+                } else {
                     Common.CreateUserNotSignInAlertDialog(activity);
                 }
             }
@@ -219,7 +217,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
         cons_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(userModel!=null){
+                if (userModel != null) {
                     Adversiment_Model.setId(adversiting_model.getAdvertisement_user());
                     activity.DisplayFragmentProfile();
                 }
@@ -229,14 +227,12 @@ public class Fragment_Adversiment_Detials extends Fragment {
     }
 
 
-
     private void checkdata() {
-        String comment=edt_comment.getText().toString();
-        if(TextUtils.isEmpty(comment)){
+        String comment = edt_comment.getText().toString();
+        if (TextUtils.isEmpty(comment)) {
             edt_comment.setError(getResources().getString(R.string.field_req));
-        }
-        else {
-            Common.CloseKeyBoard(activity,edt_comment);
+        } else {
+            Common.CloseKeyBoard(activity, edt_comment);
             addcomment(comment);
         }
     }
@@ -245,18 +241,17 @@ public class Fragment_Adversiment_Detials extends Fragment {
         final ProgressDialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService().addcomment(id_advertisement,userModel.getUser_id(),comment).enqueue(new Callback<Adversiment_Comment_Model>() {
+        Api.getService().addcomment(id_advertisement, userModel.getUser_id(), comment).enqueue(new Callback<Adversiment_Comment_Model>() {
             @Override
             public void onResponse(Call<Adversiment_Comment_Model> call, Response<Adversiment_Comment_Model> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     getadversmentcomment();
                     edt_comment.setText("");
                     dialog.dismiss();
-                }
-                else {
+                } else {
                     dialog.dismiss();
-                    Toast.makeText(activity,getResources().getString(R.string.failed),Toast.LENGTH_LONG).show();
-                    Log.e("Error_Code ",response.code()+"_"+response.errorBody());
+                    Toast.makeText(activity, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
+                    Log.e("Error_Code ", response.code() + "_" + response.errorBody());
 
                 }
             }
@@ -264,9 +259,9 @@ public class Fragment_Adversiment_Detials extends Fragment {
             @Override
             public void onFailure(Call<Adversiment_Comment_Model> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(activity,getResources().getString(R.string.something),Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, getResources().getString(R.string.something), Toast.LENGTH_LONG).show();
 
-                Log.e("Error",t.getMessage());
+                Log.e("Error", t.getMessage());
             }
         });
     }
@@ -275,35 +270,33 @@ public class Fragment_Adversiment_Detials extends Fragment {
         final ProgressDialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService().followadversiment(id_advertisement,userModel.getUser_id()).enqueue(new Callback<ResponseBody>() {
+        Api.getService().followadversiment(id_advertisement, userModel.getUser_id()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 dialog.dismiss();
 
-                if (response.isSuccessful() ) {
-                   // Log.e("foll",id_advertisement+"  "+userModel.getUser_id());
-if(adversiting_model.isFollow_status()==true){
-    im_follow.setImageDrawable(getResources().getDrawable(R.drawable.follow));
-    adversiting_model.setFollow_status(false);
-}
-else {
-    im_follow.setImageDrawable(getResources().getDrawable(R.drawable.ic_follow));
-    adversiting_model.setFollow_status(true);
+                if (response.isSuccessful()) {
+                    // Log.e("foll",id_advertisement+"  "+userModel.getUser_id());
+                    if (adversiting_model.isFollow_status() == true) {
+                        im_follow.setImageDrawable(getResources().getDrawable(R.drawable.follow));
+                        adversiting_model.setFollow_status(false);
+                    } else {
+                        im_follow.setImageDrawable(getResources().getDrawable(R.drawable.ic_follow));
+                        adversiting_model.setFollow_status(true);
 
-}
-                }
-                else {
-                    Toast.makeText(activity,getResources().getString(R.string.failed),Toast.LENGTH_LONG).show();
-                    Log.e("Error_Code ",response.code()+"_"+response.errorBody());
+                    }
+                } else {
+                    Toast.makeText(activity, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
+                    Log.e("Error_Code ", response.code() + "_" + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(activity,getResources().getString(R.string.something),Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, getResources().getString(R.string.something), Toast.LENGTH_LONG).show();
 
-                Log.e("Error",t.getMessage());
+                Log.e("Error", t.getMessage());
             }
         });
     }
@@ -314,7 +307,7 @@ else {
         dialog.setCancelable(false);
         dialog.show();
         getadversmentcomment();
-        Api.getService().getadversmentdetials(id_advertisement,userModel.getUser_id()).enqueue(new Callback<Adversiting_Model>() {
+        Api.getService().getadversmentdetials(id_advertisement, userModel.getUser_id()).enqueue(new Callback<Adversiting_Model>() {
             @Override
             public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
 
@@ -339,34 +332,31 @@ else {
     }
 
     private void updateTermsContent(Adversiting_Model advertsing) {
-        this.adversiting_model=advertsing;
+        this.adversiting_model = advertsing;
         if (this.adversiting_model.getAdvertisement_user().equals(userModel.getUser_id())) {
             cons_chat.setVisibility(View.INVISIBLE);
             cons_profile.setVisibility(View.INVISIBLE);
             cons_follow.setVisibility(View.INVISIBLE);
-
+            cons_profile.setVisibility(View.INVISIBLE);
         }
-        if(this.adversiting_model.getMain_category_fk().equals("8")){
-            if(adversiting_model.getAdvertisement_type().equals("1")){
+        if (this.adversiting_model.getMain_category_fk().equals("8")) {
+            if (adversiting_model.getAdvertisement_type().equals("1")) {
                 tv_type.setText(getResources().getString(R.string.i_found_it));
-            }
-            else {
+            } else {
                 tv_type.setText(getResources().getString(R.string.my_car));
 
             }
-        }
-        else {
-            if(adversiting_model.getAdvertisement_type().equals("1")){
+        } else {
+            if (adversiting_model.getAdvertisement_type().equals("1")) {
                 tv_type.setText(getResources().getString(R.string.news));
-            }
-            else {
+            } else {
                 tv_type.setText(getResources().getString(R.string.used));
 
             }
         }
         tv_time.setText(Time_Ago.getTimeAgo(Long.parseLong(advertsing.getAdvertisement_date()), activity));
         tv_title.setText(advertsing.getAdvertisement_title());
-       // Log.e("msg", Integer.parseInt(advertsing.getAdvertisement_date()) + "");
+        // Log.e("msg", Integer.parseInt(advertsing.getAdvertisement_date()) + "");
         tv_name.setText(advertsing.getUser_name());
         tv_phone.setText(advertsing.getPhone());
         tv_city.setText(advertsing.getCity_title());
@@ -375,10 +365,9 @@ else {
         progBar.setVisibility(View.GONE);
         NUM_PAGES = advertsing.getAdvertisement_images().size();
         slidingImage__adapter = new SlidingImage_Adapter(activity, advertsing.getAdvertisement_images());
-        if(advertsing.isFollow_status()==true){
+        if (advertsing.isFollow_status() == true) {
             im_follow.setImageDrawable(getResources().getDrawable(R.drawable.ic_follow));
-        }
-        else {
+        } else {
             im_follow.setImageDrawable(getResources().getDrawable(R.drawable.follow));
 
         }
@@ -408,21 +397,23 @@ else {
             }
         }, 3000, 3000);
     }
+
     private void search() {
         //   userSearchModelList.clear();
-        progBar.setVisibility(View.VISIBLE);
-       // Log.e("msg",adversiting_model.getAdvertisement_user());
+        final ProgressDialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        // Log.e("msg",adversiting_model.getAdvertisement_user());
         Api.getService()
                 .searchUsers(adversiting_model.getUser_name(), userModel.getUser_id())
                 .enqueue(new Callback<UserSearchDataModel>() {
                     @Override
                     public void onResponse(Call<UserSearchDataModel> call, Response<UserSearchDataModel> response) {
-                        progBar.setVisibility(View.GONE);
-                        if (response.isSuccessful()&&response.body()!=null&&response.body().getData()!=null)
-                        {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
                             //  userSearchModelList.addAll(response.body().getData());
                             //adapter.notifyDataSetChanged();
-                            UserSearchDataModel.UserSearchModel userSearchDataModel=response.body().getData().get(0);
+                            UserSearchDataModel.UserSearchModel userSearchDataModel = response.body().getData().get(0);
                             gotochat(userSearchDataModel);
 
                         }
@@ -431,47 +422,46 @@ else {
                     @Override
                     public void onFailure(Call<UserSearchDataModel> call, Throwable t) {
                         try {
-                            progBar.setVisibility(View.GONE);
+                            dialog.dismiss();
                             Toast.makeText(activity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                            Log.e("Error",t.getMessage());
-                        }catch (Exception e){}
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+                        }
                     }
                 });
     }
 
     private void gotochat(UserSearchDataModel.UserSearchModel userSearchDataModel) {
-        if(userSearchDataModel.getRoom_id().equals("0"))
-        {
+        if (userSearchDataModel.getRoom_id().equals("0")) {
             getChatRoomId(userSearchDataModel);
-        }else
-        {
-            ChatUserModel chatUserModel = new ChatUserModel(userSearchDataModel.getUser_name(),userSearchDataModel.getUser_image(),userSearchDataModel.getUser_id(),userSearchDataModel.getRoom_id(),userSearchDataModel.getDate_registration());
+        } else {
+            ChatUserModel chatUserModel = new ChatUserModel(userSearchDataModel.getUser_name(), userSearchDataModel.getUser_image(), userSearchDataModel.getUser_id(), userSearchDataModel.getRoom_id(), userSearchDataModel.getDate_registration());
             Intent intent = new Intent(activity, ChatActivity.class);
-            intent.putExtra("data",chatUserModel);
-            intent.putExtra("from",true);
+            intent.putExtra("data", chatUserModel);
+            intent.putExtra("from", true);
             startActivity(intent);
         }
     }
+
     private void getChatRoomId(final UserSearchDataModel.UserSearchModel userSearchModel) {
-        final ProgressDialog dialog = Common.createProgressDialog(activity,getString(R.string.wait));
+        final ProgressDialog dialog = Common.createProgressDialog(activity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
 
         Api.getService()
-                .getRoomId(userSearchModel.getUser_id(),userSearchModel.getUser_id())
+                .getRoomId(userSearchModel.getUser_id(), userSearchModel.getUser_id())
                 .enqueue(new Callback<RoomIdModel>() {
                     @Override
                     public void onResponse(Call<RoomIdModel> call, Response<RoomIdModel> response) {
                         dialog.dismiss();
-                        if (response.isSuccessful()&&response.body()!=null)
-                        {
+                        if (response.isSuccessful() && response.body() != null) {
                             isCreateChat = true;
                             userSearchModel.setRoom_id(response.body().getRoom_id());
 
-                            ChatUserModel chatUserModel = new ChatUserModel(userSearchModel.getUser_name(),userSearchModel.getUser_image(),userSearchModel.getUser_id(),userSearchModel.getRoom_id(),userSearchModel.getDate_registration());
+                            ChatUserModel chatUserModel = new ChatUserModel(userSearchModel.getUser_name(), userSearchModel.getUser_image(), userSearchModel.getUser_id(), userSearchModel.getRoom_id(), userSearchModel.getDate_registration());
                             Intent intent = new Intent(activity, ChatActivity.class);
-                            intent.putExtra("data",chatUserModel);
-                            intent.putExtra("from",true);
+                            intent.putExtra("data", chatUserModel);
+                            intent.putExtra("from", true);
                             startActivity(intent);
                         }
                     }
@@ -481,11 +471,13 @@ else {
                         try {
                             dialog.dismiss();
                             Toast.makeText(activity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                            Log.e("Error",t.getMessage());
-                        }catch (Exception e){}
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+                        }
                     }
                 });
     }
+
     private void getadversmentcomment() {
         //progBar.setVisibility(View.VISIBLE);
         // ll_no_order.setVisibility(View.GONE);
@@ -496,12 +488,12 @@ else {
                     public void onResponse(Call<Adversiment_Comment_Model> call, Response<Adversiment_Comment_Model> response) {
                         progBar.setVisibility(View.GONE);
                         if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
-                           // Log.e("data",response.body().getData().get(0).getDate());
+                            // Log.e("data",response.body().getData().get(0).getDate());
                             data.clear();
 
                             data.addAll(response.body().getData());
                             adversiment_comment_adapter.notifyDataSetChanged();
-                            total_page=response.body().getMeta().getLast_page();
+                            total_page = response.body().getMeta().getLast_page();
 
 
                         } else {
@@ -545,8 +537,8 @@ else {
                             // categories.addAll(response.body().getCategories());
 
                             adversiment_comment_adapter.notifyDataSetChanged();
-                            current_page1=response.body().getMeta().getCurrent_page();
-                         //   Log.e("msg", response.code() + "  " +response.body().getData().size());
+                            current_page1 = response.body().getMeta().getCurrent_page();
+                            //   Log.e("msg", response.code() + "  " +response.body().getData().size());
 
                         } else {
                             Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show();

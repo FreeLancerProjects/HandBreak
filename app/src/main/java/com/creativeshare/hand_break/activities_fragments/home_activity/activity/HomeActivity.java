@@ -39,6 +39,7 @@ import com.creativeshare.hand_break.activities_fragments.home_activity.fragments
 import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_msg_notfy.Fragment_Message_Notifications;
 import com.creativeshare.hand_break.activities_fragments.sign_in_sign_up_activity.activity.Login_Activity;
 import com.creativeshare.hand_break.language.Language_Helper;
+import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.models.Notification_Model;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
@@ -658,7 +659,6 @@ public class HomeActivity extends AppCompatActivity {
             fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
 
 
 }

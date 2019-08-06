@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
+import com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more.Fragment_My_adversiment;
 import com.creativeshare.hand_break.models.Catogry_Model;
+import com.creativeshare.hand_break.share.Common;
 import com.creativeshare.hand_break.tags.Tags;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
@@ -36,13 +38,15 @@ public class My_Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.Vi
     private Context context;
     private Fragment fragment;
 private HomeActivity activity;
-    public My_Adversiment_Adapter(List<Catogry_Model.Advertsing> advertsings,  Context context) {
+private Fragment_My_adversiment fragment_my_adversiment;
+    public My_Adversiment_Adapter(List<Catogry_Model.Advertsing> advertsings, Context context, Fragment_My_adversiment fragment_my_adversiment) {
 
         this.advertsings = advertsings;
         this.context = context;
 
        // this.categories = categories;
         activity=(HomeActivity)context;
+        this.fragment_my_adversiment=fragment_my_adversiment;
     }
 
     @NonNull
@@ -77,7 +81,20 @@ private HomeActivity activity;
             ((MyHolder) holder).im_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(!advertsings.get(holder.getLayoutPosition()).getMain_category_fk().equals("8")){
                     activity.getoAds(advertsings.get(holder.getLayoutPosition()).getId_advertisement());
+                }
+                else {
+                        Common.CreateSignAlertDialog(activity,activity.getResources().getString(R.string.You_can_not_edit));
+                    }
+                }
+
+            });
+            ((MyHolder)holder).im_del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    fragment_my_adversiment.deleteadversiment(advertsings.get(holder.getLayoutPosition()).getId_advertisement());
                 }
             });
         } else {
@@ -95,12 +112,13 @@ private HomeActivity activity;
 
     public class MyHolder extends RecyclerView.ViewHolder {
         private RoundedImageView image;
-        private ImageView im_edit;
+        private ImageView im_edit,im_del;
         private TextView tv_title, tv_depart, tv_time;
 
         public MyHolder(View itemView) {
             super(itemView);
 im_edit=itemView.findViewById(R.id.im_edit);
+im_del=itemView.findViewById(R.id.im_delete);
             image = itemView.findViewById(R.id.r_im_search);
             tv_title = itemView.findViewById(R.id.tv_title);
 

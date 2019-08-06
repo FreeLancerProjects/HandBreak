@@ -75,7 +75,8 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
     private Button btn_send;
     // private ImageView image_phone_code;
     private LinearLayout ll_date;
-    private TextView tv_code, tv_date;
+    private TextView tv_date;
+   // tv_code
     private Spinner spinner_model;
     private String date = "";
     // private Spinner_Adapter model_adapter;
@@ -223,7 +224,7 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
                 !TextUtils.isEmpty(model_id) &&
                 !TextUtils.isEmpty(date) && imgUri1 != null && imgUri2 != null
         ) {
-            tv_code.setError(null);
+//            tv_code.setError(null);
             phone.setError(null);
             name.setError(null);
             car_type.setError(null);

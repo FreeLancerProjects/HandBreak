@@ -1,5 +1,6 @@
 package com.creativeshare.hand_break.activities_fragments.home_activity.fragments.fragments_more;
 
+import android.app.ProgressDialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,10 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
 import com.creativeshare.hand_break.adapters.My_Adversiment_Adapter;
+import com.creativeshare.hand_break.models.Adversiting_Model;
 import com.creativeshare.hand_break.models.Catogry_Model;
 import com.creativeshare.hand_break.models.UserModel;
 import com.creativeshare.hand_break.preferences.Preferences;
 import com.creativeshare.hand_break.remote.Api;
+import com.creativeshare.hand_break.share.Common;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,7 +85,7 @@ public class Fragment_My_adversiment extends Fragment {
 
             back.setRotation(180);
         }
-        adversiment_adapter = new My_Adversiment_Adapter(advertsings,  homeActivity);
+        adversiment_adapter = new My_Adversiment_Adapter(advertsings,  homeActivity,this);
         recView.setDrawingCacheEnabled(true);
         recView.setItemViewCacheSize(25);
         recView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
@@ -206,6 +209,43 @@ back.setOnClickListener(new View.OnClickListener() {
                         }
                     }
                 });
+    }
+
+    public void deleteadversiment(String id_advertisement) {
+        final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService().delteadversment(userModel.getUser_id(),id_advertisement).enqueue(new Callback<Catogry_Model>() {
+            @Override
+            public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
+                dialog.dismiss();
+                if(response.isSuccessful()){
+                    if(response.body()!=null&&response.body().getAdvertsing()!=null){
+                    advertsings.clear();
+                    advertsings.addAll(response.body().getAdvertsing());
+                    adversiment_adapter.notifyDataSetChanged();
+                }}
+                else {
+                    Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                    try {
+                        Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Catogry_Model> call, Throwable t) {
+dialog.dismiss();
+                try {
+
+                    Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                    Log.e("error", t.getMessage());
+                } catch (Exception e) {
+                }
+            }
+        });
     }
    /* public void categories() {
 

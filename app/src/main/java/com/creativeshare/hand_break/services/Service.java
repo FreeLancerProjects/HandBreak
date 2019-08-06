@@ -489,4 +489,14 @@ public interface Service {
     getappbankaccount(
 
     );
+    @FormUrlEncoded
+    @POST("App/deleteAdvertsing")
+    Call<Catogry_Model>
+    delteadversment(
+
+            @Query("user_id") String user_id,
+            @Query("id_advertisement") String id_advertisement
+
+
+    );
 }

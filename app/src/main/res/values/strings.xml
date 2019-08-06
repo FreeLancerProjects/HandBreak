@@ -143,6 +143,8 @@
     <string name="same_adversiment">Same Adversiment</string>
     <string name="my_car">My Car</string>
     <string name="i_found_it">I found it</string>
+    <string name="You_can_not_edit">You can not edit</string>
+    <string name="car_owner">Car owner</string>
     <string-array name="models">
         <item>Choose</item>
 
