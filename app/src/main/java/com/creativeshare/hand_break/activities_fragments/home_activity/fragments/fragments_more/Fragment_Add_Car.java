@@ -22,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,15 +75,17 @@ public class Fragment_Add_Car extends Fragment {
     private ImageView arrow_back;
     private LinearLayout ll_continue;
     private EditText edt_manufc, edt_responsible, edt_color, edt_platenume, edt_phone;
-  //  private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
-   // private Spinner_catogry_Adapter spinner_catogry_adapter;
+    //  private Spinner_Sub_catogry_Adapter spinner_sub_catogry_adapter;
+    // private Spinner_catogry_Adapter spinner_catogry_adapter;
     //private Spinner_Sub_Sub_catogry_Adapter spinner_sub_sub_catogry_adapter;
-   // private Spinner sp_cat, sp_sub_cat, sp_model;
+    // private Spinner sp_cat, sp_sub_cat, sp_model;
     private Spinner cities;
     private Spinner_Adapter city_adapter;
     private List<CityModel> cities_models;
     private LinearLayout ll_cv;
     private RecyclerView recyclerView_images;
+    private RadioGroup group_type;
+
     private GalleryAdapter galleryAdapter;
     private List<Uri> uriList;
     //private List<Catogry_Model.Categories.sub> subs;
@@ -90,9 +93,9 @@ public class Fragment_Add_Car extends Fragment {
     //private List<Catogry_Model.Categories.sub.Sub> subs_sub;
     private final int IMG2 = 2;
     private final String read_permission = Manifest.permission.READ_EXTERNAL_STORAGE;
-   // private String  cat_id, sub_id, model_id;
-    private String city_id;
-    private Adversiment_Model adversiment_model;
+    // private String  cat_id, sub_id, model_id;
+    private String city_id, car_types;
+    // private Adversiment_Model adversiment_model;
 
     @Nullable
     @Override
@@ -100,28 +103,30 @@ public class Fragment_Add_Car extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_car, container, false);
         initView(view);
         getCities();
-    //    categories();
+        //    categories();
         return view;
     }
 
     private void initView(View view) {
-        adversiment_model = new Adversiment_Model();
+        //adversiment_model = new Adversiment_Model();
         homeActivity = (HomeActivity) getActivity();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(homeActivity);
         Paper.init(homeActivity);
         cuurent_language = Paper.book().read("lang", Locale.getDefault().getLanguage());
         ll_continue = view.findViewById(R.id.ll_continue);
+        group_type = view.findViewById(R.id.group_type);
+
         edt_manufc = view.findViewById(R.id.edt_manufacture);
         edt_responsible = view.findViewById(R.id.edt_responsilbel);
         edt_color = view.findViewById(R.id.edt_color);
         edt_platenume = view.findViewById(R.id.edt_platenum);
         edt_phone = view.findViewById(R.id.edt_phone);
-     //   sp_cat = view.findViewById(R.id.sp_cat);
+        //   sp_cat = view.findViewById(R.id.sp_cat);
         ll_cv = view.findViewById(R.id.ll_cv);
         recyclerView_images = view.findViewById(R.id.recView_images);
 
-       // sp_sub_cat = view.findViewById(R.id.sp_sub);
+        // sp_sub_cat = view.findViewById(R.id.sp_sub);
         //sp_model = view.findViewById(R.id.sp_model);
         arrow_back = view.findViewById(R.id.arrow_back);
         if (cuurent_language.equals("en")) {
@@ -148,7 +153,7 @@ public class Fragment_Add_Car extends Fragment {
 
         if (cuurent_language.equals("ar")) {
             cities_models.add(new CityModel("مدينتى"));
-          //  subs.add(new Catogry_Model.Categories.sub("النوع"));
+            //  subs.add(new Catogry_Model.Categories.sub("النوع"));
             //categories.add(new Catogry_Model.Categories("كل الاقسام"));
             //subs_sub.add(new Catogry_Model.Categories.sub.Sub("الموديل"));
 
@@ -160,7 +165,11 @@ public class Fragment_Add_Car extends Fragment {
 
 
         }
-
+        if (group_type.getCheckedRadioButtonId() == R.id.r_new) {
+            car_types = "1";
+        } else if (group_type.getCheckedRadioButtonId() == R.id.r_used) {
+            car_types = "2";
+        }
 
         cities = view.findViewById(R.id.sp_city);
        /* spinner_catogry_adapter = new Spinner_catogry_Adapter(homeActivity, categories);
@@ -274,9 +283,9 @@ public class Fragment_Add_Car extends Fragment {
         String colors = edt_color.getText().toString();
         String platenum = edt_platenume.getText().toString();
         String phone = edt_phone.getText().toString();
-        if (city_id != null &&((uriList.size() > 0)) && !TextUtils.isEmpty(manuf) && !TextUtils.isEmpty(responsilble) && !TextUtils.isEmpty(colors) && !TextUtils.isEmpty(platenum) && !TextUtils.isEmpty(phone)) {
+        if (city_id != null && ((uriList.size() > 0)) && !TextUtils.isEmpty(manuf) && !TextUtils.isEmpty(responsilble) && !TextUtils.isEmpty(colors) && !TextUtils.isEmpty(platenum) && !TextUtils.isEmpty(phone)) {
 
-                addlostcar(manuf, responsilble, colors, platenum, phone);
+            addlostcar(manuf, responsilble, colors, platenum, phone);
 
         } else {
             if (TextUtils.isEmpty(manuf)) {
@@ -308,7 +317,7 @@ public class Fragment_Add_Car extends Fragment {
         dialog.show();
         RequestBody user_part = Common.getRequestBodyText(userModel.getUser_id());
 //        RequestBody sub_part = Common.getRequestBodyText(sub_id);
-  //      RequestBody model_part = Common.getRequestBodyText(model_id);
+        //      RequestBody model_part = Common.getRequestBodyText(model_id);
         RequestBody manuf_part = Common.getRequestBodyText(manuf);
         //RequestBody piece_part = Common.getRequestBodyText(adversiment_model.getPiece());
 
@@ -317,9 +326,9 @@ public class Fragment_Add_Car extends Fragment {
         RequestBody city_part = Common.getRequestBodyText(city_id);
         RequestBody phone_part = Common.getRequestBodyText(phone);
         RequestBody color_part = Common.getRequestBodyText(colors);
-
+RequestBody car_type=Common.getRequestBodyText(car_types);
         List<MultipartBody.Part> partImageList = getMultipartBodyList(uriList, "advertisement_images[]");
-        Api.getService().addlostcar(user_part, manuf_part, respons_part, plate_part, city_part, phone_part, color_part, partImageList).enqueue(new Callback<Adversiting_Model>() {
+        Api.getService().addlostcar(user_part, manuf_part, respons_part, plate_part, city_part, phone_part, color_part,car_type, partImageList).enqueue(new Callback<Adversiting_Model>() {
             @Override
             public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
                 dialog.dismiss();

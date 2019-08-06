@@ -141,6 +141,8 @@
     <string name="piece_name">Piece name</string>
     <string name="upload_car_image">upload Car Images</string>
     <string name="same_adversiment">Same Adversiment</string>
+    <string name="my_car">My Car</string>
+    <string name="i_found_it">I found it</string>
     <string-array name="models">
         <item>Choose</item>
 

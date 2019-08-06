@@ -631,14 +631,21 @@ public class HomeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
           //  Log.e("lkkkk",resultCode+"");
-            if(!data.getStringExtra("result").equals("-1")){
-            DisplayFragmentAdversimentDetials(data.getStringExtra("result"));
-        }}
-        else {
-        List<Fragment> fragmentList = fragmentManager.getFragments();
-        for (Fragment fragment : fragmentList) {
-            fragment.onActivityResult(requestCode, resultCode, data);}
+            try {
+
+                if(data!=null&&!data.getStringExtra("result").equals("-1")){
+                    DisplayFragmentAdversimentDetials(data.getStringExtra("result"));
+                }
+            }
+            catch (Exception e){
+
+            }
+                List<Fragment> fragmentList = fragmentManager.getFragments();
+                for (Fragment fragment : fragmentList) {
+                    fragment.onActivityResult(requestCode, resultCode, data);}
+
         }
+
 
     }
 

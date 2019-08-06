@@ -71,7 +71,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
     private HomeActivity activity;
     private String cuurent_language;
     private ImageView back,im_follow;
-    private TextView tv_title, tv_time, tv_coomericail, tv_name, tv_city, tv_desc, tv_phone;
+    private TextView tv_title, tv_time, tv_coomericail, tv_name, tv_city, tv_desc, tv_phone,tv_type;
     private ViewPager mPager;
     private TabLayout indicator;
     private RecyclerView recyclerView_images,recyclerView_comment;
@@ -126,6 +126,7 @@ public class Fragment_Adversiment_Detials extends Fragment {
         tv_city = view.findViewById(R.id.tv_city);
         tv_desc = view.findViewById(R.id.tv_desc);
         tv_phone = view.findViewById(R.id.tv_phone);
+        tv_type=view.findViewById(R.id.tv_type);
         progBar = view.findViewById(R.id.progBar);
         mPager = view.findViewById(R.id.pager);
         indicator = view.findViewById(R.id.tablayout);
@@ -340,10 +341,28 @@ else {
     private void updateTermsContent(Adversiting_Model advertsing) {
         this.adversiting_model=advertsing;
         if (this.adversiting_model.getAdvertisement_user().equals(userModel.getUser_id())) {
-            cons_chat.setVisibility(View.GONE);
-            cons_profile.setVisibility(View.GONE);
-            cons_follow.setVisibility(View.GONE);
+            cons_chat.setVisibility(View.INVISIBLE);
+            cons_profile.setVisibility(View.INVISIBLE);
+            cons_follow.setVisibility(View.INVISIBLE);
 
+        }
+        if(this.adversiting_model.getMain_category_fk().equals("8")){
+            if(adversiting_model.getAdvertisement_type().equals("1")){
+                tv_type.setText(getResources().getString(R.string.i_found_it));
+            }
+            else {
+                tv_type.setText(getResources().getString(R.string.my_car));
+
+            }
+        }
+        else {
+            if(adversiting_model.getAdvertisement_type().equals("1")){
+                tv_type.setText(getResources().getString(R.string.news));
+            }
+            else {
+                tv_type.setText(getResources().getString(R.string.used));
+
+            }
         }
         tv_time.setText(Time_Ago.getTimeAgo(Long.parseLong(advertsing.getAdvertisement_date()), activity));
         tv_title.setText(advertsing.getAdvertisement_title());

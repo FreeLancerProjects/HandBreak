@@ -109,6 +109,17 @@
                     android:textColor="@color/black2"
                     android:textSize="16sp"
                     app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/user_password"
+                    android:textColor="@color/black2"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
                 <TextView
                     android:id="@+id/tv_time"
@@ -121,7 +132,7 @@
                     android:textColor="@color/gray4"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_type" />
 
                 <TextView
                     android:id="@+id/tv_commercial"
@@ -134,7 +145,7 @@
                     android:textColor="@color/gray4"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_type" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cons_profile"

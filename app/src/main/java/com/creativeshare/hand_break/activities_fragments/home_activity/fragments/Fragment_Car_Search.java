@@ -156,6 +156,7 @@ public class Fragment_Car_Search extends Fragment {
                     advertsings.clear();
 
                     search = edt_name.getText().toString();
+                    Common.CloseKeyBoard(homeActivity,edt_name);
                     searchadversment();
                 } else {
                     edt_name.setError(getResources().getString(R.string.field_req));

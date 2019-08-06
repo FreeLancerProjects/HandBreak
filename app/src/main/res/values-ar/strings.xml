@@ -142,6 +142,8 @@
     <string name="piece_name">اسم القطعه</string>
     <string name="upload_car_image">رفع صور السياره</string>
     <string name="same_adversiment">الاعلانات المشابهه</string>
+    <string name="my_car">سيارتى</string>
+    <string name="i_found_it">وجدتها</string>
     <string-array name="models">
         <item>اختر</item>
         <item>2000</item>
