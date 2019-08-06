@@ -211,7 +211,7 @@ back.setOnClickListener(new View.OnClickListener() {
                 });
     }
 
-    public void deleteadversiment(String id_advertisement) {
+    public void deleteadversiment(String id_advertisement, final int position) {
         final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
@@ -220,9 +220,9 @@ back.setOnClickListener(new View.OnClickListener() {
             public void onResponse(Call<Catogry_Model> call, Response<Catogry_Model> response) {
                 dialog.dismiss();
                 if(response.isSuccessful()){
-                    if(response.body()!=null&&response.body().getAdvertsing()!=null){
-                    advertsings.clear();
-                    advertsings.addAll(response.body().getAdvertsing());
+                    if(response.body()!=null){
+                   advertsings.remove(position);
+                    //advertsings.addAll(response.body().getAdvertsing());
                     adversiment_adapter.notifyDataSetChanged();
                 }}
                 else {

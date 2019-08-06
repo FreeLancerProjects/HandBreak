@@ -144,8 +144,8 @@
     <string name="same_adversiment">الاعلانات المشابهه</string>
     <string name="my_car">سيارتى</string>
     <string name="i_found_it">وجدتها</string>
-    <string name="You_can_not_edit">You can not edit</string>
-    <string name="car_owner">Car owner</string>
+    <string name="You_can_not_edit">لا يمكنك التعديل</string>
+    <string name="car_owner">اسم صاحب السياره</string>
     <string-array name="models">
         <item>اختر</item>
         <item>2000</item>

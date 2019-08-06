@@ -494,8 +494,8 @@ public interface Service {
     Call<Catogry_Model>
     delteadversment(
 
-            @Query("user_id") String user_id,
-            @Query("id_advertisement") String id_advertisement
+            @Field("user_id") String user_id,
+            @Field("id_advertisement") String id_advertisement
 
 
     );

@@ -64,7 +64,7 @@ private Fragment_My_adversiment fragment_my_adversiment;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
 
         if (holder instanceof MyHolder) {
 
@@ -94,7 +94,7 @@ private Fragment_My_adversiment fragment_my_adversiment;
                 @Override
                 public void onClick(View view) {
 
-                    fragment_my_adversiment.deleteadversiment(advertsings.get(holder.getLayoutPosition()).getId_advertisement());
+                    fragment_my_adversiment.deleteadversiment(advertsings.get(holder.getLayoutPosition()).getId_advertisement(),holder.getLayoutPosition());
                 }
             });
         } else {
