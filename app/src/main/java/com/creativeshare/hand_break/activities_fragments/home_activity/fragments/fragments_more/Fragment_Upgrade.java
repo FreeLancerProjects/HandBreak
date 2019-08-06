@@ -242,8 +242,14 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
                     homeActivity.RefreshActivity(cuurent_language);
 
                 } else {
-                    Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.failed));
-                    Log.e("Error", response.code() + response.message().toString() + "" + response.errorBody() + response.raw() + response.body() + response.headers() + response.errorBody().contentType().toString());
+                    try {
+                        Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.failed));
+                        Log.e("Error", response.code() + response.message().toString() + "" + response.errorBody() + response.raw() + response.body() + response.headers() + response.errorBody().contentType().toString());
+                    }
+                    catch (Exception e){
+
+                    }
+
 
                 }
             }

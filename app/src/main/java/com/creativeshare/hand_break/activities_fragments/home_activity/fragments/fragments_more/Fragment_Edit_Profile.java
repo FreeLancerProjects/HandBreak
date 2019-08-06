@@ -66,7 +66,7 @@ public class Fragment_Edit_Profile extends Fragment {
     private CountryCodePicker countryCodePicker;
     private EditText edt_name, edt_email, edt_phone, edt_location, edt_address,  edt_pass;
     private Spinner cities;
-    private String city_id;
+    private String city_id="all";
     private Preferences preferences;
     private UserModel userModel;
     private Spinner_Adapter city_adapter;
@@ -275,6 +275,7 @@ public class Fragment_Edit_Profile extends Fragment {
         String phonecode = countryCodePicker.getSelectedCountryCode();
         //String city = edt_location.getText().toString();
         String address = edt_address.getText().toString();
+
         //String coomericial = edt_commercial.getText().toString();
         String pass = edt_pass.getText().toString();
         if (name.isEmpty() || email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() || phone.isEmpty() || !countryCodePicker.isValidFullNumber() || pass.isEmpty() || pass.length() < 6 || address.isEmpty() || city_id.equals("all")) {
@@ -290,12 +291,19 @@ phone=userModel.getUser_phone();
             }
 
             if (address.isEmpty()) {
+                if(userModel.getUser_address()!=null){
 address=userModel.getUser_address()+"";            }
-
+            else {
+                address="0";
+                }
+            }
             if (city_id.equals("all")) {
-city_id=userModel.getUser_city()+"";
+                if(userModel.getUser_city()!=null){
+city_id=userModel.getUser_city()+"";}
+
             }
         }
+
          if (pass.isEmpty() || pass.length() < 6) {
              edt_pass.setError("");
         }
@@ -304,7 +312,7 @@ city_id=userModel.getUser_city()+"";
 
     }
 
-    private void updateprofile(String name, String email, String phone, String phonecode, final String address,  String pass, String city_id) {
+    private void updateprofile(String name, String email, String phone, String phonecode, final String address, String pass, final String city_id) {
         final ProgressDialog dialog = Common.createProgressDialog(homeActivity, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();

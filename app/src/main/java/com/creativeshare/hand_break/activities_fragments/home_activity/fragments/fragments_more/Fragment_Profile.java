@@ -190,11 +190,15 @@ public class Fragment_Profile extends Fragment {
 
                         updateprofile();
                     } else {
+try {
+    Log.e("error_code", response.code() + "_" + response.errorBody() + response.message() + response.raw() + response.headers());
 
-                        Log.e("error_code", response.code() + "_" + response.errorBody() + response.message() + response.raw() + response.headers());
 
+    Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+}catch (Exception e){
 
-                        Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+}
+
 
                     }
                 }
@@ -310,8 +314,14 @@ public class Fragment_Profile extends Fragment {
                     updateprofile();
 
                 } else {
-                    Toast.makeText(homeActivity, R.string.failed, Toast.LENGTH_SHORT).show();
-                    Log.e("Error_code", response.code() + "" + response.errorBody() + response.headers() + response.message() + response.raw() + " " + id);
+                    try {
+                        Toast.makeText(homeActivity, R.string.failed, Toast.LENGTH_SHORT).show();
+                        Log.e("Error_code", response.code() + "" + response.errorBody() + response.headers() + response.message() + response.raw() + " " + id);
+                    }
+                    catch (Exception e){
+
+                    }
+
                 }
             }
 

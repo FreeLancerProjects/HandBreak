@@ -86,7 +86,13 @@ public class Fragment_Terms_Conditions extends Fragment {
                         if (response.isSuccessful() && response.body() != null) {
                             updateTermsContent(response.body());
                         } else {
-                            Log.e("Error", response.code() + "" + response.raw());
+                            try {
+                                Log.e("Error", response.code() + "" + response.raw());
+
+                            }
+                            catch (Exception e){
+
+                            }
 
                         }
                     }

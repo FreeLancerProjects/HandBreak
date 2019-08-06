@@ -244,14 +244,20 @@ public class Fragment_Adversiment_Detials extends Fragment {
         Api.getService().addcomment(id_advertisement, userModel.getUser_id(), comment).enqueue(new Callback<Adversiment_Comment_Model>() {
             @Override
             public void onResponse(Call<Adversiment_Comment_Model> call, Response<Adversiment_Comment_Model> response) {
+                dialog.dismiss();
+
                 if (response.isSuccessful()) {
                     getadversmentcomment();
                     edt_comment.setText("");
-                    dialog.dismiss();
                 } else {
-                    dialog.dismiss();
-                    Toast.makeText(activity, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
-                    Log.e("Error_Code ", response.code() + "_" + response.errorBody());
+                   try {
+                       Toast.makeText(activity, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
+                       Log.e("Error_Code ", response.code() + "_" + response.errorBody());
+                   }
+                   catch (Exception e){
+
+                   }
+
 
                 }
             }
@@ -259,9 +265,15 @@ public class Fragment_Adversiment_Detials extends Fragment {
             @Override
             public void onFailure(Call<Adversiment_Comment_Model> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(activity, getResources().getString(R.string.something), Toast.LENGTH_LONG).show();
+                try {
+                    Toast.makeText(activity, getResources().getString(R.string.something), Toast.LENGTH_LONG).show();
 
-                Log.e("Error", t.getMessage());
+                    Log.e("Error", t.getMessage());
+                }
+                catch (Exception e){
+
+                }
+
             }
         });
     }
@@ -286,17 +298,29 @@ public class Fragment_Adversiment_Detials extends Fragment {
 
                     }
                 } else {
-                    Toast.makeText(activity, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
-                    Log.e("Error_Code ", response.code() + "_" + response.errorBody());
+                    try {
+                        Toast.makeText(activity, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
+                        Log.e("Error_Code ", response.code() + "_" + response.errorBody());
+                    }
+                    catch (Exception e){
+
+                    }
+
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(activity, getResources().getString(R.string.something), Toast.LENGTH_LONG).show();
+                try {
+                    Toast.makeText(activity, getResources().getString(R.string.something), Toast.LENGTH_LONG).show();
 
-                Log.e("Error", t.getMessage());
+                    Log.e("Error", t.getMessage());
+                }
+                catch (Exception e){
+
+                }
+
             }
         });
     }

@@ -337,8 +337,14 @@ RequestBody car_type=Common.getRequestBodyText(car_types);
                     // Common.CreateSignAlertDialog(adsActivity,getResources().getString(R.string.suc));
                     homeActivity.Back();
                 } else {
-                    Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.failed));
-                    Log.e("Error", response.code() + "" + response.errorBody() + response.raw() + response.body() + response.headers());
+                    try {
+                        Common.CreateSignAlertDialog(homeActivity, getResources().getString(R.string.failed));
+                        Log.e("Error", response.code() + "" + response.errorBody() + response.raw() + response.body() + response.headers());
+                    }
+                    catch (Exception e){
+
+                    }
+
 
                 }
             }

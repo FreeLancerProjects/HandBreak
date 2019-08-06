@@ -237,9 +237,14 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
 
                         adsActivity.finish(response.body().getId_advertisement());
                     } else {
+                        try {
+
                         Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.failed));
                         Log.e("Error", response.code() + "" + response.errorBody() + response.raw() + response.body() + response.headers());
+                        }catch (Exception e){
 
+
+                    }
                     }
                 }
 
@@ -286,7 +291,15 @@ lat=Double.parseDouble(adversiting_model.getGoogle_lat());
                     //   Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.suc));
                     adsActivity.finish(response.body().getId_advertisement());
                 } else {
-                    Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.failed));
+                    try {
+                        Log.e("Error", response.code() + "" + response.errorBody() + response.raw() + response.body() + response.headers());
+
+                        Common.CreateSignAlertDialog(adsActivity, getResources().getString(R.string.failed));
+
+                    }
+                    catch (Exception e){
+
+                    }
 
                 }
             }

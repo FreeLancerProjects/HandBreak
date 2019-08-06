@@ -87,8 +87,13 @@ public class Fragment_Notifications extends Fragment {
             @Override
             public void onFailure(Call<Notification_Model> call, Throwable t) {
 progressBar.setVisibility(View.GONE);
-                Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                Log.e("Error",t.getMessage());
+try {
+    Toast.makeText(homeActivity, getString(R.string.something), Toast.LENGTH_SHORT).show();
+    Log.e("Error",t.getMessage());
+}catch (Exception e){
+
+}
+
             }
         });
     }

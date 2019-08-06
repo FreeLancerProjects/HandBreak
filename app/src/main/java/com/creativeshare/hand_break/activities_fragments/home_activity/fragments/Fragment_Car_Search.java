@@ -236,8 +236,9 @@ public class Fragment_Car_Search extends Fragment {
                             }
                         } else {
 
-                            Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             try {
+                                Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+
                                 Log.e("Error_code", response.code() + "_" + response.errorBody().string());
                             } catch (IOException e) {
                                 e.printStackTrace();
