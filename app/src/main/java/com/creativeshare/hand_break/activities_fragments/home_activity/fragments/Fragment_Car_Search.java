@@ -275,7 +275,7 @@ public class Fragment_Car_Search extends Fragment {
                         if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
                             advertsings.clear();
                             advertsings.addAll(response.body().getAdvertsing());
-                            if (response.body().getAdvertsing().size()>0) {
+                            if (response.body().getAdvertsing().size() > 0) {
                                 rec_search.setVisibility(View.VISIBLE);
 
                                 ll_no_order.setVisibility(View.GONE);
