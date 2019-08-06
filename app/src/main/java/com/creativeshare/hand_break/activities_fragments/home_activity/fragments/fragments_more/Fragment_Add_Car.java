@@ -268,8 +268,13 @@ public class Fragment_Add_Car extends Fragment {
         ll_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(userModel!=null){
 
-                checkdata();
+                checkdata();}
+                else {
+                    Common.CreateUserNotSignInAlertDialog(homeActivity);
+
+                }
             }
 
 

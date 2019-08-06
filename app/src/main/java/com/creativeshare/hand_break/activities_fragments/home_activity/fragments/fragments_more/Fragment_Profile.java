@@ -17,9 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativeshare.hand_break.R;
 import com.creativeshare.hand_break.activities_fragments.home_activity.activity.HomeActivity;
+import com.creativeshare.hand_break.adapters.Other_Adversiment_Adapter;
 import com.creativeshare.hand_break.models.Adversiment_Model;
 import com.creativeshare.hand_break.models.CityModel;
 import com.creativeshare.hand_break.models.UserModel;
@@ -55,7 +57,10 @@ public class Fragment_Profile extends Fragment {
     private Preferences preferences;
     private UserModel userModel;
     private ImageView back;
-    List<CityModel> cityModels;
+    private List<CityModel> cityModels;
+    private RecyclerView recyclerView;
+    private List<UserModel.Advertsing> advertsingList;
+    private Other_Adversiment_Adapter other_adversiment_adapter;
 
     @Nullable
     @Override
@@ -67,6 +72,8 @@ public class Fragment_Profile extends Fragment {
     }
 
     private void initView(View view) {
+        advertsingList=new ArrayList<>();
+
         homeActivity = (HomeActivity) getActivity();
         preferences = Preferences.getInstance();
 
@@ -95,6 +102,11 @@ public class Fragment_Profile extends Fragment {
         bt_upgrade = view.findViewById(R.id.bt_upgrade);
         lll=view.findViewById(R.id.ll);
         switchCompat=view.findViewById(R.id.switch1);
+        recyclerView=view.findViewById(R.id.rec_advers);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        recyclerView.setItemViewCacheSize(25);
+        recyclerView.setDrawingCacheEnabled(true);
+other_adversiment_adapter=new Other_Adversiment_Adapter(advertsingList,homeActivity);
         if (cuurent_language.equals("en")) {
             arrow1.setRotation(180.0f);
             arrow2.setRotation(180.0f);
@@ -436,6 +448,11 @@ try {
             }
             else {
                 switchCompat.setChecked(true);
+            }
+            if(userModel.getAdvertsing()!=null){
+                advertsingList.clear();
+                advertsingList.addAll(userModel.getAdvertsing());
+                other_adversiment_adapter.notifyDataSetChanged();
             }
 
         }

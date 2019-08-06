@@ -422,6 +422,14 @@ android:gravity="center_vertical"
                 android:textSize="15sp"
 
                 />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_advers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

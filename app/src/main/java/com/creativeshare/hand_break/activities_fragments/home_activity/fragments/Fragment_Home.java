@@ -76,11 +76,9 @@ public class Fragment_Home extends Fragment {
         insurance_car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-if(userModel!=null){
-                homeActivity.DisplayFragmentInsuranceCar();}
-else {
-    Common.CreateUserNotSignInAlertDialog(homeActivity);
-}
+
+                homeActivity.DisplayFragmentInsuranceCar();
+
 
             }
         });
