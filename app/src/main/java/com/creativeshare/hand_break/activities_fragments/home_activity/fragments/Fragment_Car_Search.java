@@ -3,6 +3,7 @@ package com.creativeshare.hand_break.activities_fragments.home_activity.fragment
 import android.app.ProgressDialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -151,7 +152,7 @@ public class Fragment_Car_Search extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (edt_name.getText().toString() != null) {
+                if (!TextUtils.isEmpty(edt_name.getText().toString())) {
                     current_page = 1;
                     advertsings.clear();
 
