@@ -366,6 +366,9 @@ private List<Adversiting_Model.Advertisement_images> advertisement_images;
         else {
             group_type.check(R.id.r_used);
         }
+        cat_id=body.getMain_category_fk();
+        city_id=body.getCity();
+
     }
 
 

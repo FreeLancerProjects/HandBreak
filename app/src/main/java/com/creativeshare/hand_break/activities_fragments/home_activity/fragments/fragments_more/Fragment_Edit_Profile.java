@@ -290,10 +290,10 @@ phone=userModel.getUser_phone();
             }
 
             if (address.isEmpty()) {
-address=userModel.getUser_address();            }
+address=userModel.getUser_address()+"";            }
 
             if (city_id.equals("all")) {
-city_id=userModel.getUser_city();
+city_id=userModel.getUser_city()+"";
             }
         }
          if (pass.isEmpty() || pass.length() < 6) {
@@ -324,6 +324,8 @@ city_id=userModel.getUser_city();
                 } else {
 
                     try {
+                        Toast.makeText(homeActivity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+
                         Log.e("Error_code", response.code() + "_" + response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
