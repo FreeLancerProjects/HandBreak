@@ -205,7 +205,11 @@ public class Fragment_insurance_car extends Fragment implements DatePickerDialog
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isDataOk();
+                if(userModel!=null){
+                isDataOk();}
+                else {
+                    Common.CreateUserNotSignInAlertDialog(activity);
+                }
             }
         });
     }

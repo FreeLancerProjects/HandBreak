@@ -83,12 +83,9 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(userModel!=null){
+
                     activity.DisplayFragmentAdversimentDetials(advertsings.get(holder.getLayoutPosition()).getId_advertisement());
-                }
-                else {
-                        Common.CreateUserNotSignInAlertDialog(activity);
-                    }
+
                 }
             });
             //Log.e("msg",advertsing.getMain_image());

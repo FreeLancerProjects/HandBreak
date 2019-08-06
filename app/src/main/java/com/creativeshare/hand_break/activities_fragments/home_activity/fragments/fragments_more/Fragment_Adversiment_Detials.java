@@ -221,6 +221,9 @@ public class Fragment_Adversiment_Detials extends Fragment {
                     Adversiment_Model.setId(adversiting_model.getAdvertisement_user());
                     activity.DisplayFragmentProfile();
                 }
+                else {
+                    Common.CreateUserNotSignInAlertDialog(activity);
+                }
             }
         });
         //preferences= Preferences.getInstance();
@@ -331,7 +334,14 @@ public class Fragment_Adversiment_Detials extends Fragment {
         dialog.setCancelable(false);
         dialog.show();
         getadversmentcomment();
-        Api.getService().getadversmentdetials(id_advertisement, userModel.getUser_id()).enqueue(new Callback<Adversiting_Model>() {
+        String user_id;
+        if(userModel==null){
+            user_id="all";
+        }
+        else {
+            user_id=userModel.getUser_id();
+        }
+        Api.getService().getadversmentdetials(id_advertisement, user_id).enqueue(new Callback<Adversiting_Model>() {
             @Override
             public void onResponse(Call<Adversiting_Model> call, Response<Adversiting_Model> response) {
 
@@ -357,12 +367,13 @@ public class Fragment_Adversiment_Detials extends Fragment {
 
     private void updateTermsContent(Adversiting_Model advertsing) {
         this.adversiting_model = advertsing;
+        if(userModel!=null){
         if (this.adversiting_model.getAdvertisement_user().equals(userModel.getUser_id())) {
             cons_chat.setVisibility(View.INVISIBLE);
             cons_profile.setVisibility(View.INVISIBLE);
             cons_follow.setVisibility(View.INVISIBLE);
             cons_profile.setVisibility(View.INVISIBLE);
-        }
+        }}
         if (this.adversiting_model.getMain_category_fk().equals("8")) {
             if (adversiting_model.getAdvertisement_type().equals("1")) {
                 tv_type.setText(getResources().getString(R.string.i_found_it));

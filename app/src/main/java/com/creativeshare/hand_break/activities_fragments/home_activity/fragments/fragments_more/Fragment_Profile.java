@@ -2,7 +2,6 @@ package com.creativeshare.hand_break.activities_fragments.home_activity.fragment
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.renderscript.Float2;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativeshare.hand_break.R;
@@ -58,7 +58,7 @@ public class Fragment_Profile extends Fragment {
     private UserModel userModel;
     private ImageView back;
     private List<CityModel> cityModels;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerotherads;
     private List<UserModel.Advertsing> advertsingList;
     private Other_Adversiment_Adapter other_adversiment_adapter;
 
@@ -102,11 +102,13 @@ public class Fragment_Profile extends Fragment {
         bt_upgrade = view.findViewById(R.id.bt_upgrade);
         lll=view.findViewById(R.id.ll);
         switchCompat=view.findViewById(R.id.switch1);
-        recyclerView=view.findViewById(R.id.rec_advers);
-        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        recyclerView.setItemViewCacheSize(25);
-        recyclerView.setDrawingCacheEnabled(true);
+        recyclerotherads =view.findViewById(R.id.rec_advers);
+        recyclerotherads.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        recyclerotherads.setItemViewCacheSize(25);
+        recyclerotherads.setDrawingCacheEnabled(true);
 other_adversiment_adapter=new Other_Adversiment_Adapter(advertsingList,homeActivity);
+recyclerotherads.setLayoutManager(new GridLayoutManager(homeActivity,1));
+recyclerotherads.setAdapter(other_adversiment_adapter);
         if (cuurent_language.equals("en")) {
             arrow1.setRotation(180.0f);
             arrow2.setRotation(180.0f);
