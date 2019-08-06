@@ -156,7 +156,6 @@ public class Fragment_Car_Search extends Fragment {
                     advertsings.clear();
 
                     search = edt_name.getText().toString();
-                    Common.CloseKeyBoard(homeActivity,edt_name);
                     searchadversment();
                 } else {
                     edt_name.setError(getResources().getString(R.string.field_req));
@@ -259,9 +258,12 @@ public class Fragment_Car_Search extends Fragment {
     }
 
     public void searchadversment() {
+        Common.CloseKeyBoard(homeActivity, edt_name);
+
         rec_search.setVisibility(View.GONE);
         progBar.setVisibility(View.VISIBLE);
         ll_no_order.setVisibility(View.GONE);
+
         type = 2;
         Api.getService()
                 .searchadversment2(1, user_id + "", search)
@@ -272,7 +274,7 @@ public class Fragment_Car_Search extends Fragment {
                         if (response.isSuccessful() && response.body() != null && response.body().getAdvertsing() != null) {
                             advertsings.clear();
                             advertsings.addAll(response.body().getAdvertsing());
-                            if (advertsings.size() > 0) {
+                            if (response.body().getAdvertsing().size()>0) {
                                 rec_search.setVisibility(View.VISIBLE);
 
                                 ll_no_order.setVisibility(View.GONE);
