@@ -2,6 +2,7 @@ package com.creativeshare.hand_break.adapters;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ private Fragment_My_adversiment fragment_my_adversiment;
             ((MyHolder) holder).tv_time.setText(date.replace(" ",""));
 
             ((MyHolder) holder).tv_depart.setText(advertsing.getMain_category_title());
-            Picasso.with(context).load(Tags.IMAGE_URL+advertsing.getMain_image()).fit().into(((MyHolder) holder).image);
+            Picasso.with(context).load(Uri.parse(Tags.IMAGE_URL+advertsing.getMain_image())).fit().into(((MyHolder) holder).image);
             ((MyHolder) holder).im_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

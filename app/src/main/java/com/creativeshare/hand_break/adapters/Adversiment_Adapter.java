@@ -2,6 +2,7 @@ package com.creativeshare.hand_break.adapters;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,7 +79,7 @@ public class Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((MyHolder) holder).tv_time.setText(date.replace(" ",""));
 
             ((MyHolder) holder).tv_name.setText(advertsing.getMain_category_title());
-            Picasso.with(context).load(Tags.IMAGE_URL+advertsing.getMain_image()).fit().into(((MyHolder) holder).image);
+            Picasso.with(context).load(Uri.parse(Tags.IMAGE_URL+advertsing.getMain_image())).fit().into(((MyHolder) holder).image);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

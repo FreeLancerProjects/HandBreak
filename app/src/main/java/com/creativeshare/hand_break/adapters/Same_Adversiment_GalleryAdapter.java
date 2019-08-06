@@ -56,7 +56,7 @@ private HomeActivity homeActivity;
         Adversiting_Model.Same_advertisements same_advertisement = same_advertisements.get(position);
 
        // Log.e("ssssss",uri.toString());
-        Picasso.with(context).load(Tags.IMAGE_URL+same_advertisement.getMain_image()).fit().into(holder.ivGallery);
+        Picasso.with(context).load(Uri.parse(Tags.IMAGE_URL+same_advertisement.getMain_image())).fit().into(holder.ivGallery);
 holder.progBar.setVisibility(View.GONE);
        // getimage(same_advertisement.getId_advertisement(),holder.ivGallery,holder.progBar);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

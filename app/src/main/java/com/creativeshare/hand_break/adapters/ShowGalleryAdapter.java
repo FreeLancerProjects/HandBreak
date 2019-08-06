@@ -45,7 +45,7 @@ public class ShowGalleryAdapter extends RecyclerView.Adapter<ShowGalleryAdapter.
 
         Adversiting_Model.Advertisement_images advertisement_image = advertisement_images.get(position);
 
-        Picasso.with(context).load(Tags.IMAGE_URL+advertisement_image.getImage_name()).fit().into(holder.ivGallery);
+        Picasso.with(context).load(Uri.parse(Tags.IMAGE_URL+advertisement_image.getImage_name())).fit().into(holder.ivGallery);
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

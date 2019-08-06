@@ -1,6 +1,7 @@
 package com.creativeshare.hand_break.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class Followers_Adapter extends RecyclerView.Adapter<Followers_Adapter.Ey
     public void onBindViewHolder(@NonNull final Eyas_Holder viewHolder, final int i) {
         Follower_Model.Data model = list.get(i);
         viewHolder.tv_name.setText(model.getUser_name());
-        Picasso.with(context).load(Tags.IMAGE_URL+model.getUser_image()).fit().into(viewHolder.im_follow);
+        Picasso.with(context).load(Uri.parse(Tags.IMAGE_URL+model.getUser_image())).fit().into(viewHolder.im_follow);
 
 
 
