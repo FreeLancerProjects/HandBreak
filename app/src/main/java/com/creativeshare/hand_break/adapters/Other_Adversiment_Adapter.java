@@ -52,23 +52,17 @@ public class Other_Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if (viewType == ITEM_DATA) {
             View view = LayoutInflater.from(context).inflate(R.layout.search_row, parent, false);
             return new MyHolder(view);
-        } else {
-            View view = LayoutInflater.from(context).inflate(R.layout.load_more_row, parent, false);
-            return new LoadMoreHolder(view);
         }
 
-    }
+
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
 
-        if (holder instanceof MyHolder) {
 
-            final MyHolder myHolder = (MyHolder) holder;
-            final UserModel.Advertsing advertsing = advertsings.get(myHolder.getAdapterPosition());
+            final UserModel.Advertsing advertsing = advertsings.get(position);
             ((MyHolder) holder).tv_city.setText(advertsing.getCity_title());
             ((MyHolder) holder).tv_title.setText(advertsing.getAdvertisement_title());
             ((MyHolder) holder).tv_user.setText(advertsing.getUser_name());
@@ -78,12 +72,14 @@ public class Other_Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView
 
             ((MyHolder) holder).tv_name.setText(advertsing.getMain_category_title());
             Picasso.with(context).load(Uri.parse(Tags.IMAGE_URL+advertsing.getMain_image())).fit().into(((MyHolder) holder).image);
-
+        ((MyHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.DisplayFragmentAdversimentDetials(advertsings.get(holder.getLayoutPosition()).getId_advertisement());
+            }
+        });
             //Log.e("msg",advertsing.getMain_image());
-        } else {
-            LoadMoreHolder loadMoreHolder = (LoadMoreHolder) holder;
-            loadMoreHolder.progBar.setIndeterminate(true);
-        }
+
     }
 
 
@@ -112,26 +108,5 @@ public class Other_Adversiment_Adapter extends RecyclerView.Adapter<RecyclerView
 
     }
 
-    public class LoadMoreHolder extends RecyclerView.ViewHolder {
-        private ProgressBar progBar;
 
-        public LoadMoreHolder(View itemView) {
-            super(itemView);
-            progBar = itemView.findViewById(R.id.progBar);
-            progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-     UserModel.Advertsing advertsing = advertsings.get(position);
-        if (advertsing == null) {
-            return ITEM_LOAD;
-        } else {
-            return ITEM_DATA;
-
-        }
-
-
-    }
 }
