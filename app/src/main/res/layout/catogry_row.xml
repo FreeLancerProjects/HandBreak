@@ -5,7 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp"
+    >
 
     <LinearLayout
         android:id="@+id/ll"
@@ -18,7 +20,7 @@
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:text="@string/commercial_register"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
