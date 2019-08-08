@@ -118,4 +118,10 @@ public class Fragment_Message_Notifications extends Fragment {
 
     }
 
+
+    public void refresh() {
+       // FragmentAdapter fa = (FragmentAdapter)viewPager.getAdapter();
+        Fragment_Notifications theFragment = (Fragment_Notifications) adapter.getItem(0);
+        theFragment.getnotification();
+    }
 }

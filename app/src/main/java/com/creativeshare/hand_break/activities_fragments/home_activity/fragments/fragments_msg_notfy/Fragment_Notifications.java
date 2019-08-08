@@ -58,7 +58,7 @@ public class Fragment_Notifications extends Fragment {
         return view;
     }
 
-    private void getnotification() {
+   public void getnotification() {
         rec_notify.setVisibility(View.GONE);
         tv_no_notify.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);

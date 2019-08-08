@@ -195,6 +195,7 @@ public class Fragment_Send_insurance_Offer extends Fragment {
                 dialog.dismiss();
                 if (response.isSuccessful()) {
                     Toast.makeText(activity, getResources().getString(R.string.suc), Toast.LENGTH_LONG).show();
+                    activity.refresh();
                     activity.Back();
                 } else {
                     Toast.makeText(activity, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();

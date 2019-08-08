@@ -661,4 +661,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    public void refresh() {
+        if(fragment_message_notifications!=null){
+            fragment_message_notifications.refresh();
+        }
+    }
 }
