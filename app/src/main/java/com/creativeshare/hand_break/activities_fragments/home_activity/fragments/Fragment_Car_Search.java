@@ -151,6 +151,7 @@ public class Fragment_Car_Search extends Fragment {
         im_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Common.CloseKeyBoard(homeActivity,edt_name);
 
                 if (!TextUtils.isEmpty(edt_name.getText().toString())) {
                     current_page = 1;

@@ -192,6 +192,8 @@ public class Fragment_Upgrade extends Fragment implements GoogleApiClient.OnConn
     }
 
     private void checkdata() {
+        Common.CloseKeyBoard(homeActivity,edt_name);
+
         String name = edt_name.getText().toString();
         if (TextUtils.isEmpty(name) || (lat == 0.0 || lng == 0.0) || uri == null || formatedaddress == null) {
             if (TextUtils.isEmpty(name)) {

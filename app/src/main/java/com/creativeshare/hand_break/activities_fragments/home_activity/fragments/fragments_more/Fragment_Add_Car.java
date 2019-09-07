@@ -283,6 +283,8 @@ public class Fragment_Add_Car extends Fragment {
     }
 
     private void checkdata() {
+        Common.CloseKeyBoard(homeActivity,edt_phone);
+
         String manuf = edt_manufc.getText().toString();
         String responsilble = edt_responsible.getText().toString();
         String colors = edt_color.getText().toString();

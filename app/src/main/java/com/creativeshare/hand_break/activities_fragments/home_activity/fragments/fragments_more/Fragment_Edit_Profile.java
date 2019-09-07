@@ -269,6 +269,8 @@ public class Fragment_Edit_Profile extends Fragment {
     }
 
     private void checkdata() {
+        Common.CloseKeyBoard(homeActivity,edt_address);
+
         String name = edt_name.getText().toString();
         String email = edt_email.getText().toString();
         String phone = edt_phone.getText().toString();

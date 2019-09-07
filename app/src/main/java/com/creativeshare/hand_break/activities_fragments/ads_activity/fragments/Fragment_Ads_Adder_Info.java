@@ -156,6 +156,8 @@ public class Fragment_Ads_Adder_Info extends Fragment implements GoogleApiClient
         bt_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Common.CloseKeyBoard(adsActivity,edt_desc);
+
                 String title = edt_title.getText().toString();
                 String phone = edt_phone.getText().toString();
                 String price = edt_price.getText().toString();

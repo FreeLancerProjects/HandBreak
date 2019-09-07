@@ -283,6 +283,8 @@ public class Fragment_Search extends Fragment {
         im_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Common.CloseKeyBoard(homeActivity,edt_name);
+
                 scrollView.setVisibility(View.GONE);
                 cons.setVisibility(View.VISIBLE);
                 if (edt_name.getText().toString() != null) {

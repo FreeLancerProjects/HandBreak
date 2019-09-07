@@ -177,6 +177,8 @@ public class Fragment_Send_insurance_Offer extends Fragment {
     }
 
     private void checkdata() {
+        Common.CloseKeyBoard(activity,edt_offer);
+
         String offer = edt_offer.getText().toString();
         if (TextUtils.isEmpty(offer)) {
             edt_offer.setError(getResources().getString(R.string.field_req));
